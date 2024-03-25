@@ -9,6 +9,16 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EnginePlatform", "EnginePla
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "App", "App\App.vcxproj", "{49932C90-F4A3-48F6-BD01-97DD5696140F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Level0", "Level0", "{19945C42-980A-4D32-9E91-103D34C410E5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Level1", "Level1", "{2448EFF9-B735-406C-AAFF-2DE663FB72C5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Level2", "Level2", "{FF65B35F-6AB1-42BA-BD43-D89C27723577}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Level3", "Level3", "{6B14C0CA-317F-4638-AD0B-EE26204A48EF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Level4", "Level4", "{F20205BB-546D-49B5-839D-1B5449B94450}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -44,6 +54,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EA197215-13BB-4729-9573-DB483A0EE1A3} = {19945C42-980A-4D32-9E91-103D34C410E5}
+		{F0716EC2-0BC5-43EA-9046-B203E0985A67} = {2448EFF9-B735-406C-AAFF-2DE663FB72C5}
+		{49932C90-F4A3-48F6-BD01-97DD5696140F} = {F20205BB-546D-49B5-839D-1B5449B94450}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {49D6730C-6BB4-4692-B417-A9D4A972F9CA}
