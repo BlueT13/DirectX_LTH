@@ -1,10 +1,11 @@
+#include "PreCompile.h"
 #include "GameCore.h"
 
-UGameCore::UGameCore() 
+UGameCore::UGameCore()
 {
 }
 
-UGameCore::~UGameCore() 
+UGameCore::~UGameCore()
 {
 }
 

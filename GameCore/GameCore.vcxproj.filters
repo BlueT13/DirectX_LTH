@@ -4,15 +4,24 @@
     <Filter Include="Core">
       <UniqueIdentifier>{618a94d2-9b32-4a4f-8af6-96d7f7020d44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PreCompile">
+      <UniqueIdentifier>{aaecdaac-0c74-4c13-913b-8731776e00b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameCore.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="PreCompile.h">
+      <Filter>PreCompile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameCore.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="PreCompile.cpp">
+      <Filter>PreCompile</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

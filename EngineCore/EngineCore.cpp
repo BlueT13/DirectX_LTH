@@ -1,3 +1,4 @@
+#include "PreCompile.h"
 #include "EngineCore.h"
 #include "EngineOption.h"
 #include <EngineBase/EngineFile.h>

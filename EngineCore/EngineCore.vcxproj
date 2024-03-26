@@ -102,6 +102,8 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>PreCompile.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -118,6 +120,8 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>PreCompile.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,6 +138,8 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>PreCompile.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,6 +156,8 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>PreCompile.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,10 +169,17 @@
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp" />
     <ClCompile Include="EngineOption.cpp" />
+    <ClCompile Include="PreCompile.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
     <ClInclude Include="EngineOption.h" />
+    <ClInclude Include="PreCompile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

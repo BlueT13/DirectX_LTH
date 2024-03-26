@@ -8,8 +8,9 @@
 #include <format>
 
 // 설명 : 엔진의 옵션 데이터를 저장하는 용도의 구조체
-// 내부에 값형 이외의 것을 넣으면 X
-// 가상함수 포인터 std::string 등이 들어가면 안됨
+// 내부에 값형 이외의 것을 넣으면 너죽고 나죽자.
+// 가상함수 포인터 std::string 등등이 들어가면 안되는데.
+// std::string이 안들어가는건 너무 불편하죠?
 struct FEngineOption : public UEngineSerializeObject
 {
 public:
@@ -20,6 +21,8 @@ public:
 	void Serialize(UEngineSerializer& _Ser) override
 	{
 		{
+			// c++ 20에서 문자열 최신 버전이 나왔어요.
+
 			std::string DebugOptionText;
 
 			DebugOptionText += std::format("WindowTitle : [{}]\n", WindowTitle);
