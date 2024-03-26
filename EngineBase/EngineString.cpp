@@ -80,3 +80,45 @@ std::string UEngineString::ToUpper(std::string_view View)
 
 	return Name;
 }
+
+std::vector<std::string> UEngineString::StringCutting(std::string& _Value, std::string_view _Start, std::string_view _End)
+{
+	std::vector<std::string> Result;
+
+	size_t StartFindOffset = 0;
+
+	while (true)
+	{
+		// _Start부터 시작해서 뒤로 이동하면서 1글짜식 찾아라 find_first_of 앞에서 부터
+		// StartFindOffset <= 0 
+		// StartFindOffset <= _Value.find_first_of(_Start, StartFindOffset); 14
+		// [ 찾았다. 14글자에 있었다.
+		StartFindOffset = _Value.find_first_of(_Start, StartFindOffset);
+
+		if (std::string::npos == StartFindOffset)
+		{
+			break;
+		}
+
+		// _Start부터 시작해서 뒤로 이동하면서 1글짜식 찾아라 find_first_of 앞에서 부터
+		// 14 부터 찾아라 _End
+		// 14 ]
+		// EndFindOffset 14보다는 큰 수가 나온다.
+		size_t EndFindOffset = _Value.find_first_of(_End, StartFindOffset);
+
+		// std::string::npos 1896215023153153 size_t 최대값이에요
+		if (std::string::npos == EndFindOffset)
+		{
+			break;
+		}
+
+		// [ 한칸 뒤에 있을테니까 StartFindOffset + 1
+		// EndFindOffset - StartFindOffset - 1 = 2
+		// [ 위치에서부터 2글짜 잘라네세요가 됩니다.
+		std::string ParseString = _Value.substr(StartFindOffset + 1, EndFindOffset - StartFindOffset - 1);
+		Result.push_back(ParseString);
+		StartFindOffset = EndFindOffset;
+	}
+
+	return Result;
+}

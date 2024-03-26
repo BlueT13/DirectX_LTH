@@ -2,6 +2,7 @@
 // 전부다 std의 헤더뿐이다.
 #include <string>
 #include <string_view>
+#include <vector>
 
 // 설명 :
 class UEngineString
@@ -18,6 +19,8 @@ public:
 	// C++은 옛날언어라 다른 라이브러리나 함수를 추가하기 전까지는 
 	// wstring과 string 구분을 하고 인코딩을 해가면서 사용해야 한다.
 	static std::wstring AnsiToUniCode(std::string_view View);
+
+	static std::vector<std::string> StringCutting(std::string& _Value, std::string_view _Start, std::string_view _End);
 
 protected:
 

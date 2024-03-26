@@ -2,14 +2,14 @@
 #include "EnginePath.h"
 #include "EngineSerializer.h"
 
-enum class IOOpenMode
+enum class EIOOpenMode
 {
 	None,
 	Write,
 	Read,
 };
 
-enum class IODataType
+enum class EIODataType
 {
 	Binary,
 	Text,
@@ -32,7 +32,7 @@ public:
 
 	__int64 GetFileSize();
 
-	void Open(IOOpenMode _OpenType, IODataType _DataType);
+	void Open(EIOOpenMode _OpenType, EIODataType _DataType);
 
 	void Save(UEngineSerializer& _Data);
 	void Load(UEngineSerializer& _Data);
@@ -42,7 +42,7 @@ public:
 protected:
 
 private:
-	IOOpenMode OpenMode = IOOpenMode::None;
+	EIOOpenMode OpenMode = EIOOpenMode::None;
 	FILE* FileHandle = nullptr;
 
 };

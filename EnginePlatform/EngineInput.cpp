@@ -232,13 +232,13 @@ void UEngineInput::KeyCheckTick(float _DeltaTime)
 	}
 }
 
-class InputInitCreator
+class UInputInitCreator
 {
 public:
-	InputInitCreator()
+	UInputInitCreator()
 	{
 		UEngineInput::InputInit();
 	}
 };
 
-InputInitCreator CreateValue = InputInitCreator();
+UInputInitCreator CreateValue = UInputInitCreator();

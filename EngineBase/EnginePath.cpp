@@ -23,6 +23,7 @@ UEnginePath::~UEnginePath()
 {
 }
 
+
 std::string UEnginePath::GetExtension() const
 {
 	std::filesystem::path Text = Path.extension();

@@ -36,7 +36,9 @@ public:
 	// 미래를 생각하지 않는 노가다 방식
 	std::list<UEngineDirectory> AllDirectory(bool _Recursive = false);
 
-	UEngineFile NewFile(std::string_view FileName);
+	UEngineFile GetPathFromFile(std::string_view FileName);
+
+	bool IsFile(std::string_view _FileName);
 
 protected:
 

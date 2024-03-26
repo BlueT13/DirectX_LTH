@@ -21,24 +21,26 @@ public:
 	UEngineSerializer& operator=(const UEngineSerializer& _Other) = delete;
 	UEngineSerializer& operator=(UEngineSerializer&& _Other) noexcept = delete;
 
-	void Write(void* _Data, unsigned int _Size);
+	void Write(const void* _Data, size_t _Size);
 
-	void operator<<(int& _Data) 
+	void WriteText(const std::string& _Text);
+
+	void operator<<(const int& _Data) 
 	{
 		Write(&_Data, sizeof(int));
 	}
-	void operator<<(bool& _Data)
+	void operator<<(const bool& _Data)
 	{
 		Write(&_Data, sizeof(bool));
 	}
-	void operator<<(std::string& _Data)
+	void operator<<(const std::string& _Data)
 	{
 		int Size = static_cast<int>(_Data.size());
 		operator<<(Size);
-		Write(&_Data[0], Size);
+		Write(_Data.c_str(), Size);
 	}
 
-	void Read(void* _Data, unsigned int _Size);
+	void Read(void* _Data, size_t _Size);
 
 	void operator>>(int& _Data)
 	{
@@ -61,6 +63,8 @@ public:
 
 	void BufferResize(int _Size);
 
+	std::string ToString();
+
 protected:
 
 private:
@@ -68,5 +72,14 @@ private:
 	unsigned int ReadOffset = 0;
 
 	std::vector<char> Data;
+};
+
+// 파일로 저장되었다가 
+// 파일에서 읽어들수 있는 오브젝트들은 이걸 상속받을 것이다.
+class UEngineSerializeObject
+{
+public:
+	virtual void Serialize(UEngineSerializer& _Ser) = 0;
+	virtual void DeSerialize(UEngineSerializer& _Ser) = 0;
 };
 

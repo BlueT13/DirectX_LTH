@@ -3,6 +3,7 @@
 #include <string>
 #include <EngineBase\EngineMath.h>
 #include <memory>
+#include <functional>
 
 class UWindowImage;
 // Ό³Έν :
@@ -22,7 +23,7 @@ public:
 	void Open(std::string_view _Title = "Title", std::string_view _IconPath = "");
 
 	static void Init(HINSTANCE _hInst);
-	static unsigned __int64 WindowMessageLoop(void(*_Update)(), void(*_End)());
+	static unsigned __int64 WindowMessageLoop(std::function<void()> _Update, std::function<void()> _End);
 
 	std::shared_ptr<UWindowImage> GetWindowImage()
 	{

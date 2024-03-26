@@ -136,7 +136,7 @@ void UEngineWindow::Open(std::string_view _Title /*= "Title"*/, std::string_view
 	UpdateWindow(hWnd);
 }
 
-unsigned __int64 UEngineWindow::WindowMessageLoop(void(*_Update)(), void(*_End)())
+unsigned __int64 UEngineWindow::WindowMessageLoop(std::function<void()> _Update, std::function<void()> _End)
 {
 	MSG msg = {};
 

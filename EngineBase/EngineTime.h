@@ -3,18 +3,18 @@
 #include <Windows.h>
 
 // 설명 :
-class EngineTime
+class UEngineTime
 {
 public:
 	// constrcuter destructer
-	EngineTime();
-	~EngineTime();
+	UEngineTime();
+	~UEngineTime();
 
 	// delete Function
-	EngineTime(const EngineTime& _Other) = delete;
-	EngineTime(EngineTime&& _Other) noexcept = delete;
-	EngineTime& operator=(const EngineTime& _Other) = delete;
-	EngineTime& operator=(EngineTime&& _Other) noexcept = delete;
+	UEngineTime(const UEngineTime& _Other) = delete;
+	UEngineTime(UEngineTime&& _Other) noexcept = delete;
+	UEngineTime& operator=(const UEngineTime& _Other) = delete;
+	UEngineTime& operator=(UEngineTime&& _Other) noexcept = delete;
 
 	// 시간측정을 시작하겠다.
 	void TimeCheckStart();

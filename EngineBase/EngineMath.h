@@ -465,7 +465,7 @@ public:
 using FVector = float4;
 using FColor = float4;
 
-float4x4 operator*(const class float4x4& _Left, const class float4x4& _Right);
+class float4x4 operator*(const class float4x4& _Left, const class float4x4& _Right);
 
 class float4x4
 {
@@ -781,7 +781,6 @@ public:
 		Identity();
 	}
 };
-
 
 using FMatrix = float4x4;
 

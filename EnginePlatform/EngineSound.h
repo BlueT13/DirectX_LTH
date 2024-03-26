@@ -48,8 +48,6 @@ public:
 		}
 	}
 
-
-	void SetLoop(int Count);
 	void SetVolume(float _Volume);
 
 private:

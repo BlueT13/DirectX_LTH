@@ -64,10 +64,16 @@ void UEngineDirectory::AllFileRecursive(
 	}
 }
 
-UEngineFile UEngineDirectory::NewFile(std::string_view FileName)
+UEngineFile UEngineDirectory::GetPathFromFile(std::string_view FileName)
 {
 	std::string NewFilePath = GetFullPath() + "\\" + FileName.data();
 	return std::filesystem::path(NewFilePath);
+}
+
+bool UEngineDirectory::IsFile(std::string_view _FileName)
+{
+	std::filesystem::path FilePath = GetFullPath() + "\\" + _FileName.data();
+	return std::filesystem::exists(FilePath);
 }
 
 std::list<UEngineFile> UEngineDirectory::AllFile(

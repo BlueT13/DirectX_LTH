@@ -9,7 +9,7 @@
 // Ό³Έν :
 class UEngineInput
 {
-	friend class InputInitCreator;
+	friend class UInputInitCreator;
 
 private:
 	class /*EngineInput::*/EngineKey
