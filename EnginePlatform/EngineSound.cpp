@@ -17,7 +17,6 @@
 #pragma comment(lib, "fmod_vc.lib")
 #endif
 
-std::map<std::string, UEngineSound*> UEngineSound::Resources;
 float UEngineSound::GlobalVolume = 1.0f;
 
 void UEngineSoundPlayer::SetVolume(float _Volume)
@@ -48,23 +47,16 @@ public:
 	}
 	~ResControl() 
 	{
-		UEngineSound::ResourcesRelease();
-		SoundSystem->release();
-		SoundSystem = nullptr;
+		if (nullptr != SoundSystem)
+		{
+			SoundSystem->release();
+			SoundSystem = nullptr;
+		}
 	}
 };
 
 ResControl Inst;
 
-void UEngineSound::ResourcesRelease()
-{
-	for (std::pair<const std::string, UEngineSound*>& Pair : Resources)
-	{
-		delete Pair.second;
-	}
-
-	Resources.clear();
-}
 
 UEngineSound::UEngineSound() 
 {
@@ -77,7 +69,6 @@ UEngineSound::~UEngineSound()
 
 void UEngineSound::ResLoad(std::string_view _Path)
 {
-
 	// FMOD_DEFAULT; => 반복재생이 안된다.
 	SoundSystem->createSound(_Path.data(), FMOD_LOOP_NORMAL, nullptr, &SoundHandle);
 	if (nullptr == SoundHandle)
@@ -108,13 +99,13 @@ UEngineSoundPlayer UEngineSound::SoundPlay(std::string_view _Name)
 {
 	std::string UpperName = UEngineString::ToUpper(_Name);
 
-	if (false == Resources.contains(UpperName))
+	if (false == IsRes(UpperName.c_str()))
 	{
 		MsgBoxAssert("로드하지 사운드를 재생하려고 했습니다." + UpperName);
 		return UEngineSoundPlayer();
 	}
 
-	UEngineSound* FindSound = Resources[UpperName];
+	std::shared_ptr <UEngineSound> FindSound = FindRes(UpperName);
 
 	UEngineSoundPlayer Result;
 	SoundSystem->playSound(FindSound->SoundHandle, nullptr, false, &Result.Control);
@@ -147,13 +138,12 @@ void UEngineSound::Load(std::string_view _Path, std::string_view _Name)
 {
 	std::string UpperName = UEngineString::ToUpper(_Name);
 
-	if (true == Resources.contains(UpperName))
+	if (true == IsRes(UpperName))
 	{
 		MsgBoxAssert("이미 로드한 리소스를 또 로드 하려고 했습니다.");
 		return;
 	}
 
-	UEngineSound* NewSound = new UEngineSound();
+	std::shared_ptr<UEngineSound> NewSound = CreateResName(_Name, _Path);
 	NewSound->ResLoad(_Path);
-	Resources[UpperName] = NewSound;
 }

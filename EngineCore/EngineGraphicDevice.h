@@ -34,15 +34,21 @@ private:
 
 	// 11와서 2가지 분야로 인터페이스를 분리했다.
 
-	// Device->LoadTexture(); 리소스 관리할때
-	ID3D11Device* Device = nullptr;
+	// Device->LoadTexture(); 메모리(그림, 이미지, 점, 등등등등등) 관리할때
+	struct ID3D11Device* Device = nullptr;
 
 	// Context->MeshRender(); 그릴때
-	ID3D11DeviceContext* Context = nullptr;
+	struct ID3D11DeviceContext* Context = nullptr;
 
 	const class UEngineWindow* WindowPtr;
 
+	// 더블 버퍼링
+	struct IDXGISwapChain* SwapChain = nullptr;
+
+	struct IDXGIAdapter* Adapter = nullptr;
+
 	// 그래픽카드중 가장 사양이 높은 그래픽카드를 가져오는 함수
-	IDXGIAdapter* GetHighPerFormanceAdapter();
+	struct IDXGIAdapter* GetHighPerFormanceAdapter();
+	void CreateSwapChain();
 };
 

@@ -90,4 +90,3 @@ private:
 	std::shared_ptr<UWindowImage> WindowImage = nullptr;
 	std::shared_ptr<UWindowImage> BackBufferImage = nullptr;
 };
-

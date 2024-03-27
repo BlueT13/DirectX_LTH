@@ -1,6 +1,7 @@
 #pragma once
 
 #include <EnginePlatform/EngineWindow.h>
+#include <EngineBase/EngineTime.h>
 
 #include "EngineGraphicDevice.h"
 #include "EngineOption.h"
@@ -57,6 +58,7 @@ private:
 	void EngineStart(HINSTANCE _Inst);
 
 	void EngineUpdate();
+	void EngineEnd();
 };
 
 extern UEngineCore* GEngine;

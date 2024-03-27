@@ -1,11 +1,11 @@
 #pragma once
-#include <EngineBase\PathObject.h>
 #include <EngineBase\EngineMath.h>
 #include <EngineBase\Transform.h>
 #include <EngineBase\EngineDebug.h>
 #include <Windows.h>
 #include <string>
 #include <string_view>
+#include "EngineResources.h"
 
 #include <objidl.h>
 #include <gdiplus.h>
@@ -40,7 +40,7 @@ public:
 
 class UEngineWindow;
 // 설명 :
-class UWindowImage : public UPathObject
+class UWindowImage : public UEngineResources<UWindowImage>
 {
 	friend UEngineWindow;
 
@@ -154,7 +154,10 @@ private:
 
 	// 윈도우에서 지원해주는 H붙은 애들은 다 struct HBITMAP__{int unused;}; typedef struct HBITMAP__ *HBITMAP
 	// 포인터이면서 8바이트 정수입니다.
+	// 이미지 그자체
 	HBITMAP hBitMap = 0;
+
+	// 수정권한
 	HDC ImageDC = 0;
 	BITMAP BitMapInfo = BITMAP(); // 비트맵를 담는 구조체인데 이걸 얻어와야 합니다.
 	EWIndowImageType ImageType = EWIndowImageType::IMG_NONE;

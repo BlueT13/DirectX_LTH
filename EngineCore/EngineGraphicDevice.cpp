@@ -1,8 +1,9 @@
 #include "PreCompile.h"
 #include "EngineGraphicDevice.h"
+#include "EngineTexture.h"
+#include "EngineRenderTarget.h"
 
 // 다이렉트 라이브러리를 사용하기 위해서
-
 
 UEngineGraphicDevice::UEngineGraphicDevice() 
 {
@@ -10,12 +11,17 @@ UEngineGraphicDevice::UEngineGraphicDevice()
 
 UEngineGraphicDevice::~UEngineGraphicDevice() 
 {
-	if (nullptr == Context)
+	if (nullptr != SwapChain)
+	{
+		SwapChain->Release();
+	}
+
+	if (nullptr != Context)
 	{
 		Context->Release();
 	}
 
-	if (nullptr == Device)
+	if (nullptr != Device)
 	{
 		Device->Release();
 	}
@@ -113,7 +119,7 @@ void UEngineGraphicDevice::Initialize(const UEngineWindow& _Window)
 
 	// 그래픽카드를 대표하는 핸들
 	// 최대 성능 그래픽카드를 찾기 위한 함수
-	IDXGIAdapter* Adapter = GetHighPerFormanceAdapter();
+	Adapter = GetHighPerFormanceAdapter();
 
 	if (nullptr == Adapter)
 	{
@@ -160,10 +166,10 @@ void UEngineGraphicDevice::Initialize(const UEngineWindow& _Window)
 	
 	// 나 포인터 썼다 무조건 null검사
 	// 생각자체를 하지마 그냥 하는거니까.
-	if (nullptr != Adapter)
-	{
-		Adapter->Release();
-	}
+	//if (nullptr != Adapter)
+	//{
+	//	Adapter->Release();
+	//}
 
 	if (S_OK != Result)
 	{
@@ -182,12 +188,140 @@ void UEngineGraphicDevice::Initialize(const UEngineWindow& _Window)
 	// CPU에서 쓰는 멀티쓰레드로도 안전하게 동작하게 하겠다.
 	Result = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 
+	//0x80010106;
+	//E_INVALIDARG;
+	//E_OUTOFMEMORY;
+	//E_UNEXPECTED;
+	//S_OK;
+	//S_FALSE;
+	//RPC_E_CHANGED_MODE;
+
+	// 멀티쓰레드로 잘 바뀡었어요
 	if (S_OK != Result)
 	{
-		MsgBoxAssert("멀티쓰레드 옵션을 사용할 수가 없습니다.");
-		return;
+		if (RPC_E_CHANGED_MODE != Result)
+		{
+			MsgBoxAssert("멀티쓰레드 옵션을 사용할 수가 없습니다.");
+			return;
+		}
 	}
+
 
 	WindowPtr = &_Window;
 
+	CreateSwapChain();
+}
+
+void UEngineGraphicDevice::CreateSwapChain()
+{
+	// 스왑체인 자체가 기능입니다.
+	// 제공 최종적으로 나오는 이미지를 처리하기 때문에.
+	// 안사용할수가 없다.
+	// 그림이 그려지기 까지 고정되어있는 과정의 마지막단계라고 보면되는데.
+	// 그림이 그려지기 까지 벌어지는 이 고정되어있는 과정을 랜더링파이프라인이라고 하고
+	// 이건 간혹가다 회사가리지 않고 물어볼때가 있어서
+	// 스왑체인은 그 랜더링 파이프라인의 가장 마지막단계를 담당합니다.
+	// 모니터에 출력.
+	// 랜더링에서 기존에 있던 그림을 깨끗히 지우고 다시그리는건 어느 랜더링이 거의 공통적인
+	// 모니터라고 하는 하드웨어에 뭔가를 출력하는 과정안에 우리가 낑겨서 출력하는 것이다.
+
+	// 해상도라고 부른다.
+	float4 Resolution = WindowPtr->GetWindowScale();
+
+	// 스왑체인을 만들기 위한 구조체를 만들고 설정한다.
+	DXGI_SWAP_CHAIN_DESC ScInfo = { 0 };
+
+	ScInfo.BufferCount = 2;
+	ScInfo.BufferDesc.Width = Resolution.iX();
+	ScInfo.BufferDesc.Height = Resolution.iY();
+	ScInfo.OutputWindow = WindowPtr->GetHWND();
+
+	// 주사율 모니터에 얼마나 빠르게 갱신할거냐
+	ScInfo.BufferDesc.RefreshRate.Denominator = 1;
+	ScInfo.BufferDesc.RefreshRate.Numerator = 60;
+
+	// 색깔 포맷
+	ScInfo.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	// 모니터 픽셀을 갱신하는 순서 모니터 그대로
+	ScInfo.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+	// 아예 기억안남
+	ScInfo.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
+
+	// 이 스왑체인을 무슨용도로 쓰실건가요?
+	// RENDER_TARGET 텍스처 1장을 말합니다.
+	// DXGI_USAGE_SHADER_INPUT 쉐이더에 입력하는 형태로 하겠다.
+	// 쉐이더가
+	ScInfo.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT | DXGI_USAGE_SHADER_INPUT;
+
+	// 이거 이외에 할필요가 없다.
+	// 샘플링
+	ScInfo.SampleDesc.Quality = 0;
+	ScInfo.SampleDesc.Count = 1;
+
+	// 버퍼가 있으면
+	// 교체하는 순서인데 010101010101
+	// 알고 있어봐야 의미 없죠.
+	ScInfo.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_FLIP_DISCARD;
+	// 전혀 기억 안난다.
+	ScInfo.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
+
+	// 전체화면이냐 아니야.
+	// 중간에 전체화면에서 원래대로 바꾸는 
+	// 전체화면이 프레임이 빠르다.
+	ScInfo.Windowed = true;
+
+	// 기존의 이건 삭제해야 한다.
+
+	// 옵션끝
+	// 스왑체인을 만들겁니다.
+	// 메모리를 할당하는거네. 디바이스
+	// 그냥 예제 배꼈어요 ㅠㅠ
+
+	// 스왑체인을 만들게되면 
+	// DC를 만들면 내부에 화면크기만한 텍스처를 만들어 줍니다.
+
+	// 디바이스를 얻어오고 그안에 있는 어뎁터를 얻어옵니다.
+	// IDXGIDevice* pD = 
+	// Device->QueryInterface(__uuidof(IDXGIDevice), reinterpret_cast<void**>())
+
+	// 이 장치와 관련된 생성기(팩토리)를 얻어내는 함수
+
+	IDXGIFactory* pF = nullptr;
+
+	Adapter->GetParent(__uuidof(IDXGIFactory), reinterpret_cast<void**>(&pF));
+
+	// 메모리할당하는 무슨함수건 일단 디바이스 넣어달라고할겁니다.
+	pF->CreateSwapChain(Device, &ScInfo, &SwapChain);
+
+	Adapter->Release();
+	pF->Release();
+
+	// 끄집어 내서 쓸것이다.
+	
+	// 내가 설정한 화면크기만한 directx용 image가 들어있다.
+	// ID3d11Texture2D
+	// 쉽게말하자면 IDXGISwapChain 내부에 맵을 들고 있는데
+	// 맵의 키가 key게 긴 문자열이라고 생각해라.
+	// MIDL_INTERFACE("7b7166ec-21c7-44ae-b21a-c9ae321ae369")
+	// IDXGIFactory: public IDXGIObject
+
+	ID3D11Texture2D* DXBackBufferTexture = nullptr;
+	if (S_OK != SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&DXBackBufferTexture)))
+	{
+		MsgBoxAssert("백버퍼 텍스처를 얻어오지 못했습니다");
+		return;
+	}
+
+	// 싱글톤 안씀
+	// 이제부터 그냥 그 클래스가 관리함.
+	// 당연히 static으로 모든 리소스는 관리방식이 동일해야 한다.
+	std::shared_ptr<UEngineTexture> Texture = UEngineTexture::Create(DXBackBufferTexture);
+
+	std::shared_ptr<UEngineRenderTarget> RenderTarget = UEngineRenderTarget::Create(Texture);
+
+	// 우리 winapi HDC를 HDC그대로 사용했나요?
+	// 
+
+
+	
 }

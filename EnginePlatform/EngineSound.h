@@ -1,12 +1,13 @@
 #pragma once
 #include <string>
 #include <string_view>
-#include <EngineBase\EnginePath.h>
 #include <map>
 
 // #include나 이런걸 사용하더라도 실제로 그 코드가 실행되지 않으면
 // 컴파일러가 무시한다.
 #include "ThirdParty\FMOD\inc\fmod.hpp"
+
+#include "EngineResources.h"
 
 // 이녀석은 선생님 본래 관리 방식을 보여드리겠습니다.
 
@@ -56,13 +57,12 @@ private:
 };
 
 // 설명 :
-class UEngineSound
+class UEngineSound : public UEngineResources<UEngineSound>
 {
 	friend class ResControl;
 
 private:
 	friend UEngineSoundPlayer;
-	static std::map<std::string, UEngineSound*> Resources;
 	static float GlobalVolume;
 
 public:
@@ -95,7 +95,5 @@ protected:
 
 private:
 	FMOD::Sound* SoundHandle = nullptr;
-
-	static void ResourcesRelease();
 };
 
