@@ -10,6 +10,9 @@
     <Filter Include="PreCompile">
       <UniqueIdentifier>{12725ee4-2bc3-4ced-b244-3bdc581a0810}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Device">
+      <UniqueIdentifier>{7c8289ef-806f-44d0-9ab6-f173c1062ad9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -21,6 +24,9 @@
     <ClCompile Include="PreCompile.cpp">
       <Filter>PreCompile</Filter>
     </ClCompile>
+    <ClCompile Include="EngineGraphicDevice.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -31,6 +37,9 @@
     </ClInclude>
     <ClInclude Include="PreCompile.h">
       <Filter>PreCompile</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineGraphicDevice.h">
+      <Filter>Device</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

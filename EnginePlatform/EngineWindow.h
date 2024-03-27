@@ -20,28 +20,22 @@ public:
 	UEngineWindow& operator=(const UEngineWindow& _Other) = delete;
 	UEngineWindow& operator=(UEngineWindow&& _Other) noexcept = delete;
 
-	void Open(std::string_view _Title = "Title", std::string_view _IconPath = "");
 
 	static void Init(HINSTANCE _hInst);
 	static unsigned __int64 WindowMessageLoop(std::function<void()> _Update, std::function<void()> _End);
 
-	std::shared_ptr<UWindowImage> GetWindowImage()
+	std::shared_ptr<UWindowImage> GetWindowImage() const
 	{
 		return WindowImage;
 	}
 
-	std::shared_ptr<UWindowImage> GetBackBufferImage()
+	std::shared_ptr<UWindowImage> GetBackBufferImage() const
 	{
 		return BackBufferImage;
 	}
 
-	void SetWindowPosition(const FVector& _Pos);
-	void SetWindowScale(const FVector& _Scale);
 
-	void ScreenClear();
-	void ScreenUpdate();
-
-	FVector GetWindowScale()
+	FVector GetWindowScale() const
 	{
 		return Scale;
 	}
@@ -57,15 +51,27 @@ public:
 		SetWindowTextA(hWnd, _Text.data());
 	}
 
-	void SetWindowSmallIcon();
-	
-	FVector GetMousePosition();
-
 	void Off()
 	{
 		WindowLive = false;
 	}
 
+	HWND GetHWND() const
+	{
+		return hWnd;
+	}
+
+	void Open(std::string_view _Title = "Title", std::string_view _IconPath = "");
+
+	void SetWindowPosition(const FVector& _Pos);
+	void SetWindowScale(const FVector& _Scale);
+
+	void ScreenClear();
+	void ScreenUpdate();
+
+	void SetWindowSmallIcon();
+	
+	FVector GetMousePosition();
 	void CursorOff();
 
 protected:
