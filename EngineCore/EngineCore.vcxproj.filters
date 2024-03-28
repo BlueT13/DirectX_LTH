@@ -28,8 +28,11 @@
     <Filter Include="Object\Actor\GameMode">
       <UniqueIdentifier>{0e97954f-1bb6-45d7-b208-c53146b619c0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Component\Rendering">
-      <UniqueIdentifier>{7dfea89a-2afc-4622-abaa-73e5367e5b8e}</UniqueIdentifier>
+    <Filter Include="Object\Rendering">
+      <UniqueIdentifier>{a56c251a-da6a-4cc9-8eb4-c118e805da3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Rendering\Component">
+      <UniqueIdentifier>{4828b2a0-63aa-4338-8b40-edf411574969}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -57,9 +60,6 @@
     <ClCompile Include="Actor.cpp">
       <Filter>Object\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Object\Component\Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="ActorComponent.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
@@ -70,6 +70,15 @@
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="TickObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Object\Rendering\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Object\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,9 +107,6 @@
     <ClInclude Include="Actor.h">
       <Filter>Object\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Object\Component\Rendering</Filter>
-    </ClInclude>
     <ClInclude Include="ActorComponent.h">
       <Filter>Object\Component</Filter>
     </ClInclude>
@@ -111,6 +117,15 @@
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="TickObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Object\Rendering\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Object\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldObject.h">
       <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>

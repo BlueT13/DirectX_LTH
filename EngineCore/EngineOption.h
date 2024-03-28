@@ -67,7 +67,6 @@ public:
 		ClearColor.X = static_cast<float>(std::atof(Values[OPTIONINDEX].c_str()));
 		ClearColor.Y = static_cast<float>(std::atof(Values[OPTIONINDEX].c_str()));
 		ClearColor.Z = static_cast<float>(std::atof(Values[OPTIONINDEX].c_str()));
-
 	}
 	
 };

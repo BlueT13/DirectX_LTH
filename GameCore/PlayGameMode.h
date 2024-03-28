@@ -18,7 +18,8 @@ public:
 	APlayGameMode& operator=(APlayGameMode&& _Other) noexcept = delete;
 
 protected:
-	void Tick(float _DeltaTime);
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
 
 private:
 

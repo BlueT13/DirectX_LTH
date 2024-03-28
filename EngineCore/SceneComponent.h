@@ -1,8 +1,9 @@
 #pragma once
 #include <EngineBase/TransformObject.h>
+#include "ActorComponent.h"
 
 // Ό³Έν :
-class USceneComponent : public UTransformObject
+class USceneComponent : public UActorComponent, public UTransformObject
 {
 public:
 	// constrcuter destructer

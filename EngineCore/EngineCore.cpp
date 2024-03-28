@@ -102,7 +102,7 @@ void UEngineCore::EngineFrameUpdate()
 	EngineDevice.RenderStart();
 	// 게임에 요소들을 그리고
 
-	// CurLevel->Render();
+	CurLevel->Render(DeltaTime);
 
 	// 억지로 그냥 그려본다.
 
