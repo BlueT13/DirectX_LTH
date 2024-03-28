@@ -5,6 +5,7 @@
 //        일반적으로 걷으로 보기에는 이게 어떤 라이브러리로 동작하는지 보여서는 안된다.
 
 class UEngineWindow;
+class UEngineRenderTarget;
 
 class UEngineGraphicDevice
 {
@@ -20,7 +21,21 @@ public:
 	UEngineGraphicDevice& operator=(UEngineGraphicDevice&& _Other) noexcept = delete;
 
 	// nullptr의 가능성을 없애버리기 위해서
-	void Initialize(const UEngineWindow& _Window);
+	void Initialize(const UEngineWindow& _Window, const float4& _ClearColor);
+
+	struct ID3D11Device* GetDevice()
+	{
+		return Device;
+	}
+
+	struct ID3D11DeviceContext* GetContext()
+	{
+		return Context;
+	}
+
+	void RenderStart();
+
+	void RenderEnd();
 
 protected:
 
@@ -47,8 +62,10 @@ private:
 
 	struct IDXGIAdapter* Adapter = nullptr;
 
+	std::shared_ptr<UEngineRenderTarget> BackBufferRenderTarget = nullptr;
+
 	// 그래픽카드중 가장 사양이 높은 그래픽카드를 가져오는 함수
 	struct IDXGIAdapter* GetHighPerFormanceAdapter();
-	void CreateSwapChain();
+	void CreateSwapChain(const float4& _ClearColor);
 };
 

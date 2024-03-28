@@ -17,6 +17,7 @@ public:
 	std::string WindowTitle = "Title";
 	FVector WindowScale = {1280.0f, 720.0f};
 	bool IsDebug = false;
+	FVector ClearColor = { 0.0f, 0.0f, 1.0f };
 
 	void Serialize(UEngineSerializer& _Ser) override
 	{
@@ -28,6 +29,7 @@ public:
 			DebugOptionText += std::format("WindowTitle : [{}]\n", WindowTitle);
 			DebugOptionText += std::format("WindowScale : [{}], [{}]\n", WindowScale.iX(), WindowScale.iY());
 			DebugOptionText += std::format("IsDebug : [{}]\n", IsDebug);
+			DebugOptionText += std::format("ClearColor : R[{}],G[{}],B[{}]\n", ClearColor.X, ClearColor.Y, ClearColor.Z);
 
 			_Ser.WriteText(DebugOptionText);
 		}
@@ -39,12 +41,15 @@ public:
 
 		std::vector<std::string> Values = UEngineString::StringCutting(OptionText, "[", "]");
 
-		WindowTitle = Values[0];
+		int Index = 0;
+#define OPTIONINDEX Index++
 
-		WindowScale.X = static_cast<float>(std::atof(Values[1].c_str()));
-		WindowScale.Y = static_cast<float>(std::atof(Values[2].c_str()));
+		WindowTitle = Values[OPTIONINDEX];
 
-		std::string IsDebugUpper = UEngineString::ToUpper(Values[3]);
+		WindowScale.X = static_cast<float>(std::atof(Values[OPTIONINDEX].c_str()));
+		WindowScale.Y = static_cast<float>(std::atof(Values[OPTIONINDEX].c_str()));
+
+		std::string IsDebugUpper = UEngineString::ToUpper(Values[OPTIONINDEX]);
 
 		if (IsDebugUpper == "FALSE")
 		{
@@ -58,6 +63,10 @@ public:
 		{
 			MsgBoxAssert("IsDebug 옵션이 이상한 글자로 채워져 있습니다.");
 		}
+
+		ClearColor.X = static_cast<float>(std::atof(Values[OPTIONINDEX].c_str()));
+		ClearColor.Y = static_cast<float>(std::atof(Values[OPTIONINDEX].c_str()));
+		ClearColor.Z = static_cast<float>(std::atof(Values[OPTIONINDEX].c_str()));
 
 	}
 	

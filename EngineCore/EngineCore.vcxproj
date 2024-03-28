@@ -167,25 +167,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="ActorComponent.cpp" />
     <ClCompile Include="EngineCore.cpp" />
     <ClCompile Include="EngineGraphicDevice.cpp" />
     <ClCompile Include="EngineOption.cpp" />
     <ClCompile Include="EngineRenderTarget.cpp" />
     <ClCompile Include="EngineTexture.cpp" />
+    <ClCompile Include="GameMode.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="PreCompile.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="SceneComponent.cpp" />
+    <ClCompile Include="TickObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actor.h" />
+    <ClInclude Include="ActorComponent.h" />
     <ClInclude Include="EngineCore.h" />
     <ClInclude Include="EngineGraphicDevice.h" />
     <ClInclude Include="EngineOption.h" />
     <ClInclude Include="EngineRenderTarget.h" />
     <ClInclude Include="EngineTexture.h" />
+    <ClInclude Include="GameMode.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="PreCompile.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="SceneComponent.h" />
+    <ClInclude Include="TickObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -229,6 +229,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="TransformObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineDebug.cpp">
@@ -282,6 +283,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="TransformObject.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -20,20 +20,23 @@ public:
 	UEngineRenderTarget& operator=(const UEngineRenderTarget& _Other) = delete;
 	UEngineRenderTarget& operator=(UEngineRenderTarget&& _Other) noexcept = delete;
 
-	static std::shared_ptr<UEngineRenderTarget> Create(std::shared_ptr<UEngineTexture> _Texture)
+	static std::shared_ptr<UEngineRenderTarget> Create(std::shared_ptr<UEngineTexture> _Texture, const float4& _Color)
 	{
 		std::shared_ptr<UEngineRenderTarget> NewRes = CreateResUnName();
-		NewRes->AddNewTexture(_Texture);
+		NewRes->AddNewTexture(_Texture, _Color);
 		return NewRes;
 	}
+
+	void Clear();
 
 protected:
 
 private:
-	void AddNewTexture(std::shared_ptr<UEngineTexture> _Texture);
-
 	// 저 텍스처 여러개를 엮어서 사용할수 있게 할겁니다.
 	std::vector<std::shared_ptr<UEngineTexture>> Textures;
+	std::vector<ID3D11RenderTargetView*> RTVs;
+	std::vector<float4> ClearColors;
 
+	void AddNewTexture(std::shared_ptr<UEngineTexture> _Texture, const float4& _Color);
 };
 

@@ -71,6 +71,7 @@
 // 설명 :
 // 템플릿
 // class UEngineTexture : public UEngineResourcesUEngineTexture
+// 사용하기나 관리하기가 너무 힘드니까
 class UEngineTexture : public UEngineResources<UEngineTexture>
 {
 public:
@@ -87,15 +88,32 @@ public:
 	static std::shared_ptr<UEngineTexture> Create(ID3D11Texture2D* _Texture)
 	{
 		std::shared_ptr<UEngineTexture> NewRes = CreateResUnName();
-		NewRes->Texture = _Texture;
+		NewRes->CreateRes(_Texture);
 		return NewRes;
+	}
+
+	ID3D11RenderTargetView* GetRTV()
+	{
+		return RTV;
 	}
 
 protected:
 
 
 private:
+
 	// 이미지 그 자체.
-	ID3D11Texture2D* Texture = nullptr;
+	// Directx에서는 메모리를 의미하는 핸들
+	// 그리고 그런 메모리가 있어야 메모리 수정권한
+	ID3D11Texture2D* Texture2D = nullptr;
+
+	// Directx에서는 이미지(메모리) 수정 권한(여기에 그릴수 있는 권한)
+	ID3D11RenderTargetView* RTV = nullptr;
+
+	D3D11_TEXTURE2D_DESC Desc;
+
+	void CreateRes(ID3D11Texture2D* _Texture);
+
+	void CreateRenderTargetView();
 };
 
