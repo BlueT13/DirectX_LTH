@@ -46,7 +46,12 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	// 액터가 루트 컴포넌트를 가지면 
+	// 언리얼이 왜 액터가 트랜스폼을 가지지 못하게 했을까?
+	// GameMode 기능적인 면에서 트랜스폼이 필요 없는 애들도 많아요.
+	// 액터란 이 어떠한 레벨에서 어떠한 역할을 해주시면 하면 된다.
+	// 거기에 필요한 기능만 만들면 되기 때문에 
+	// 컴포넌트 구조라는 것.
+	// 뭘만들든 동적으로 만들수 있는 구조를 만드는것.
 	USceneComponent* RootComponent = nullptr;
 	std::vector<std::shared_ptr<UActorComponent>> Components;
 

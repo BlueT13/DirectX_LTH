@@ -33,6 +33,7 @@ void AActor::Tick(float _DeltaTime)
 
 void AActor::PushComponent(std::shared_ptr<UActorComponent> _Component, std::string_view _Name)
 {
+
 	_Component->SetName(_Name);
 	Components.push_back(_Component);
 

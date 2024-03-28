@@ -87,7 +87,7 @@ public:
 			return;
 		}
 
-		std::shared_ptr<AActor> NewGameMode = std::make_shared<GameModeType>();
+		std::shared_ptr<GameModeType> NewGameMode = std::make_shared<GameModeType>();
 
 		NewGameMode->SetOrder(INT_MIN);
 
