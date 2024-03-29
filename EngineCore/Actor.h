@@ -27,7 +27,7 @@ public:
 	// 오로지 생성자에서만 호출될수 있게 만들어 놓는다.
 	// 언리얼 따라할려고 그냥 함.
 	template<typename ComponentType>
-	std::shared_ptr<ComponentType> CreateDefaultSubobject(std::string_view _Name)
+	ComponentType* CreateDefaultSubObject(std::string_view _Name)
 	{
 		if (false == ULevel::IsActorConstructer)
 		{
@@ -38,7 +38,7 @@ public:
 
 		PushComponent(NewComponent, _Name);
 
-		return std::dynamic_pointer_cast<ComponentType>(NewComponent);
+		return dynamic_cast<ComponentType*>(NewComponent.get());
 	}
 
 protected:
@@ -56,7 +56,7 @@ private:
 	std::vector<std::shared_ptr<UActorComponent>> Components;
 
 	void PushComponent(std::shared_ptr<UActorComponent> _Component, std::string_view _Name);
-
+	void RootCheck();
 
 };
 

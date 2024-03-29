@@ -1,13 +1,23 @@
 #include "PreCompile.h"
 #include "Actor.h"
 #include "SceneComponent.h"
+#include "DefaultSceneComponent.h"
 
 AActor::AActor() 
 {
+	// 
 }
 
 AActor::~AActor() 
 {
+}
+
+void AActor::RootCheck()
+{
+	if (nullptr == RootComponent)
+	{
+		RootComponent = CreateDefaultSubObject<UDefaultSceneComponent>("UDefaultSceneComponent");
+	}
 }
 
 void AActor::BeginPlay()

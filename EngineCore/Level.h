@@ -39,6 +39,7 @@ public:
 		IsActorConstructer = true;
 		std::shared_ptr<AActor> NewActor = std::make_shared<ActorType>();
 		IsActorConstructer = false;
+
 		// ÀÌ
 		//NewActor->SetWorld(this);
 		//NewActor->BeginPlay();
@@ -63,5 +64,6 @@ private:
 
 	void PushActor(std::shared_ptr<AActor> _Actor);
 	void PushRenderer(std::shared_ptr<URenderer> _Renderer);
+	
 };
 

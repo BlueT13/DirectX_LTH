@@ -210,6 +210,8 @@ void UEngineGraphicDevice::Initialize(const UEngineWindow& _Window, const float4
 	WindowPtr = &_Window;
 
 	CreateSwapChain(_ClearColor);
+
+	EngineResourcesInit();
 }
 
 void UEngineGraphicDevice::CreateSwapChain(const float4& _ClearColor)
