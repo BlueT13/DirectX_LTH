@@ -1,9 +1,12 @@
 #pragma once
 #include "EngineBuffer.h"
 
+class UEngineMesh;
 // Ό³Έν :
 class UEngineIndexBuffer : public UEngineResources<UEngineIndexBuffer>, public UEngineBuffer
 {
+	friend UEngineMesh;
+
 public:
 	// constrcuter destructer
 	UEngineIndexBuffer();
@@ -30,7 +33,10 @@ private:
 
 	UINT Size = 0;
 	UINT Count = 0;
+	UINT Offset = 0;
 	
 	void ResCreate(const void* _Data, UINT _Size, UINT _Count);
+
+	void Setting();
 };
 

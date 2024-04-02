@@ -6,9 +6,12 @@
 
 // 랜더타겟 => 그 이미지를 편집하고 그리고 복사하는 기능을 가진 애. UWindowImage
 
+class ULevel;
 class UEngineTexture;
 class UEngineRenderTarget : public UEngineResources<UEngineRenderTarget>
 {
+	friend ULevel;
+
 public:
 	// constrcuter destructer
 	UEngineRenderTarget();
@@ -38,5 +41,7 @@ private:
 	std::vector<float4> ClearColors;
 
 	void AddNewTexture(std::shared_ptr<UEngineTexture> _Texture, const float4& _Color);
+
+	void Setting();
 };
 

@@ -101,3 +101,13 @@ void UEngineFile::Load(UEngineSerializer& _Data)
 	_Data.BufferResize(static_cast<int>(Size));
 	fread(&_Data.Data[0], Size, 1, FileHandle);
 }
+
+std::string UEngineFile::GetString()
+{
+	Open(EIOOpenMode::Read, EIODataType::Text);
+	UEngineSerializer Ser;
+	Load(Ser);
+	Close();
+
+	return Ser.ToString();
+}

@@ -5,6 +5,8 @@
 // Ό³Έν :
 class UEngineMesh : public UEngineResources<UEngineMesh>
 {
+	friend URenderer;
+
 public:
 	// constrcuter destructer
 	UEngineMesh();
@@ -35,5 +37,8 @@ private:
 	std::shared_ptr<UEngineVertexBuffer> VertexBuffer = nullptr;
 	std::shared_ptr<UEngineIndexBuffer> IndexBuffer = nullptr;
 
+	void InputAssembler1Setting();
+	void InputAssembler2Setting();
+	void IndexedDraw();
 };
 

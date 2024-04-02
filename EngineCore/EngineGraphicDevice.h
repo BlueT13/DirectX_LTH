@@ -4,6 +4,7 @@
 //        Directx를 사용할수도 있을것이다.
 //        일반적으로 걷으로 보기에는 이게 어떤 라이브러리로 동작하는지 보여서는 안된다.
 
+class ULevel;
 class UEngineCore;
 class UEngineWindow;
 class UEngineRenderTarget;
@@ -11,6 +12,7 @@ class UEngineRenderTarget;
 class UEngineGraphicDevice
 {
 	friend UEngineCore;
+	friend ULevel;
 
 public:
 	// constrcuter destructer
@@ -72,5 +74,10 @@ private:
 	void CreateSwapChain(const float4& _ClearColor);
 	void EngineResourcesInit();
 	void EngineResourcesRelease();
+
+	std::shared_ptr<UEngineRenderTarget> GetBackBufferRenderTarget()
+	{
+		return BackBufferRenderTarget;
+	}
 };
 

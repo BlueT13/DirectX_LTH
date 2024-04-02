@@ -174,7 +174,7 @@ bool UWindowImage::LoadFolder(std::shared_ptr<UWindowImage> _Image)
 
 	UEngineDirectory Dir = EnginePath;
 
-	std::list<UEngineFile> NewList = Dir.AllFile({ ".png", ".bmp" }, false);
+	std::vector<UEngineFile> NewList = Dir.GetAllFile({ ".png", ".bmp" }, false);
 	Infos.reserve(NewList.size());
 
 	for (UEngineFile& File : NewList)

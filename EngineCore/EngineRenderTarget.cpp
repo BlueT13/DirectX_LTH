@@ -34,3 +34,9 @@ void UEngineRenderTarget::Clear()
 		GEngine->GetDirectXContext()->ClearRenderTargetView(RTVs[i], ClearColors[i].Arr1D);
 	}
 }
+
+void UEngineRenderTarget::Setting()
+{
+	// 깊이버퍼는 나중에
+	GEngine->GetDirectXContext()->OMSetRenderTargets(static_cast<UINT>(RTVs.size()), &RTVs[0], nullptr);
+}

@@ -25,11 +25,11 @@ void UEngineIndexBuffer::ResCreate(const void* _Data, UINT _Size, UINT _Count)
 
 	if (4 == Size)
 	{
-		Format = DXGI_FORMAT::DXGI_FORMAT_R32_SINT;
+		Format = DXGI_FORMAT::DXGI_FORMAT_R32_UINT;
 	}
 	else if (2 == Size)
 	{
-		Format = DXGI_FORMAT::DXGI_FORMAT_R16_SINT;
+		Format = DXGI_FORMAT::DXGI_FORMAT_R16_UINT;
 	}
 
 	// 크기
@@ -51,4 +51,16 @@ void UEngineIndexBuffer::ResCreate(const void* _Data, UINT _Size, UINT _Count)
 		MsgBoxAssert("버텍스 버퍼 생성에 실패했습니다.");
 		return;
 	}
+}
+
+void UEngineIndexBuffer::Setting()
+{
+#ifdef _DEBUG
+	if (nullptr == Buffer)
+	{
+		MsgBoxAssert("인덱스 버퍼가 만들지지 않았는데 세팅이 되었습니다." + GetName());
+		return;
+	}
+#endif
+	GEngine->GetDirectXContext()->IASetIndexBuffer(Buffer, Format, Offset);
 }

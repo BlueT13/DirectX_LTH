@@ -39,6 +39,8 @@ public:
 
 	void Close();
 
+	std::string GetString();
+
 protected:
 
 private:

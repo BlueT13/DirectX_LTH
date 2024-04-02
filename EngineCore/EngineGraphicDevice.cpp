@@ -263,7 +263,10 @@ void UEngineGraphicDevice::CreateSwapChain(const float4& _ClearColor)
 	// 버퍼가 있으면
 	// 교체하는 순서인데 010101010101
 	// 알고 있어봐야 의미 없죠.
-	ScInfo.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_FLIP_DISCARD;
+	// DXGI_SWAP_EFFECT_FLIP_DISCARD 2개를 교대로 보여줘라.
+	// 이거때문에 화면이 깜빡임
+	// ScInfo.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_FLIP_DISCARD;
+	ScInfo.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_DISCARD;
 	// 전혀 기억 안난다.
 	ScInfo.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 

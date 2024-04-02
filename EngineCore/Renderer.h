@@ -1,5 +1,7 @@
 #pragma once
 #include "SceneComponent.h"
+#include "EngineMesh.h"
+#include "EngineMaterial.h"
 
 // 설명 : public std::enable_shared_from_this<URenderer>
 // shared_ptr로 this를 배출할수 있는 기능을 가진 클래스입니다.
@@ -19,6 +21,9 @@ public:
 	URenderer& operator=(const URenderer& _Other) = delete;
 	URenderer& operator=(URenderer&& _Other) noexcept = delete;
 
+	void SetMesh(std::string_view _Name);
+	void SetMaterial(std::string_view _Name);
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -26,5 +31,8 @@ protected:
 private:
 	void Render(float _DeltaTime);
 
+	std::shared_ptr<UEngineInputLayOut> LayOut;
+	std::shared_ptr<UEngineMesh> Mesh;
+	std::shared_ptr<UEngineMaterial> Material;
 };
 
