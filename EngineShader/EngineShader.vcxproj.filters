@@ -4,15 +4,27 @@
     <Filter Include="2D">
       <UniqueIdentifier>{ebb9e0c5-5603-4f99-b894-0626c71236f6}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="EngineVertex.hlsli">
-      <Filter>2D</Filter>
-    </None>
+    <Filter Include="Header">
+      <UniqueIdentifier>{923a585d-39fd-4417-8c9b-ca84f63e1556}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="ImageShader.fx">
       <Filter>2D</Filter>
     </FxCompile>
+    <FxCompile Include="ColorShader.fx">
+      <Filter>2D</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EngineVertex.hlsli">
+      <Filter>Header</Filter>
+    </None>
+    <None Include="EngineShaderBase.hlsli">
+      <Filter>Header</Filter>
+    </None>
+    <None Include="TransformData.hlsli">
+      <Filter>Header</Filter>
+    </None>
   </ItemGroup>
 </Project>

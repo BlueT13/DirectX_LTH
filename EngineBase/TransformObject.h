@@ -16,12 +16,13 @@ public:
 	UTransformObject& operator=(const UTransformObject& _Other) = delete;
 	UTransformObject& operator=(UTransformObject&& _Other) noexcept = delete;
 
+	FTransform Transform;
+
 protected:
 
 private:
 	UTransformObject* Parent = nullptr;
 	std::vector<UTransformObject*> Childs;
 
-	FTransform Transform;
 };
 

@@ -11,8 +11,20 @@ enum class ECollisionType
 
 // 설명 :
 class CollisionFunctionInit;
-class FTransform
+struct FTransform
 {
+	float4 Scale;
+	float4 Rotation;
+	float4 Position;
+	float4x4 ScaleMat;
+	float4x4 RotationMat;
+	float4x4 PositionMat;
+	float4x4 World;
+	float4x4 View;
+	float4x4 Projection;
+	float4x4 WVP;
+//};
+
 	friend CollisionFunctionInit;
 
 private:
@@ -49,14 +61,29 @@ public:
 	static bool PointToRect(const FTransform& _Left, const FTransform& _Right);
 	static bool PointToCircle(const FTransform& _Left, const FTransform& _Right);
 public:
-	void AddScale(FVector _Value)
-	{
-		Scale += _Value;
-	}
 	void SetScale(FVector _Value)
 	{
 		Scale = _Value;
+		TransformUpdate();
 	}
+
+	void SetRotation(FVector _Value)
+	{
+		Rotation = _Value;
+		TransformUpdate();
+	}
+
+	void SetPosition(FVector _Value)
+	{
+		Position = _Value;
+		TransformUpdate();
+	}
+
+	void AddScale(FVector _Value)
+	{
+		SetScale(Scale + _Value);
+	}
+
 	FVector GetScale() const
 	{
 		return Scale;
@@ -64,26 +91,49 @@ public:
 
 	void AddRotation(FVector _Value)
 	{
-		Rotation += _Value;
-	}
-	void SetRotation(FVector _Value)
-	{
-		Rotation = _Value;
+		SetRotation(Rotation + _Value);
 	}
 	FVector GetRotation() const
 	{
 		return Rotation;
 	}
 
-
-	void SetPosition(FVector _Value)
+	FVector GetForward()
 	{
-		Position = _Value;
+		return World.ArrVector[2].Normalize2DReturn();
 	}
+
+	FVector GetUp()
+	{
+		return World.ArrVector[1].Normalize2DReturn();
+	}
+
+	FVector GetRight()
+	{
+		return World.ArrVector[0].Normalize2DReturn();
+	}
+
+	FVector GetBack()
+	{
+		return -GetForward();
+	}
+
+	FVector GetDown()
+	{
+		return -GetUp();
+	}
+
+	FVector GetLeft()
+	{
+		return -GetRight();
+	}
+
+
 	void AddPosition(FVector _Value)
 	{
-		Position += _Value;
+		SetPosition(Position + _Value);
 	}
+
 	FVector GetPosition() const
 	{
 		return Position;
@@ -158,11 +208,12 @@ public:
 	// 위치와 크기를 가지고 있기 때문에.
 	bool Collision(ECollisionType _ThisType, ECollisionType _OtherType, const FTransform& _Other);
 
+	void TransformUpdate();
+
+	void CalculateViewAndProjection(FMatrix _View, FMatrix _Projection);
+
 protected:
 
 private:
-	FVector Scale = FVector::One;
-	FVector Rotation = FVector::Zero;
-	FVector Position = FVector::Zero;
 };
 

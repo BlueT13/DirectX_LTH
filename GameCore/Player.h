@@ -24,5 +24,6 @@ protected:
 
 private:
 	URenderer* Renderer;
+	float Speed = 100.0f;
 };
 

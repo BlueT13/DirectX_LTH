@@ -12,6 +12,7 @@ AActor::~AActor()
 {
 }
 
+
 void AActor::RootCheck()
 {
 	if (nullptr == RootComponent)
@@ -44,7 +45,10 @@ void AActor::Tick(float _DeltaTime)
 void AActor::PushComponent(std::shared_ptr<UActorComponent> _Component, std::string_view _Name)
 {
 
+	_Component->SetActor(this);
 	_Component->SetName(_Name);
+	//_Component->BeginPlay();
+
 	Components.push_back(_Component);
 
 	// shared_ptr을 안전하게 다운캐스팅하는 함수
@@ -55,4 +59,48 @@ void AActor::PushComponent(std::shared_ptr<UActorComponent> _Component, std::str
 		// std::shared_ptr을 그냥 포인터로 변경하는 함수
 		RootComponent = SceneComponent.get();
 	}
+}
+
+
+FTransform& AActor::GetActorTransform()
+{
+	return RootComponent->Transform;
+}
+
+FVector AActor::GetActorForwardVector()
+{
+	return RootComponent->Transform.GetForward();
+}
+
+FVector AActor::GetActorRightVector()
+{
+	return RootComponent->Transform.GetRight();
+}
+FVector AActor::GetActorUpVector()
+{
+	return RootComponent->Transform.GetUp();
+}
+
+FVector AActor::GetActorLocation()
+{
+	return RootComponent->Transform.GetPosition();
+}
+
+void AActor::SetActorLocation(FVector _Value)
+{
+	RootComponent->Transform.SetPosition(_Value);
+}
+
+void AActor::SetActorScale3D(FVector _Value)
+{
+	RootComponent->Transform.SetScale(_Value);
+}
+
+void AActor::AddActorLocation(FVector _Value)
+{
+	RootComponent->Transform.AddPosition(_Value);
+}
+void AActor::AddActorScale3D(FVector _Value)
+{
+	RootComponent->Transform.AddScale(_Value);
 }

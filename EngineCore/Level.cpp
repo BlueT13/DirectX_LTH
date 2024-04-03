@@ -10,7 +10,10 @@ bool ULevel::IsActorConstructer = true;
 
 ULevel::ULevel() 
 {
-	MainCamera = std::make_shared<UCamera>();
+	// MainCamera = std::make_shared<UCamera>();
+
+	MainCamera = SpawnActor<UCamera>("MainCamera");
+	UICamera = SpawnActor<UCamera>("NewActor");
 }
 
 ULevel::~ULevel() 
@@ -50,6 +53,7 @@ void ULevel::Render(float _DeltaTime)
 	// 여기에 출력해라.
 	GEngine->GetEngineDevice().BackBufferRenderTarget->Setting();
 	
+	MainCamera->CameraTransformUpdate();
 
 	for (std::pair<const int, std::list<std::shared_ptr<URenderer>>>& RenderGroup : Renderers)
 	{
@@ -57,6 +61,7 @@ void ULevel::Render(float _DeltaTime)
 
 		for (std::shared_ptr<URenderer> Renderer : GroupRenderers)
 		{
+			Renderer->RenderingTransformUpdate(MainCamera);
 			Renderer->Render(_DeltaTime);
 		}
 	}
@@ -71,7 +76,6 @@ void ULevel::PushActor(std::shared_ptr<AActor> _Actor)
 	}
 	
 	_Actor->SetWorld(this);
-	_Actor->RootCheck();
 	_Actor->BeginPlay();
 
 	Actors[_Actor->GetOrder()].push_back(_Actor);

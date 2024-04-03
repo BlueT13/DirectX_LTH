@@ -166,6 +166,9 @@ bool FTransform::RectToPoint(const FTransform& _Left, const FTransform& _Right)
 
 
 FTransform::FTransform() 
+	: Scale(FVector::One)
+	, Rotation(FVector::Zero)
+	, Position(FVector::Zero)
 {
 }
 
@@ -181,4 +184,35 @@ bool FTransform::Collision(ECollisionType _ThisType, ECollisionType _OtherType, 
 	}
 
 	return CollisionFunction[static_cast<int>(_ThisType)][static_cast<int>(_OtherType)](*this,_Other);
+}
+
+
+void FTransform::TransformUpdate()
+{
+	//float4 Scale;
+	//float4 Rotation;
+	//float4 Position;
+	//float4x4 ScaleMat;
+	//float4x4 RotationMat;
+	//float4x4 PositionMat;
+	//float4x4 World;
+	//float4x4 View;
+	//float4x4 Projection;
+	//float4x4 WVP;
+
+	ScaleMat.Scale(Scale);
+
+	RotationMat.RotationDeg(Rotation);
+
+	PositionMat.Position(Position);
+
+	World = ScaleMat * RotationMat * PositionMat;
+
+}
+
+void FTransform::CalculateViewAndProjection(FMatrix _View, FMatrix _Projection)
+{
+	View = _View;
+	Projection = _Projection;
+	WVP = World * _View * _Projection;
 }

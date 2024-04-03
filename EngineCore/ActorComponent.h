@@ -7,6 +7,8 @@
 // 설명 : 그냥 소유만 당하는 애들이 있고
 class UActorComponent : public UTickObject, public UNameObject, public UWorldObject
 {
+	friend AActor;
+
 public:
 	// constrcuter destructer
 	UActorComponent();
@@ -22,6 +24,11 @@ protected:
 
 private:
 	AActor* Actor = nullptr;
+
+	void SetActor(AActor* _Actor)
+	{
+		Actor = _Actor;
+	}
 
 };
 

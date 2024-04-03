@@ -127,9 +127,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="EngineShaderBase.hlsli" />
     <None Include="EngineVertex.hlsli" />
+    <None Include="TransformData.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="ColorShader.fx" />
     <FxCompile Include="ImageShader.fx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
