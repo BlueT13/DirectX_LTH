@@ -72,5 +72,5 @@ struct FEngineVertex
 	static UVertexLayOutInfo Info;
 
 	float4 POSITION;
-	float4 COLOR;
+	float4 TEXCOORD;
 };

@@ -26,6 +26,11 @@ void UEngineFile::Close()
 	}
 }
 
+void UEngineFile::Read(void* _Data, size_t _Size)
+{
+	fread_s(_Data, _Size, _Size, 1, FileHandle);
+}
+
 void UEngineFile::Open(EIOOpenMode _OpenType, EIODataType _DataType)
 {
 	std::string Path = GetFullPath();

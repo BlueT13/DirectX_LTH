@@ -42,10 +42,10 @@ public:
 	{
 		UEnginePath NewPath = UEnginePath(std::filesystem::path(_Path));
 		std::string FileName = NewPath.GetFileName();
-		return CreateResName(FileName, _Path);
+		return CreateResName(_Path, FileName);
 	}
 
-	static std::shared_ptr<ResType> CreateResName(std::string_view _Name, std::string_view _Path)
+	static std::shared_ptr<ResType> CreateResName(std::string_view _Path, std::string_view _Name)
 	{
 		std::string UpperName = UEngineString::ToUpper(_Name);
 

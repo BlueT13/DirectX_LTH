@@ -144,6 +144,6 @@ void UEngineSound::Load(std::string_view _Path, std::string_view _Name)
 		return;
 	}
 
-	std::shared_ptr<UEngineSound> NewSound = CreateResName(_Name, _Path);
+	std::shared_ptr<UEngineSound> NewSound = CreateResName(_Path, _Name);
 	NewSound->ResLoad(_Path);
 }

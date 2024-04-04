@@ -185,6 +185,7 @@
     <ClCompile Include="EnginePixelShader.cpp" />
     <ClCompile Include="EngineRasterizer.cpp" />
     <ClCompile Include="EngineRenderTarget.cpp" />
+    <ClCompile Include="EngineSampler.cpp" />
     <ClCompile Include="EngineShader.cpp" />
     <ClCompile Include="EngineShaderResources.cpp" />
     <ClCompile Include="EngineTexture.cpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="EnginePixelShader.h" />
     <ClInclude Include="EngineRasterizer.h" />
     <ClInclude Include="EngineRenderTarget.h" />
+    <ClInclude Include="EngineSampler.h" />
     <ClInclude Include="EngineShader.h" />
     <ClInclude Include="EngineShaderResources.h" />
     <ClInclude Include="EngineTexture.h" />
@@ -234,8 +236,25 @@
     <ClInclude Include="PreCompile.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="SceneComponent.h" />
+    <ClInclude Include="ThirdParty\DirectxTex\inc\DirectXTex.h" />
     <ClInclude Include="TickObject.h" />
     <ClInclude Include="WorldObject.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="ThirdParty\DirectxTex\Debug\DirectXTex.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\DirectxTex\Release\DirectXTex.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

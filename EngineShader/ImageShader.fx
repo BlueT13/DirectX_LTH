@@ -24,6 +24,7 @@
 struct ImageVSOutPut
 {
     float4 POSITION : SV_POSITION;
+    float4 TEXCOORD : TEXCOORD;
 };
 
 // 내가 여기에다가 스트럭트를 넣는다고 이게 쉐이더에서 
@@ -55,29 +56,49 @@ ImageVSOutPut ImageShader_VS(FEngineVertex _Input)
 {
     ImageVSOutPut Out = (ImageVSOutPut) 0;
     Out.POSITION = mul(_Input.POSITION, WVP);
+    Out.TEXCOORD = _Input.TEXCOORD;
     return Out;
 }
-
-// 픽셀쉐이더의 상수버퍼 0번은 달라도 된다.
-cbuffer OutPutColor : register(b0)
-{
-    float4 MulColor;
-    float4 PlusColor;
-};
-
 
 struct ImagePSOutPut
 {
     float4 COLOR : SV_Target0;
 };
 
+// 텍스처는 상수버퍼와 슬롯을 공유하지 않습니다.
+// b0 buffer 0번 슬롯
+// t0 texture 0번 슬롯
+// s0 Sampler 0번 슬롯
+
+// 언리얼 엔진이나
+// 유니티는 OpenGL로도 내부가
+// 그래서 자기들만의 쉐이더 언어를 또 만듭니다.
+// 언리얼 쉐이더 랭귀지.
+// HLSL => OpenGL shader 언어로 변경하는 기능도 지원합니다.
+
+
+
+
+
+TextureSet(Image, 0)
+#define TextureSet(Name, Slot) Texture2D Name : register(t##Slot##); SamplerState Name##_Sampler : register(s##Slot##);
+// Texture2D Image : register(t0); 
+// SamplerState Image_Sampler : register(s0);
+
+
+
 ImagePSOutPut ImageShader_PS(ImageVSOutPut _Input)
 {
         // 언어를 배울때는 왜 안돼 어리석은 초보적인 생각은 그만두고 배워야한다.
         // 그냥 구조체처럼 초기화 하는게 안되는데.
     ImagePSOutPut Out = (ImagePSOutPut) 0;
-    // Out.COLOR = Color;
-    Out.COLOR = float4(1.0f, 0.0f, 0.0f, 1.0f);
+    
+    // Name##.Sample(##Name##_Sampler, TEXCOORD.xy);
+    
+    Out.COLOR = Sampling(Image, _Input.TEXCOORD);
+    
+    // #define Sampling(Name, TEXCOORD) Name##.Sample(##Name##_Sampler, TEXCOORD.xy);
+    // Image.Sample(Image_Sampler, _Input.TEXCOORD.xy);
     
     return Out;
 }

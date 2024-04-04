@@ -1,12 +1,6 @@
 #include "EngineShaderBase.hlsli"
 
 // 픽셀쉐이더의 상수버퍼 0번은 달라도 된다.
-cbuffer OutPutColor : register(b0)
-{
-    float4 Color;
-};
-
-
 struct ImageVSOutPut
 {
     float4 POSITION : SV_POSITION;
@@ -41,11 +35,18 @@ ImageVSOutPut ColorShader_VS(FEngineVertex _Input)
     return Out;
 }
 
+
+// 픽셀쉐이더의 상수버퍼 0번은 달라도 된다.
+cbuffer OutPutColor : register(b0)
+{
+    float4 Color;
+};
+
+
 struct ImagePSOutPut
 {
     float4 COLOR : SV_Target0;
 };
-
 
 ImagePSOutPut ColorShader_PS(ImageVSOutPut _Input)
 {
@@ -53,7 +54,7 @@ ImagePSOutPut ColorShader_PS(ImageVSOutPut _Input)
         // 그냥 구조체처럼 초기화 하는게 안되는데.
     ImagePSOutPut Out = (ImagePSOutPut) 0;
     // Out.COLOR = Color;
-    Out.COLOR = float4(1.0f, 0.0f, 0.0f, 1.0f);
+    Out.COLOR = Color;
     
     return Out;
 }

@@ -1,14 +1,32 @@
 #include "PreCompile.h"
 #include "EngineShaderResources.h"
 #include "EngineConstantBuffer.h"
+#include "EngineTexture.h"
+#include "EngineSampler.h"
 
 /// UEngineConstantBufferSetter
 void UEngineConstantBufferSetter::Setting()
 {
 	// 상수버퍼를 세팅한다.
 
+	if (nullptr == CPUData)
+	{
+		MsgBoxAssert(Res->GetName() + " 상수버퍼에 세팅을 해주지 않았습니다. 해주세요...");
+		return;
+	}
+
 	Res->ChangeData(CPUData, BufferSize);
 
+	Res->Setting(Type, Slot);
+}
+
+void UEngineTextureSetter::Setting()
+{
+	Res->Setting(Type, Slot);
+}
+
+void UEngineSamplerSetter::Setting()
+{
 	Res->Setting(Type, Slot);
 }
 
@@ -55,6 +73,8 @@ void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string
 
 		D3D_SHADER_INPUT_TYPE Type = ResDesc.Type;
 
+		std::string UpperName = UEngineString::ToUpper(ResDesc.Name);
+
 		switch (Type)
 		{
 		case D3D_SIT_CBUFFER:
@@ -71,7 +91,6 @@ void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string
 			// 상수버퍼는 이름이 중요한게 아니라
 			// 바이트가 중요해.
 			std::shared_ptr<UEngineConstantBuffer> Buffer = UEngineConstantBuffer::CreateAndFind(_Type, ResDesc.Name, ConstantBufferDesc.Size);
-			std::string UpperName = UEngineString::ToUpper(ResDesc.Name);
 
 			UEngineConstantBufferSetter& NewSetter = ConstantBuffers[_Type][UpperName];
 			NewSetter.Type = _Type;
@@ -81,9 +100,21 @@ void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string
 			break;
 		}
 		case D3D_SIT_TEXTURE:
+		{
+			ResDesc.Name;
+			UEngineTextureSetter& NewSetter = Textures[_Type][UpperName];
+			NewSetter.Type = _Type;
+			NewSetter.Slot = ResDesc.BindPoint;
 			break;
+		}
 		case D3D_SIT_SAMPLER:
+		{
+			ResDesc.Name;
+			UEngineSamplerSetter& NewSetter = Samplers[_Type][UpperName];
+			NewSetter.Type = _Type;
+			NewSetter.Slot = ResDesc.BindPoint;
 			break;
+		}
 		default:
 			MsgBoxAssert("처리할수 없는 타입입니다.");
 			break;
@@ -151,4 +182,70 @@ void UEngineShaderResources::SettingAllShaderResources()
 		}
 	}
 
+	for (std::pair<const EShaderType, std::map<std::string, UEngineTextureSetter>>& Pair : Textures)
+	{
+		std::map<std::string, UEngineTextureSetter>& ResMap = Pair.second;
+
+		for (std::pair<const std::string, UEngineTextureSetter>& Setter : ResMap)
+		{
+			Setter.second.Setting();
+		}
+	}
+
+	for (std::pair<const EShaderType, std::map<std::string, UEngineSamplerSetter>>& Pair : Samplers)
+	{
+		std::map<std::string, UEngineSamplerSetter>& ResMap = Pair.second;
+
+		for (std::pair<const std::string, UEngineSamplerSetter>& Setter : ResMap)
+		{
+			Setter.second.Setting();
+		}
+	}
+
+
+}
+
+void UEngineShaderResources::SettingTexture(std::string_view _TexName, std::string_view _ImageName, std::string_view _SamperName)
+{
+	std::shared_ptr<UEngineTexture> FindTexture = UEngineTexture::FindRes(_ImageName);
+	std::shared_ptr<UEngineSampler> FindSampler = UEngineSampler::FindRes(_SamperName);
+
+	if (nullptr == FindTexture)
+	{
+		MsgBoxAssert("존재하지 않는 텍스처를 세팅하려고 했습니다.");
+		return;
+	}
+
+	if (nullptr == FindSampler)
+	{
+		MsgBoxAssert("존재하지 않는 샘플러를 세팅하려고 했습니다.");
+		return;
+	}
+
+	std::string UpperName = UEngineString::ToUpper(_TexName);
+	std::string SmpUpperName = UpperName + "_SAMPLER";
+
+	for (std::pair<const EShaderType, std::map<std::string, UEngineTextureSetter>>& Pair : Textures)
+	{
+		std::map<std::string, UEngineTextureSetter>& TexMap = Pair.second;
+		std::map<std::string, UEngineSamplerSetter>& SmpMap = Samplers[Pair.first];
+
+		// 샘플러와 텍스처가 한쌍이 아니면 세팅자체를 하지 않는구조 
+		if (false == TexMap.contains(UpperName))
+		{
+			continue;
+		}
+
+		if (false == SmpMap.contains(SmpUpperName))
+		{
+			MsgBoxAssert("텍스처와 한쌍인 샘플러가 존재하지 않습니다");
+			continue;
+		}
+
+		UEngineTextureSetter& TexSetter = TexMap[UpperName];
+		UEngineSamplerSetter& SmpSetter = SmpMap[SmpUpperName];
+
+		TexSetter.Res = FindTexture;
+		SmpSetter.Res = FindSampler;
+	}
 }

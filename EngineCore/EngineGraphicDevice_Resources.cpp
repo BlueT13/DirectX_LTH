@@ -32,17 +32,22 @@ void UEngineGraphicDevice::EngineResourcesRelease()
 void MeshInit()
 {
 	FEngineVertex::Info.AddInputLayOut("POSITION", DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT);
-	FEngineVertex::Info.AddInputLayOut("COLOR", DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT);
+	FEngineVertex::Info.AddInputLayOut("TEXCOORD", DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT);
 
 	{
 		std::vector<FEngineVertex> VertexData;
 		VertexData.resize(4);
 
 		{
-			VertexData[0] = { {-0.5f, 0.5f, 0.0f, 1.0f} };
-			VertexData[1] = { {0.5f, 0.5f, 0.0f, 1.0f} };
-			VertexData[2] = { {0.5f, -0.5f, 0.0f, 1.0f} };
-			VertexData[3] = { {-0.5f, -0.5f, 0.0f, 1.0f} };
+			// 00   10
+			// 0    1
+			// 01   11
+			// 3    2
+
+			VertexData[0] = { {-0.5f, 0.5f, 0.0f, 1.0f} , {0.0f, 0.0f} };
+			VertexData[1] = { {0.5f, 0.5f, 0.0f, 1.0f} , {2.0f, 0.0f} };
+			VertexData[2] = { {0.5f, -0.5f, 0.0f, 1.0f}, {2.0f, 2.0f} };
+			VertexData[3] = { {-0.5f, -0.5f, 0.0f, 1.0f}, {0.0f, 2.0f} };
 			std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UEngineVertexBuffer::Create("Rect", VertexData);
 		}
 
@@ -133,41 +138,70 @@ void SettingInit()
 		//BOOL MultisampleEnable;
 		//BOOL AntialiasedLineEnable;
 
+	{
+		D3D11_RASTERIZER_DESC Desc = {};
 
-	D3D11_RASTERIZER_DESC Desc = {};
+		// 면으로 그려라
+		Desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
+		// 선으로 그려라.
+		// Desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
 
-	// 면으로 그려라
-	Desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
-	// 선으로 그려라.
-	// Desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
+		// 앞면이건 뒷면이건 다 그려라.
+		// 우리 외적으로 앞
+		// 앞면 그리지마
 
-	// 앞면이건 뒷면이건 다 그려라.
-	// 우리 외적으로 앞
-	// 앞면 그리지마
-	
-	// Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_FRONT;
-	// 뒷면 그리지마
-	Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;
-	// 앞면과 뒷면
-	// 시계방향이면 뒷면으로 봅니다.
+		// Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_FRONT;
+		// 뒷면 그리지마
+		Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;
+		// 앞면과 뒷면
+		// 시계방향이면 뒷면으로 봅니다.
 
-	Desc.AntialiasedLineEnable = TRUE;
-	Desc.DepthClipEnable = TRUE;
+		Desc.AntialiasedLineEnable = TRUE;
+		Desc.DepthClipEnable = TRUE;
+
+		// 레스터라이저 세팅
+		UEngineRasterizer::Create("EngineBasic", Desc);
+	}
+
+	{
+		D3D11_SAMPLER_DESC Desc = {};
+
+		// 옵션바꾸면서 설명드리겠습니다.
+		// 가로
+		Desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		// 세로
+		Desc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		// 3차원 텍스터 여러장 겹쳐있는 멀티플 텍스처 일때
+		Desc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_CLAMP;
+
+		Desc.Filter = D3D11_FILTER::D3D11_FILTER_COMPARISON_MIN_MAG_MIP_LINEAR;
+
+		// 밉맵의 개념에 대해서 이해해야한다.
+		Desc.MipLODBias = 0.0f; // 보간하지 않는다.
+		Desc.MaxAnisotropy = 1;
+		// 특정 값의 비교를 통해서 색깔을 출력해야할때 여러곳에서 사용되는 옵션인데.
+		// 이건 그냥 무조건 비교하지 말고 출력해라.
+		Desc.ComparisonFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_ALWAYS;
+
+		Desc.MinLOD = -FLT_MAX;
+		Desc.MaxLOD = FLT_MAX;
+
+		// 필터
+
+		UEngineSampler::Create("POINT", Desc);
+	}
 
 
-	// 레스터라이저 세팅
-	UEngineRasterizer::Create("EngineBasic", Desc);
+}
+
+void MaterialInit()
+{
 
 
 	std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("2DImage");
 	Mat->SetPixelShader("ImageShader.fx");
 	Mat->SetVertexShader("ImageShader.fx");
 	Mat->SetRasterizer("EngineBasic");
-
-}
-
-void MaterialInit()
-{
 
 }
 

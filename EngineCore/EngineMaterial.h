@@ -20,7 +20,7 @@ public:
 
 	static std::shared_ptr<UEngineMaterial> Create(std::string _Name)
 	{
-		return CreateResName(_Name, "");
+		return CreateResName("", _Name);
 	}
 
 	std::shared_ptr<UEngineVertexShader> GetVertexShader()
