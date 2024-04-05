@@ -1,16 +1,16 @@
 #include "PreCompile.h"
-#include "GameCore.h"
+#include "DungreedCore.h"
 #include "PlayGameMode.h"
 
-UGameCore::UGameCore()
+UDungreedCore::UDungreedCore()
 {
 }
 
-UGameCore::~UGameCore()
+UDungreedCore::~UDungreedCore()
 {
 }
 
-void UGameCore::Initialize()
+void UDungreedCore::Initialize()
 {
 	{
 		// 파일의 헤더

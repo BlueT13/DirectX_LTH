@@ -3,4 +3,4 @@
 #pragma comment (lib, "EngineBase.lib")
 #pragma comment (lib, "EnginePlatform.lib")
 #pragma comment (lib, "EngineCore.lib")
-#pragma comment (lib, "GameCore.lib")
+#pragma comment (lib, "Dungreed.lib")

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="DungreedCore.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayGameMode.cpp">
+      <Filter>Level\PlayLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Level\PlayLevel\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="PreCompile.cpp">
+      <Filter>Level\PreCompile</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DungreedCore.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayGameMode.h">
+      <Filter>Level\PlayLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Level\PlayLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="PreCompile.h">
+      <Filter>Level\PreCompile</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{cdadc507-0750-4c61-8a92-466531c3f045}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level">
+      <UniqueIdentifier>{46ec390e-358e-4737-9d7b-85e629c12bf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\PlayLevel">
+      <UniqueIdentifier>{439de66a-6ef8-4585-9350-d7e1a15e92d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\TitleLevel">
+      <UniqueIdentifier>{6c01fc04-7696-449f-9b11-7cbab330636e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\TitleLevel\Actor">
+      <UniqueIdentifier>{05955cd7-2b5d-4833-b1d7-1ab1fdaf4617}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\PlayLevel\Actor">
+      <UniqueIdentifier>{59672136-0515-44b8-afd9-2264780cf9e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\PreCompile">
+      <UniqueIdentifier>{ca6b2e85-8502-441c-97e9-7f40dbe55370}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
