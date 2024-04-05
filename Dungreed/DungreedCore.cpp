@@ -43,23 +43,23 @@ void UDungreedCore::Initialize()
 	}
 
 
-	{
-		UEngineDirectory Dir;
-		Dir.MoveToSearchChild("Resources");
-		Dir.Move("Sound");
-		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".wav" });
-		for (UEngineFile& File : Files)
-		{
-			//File.Open(EIOOpenMode::Read, EIODataType::Binary);
+	//{
+	//	UEngineDirectory Dir;
+	//	Dir.MoveToSearchChild("Resources");
+	//	Dir.Move("Sound");
+	//	std::vector<UEngineFile> Files = Dir.GetAllFile({ ".wav" });
+	//	for (UEngineFile& File : Files)
+	//	{
+	//		//File.Open(EIOOpenMode::Read, EIODataType::Binary);
 
-			//char Arr[100];
-			//File.Read(Arr, 100);
+	//		//char Arr[100];
+	//		//File.Read(Arr, 100);
 
-			UEngineSound::Load(File.GetFullPath());
-		}
-		
-		// UEngineSound::SoundPlay("~~~.wav");
-	}
+	//		UEngineSound::Load(File.GetFullPath());
+	//	}
+	//	
+	//	// UEngineSound::SoundPlay("~~~.wav");
+	//}
 
 	GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
 	GEngine->CreateLevel<APlayGameMode>("PlayLevel");
