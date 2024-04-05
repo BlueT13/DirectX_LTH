@@ -3,20 +3,20 @@
 #include <EngineCore/SpriteRenderer.h>
 
 // Ό³Έν :
-class ATitleLogo : public AActor
+class ATitleImage : public AActor
 {
 	GENERATED_BODY(AActor)
 
 public:
 	// constrcuter destructer
-	ATitleLogo();
-	~ATitleLogo();
+	ATitleImage();
+	~ATitleImage();
 
 	// delete Function
-	ATitleLogo(const ATitleLogo& _Other) = delete;
-	ATitleLogo(ATitleLogo&& _Other) noexcept = delete;
-	ATitleLogo& operator=(const ATitleLogo& _Other) = delete;
-	ATitleLogo& operator=(ATitleLogo&& _Other) noexcept = delete;
+	ATitleImage(const ATitleImage& _Other) = delete;
+	ATitleImage(ATitleImage&& _Other) noexcept = delete;
+	ATitleImage& operator=(const ATitleImage& _Other) = delete;
+	ATitleImage& operator=(ATitleImage&& _Other) noexcept = delete;
 
 protected:
 	void BeginPlay() override;
@@ -27,5 +27,6 @@ protected:
 
 private:
 	USpriteRenderer* Renderer = nullptr;
+	int Index = 0;
 };
 

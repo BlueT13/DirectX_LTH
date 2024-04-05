@@ -2,15 +2,12 @@
 #include "Player.h"
 #include <EngineCore/Renderer.h>
 
-APlayer::APlayer() 
+APlayer::APlayer()
 {
-	Renderer = CreateDefaultSubObject<URenderer>("Renderer");
-
-	Renderer->SetMesh("Rect");
-	Renderer->SetMaterial("2DImage");
+	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 }
 
-APlayer::~APlayer() 
+APlayer::~APlayer()
 {
 }
 
@@ -20,7 +17,7 @@ void APlayer::BeginPlay()
 
 	SetActorScale3D(FVector(300.0f, 300.0f, 100.0f));
 
-	Renderer->Resources->SettingTexture("Image", "CharIdle0.png", "POINT");
+	Renderer->SetSprite("Die", 0);
 }
 
 void APlayer::Tick(float _DeltaTime)

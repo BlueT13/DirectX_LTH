@@ -1,5 +1,6 @@
 #pragma once
 #include <EngineCore/Actor.h>
+#include <EngineCore/SpriteRenderer.h>
 
 // Ό³Έν :
 class URenderer;
@@ -23,7 +24,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	URenderer* Renderer;
+	USpriteRenderer* Renderer = nullptr;
 	float Speed = 100.0f;
 	float4 Color;
 };

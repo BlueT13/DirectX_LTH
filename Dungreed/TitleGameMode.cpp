@@ -1,6 +1,6 @@
 #include "PreCompile.h"
 #include "TitleGameMode.h"
-#include "TitleLogo.h"
+#include "TitleImage.h"
 #include <EngineCore/Camera.h>
 
 ATitleGameMode::ATitleGameMode() 
@@ -17,7 +17,7 @@ void ATitleGameMode::BeginPlay()
 
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
-	GetWorld()->SpawnActor<ATitleLogo>("TitleLogo");
+	GetWorld()->SpawnActor<ATitleImage>("TitleImage");
 }
 
 void ATitleGameMode::Tick(float _DeltaTime)
@@ -38,5 +38,4 @@ void ATitleGameMode::LevelEnd(ULevel* _NextLevel)
 void ATitleGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
-
 }

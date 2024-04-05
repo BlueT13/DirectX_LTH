@@ -49,19 +49,19 @@
     <Filter Include="Resources\ShaderResources">
       <UniqueIdentifier>{4d43a5da-796c-4fde-b6ca-8d9ab532b052}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\ThirdParty">
+    <Filter Include="ThirdParty">
       <UniqueIdentifier>{fd6d9dcb-8410-4fa7-b5c8-5abe2648e377}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\ThirdParty\DirectXTex">
+    <Filter Include="ThirdParty\DirectXTex">
       <UniqueIdentifier>{2b2bb3df-d915-4b97-a8df-388112465d28}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\ThirdParty\DirectXTex\Debug">
+    <Filter Include="ThirdParty\DirectXTex\Debug">
       <UniqueIdentifier>{3b275b09-9158-4bca-bd93-15a246df0c08}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\ThirdParty\DirectXTex\Inc">
+    <Filter Include="ThirdParty\DirectXTex\Inc">
       <UniqueIdentifier>{1a6f87a0-548f-4111-bd55-b5e3cd5119bf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\ThirdParty\DirectXTex\Release">
+    <Filter Include="ThirdParty\DirectXTex\Release">
       <UniqueIdentifier>{c197848b-af84-411c-be70-463d6b3b2d23}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -267,7 +267,7 @@
       <Filter>Resources\Texture</Filter>
     </ClInclude>
     <ClInclude Include="ThirdParty\DirectxTex\inc\DirectXTex.h">
-      <Filter>Resources\ThirdParty\DirectXTex\Inc</Filter>
+      <Filter>ThirdParty\DirectXTex\Inc</Filter>
     </ClInclude>
     <ClInclude Include="SpriteRenderer.h">
       <Filter>Object\Rendering\Component</Filter>
@@ -278,10 +278,10 @@
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="ThirdParty\DirectxTex\Debug\DirectXTex.lib">
-      <Filter>Resources\ThirdParty\DirectXTex\Debug</Filter>
+      <Filter>ThirdParty\DirectXTex\Debug</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="ThirdParty\DirectxTex\Release\DirectXTex.lib">
-      <Filter>Resources\ThirdParty\DirectXTex\Release</Filter>
+      <Filter>ThirdParty\DirectXTex\Release</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>
