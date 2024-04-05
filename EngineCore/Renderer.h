@@ -5,6 +5,13 @@
 
 // 설명 : public std::enable_shared_from_this<URenderer>
 // shared_ptr로 this를 배출할수 있는 기능을 가진 클래스입니다.
+
+// URenderer는 지금 뭐든지 할수 있는 상황이다.
+// 모든랜더링을 다할수 있다.
+// 그러면 안된다.
+// 기능이 집약되지 않았고 특화기능을 만들수가 없다.
+// 특화기능?
+
 class UEngineShaderResources;
 class URenderer : public USceneComponent, public std::enable_shared_from_this<URenderer>
 {

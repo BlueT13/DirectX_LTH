@@ -13,6 +13,12 @@
     <ClCompile Include="PreCompile.cpp">
       <Filter>Level\PreCompile</Filter>
     </ClCompile>
+    <ClCompile Include="TitleGameMode.cpp">
+      <Filter>Level\TitleLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleLogo.cpp">
+      <Filter>Level\TitleLevel\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DungreedCore.h">
@@ -26,6 +32,12 @@
     </ClInclude>
     <ClInclude Include="PreCompile.h">
       <Filter>Level\PreCompile</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleGameMode.h">
+      <Filter>Level\TitleLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleLogo.h">
+      <Filter>Level\TitleLevel\Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

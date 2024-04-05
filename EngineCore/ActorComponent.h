@@ -20,9 +20,21 @@ public:
 	UActorComponent& operator=(const UActorComponent& _Other) = delete;
 	UActorComponent& operator=(UActorComponent&& _Other) noexcept = delete;
 
+	bool IsActive()
+	{
+		return ActiveValue;
+	}
+
+	void SetActive(bool _Value)
+	{
+		ActiveValue = _Value;
+	}
+
 protected:
 
 private:
+	bool ActiveValue = true;
+
 	AActor* Actor = nullptr;
 
 	void SetActor(AActor* _Actor)

@@ -20,7 +20,6 @@ void APlayer::BeginPlay()
 
 	SetActorScale3D(FVector(300.0f, 300.0f, 100.0f));
 
-	Renderer->Resources->SettingConstantBuffer("OutPutColor", Color);
 	Renderer->Resources->SettingTexture("Image", "CharIdle0.png", "POINT");
 }
 

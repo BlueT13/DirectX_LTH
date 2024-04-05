@@ -60,6 +60,9 @@ protected:
 	void Tick(float _DeltaTime) override;
 	void Render(float _DeltaTime);
 
+	void LevelEnd(ULevel* _NextLevel) override;
+	void LevelStart(ULevel* _PrevLevel) override;
+
 private:
 	std::shared_ptr<UCamera> MainCamera = nullptr;
 	std::shared_ptr<UCamera> UICamera = nullptr;

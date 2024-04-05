@@ -22,11 +22,25 @@ void UEngineConstantBufferSetter::Setting()
 
 void UEngineTextureSetter::Setting()
 {
+#ifdef _DEBUG
+	if (nullptr == Res)
+	{
+		MsgBoxAssert(GetName() + " 텍스처를 세팅해주지 않았습니다.");
+	}
+#endif
+
 	Res->Setting(Type, Slot);
 }
 
 void UEngineSamplerSetter::Setting()
 {
+#ifdef _DEBUG
+	if (nullptr == Res)
+	{
+		MsgBoxAssert(GetName() + " 샘플러를 세팅해주지 않았습니다.");
+	}
+#endif
+
 	Res->Setting(Type, Slot);
 }
 
@@ -93,6 +107,7 @@ void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string
 			std::shared_ptr<UEngineConstantBuffer> Buffer = UEngineConstantBuffer::CreateAndFind(_Type, ResDesc.Name, ConstantBufferDesc.Size);
 
 			UEngineConstantBufferSetter& NewSetter = ConstantBuffers[_Type][UpperName];
+			NewSetter.SetName(ResDesc.Name);
 			NewSetter.Type = _Type;
 			NewSetter.Slot = ResDesc.BindPoint;
 			NewSetter.BufferSize = ConstantBufferDesc.Size;
@@ -103,6 +118,7 @@ void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string
 		{
 			ResDesc.Name;
 			UEngineTextureSetter& NewSetter = Textures[_Type][UpperName];
+			NewSetter.SetName(ResDesc.Name);
 			NewSetter.Type = _Type;
 			NewSetter.Slot = ResDesc.BindPoint;
 			break;
@@ -111,6 +127,7 @@ void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string
 		{
 			ResDesc.Name;
 			UEngineSamplerSetter& NewSetter = Samplers[_Type][UpperName];
+			NewSetter.SetName(ResDesc.Name);
 			NewSetter.Type = _Type;
 			NewSetter.Slot = ResDesc.BindPoint;
 			break;
@@ -132,6 +149,12 @@ void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string
 void UEngineShaderResources::SettingConstantBuffer(std::string_view _Name, const void* _Data, UINT _Size)
 {
 	std::string UpperName = UEngineString::ToUpper(_Name);
+	if (false == IsConstantBuffer(UpperName))
+	{
+		MsgBoxAssert("존재하지도 않는 상수버퍼에 세팅하려고 했습니다." + UpperName);
+		return;
+	}
+
 
 	for (std::pair<const EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& Pair : ConstantBuffers)
 	{
@@ -208,6 +231,12 @@ void UEngineShaderResources::SettingAllShaderResources()
 void UEngineShaderResources::SettingTexture(std::string_view _TexName, std::string_view _ImageName, std::string_view _SamperName)
 {
 	std::shared_ptr<UEngineTexture> FindTexture = UEngineTexture::FindRes(_ImageName);
+	SettingTexture(_TexName, FindTexture, _SamperName);
+}
+
+void UEngineShaderResources::SettingTexture(std::string_view _TexName, std::shared_ptr<UEngineTexture> _Texture, std::string_view _SamperName)
+{
+	std::shared_ptr<UEngineTexture> FindTexture = _Texture;
 	std::shared_ptr<UEngineSampler> FindSampler = UEngineSampler::FindRes(_SamperName);
 
 	if (nullptr == FindTexture)

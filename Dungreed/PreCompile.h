@@ -6,3 +6,4 @@
 #include <EngineCore/EngineSampler.h>
 #include <EngineCore/Renderer.h>
 #include <EngineCore/EngineShaderResources.h>
+#include <EngineCore/EngineCore.h>
