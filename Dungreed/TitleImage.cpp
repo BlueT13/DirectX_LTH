@@ -26,7 +26,7 @@ void ATitleImage::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetActorScale3D(FVector(700.0f, 300.0f, 100.0f));
+	SetActorScale3D(FVector(700.0f, 300.0f, 0.0f));
 
 	//DelayCallBack(1.0f, std::bind(&ATitleImage::RendererOff, this));
 

@@ -38,7 +38,7 @@ public:
 		// 이 사이에서만 컴포넌트를 생성할수 있어야 한다.
 		IsActorConstructer = true;
 		std::shared_ptr<AActor> NewActor = std::make_shared<ActorType>();
-		NewActor->RootCheck();
+		ConstructorActor(NewActor);
 		IsActorConstructer = false;
 
 		// 이
@@ -72,6 +72,7 @@ private:
 
 	std::map<int, std::list<std::shared_ptr<URenderer>>> Renderers;
 
+	void ConstructorActor(std::shared_ptr<AActor> _Actor);
 	void PushActor(std::shared_ptr<AActor> _Actor);
 	void PushRenderer(std::shared_ptr<URenderer> _Renderer);
 	

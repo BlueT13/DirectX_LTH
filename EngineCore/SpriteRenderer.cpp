@@ -118,12 +118,6 @@ void USpriteRenderer::CreateAnimation(
 	int _Start /*= -1*/, 
 	int _End /*= -1*/)
 {
-	if (_Start > _End)
-	{
-		MsgBoxAssert("아직 역방향 기능은 지원하지 않습니다.");
-		return;
-	}
-
 	std::shared_ptr<UEngineSprite> FindSprite = UEngineSprite::FindRes(_SpriteName);
 
 	if (nullptr == FindSprite)
@@ -141,10 +135,22 @@ void USpriteRenderer::CreateAnimation(
 	if (0 > _Start)
 	{
 		Start = 0;
-		End = static_cast<int>(FindSprite->GetInfoSize());
 	}
 
-	for (int i = 0; i < End; i++)
+	if (0 > End)
+	{
+		End = static_cast<int>(FindSprite->GetInfoSize()) - 1;
+	}
+
+	if (End < Start)
+	{
+		MsgBoxAssert("아직 역방향 기능은 지원하지 않습니다.");
+		return;
+	}
+
+
+
+	for (int i = Start; i < End + 1; i++)
 	{
 		Inter.push_back(_Inter);
 		Frame.push_back(i);

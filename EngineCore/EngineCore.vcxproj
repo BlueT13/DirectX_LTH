@@ -172,6 +172,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DefaultSceneComponent.cpp" />
     <ClCompile Include="DirectXHelper.cpp" />
+    <ClCompile Include="EngineBlend.cpp" />
     <ClCompile Include="EngineBuffer.cpp" />
     <ClCompile Include="EngineConstantBuffer.cpp" />
     <ClCompile Include="EngineCore.cpp" />
@@ -213,6 +214,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DefaultSceneComponent.h" />
     <ClInclude Include="DirectXHelper.h" />
+    <ClInclude Include="EngineBlend.h" />
     <ClInclude Include="EngineBuffer.h" />
     <ClInclude Include="EngineConstantBuffer.h" />
     <ClInclude Include="EngineCore.h" />
@@ -258,6 +260,22 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="ThirdParty\DirectxTex\Debug\DirectXTex.pdb">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\DirectxTex\Release\DirectXTex.pdb">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

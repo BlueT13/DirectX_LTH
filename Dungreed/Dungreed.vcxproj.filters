@@ -19,6 +19,9 @@
     <ClCompile Include="TitleImage.cpp">
       <Filter>Level\TitleLevel\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>Level\PlayLevel\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DungreedCore.h">
@@ -38,6 +41,9 @@
     </ClInclude>
     <ClInclude Include="TitleImage.h">
       <Filter>Level\TitleLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.h">
+      <Filter>Level\PlayLevel\Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

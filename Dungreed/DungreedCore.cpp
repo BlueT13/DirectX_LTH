@@ -19,11 +19,11 @@ void UDungreedCore::Initialize()
 		Dir.MoveToSearchChild("Resources");
 		Dir.Move("Image");
 
-		//std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
-		//for (UEngineFile& File : Files)
-		//{
-		//	UEngineSprite::Load(File.GetFullPath());
-		//}
+		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
+		for (UEngineFile& File : Files)
+		{
+			UEngineSprite::Load(File.GetFullPath());
+		}
 
 		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
 		for (size_t i = 0; i < Directorys.size(); i++)

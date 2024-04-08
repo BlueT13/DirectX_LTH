@@ -90,6 +90,8 @@ void UEngineCore::EngineFrameUpdate()
 	float DeltaTime = MainTimer.TimeCheck();
 	UEngineInput::KeyCheckTick(DeltaTime);
 
+	GEngine->EngineWindow.CalculateMouseUpdate(DeltaTime);
+
 	if (nullptr != NextLevel)
 	{
 		if (nullptr != CurLevel)

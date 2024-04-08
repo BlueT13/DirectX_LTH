@@ -180,6 +180,15 @@ FVector UEngineWindow::GetMousePosition()
 	return FVector(MousePoint.x, MousePoint.y);
 }
 
+void UEngineWindow::CalculateMouseUpdate(float _DeltaTime)
+{
+	// 윈도우 포지션.
+	ScreenMousePos = GetMousePosition();
+	ScreenMouseDir = ScreenMousePrevPos - ScreenMousePos;
+	ScreenMouseDirNormal = ScreenMouseDir.Normalize2DReturn();
+	ScreenMousePrevPos = ScreenMousePos;
+}
+
 void UEngineWindow::SetWindowPosition(const FVector& _Pos)
 {
 	Position = _Pos;

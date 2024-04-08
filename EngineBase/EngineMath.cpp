@@ -9,6 +9,8 @@ const float UEngineMath::RToD = 180.0f / UEngineMath::PI;
 
 const float4 float4::Zero = { 0.0f, 0.0f, 0.0f, 0.0f };
 const float4 float4::One = { 1.0f, 1.0f, 1.0f, 0.0f };
+const float4 float4::Forward = { 0.0f, 0.0f, 1.0f, 0.0f };;
+const float4 float4::BackWard = { 0.0f, 0.0f, -1.0f, 0.0f };;
 const float4 float4::Left = {-1.0f, 0.0f, 0.0f, 0.0f};
 const float4 float4::Right = { 1.0f, 0.0f, 0.0f, 0.0f };
 const float4 float4::Up = { 0.0f, 1.0f, 0.0f, 0.0f };
@@ -50,20 +52,23 @@ UEngineMath::~UEngineMath()
 float4 float4::operator*(const float4x4& _Other) const
 {
 	float4 Result;
-	Result.X = (Arr2D[0][0] * _Other.Arr2D[0][0]) + (Arr2D[0][1] * _Other.Arr2D[1][0]) + (Arr2D[0][2] * _Other.Arr2D[2][0]) + (Arr2D[0][3] * _Other.Arr2D[3][0]);
-	Result.Y = (Arr2D[0][0] * _Other.Arr2D[0][1]) + (Arr2D[0][1] * _Other.Arr2D[1][1]) + (Arr2D[0][2] * _Other.Arr2D[2][1]) + (Arr2D[0][3] * _Other.Arr2D[3][1]);
-	Result.Z = (Arr2D[0][0] * _Other.Arr2D[0][2]) + (Arr2D[0][1] * _Other.Arr2D[1][2]) + (Arr2D[0][2] * _Other.Arr2D[2][2]) + (Arr2D[0][3] * _Other.Arr2D[3][2]);
-	Result.W = (Arr2D[0][0] * _Other.Arr2D[0][3]) + (Arr2D[0][1] * _Other.Arr2D[1][3]) + (Arr2D[0][2] * _Other.Arr2D[2][3]) + (Arr2D[0][3] * _Other.Arr2D[3][3]);
+	Result.DirectVector = DirectX::XMVector4Transform(DirectVector, _Other.DirectMatrix);
 	return Result;
 }
 
 float4& float4::operator*=(const class float4x4& _Other) 
 {
+	const float4& Left = *this;
+	const float4x4& Right = _Other;
+
 	float4 Result;
-	Result.X = (Arr2D[0][0] * _Other.Arr2D[0][0]) + (Arr2D[0][1] * _Other.Arr2D[1][0]) + (Arr2D[0][2] * _Other.Arr2D[2][0]) + (Arr2D[0][3] * _Other.Arr2D[3][0]);
-	Result.Y = (Arr2D[0][0] * _Other.Arr2D[0][1]) + (Arr2D[0][1] * _Other.Arr2D[1][1]) + (Arr2D[0][2] * _Other.Arr2D[2][1]) + (Arr2D[0][3] * _Other.Arr2D[3][1]);
-	Result.Z = (Arr2D[0][0] * _Other.Arr2D[0][2]) + (Arr2D[0][1] * _Other.Arr2D[1][2]) + (Arr2D[0][2] * _Other.Arr2D[2][2]) + (Arr2D[0][3] * _Other.Arr2D[3][2]);
-	Result.W = (Arr2D[0][0] * _Other.Arr2D[0][3]) + (Arr2D[0][1] * _Other.Arr2D[1][3]) + (Arr2D[0][2] * _Other.Arr2D[2][3]) + (Arr2D[0][3] * _Other.Arr2D[3][3]);
+	Result.DirectVector = DirectX::XMVector4Transform(Left.DirectVector, Right.DirectMatrix);
+
+
+	//Result.X = (Arr2D[0][0] * _Other.Arr2D[0][0]) + (Arr2D[0][1] * _Other.Arr2D[1][0]) + (Arr2D[0][2] * _Other.Arr2D[2][0]) + (Arr2D[0][3] * _Other.Arr2D[3][0]);
+	//Result.Y = (Arr2D[0][0] * _Other.Arr2D[0][1]) + (Arr2D[0][1] * _Other.Arr2D[1][1]) + (Arr2D[0][2] * _Other.Arr2D[2][1]) + (Arr2D[0][3] * _Other.Arr2D[3][1]);
+	//Result.Z = (Arr2D[0][0] * _Other.Arr2D[0][2]) + (Arr2D[0][1] * _Other.Arr2D[1][2]) + (Arr2D[0][2] * _Other.Arr2D[2][2]) + (Arr2D[0][3] * _Other.Arr2D[3][2]);
+	//Result.W = (Arr2D[0][0] * _Other.Arr2D[0][3]) + (Arr2D[0][1] * _Other.Arr2D[1][3]) + (Arr2D[0][2] * _Other.Arr2D[2][3]) + (Arr2D[0][3] * _Other.Arr2D[3][3]);
 	*this = Result;
 	return *this;
 }
@@ -71,29 +76,31 @@ float4& float4::operator*=(const class float4x4& _Other)
 float4x4 operator *(const float4x4& _Left, const float4x4& _Right)
 {
 	float4x4 Result;
-	const float4x4& A = _Left;
-	const float4x4& B = _Right;
+	Result.DirectMatrix =  DirectX::XMMatrixMultiply(_Left.DirectMatrix, _Right.DirectMatrix);
+
+	//const float4x4& A = _Left;
+	//const float4x4& B = _Right;
 
 
-	Result.Arr2D[0][0] = (A.Arr2D[0][0] * B.Arr2D[0][0]) + (A.Arr2D[0][1] * B.Arr2D[1][0]) + (A.Arr2D[0][2] * B.Arr2D[2][0]) + (A.Arr2D[0][3] * B.Arr2D[3][0]);
-	Result.Arr2D[0][1] = (A.Arr2D[0][0] * B.Arr2D[0][1]) + (A.Arr2D[0][1] * B.Arr2D[1][1]) + (A.Arr2D[0][2] * B.Arr2D[2][1]) + (A.Arr2D[0][3] * B.Arr2D[3][1]);
-	Result.Arr2D[0][2] = (A.Arr2D[0][0] * B.Arr2D[0][2]) + (A.Arr2D[0][1] * B.Arr2D[1][2]) + (A.Arr2D[0][2] * B.Arr2D[2][2]) + (A.Arr2D[0][3] * B.Arr2D[3][2]);
-	Result.Arr2D[0][3] = (A.Arr2D[0][0] * B.Arr2D[0][3]) + (A.Arr2D[0][1] * B.Arr2D[1][3]) + (A.Arr2D[0][2] * B.Arr2D[2][3]) + (A.Arr2D[0][3] * B.Arr2D[3][3]);
+	//Result.Arr2D[0][0] = (A.Arr2D[0][0] * B.Arr2D[0][0]) + (A.Arr2D[0][1] * B.Arr2D[1][0]) + (A.Arr2D[0][2] * B.Arr2D[2][0]) + (A.Arr2D[0][3] * B.Arr2D[3][0]);
+	//Result.Arr2D[0][1] = (A.Arr2D[0][0] * B.Arr2D[0][1]) + (A.Arr2D[0][1] * B.Arr2D[1][1]) + (A.Arr2D[0][2] * B.Arr2D[2][1]) + (A.Arr2D[0][3] * B.Arr2D[3][1]);
+	//Result.Arr2D[0][2] = (A.Arr2D[0][0] * B.Arr2D[0][2]) + (A.Arr2D[0][1] * B.Arr2D[1][2]) + (A.Arr2D[0][2] * B.Arr2D[2][2]) + (A.Arr2D[0][3] * B.Arr2D[3][2]);
+	//Result.Arr2D[0][3] = (A.Arr2D[0][0] * B.Arr2D[0][3]) + (A.Arr2D[0][1] * B.Arr2D[1][3]) + (A.Arr2D[0][2] * B.Arr2D[2][3]) + (A.Arr2D[0][3] * B.Arr2D[3][3]);
 
-	Result.Arr2D[1][0] = (A.Arr2D[1][0] * B.Arr2D[0][0]) + (A.Arr2D[1][1] * B.Arr2D[1][0]) + (A.Arr2D[1][2] * B.Arr2D[2][0]) + (A.Arr2D[1][3] * B.Arr2D[3][0]);
-	Result.Arr2D[1][1] = (A.Arr2D[1][0] * B.Arr2D[0][1]) + (A.Arr2D[1][1] * B.Arr2D[1][1]) + (A.Arr2D[1][2] * B.Arr2D[2][1]) + (A.Arr2D[1][3] * B.Arr2D[3][1]);
-	Result.Arr2D[1][2] = (A.Arr2D[1][0] * B.Arr2D[0][2]) + (A.Arr2D[1][1] * B.Arr2D[1][2]) + (A.Arr2D[1][2] * B.Arr2D[2][2]) + (A.Arr2D[1][3] * B.Arr2D[3][2]);
-	Result.Arr2D[1][3] = (A.Arr2D[1][0] * B.Arr2D[0][3]) + (A.Arr2D[1][1] * B.Arr2D[1][3]) + (A.Arr2D[1][2] * B.Arr2D[2][3]) + (A.Arr2D[1][3] * B.Arr2D[3][3]);
+	//Result.Arr2D[1][0] = (A.Arr2D[1][0] * B.Arr2D[0][0]) + (A.Arr2D[1][1] * B.Arr2D[1][0]) + (A.Arr2D[1][2] * B.Arr2D[2][0]) + (A.Arr2D[1][3] * B.Arr2D[3][0]);
+	//Result.Arr2D[1][1] = (A.Arr2D[1][0] * B.Arr2D[0][1]) + (A.Arr2D[1][1] * B.Arr2D[1][1]) + (A.Arr2D[1][2] * B.Arr2D[2][1]) + (A.Arr2D[1][3] * B.Arr2D[3][1]);
+	//Result.Arr2D[1][2] = (A.Arr2D[1][0] * B.Arr2D[0][2]) + (A.Arr2D[1][1] * B.Arr2D[1][2]) + (A.Arr2D[1][2] * B.Arr2D[2][2]) + (A.Arr2D[1][3] * B.Arr2D[3][2]);
+	//Result.Arr2D[1][3] = (A.Arr2D[1][0] * B.Arr2D[0][3]) + (A.Arr2D[1][1] * B.Arr2D[1][3]) + (A.Arr2D[1][2] * B.Arr2D[2][3]) + (A.Arr2D[1][3] * B.Arr2D[3][3]);
 
-	Result.Arr2D[2][0] = (A.Arr2D[2][0] * B.Arr2D[0][0]) + (A.Arr2D[2][1] * B.Arr2D[1][0]) + (A.Arr2D[2][2] * B.Arr2D[2][0]) + (A.Arr2D[2][3] * B.Arr2D[3][0]);
-	Result.Arr2D[2][1] = (A.Arr2D[2][0] * B.Arr2D[0][1]) + (A.Arr2D[2][1] * B.Arr2D[1][1]) + (A.Arr2D[2][2] * B.Arr2D[2][1]) + (A.Arr2D[2][3] * B.Arr2D[3][1]);
-	Result.Arr2D[2][2] = (A.Arr2D[2][0] * B.Arr2D[0][2]) + (A.Arr2D[2][1] * B.Arr2D[1][2]) + (A.Arr2D[2][2] * B.Arr2D[2][2]) + (A.Arr2D[2][3] * B.Arr2D[3][2]);
-	Result.Arr2D[2][3] = (A.Arr2D[2][0] * B.Arr2D[0][3]) + (A.Arr2D[2][1] * B.Arr2D[1][3]) + (A.Arr2D[2][2] * B.Arr2D[2][3]) + (A.Arr2D[2][3] * B.Arr2D[3][3]);
+	//Result.Arr2D[2][0] = (A.Arr2D[2][0] * B.Arr2D[0][0]) + (A.Arr2D[2][1] * B.Arr2D[1][0]) + (A.Arr2D[2][2] * B.Arr2D[2][0]) + (A.Arr2D[2][3] * B.Arr2D[3][0]);
+	//Result.Arr2D[2][1] = (A.Arr2D[2][0] * B.Arr2D[0][1]) + (A.Arr2D[2][1] * B.Arr2D[1][1]) + (A.Arr2D[2][2] * B.Arr2D[2][1]) + (A.Arr2D[2][3] * B.Arr2D[3][1]);
+	//Result.Arr2D[2][2] = (A.Arr2D[2][0] * B.Arr2D[0][2]) + (A.Arr2D[2][1] * B.Arr2D[1][2]) + (A.Arr2D[2][2] * B.Arr2D[2][2]) + (A.Arr2D[2][3] * B.Arr2D[3][2]);
+	//Result.Arr2D[2][3] = (A.Arr2D[2][0] * B.Arr2D[0][3]) + (A.Arr2D[2][1] * B.Arr2D[1][3]) + (A.Arr2D[2][2] * B.Arr2D[2][3]) + (A.Arr2D[2][3] * B.Arr2D[3][3]);
 
-	Result.Arr2D[3][0] = (A.Arr2D[3][0] * B.Arr2D[0][0]) + (A.Arr2D[3][1] * B.Arr2D[1][0]) + (A.Arr2D[3][2] * B.Arr2D[2][0]) + (A.Arr2D[3][3] * B.Arr2D[3][0]);
-	Result.Arr2D[3][1] = (A.Arr2D[3][0] * B.Arr2D[0][1]) + (A.Arr2D[3][1] * B.Arr2D[1][1]) + (A.Arr2D[3][2] * B.Arr2D[2][1]) + (A.Arr2D[3][3] * B.Arr2D[3][1]);
-	Result.Arr2D[3][2] = (A.Arr2D[3][0] * B.Arr2D[0][2]) + (A.Arr2D[3][1] * B.Arr2D[1][2]) + (A.Arr2D[3][2] * B.Arr2D[2][2]) + (A.Arr2D[3][3] * B.Arr2D[3][2]);
-	Result.Arr2D[3][3] = (A.Arr2D[3][0] * B.Arr2D[0][3]) + (A.Arr2D[3][1] * B.Arr2D[1][3]) + (A.Arr2D[3][2] * B.Arr2D[2][3]) + (A.Arr2D[3][3] * B.Arr2D[3][3]);
+	//Result.Arr2D[3][0] = (A.Arr2D[3][0] * B.Arr2D[0][0]) + (A.Arr2D[3][1] * B.Arr2D[1][0]) + (A.Arr2D[3][2] * B.Arr2D[2][0]) + (A.Arr2D[3][3] * B.Arr2D[3][0]);
+	//Result.Arr2D[3][1] = (A.Arr2D[3][0] * B.Arr2D[0][1]) + (A.Arr2D[3][1] * B.Arr2D[1][1]) + (A.Arr2D[3][2] * B.Arr2D[2][1]) + (A.Arr2D[3][3] * B.Arr2D[3][1]);
+	//Result.Arr2D[3][2] = (A.Arr2D[3][0] * B.Arr2D[0][2]) + (A.Arr2D[3][1] * B.Arr2D[1][2]) + (A.Arr2D[3][2] * B.Arr2D[2][2]) + (A.Arr2D[3][3] * B.Arr2D[3][2]);
+	//Result.Arr2D[3][3] = (A.Arr2D[3][0] * B.Arr2D[0][3]) + (A.Arr2D[3][1] * B.Arr2D[1][3]) + (A.Arr2D[3][2] * B.Arr2D[2][3]) + (A.Arr2D[3][3] * B.Arr2D[3][3]);
 
 	return Result;
 }

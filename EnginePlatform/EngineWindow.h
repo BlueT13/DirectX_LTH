@@ -71,8 +71,27 @@ public:
 
 	void SetWindowSmallIcon();
 	
-	FVector GetMousePosition();
+	
 	void CursorOff();
+
+	inline float4 GetScreenMousePrevPos()
+	{ 
+		return ScreenMousePrevPos; 
+	}
+	inline float4 GetScreenMousePos()
+	{ 
+		return ScreenMousePos; 
+	}
+	inline float4 GetScreenMouseDir()
+	{ 
+		return ScreenMouseDir; 
+	}
+	inline float4 GetScreenMouseDirNormal() 
+	{ 
+		return ScreenMouseDirNormal; 
+	}
+
+	void CalculateMouseUpdate(float _DeltaTime);
 
 protected:
 
@@ -89,4 +108,11 @@ private:
 
 	std::shared_ptr<UWindowImage> WindowImage = nullptr;
 	std::shared_ptr<UWindowImage> BackBufferImage = nullptr;
+
+	float4 ScreenMousePrevPos;
+	float4 ScreenMousePos;
+	float4 ScreenMouseDir;
+	float4 ScreenMouseDirNormal;
+
+	FVector GetMousePosition();
 };

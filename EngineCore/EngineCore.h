@@ -49,12 +49,6 @@ public:
 		EngineWindow.SetWindowScale(_Scale);
 	}
 
-	FVector GetWindowScale()
-	{
-		return EngineWindow.GetWindowScale();
-	}
-
-
 	UEngineGraphicDevice& GetEngineDevice()
 	{
 		return EngineDevice;
@@ -100,6 +94,13 @@ public:
 		std::shared_ptr<ULevel> Level = NewLevelCreate(UpperName, NewGameMode);
 	}
 
+	FEngineOption GetEngineOption()
+	{
+		return EngineOption;
+	}
+
+	UEngineWindow EngineWindow;
+
 protected:
 
 private:
@@ -107,7 +108,6 @@ private:
 
 	UEngineTime MainTimer;
 
-	UEngineWindow EngineWindow;
 
 	UEngineGraphicDevice EngineDevice;
 

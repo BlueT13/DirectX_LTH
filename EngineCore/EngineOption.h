@@ -18,6 +18,7 @@ public:
 	FVector WindowScale = {1280.0f, 720.0f};
 	bool IsDebug = false;
 	FVector ClearColor = { 0.0f, 0.0f, 1.0f };
+	char FreeCameraKey = '0';
 
 	void Serialize(UEngineSerializer& _Ser) override
 	{
@@ -30,6 +31,7 @@ public:
 			DebugOptionText += std::format("WindowScale : [{}], [{}]\n", WindowScale.iX(), WindowScale.iY());
 			DebugOptionText += std::format("IsDebug : [{}]\n", IsDebug);
 			DebugOptionText += std::format("ClearColor : R[{}],G[{}],B[{}]\n", ClearColor.X, ClearColor.Y, ClearColor.Z);
+			DebugOptionText += std::format("FreeCameraKey : [{}]\n", FreeCameraKey);
 
 			_Ser.WriteText(DebugOptionText);
 		}
@@ -67,6 +69,8 @@ public:
 		ClearColor.X = static_cast<float>(std::atof(Values[OPTIONINDEX].c_str()));
 		ClearColor.Y = static_cast<float>(std::atof(Values[OPTIONINDEX].c_str()));
 		ClearColor.Z = static_cast<float>(std::atof(Values[OPTIONINDEX].c_str()));
+
+		FreeCameraKey = Values[OPTIONINDEX][0];
 	}
 	
 };

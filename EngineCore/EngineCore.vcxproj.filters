@@ -168,6 +168,9 @@
     <ClCompile Include="EngineSprite.cpp">
       <Filter>Resources\Texture</Filter>
     </ClCompile>
+    <ClCompile Include="EngineBlend.cpp">
+      <Filter>Resources\RenderingSetting</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -275,12 +278,21 @@
     <ClInclude Include="EngineSprite.h">
       <Filter>Resources\Texture</Filter>
     </ClInclude>
+    <ClInclude Include="EngineBlend.h">
+      <Filter>Resources\RenderingSetting</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="ThirdParty\DirectxTex\Debug\DirectXTex.lib">
       <Filter>ThirdParty\DirectXTex\Debug</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="ThirdParty\DirectxTex\Release\DirectXTex.lib">
+      <Filter>ThirdParty\DirectXTex\Release</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\DirectxTex\Debug\DirectXTex.pdb">
+      <Filter>ThirdParty\DirectXTex\Debug</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\DirectxTex\Release\DirectXTex.pdb">
       <Filter>ThirdParty\DirectXTex\Release</Filter>
     </CopyFileToFolders>
   </ItemGroup>

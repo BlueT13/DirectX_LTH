@@ -7,6 +7,8 @@
 
 UEngineMaterial::UEngineMaterial() 
 {
+	SetRasterizer("EngineBase");
+	SetBlend("EngineBase");
 }
 
 UEngineMaterial::~UEngineMaterial() 
@@ -39,6 +41,16 @@ void UEngineMaterial::SetRasterizer(std::string_view _Name)
 	if (nullptr == Rasterizer)
 	{
 		MsgBoxAssert("존재하지 않는 레스터라이저를 세팅하려고 했습니다.");
+		return;
+	}
+}
+
+void UEngineMaterial::SetBlend(std::string_view _Name)
+{
+	Blend = UEngineBlend::FindRes(_Name);
+	if (nullptr == Blend)
+	{
+		MsgBoxAssert("존재하지 않는 블랜드 세팅하려고 했습니다.");
 		return;
 	}
 }
@@ -89,4 +101,18 @@ void UEngineMaterial::PixelShaderSetting()
 #endif
 
 	PixelShader->Setting();
+}
+
+void UEngineMaterial::BlendSetting()
+{
+#ifdef _DEBUG
+	if (nullptr == Blend)
+	{
+		MsgBoxAssert("블랜드 세팅하지 않고 랜더링 하려고 했습니다.");
+		return;
+	}
+#endif
+
+	Blend->Setting();
+
 }

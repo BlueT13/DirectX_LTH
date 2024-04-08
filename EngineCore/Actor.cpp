@@ -3,15 +3,32 @@
 #include "SceneComponent.h"
 #include "DefaultSceneComponent.h"
 
+std::set<AActor*> AActor::InputActors;
+std::set<AActor*> AActor::PrevInputActors;
+
 AActor::AActor() 
 {
-	// 
+	// UEngineInput
+	// InputActors.insert(this);
 }
 
 AActor::~AActor() 
 {
 }
 
+void AActor::InputOff()
+{
+	// map같은 경우에는 pair 이터레이터
+	// set은 정말 편합니다.
+	InputActors.erase(this);
+}
+
+void AActor::InputOn()
+{
+	//std::map<AActor*, int> Test;
+	//Test.insert(std::pair<AActor*, int>(this, 10));
+	InputActors.insert(this);
+}
 
 void AActor::RootCheck()
 {
@@ -72,6 +89,11 @@ FTransform& AActor::GetActorTransform()
 	return RootComponent->Transform;
 }
 
+void AActor::SetActorTransform(const FTransform& _Transform)
+{
+	RootComponent->Transform = _Transform;
+}
+
 FVector AActor::GetActorForwardVector()
 {
 	return RootComponent->Transform.GetForward();
@@ -101,11 +123,152 @@ void AActor::SetActorScale3D(FVector _Value)
 	RootComponent->Transform.SetScale(_Value);
 }
 
+void AActor::SetActorRotation(FVector _Value)
+{
+	RootComponent->Transform.SetRotationDeg(_Value);
+}
+
 void AActor::AddActorLocation(FVector _Value)
 {
 	RootComponent->Transform.AddPosition(_Value);
 }
+
+void AActor::AddActorRotation(FVector _Value)
+{
+	RootComponent->Transform.AddRotationDeg(_Value);
+}
+
 void AActor::AddActorScale3D(FVector _Value)
 {
 	RootComponent->Transform.AddScale(_Value);
+}
+
+
+// 액터에서만 인풋 처리가 가능하게 되었습니다.
+bool AActor::IsDoubleClick(int _Key, float _ClickTime) 
+{
+	// InputActors 등록된 애들만 입력을 받을수 있다.
+	if (false == InputActors.contains(this))
+	{
+		return false;
+	}
+
+	return UEngineInput::IsDoubleClick(_Key, _ClickTime);
+}
+
+void AActor::OnlyInput(AActor* _this)
+{
+	PrevInputActors = InputActors;
+	InputActors.clear();
+	InputActors.insert(_this);
+}
+
+void AActor::OnlyInputStop()
+{
+	InputActors.clear();
+	InputActors = PrevInputActors;
+}
+
+bool AActor::IsDown(int _Key) 
+{
+	// InputActors 등록된 애들만 입력을 받을수 있다.
+	if (false == InputActors.contains(this))
+	{
+		return false;
+	}
+
+	return UEngineInput::IsDown(_Key);
+}
+
+float AActor::GetPressTime(int _Key) 
+{
+	// InputActors 등록된 애들만 입력을 받을수 있다.
+	if (false == InputActors.contains(this))
+	{
+		return false;
+	}
+
+	return UEngineInput::GetPressTime(_Key);
+
+}
+
+bool AActor::IsPress(int _Key) 
+{
+	// InputActors 등록된 애들만 입력을 받을수 있다.
+	if (false == InputActors.contains(this))
+	{
+		return false;
+	}
+
+	return UEngineInput::IsPress(_Key);
+
+}
+
+bool AActor::IsUp(int _Key) 
+{
+	// InputActors 등록된 애들만 입력을 받을수 있다.
+	if (false == InputActors.contains(this))
+	{
+		return false;
+	}
+
+	return UEngineInput::IsUp(_Key);
+
+}
+
+bool AActor::IsFree(int _Key) {
+	// InputActors 등록된 애들만 입력을 받을수 있다.
+	if (false == InputActors.contains(this))
+	{
+		return false;
+	}
+
+	return UEngineInput::IsFree(_Key);
+
+}
+
+bool AActor::IsAnykeyDown() {
+	// InputActors 등록된 애들만 입력을 받을수 있다.
+	if (false == InputActors.contains(this))
+	{
+		return false;
+	}
+
+	return UEngineInput::IsAnykeyDown();
+
+}
+
+bool AActor::IsAnykeyPress() {
+	// InputActors 등록된 애들만 입력을 받을수 있다.
+	if (false == InputActors.contains(this))
+	{
+		return false;
+	}
+
+	return UEngineInput::IsAnykeyPress();
+
+}
+
+bool AActor::IsAnykeyUp()
+{
+	// InputActors 등록된 애들만 입력을 받을수 있다.
+	if (false == InputActors.contains(this))
+	{
+		return false;
+	}
+
+	return UEngineInput::IsAnykeyUp();
+
+}
+
+bool AActor::IsAnykeyFree()
+{
+	// InputActors 등록된 애들만 입력을 받을수 있다.
+	if (false == InputActors.contains(this))
+	{
+		return false;
+	}
+
+	return UEngineInput::IsAnykeyFree();
+
 }

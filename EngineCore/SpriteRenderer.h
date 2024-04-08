@@ -26,7 +26,7 @@ public:
 
 	FSpriteInfo GetCurSpriteInfo()
 	{
-		return Sprite->GetSpriteInfo(CurFrame);
+		return Sprite->GetSpriteInfo(Frame[CurFrame]);
 	}
 
 	void Reset()

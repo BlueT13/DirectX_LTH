@@ -67,7 +67,7 @@ public:
 		TransformUpdate();
 	}
 
-	void SetRotation(FVector _Value)
+	void SetRotationDeg(FVector _Value)
 	{
 		Rotation = _Value;
 		TransformUpdate();
@@ -89,10 +89,11 @@ public:
 		return Scale;
 	}
 
-	void AddRotation(FVector _Value)
+	void AddRotationDeg(FVector _Value)
 	{
-		SetRotation(Rotation + _Value);
+		SetRotationDeg(Rotation + _Value);
 	}
+
 	FVector GetRotation() const
 	{
 		return Rotation;
@@ -100,17 +101,17 @@ public:
 
 	FVector GetForward()
 	{
-		return World.ArrVector[2].Normalize2DReturn();
+		return World.ArrVector[2].Normalize3DReturn();
 	}
 
 	FVector GetUp()
 	{
-		return World.ArrVector[1].Normalize2DReturn();
+		return World.ArrVector[1].Normalize3DReturn();
 	}
 
 	FVector GetRight()
 	{
-		return World.ArrVector[0].Normalize2DReturn();
+		return World.ArrVector[0].Normalize3DReturn();
 	}
 
 	FVector GetBack()

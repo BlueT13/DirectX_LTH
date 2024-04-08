@@ -60,6 +60,11 @@ cbuffer FCuttingData : register(b2)
     float4 CuttingSize;
 };
 
+struct ImagePSOutPut
+{
+    float4 COLOR : SV_Target0;
+};
+
 
 ImageVSOutPut ImageShader_VS(FEngineVertex _Input)
 {
@@ -89,11 +94,6 @@ ImageVSOutPut ImageShader_VS(FEngineVertex _Input)
 
     return Out;
 }
-
-struct ImagePSOutPut
-{
-    float4 COLOR : SV_Target0;
-};
 
 // 텍스처는 상수버퍼와 슬롯을 공유하지 않습니다.
 // b0 buffer 0번 슬롯

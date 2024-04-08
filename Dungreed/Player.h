@@ -3,7 +3,6 @@
 #include <EngineCore/SpriteRenderer.h>
 
 // Ό³Έν :
-class URenderer;
 class APlayer : public AActor
 {
 	GENERATED_BODY(AActor)
