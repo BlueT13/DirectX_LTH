@@ -16,7 +16,7 @@ void ABackground::BeginPlay()
 
 	SetActorScale3D(FVector(1920.0f, 1080.0f, 0.0f));
 
-	Renderer->SetSprite("Background");
+	Renderer->SetSprite("Background",0);
 }
 
 void ABackground::Tick(float _DeltaTime)

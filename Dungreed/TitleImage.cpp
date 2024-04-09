@@ -35,7 +35,6 @@ void ATitleImage::BeginPlay()
 	Renderer->CreateAnimation("Run", "Run", 0.1f);
 
 	Renderer->ChangeAnimation("Run");
-
 }
 
 void ATitleImage::Tick(float _DeltaTime)
