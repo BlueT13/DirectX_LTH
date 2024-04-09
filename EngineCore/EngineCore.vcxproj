@@ -205,6 +205,7 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SceneComponent.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
+    <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="TickObject.cpp" />
     <ClCompile Include="WorldObject.cpp" />
   </ItemGroup>
@@ -242,6 +243,7 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="SceneComponent.h" />
     <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="StateManager.h" />
     <ClInclude Include="ThirdParty\DirectxTex\inc\DirectXTex.h" />
     <ClInclude Include="TickObject.h" />
     <ClInclude Include="WorldObject.h" />

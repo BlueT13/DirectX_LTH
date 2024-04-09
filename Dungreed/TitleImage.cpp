@@ -30,11 +30,7 @@ void ATitleImage::BeginPlay()
 
 	//DelayCallBack(1.0f, std::bind(&ATitleImage::RendererOff, this));
 
-	Renderer->SetSprite("Run", Index);
-
-	Renderer->CreateAnimation("Run", "Run", 0.1f);
-
-	Renderer->ChangeAnimation("Run");
+	Renderer->SetSprite("Title");
 }
 
 void ATitleImage::Tick(float _DeltaTime)

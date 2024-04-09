@@ -30,10 +30,30 @@ public:
 	URenderer& operator=(const URenderer& _Other) = delete;
 	URenderer& operator=(URenderer&& _Other) noexcept = delete;
 
+
+	std::shared_ptr<UEngineMesh> GetMesh()
+	{
+		return Mesh;
+	}
+
+	std::shared_ptr<UEngineMaterial> GetMaterial()
+	{
+		return Material;
+	}
+
+
 	void SetMesh(std::string_view _Name);
 	void SetMaterial(std::string_view _Name);
 
 	std::shared_ptr<UEngineShaderResources> Resources;
+
+	template<typename EnumType>
+	void SetOrder(EnumType _Order)
+	{
+		SetOrder(static_cast<int>(_Order));
+	}
+
+	void SetOrder(int _Order) override;
 
 protected:
 	void BeginPlay() override;
@@ -42,6 +62,8 @@ protected:
 	void ResCopy(UEngineShader* _Shader);
 
 private:
+
+
 	void RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera);
 
 	void Render(float _DeltaTime);

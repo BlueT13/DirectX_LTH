@@ -22,6 +22,9 @@
     <ClCompile Include="Background.cpp">
       <Filter>Level\PlayLevel\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="DungreedConstValue.cpp">
+      <Filter>Option</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DungreedCore.h">
@@ -45,6 +48,12 @@
     <ClInclude Include="Background.h">
       <Filter>Level\PlayLevel\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="DungreedConstValue.h">
+      <Filter>Option</Filter>
+    </ClInclude>
+    <ClInclude Include="DungreedEnum.h">
+      <Filter>Option</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -67,6 +76,9 @@
     </Filter>
     <Filter Include="PreCompile">
       <UniqueIdentifier>{ca6b2e85-8502-441c-97e9-7f40dbe55370}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Option">
+      <UniqueIdentifier>{a549623e-478d-487e-bdfa-2b6039f2b87f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

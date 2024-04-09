@@ -3,23 +3,52 @@
 #include "EngineShaderResources.h"
 #include "EngineSprite.h"
 
+void USpriteRenderer::SetFrameCallback(std::string_view _AnimationName, int _Index, std::function<void()> _Function)
+{
+	std::string UpperName = UEngineString::ToUpper(_AnimationName);
+
+	if (false == Animations.contains(UpperName))
+	{
+		MsgBoxAssert("존재하지 않는 애니메이션에 콜백을 지정할수 없습니다." + std::string(_AnimationName));
+		return;
+	}
+
+	Animations[UpperName]->FrameCallback[_Index] = _Function;
+
+}
+
+void USpriteAnimation::FrameCallBackCheck()
+{
+	if (false == FrameCallback.contains(CurFrame))
+	{
+		return;
+	}
+
+	FrameCallback[CurFrame]();
+}
+
 void USpriteAnimation::Update(float _DeltaTime)
 {
+	IsEnd = false;
+
 	CurTime += _DeltaTime;
 
 	if (CurTime > Inter[CurFrame])
 	{
 		CurTime -= Inter[CurFrame];
 		++CurFrame;
+		FrameCallBackCheck();
 
 		if (Frame.size() <= CurFrame)
 		{
 			if (true == Loop)
 			{
+				IsEnd = true;
 				CurFrame = 0;
 			}
 			else 
 			{
+				IsEnd = true;
 				--CurFrame;
 			}
 		}
@@ -42,6 +71,19 @@ USpriteRenderer::~USpriteRenderer()
 {
 }
 
+
+void USpriteRenderer::SetAutoSize(float _ScaleRatio, bool _AutoSize)
+{
+	AutoSize = _AutoSize;
+	ScaleRatio = _ScaleRatio;
+
+	if (true == AutoSize && nullptr != CurInfo.Texture)
+	{
+		SetSpriteInfo(CurInfo);
+	}
+}
+
+
 void USpriteRenderer::Tick(float _DeltaTime) 
 {
 	Super::Tick(_DeltaTime);
@@ -52,12 +94,68 @@ void USpriteRenderer::Tick(float _DeltaTime)
 		CurAnimation->Update(_DeltaTime);
 
 		FSpriteInfo Info = CurAnimation->GetCurSpriteInfo();
-		CuttingDataValue.CuttingPosition = Info.CuttingPosition;
-		CuttingDataValue.CuttingSize = Info.CuttingSize;
-		CurTexture = Info.Texture;
-		Resources->SettingTexture("Image", Info.Texture, "POINT");
-		SetSamplering(SamplingValue);
+		SetSpriteInfo(Info);
 	}
+}
+
+void USpriteRenderer::SetDir(EEngineDir _Dir)
+{
+	Dir = _Dir;
+
+	if (nullptr != CurInfo.Texture)
+	{
+		SetSpriteInfo(CurInfo);
+	}
+}
+
+void USpriteRenderer::SetSpriteInfo(const FSpriteInfo& _Info)
+{
+	CuttingDataValue.CuttingPosition = _Info.CuttingPosition;
+	CuttingDataValue.CuttingSize = _Info.CuttingSize;
+	CurTexture = _Info.Texture;
+
+	if (true == AutoSize)
+	{
+		// 문제 UV기반
+		// 0~1상이의 비율 값이다.
+		float4 TexScale = _Info.Texture->GetScale();
+		Transform.SetScale(TexScale * CuttingDataValue.CuttingSize * ScaleRatio);
+	}
+
+	if (Dir != EEngineDir::MAX)
+	{
+		float4 Scale = Transform.GetScale();
+
+		switch (Dir)
+		{
+		case EEngineDir::Left:
+		{
+			if (0 < Scale.X)
+			{
+				Scale.X = -Scale.X;
+			}
+			break;
+		}
+		case EEngineDir::Right:
+		{
+			if (0 > Scale.X)
+			{
+				Scale.X = -Scale.X;
+			}
+			break;
+		}
+		case EEngineDir::MAX:
+		default:
+			break;
+		}
+
+		Transform.SetScale(Scale);
+	}
+
+	CurInfo = _Info;
+
+	Resources->SettingTexture("Image", _Info.Texture, "POINT");
+	SetSamplering(SamplingValue);
 }
 
 void USpriteRenderer::SetSprite(std::string_view _Name, UINT _Index/* = 0*/)
@@ -71,11 +169,7 @@ void USpriteRenderer::SetSprite(std::string_view _Name, UINT _Index/* = 0*/)
 	}
 
 	FSpriteInfo Info = Sprite->GetSpriteInfo(_Index);
-	CuttingDataValue.CuttingPosition = Info.CuttingPosition;
-	CuttingDataValue.CuttingSize = Info.CuttingSize;
-	CurTexture = Info.Texture;
-	Resources->SettingTexture("Image", Info.Texture, "POINT");
-	SetSamplering(SamplingValue);
+	SetSpriteInfo(Info);
 }
 
 void USpriteRenderer::SetSamplering(ETextureSampling _Value)
@@ -170,6 +264,8 @@ void USpriteRenderer::ChangeAnimation(std::string_view _AnimationName)
 	}
 
 	CurAnimation = Animations[UpperName];
+	CurAnimation->Reset();
+	CurAnimation->FrameCallBackCheck();
 }
 
 void USpriteRenderer::CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, std::vector<float> _Inter, std::vector<int> _Frame, bool _Loop /*= true*/)
@@ -199,4 +295,9 @@ void USpriteRenderer::CreateAnimation(std::string_view _AnimationName, std::stri
 	NewAnimation->Reset();
 
 	Animations[UpperName] = NewAnimation;
+}
+
+bool USpriteRenderer::IsCurAnimationEnd()
+{
+	return CurAnimation->IsEnd;
 }

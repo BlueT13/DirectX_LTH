@@ -171,10 +171,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="DungreedConstValue.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="DungreedCore.h">
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="DungreedEnum.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayGameMode.h" />
     <ClInclude Include="PreCompile.h" />
@@ -183,6 +188,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Background.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="DungreedConstValue.cpp">
       <SubType>
       </SubType>
     </ClCompile>

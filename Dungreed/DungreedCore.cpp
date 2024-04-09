@@ -24,6 +24,12 @@ void UDungreedCore::Initialize()
 			std::string Name = Directorys[i].GetFolderName();
 			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
 		}
+
+		//std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
+		//for (UEngineFile& File : Files)
+		//{
+		//	UEngineSprite::Load(File.GetFullPath());
+		//}
 	}
 
 	//{
