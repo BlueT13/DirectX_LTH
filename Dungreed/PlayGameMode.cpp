@@ -16,6 +16,9 @@ void APlayGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
+	UDungreedConstValue::MapTexture = UEngineTexture::FindRes("Background.png");
+	UDungreedConstValue::MapTextureScale = UDungreedConstValue::MapTexture->GetScale();
+
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -900.0f));
 

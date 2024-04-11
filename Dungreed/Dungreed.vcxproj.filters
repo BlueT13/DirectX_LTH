@@ -25,6 +25,9 @@
     <ClCompile Include="DungreedConstValue.cpp">
       <Filter>Option</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>Level\PlayLevel\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DungreedCore.h">
