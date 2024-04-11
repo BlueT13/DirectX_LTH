@@ -176,6 +176,9 @@
     <ClCompile Include="EngineBuffer.cpp" />
     <ClCompile Include="EngineConstantBuffer.cpp" />
     <ClCompile Include="EngineCore.cpp" />
+    <ClCompile Include="EngineDebugMsgWindow.cpp" />
+    <ClCompile Include="EngineEditorGUI.cpp" />
+    <ClCompile Include="EngineEditorWindow.cpp" />
     <ClCompile Include="EngineGraphicDevice.cpp" />
     <ClCompile Include="EngineGraphicDevice_Resources.cpp" />
     <ClCompile Include="EngineIndexBuffer.cpp" />
@@ -195,6 +198,13 @@
     <ClCompile Include="EngineVertexBuffer.cpp" />
     <ClCompile Include="EngineVertexShader.cpp" />
     <ClCompile Include="GameMode.cpp" />
+    <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="imgui_demo.cpp" />
+    <ClCompile Include="imgui_draw.cpp" />
+    <ClCompile Include="imgui_impl_dx11.cpp" />
+    <ClCompile Include="imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui_tables.cpp" />
+    <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="PreCompile.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -219,6 +229,10 @@
     <ClInclude Include="EngineBuffer.h" />
     <ClInclude Include="EngineConstantBuffer.h" />
     <ClInclude Include="EngineCore.h" />
+    <ClInclude Include="EngineDebugMsgWindow.h" />
+    <ClInclude Include="EngineDefines.h" />
+    <ClInclude Include="EngineEditorGUI.h" />
+    <ClInclude Include="EngineEditorWindow.h" />
     <ClInclude Include="EngineEnums.h" />
     <ClInclude Include="EngineGraphicDevice.h" />
     <ClInclude Include="EngineIndexBuffer.h" />
@@ -238,6 +252,14 @@
     <ClInclude Include="EngineVertexBuffer.h" />
     <ClInclude Include="EngineVertexShader.h" />
     <ClInclude Include="GameMode.h" />
+    <ClInclude Include="imconfig.h" />
+    <ClInclude Include="imgui.h" />
+    <ClInclude Include="imgui_impl_dx11.h" />
+    <ClInclude Include="imgui_impl_win32.h" />
+    <ClInclude Include="imgui_internal.h" />
+    <ClInclude Include="imstb_rectpack.h" />
+    <ClInclude Include="imstb_textedit.h" />
+    <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="PreCompile.h" />
     <ClInclude Include="Renderer.h" />

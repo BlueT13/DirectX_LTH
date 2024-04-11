@@ -1,7 +1,8 @@
 #pragma once
-
-#define GENERATED_BODY(Parent) \
-	typedef Parent Super;
+#include "EngineDefines.h"
+#include <functional>
+#include <memory>
+#include <EngineBase/EngineDebug.h>
 
 class UEngineTickCallBack
 {

@@ -5,10 +5,26 @@
 
 bool UEngineWindow::WindowLive = true;
 HINSTANCE UEngineWindow::hInstance;
+std::function<bool(HWND, UINT, WPARAM, LPARAM)> UEngineWindow::UserWndProcFunction;
 
+void UEngineWindow::SetUserWindowCallBack(std::function<bool(HWND, UINT, WPARAM, LPARAM)> _UserWndProcFunction)
+{
+	UserWndProcFunction = _UserWndProcFunction;
+}
 
 LRESULT CALLBACK UEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	if (nullptr != UserWndProcFunction)
+	{
+		if (true == UserWndProcFunction(hWnd, message, wParam, lParam))
+		{
+			return true;
+		}
+	}
+
+	//if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
+	//	return true;
+
 	switch (message)
 	{
 	case WM_PAINT:

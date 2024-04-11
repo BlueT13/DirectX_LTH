@@ -67,6 +67,15 @@
     <Filter Include="Contents">
       <UniqueIdentifier>{5ffa8d1e-facf-40d3-845f-c739c476607a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{9a04fbc8-33a7-4cc6-916d-3fb9de7d3bd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Contents">
+      <UniqueIdentifier>{93c8d6ab-28e1-44a9-9273-7ccbd4f2b564}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\Imgui">
+      <UniqueIdentifier>{9c6a8787-a349-4cff-876c-7b39f3c8234b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -176,6 +185,36 @@
     </ClCompile>
     <ClCompile Include="StateManager.cpp">
       <Filter>Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineEditorGUI.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineEditorWindow.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineDebugMsgWindow.cpp">
+      <Filter>Editor\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui.cpp">
+      <Filter>Editor\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_demo.cpp">
+      <Filter>Editor\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>Editor\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_dx11.cpp">
+      <Filter>Editor\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_win32.cpp">
+      <Filter>Editor\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_tables.cpp">
+      <Filter>Editor\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>Editor\Imgui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -289,6 +328,42 @@
     </ClInclude>
     <ClInclude Include="StateManager.h">
       <Filter>Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineDefines.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineEditorGUI.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineEditorWindow.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineDebugMsgWindow.h">
+      <Filter>Editor\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="imconfig.h">
+      <Filter>Editor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui.h">
+      <Filter>Editor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_dx11.h">
+      <Filter>Editor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_win32.h">
+      <Filter>Editor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_internal.h">
+      <Filter>Editor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_rectpack.h">
+      <Filter>Editor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_textedit.h">
+      <Filter>Editor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_truetype.h">
+      <Filter>Editor\Imgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

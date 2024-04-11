@@ -92,6 +92,7 @@ public:
 	}
 
 	void CalculateMouseUpdate(float _DeltaTime);
+	static void SetUserWindowCallBack(std::function<bool(HWND, UINT, WPARAM, LPARAM)> _UserWndProcFunction);
 
 protected:
 
@@ -99,6 +100,7 @@ private:
 	static bool WindowLive;
 	static HINSTANCE hInstance;
 	static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+	static std::function<bool(HWND, UINT, WPARAM, LPARAM)> UserWndProcFunction;
 
 	Color8Bit ClearColor = Color8Bit::WhiteA;
 

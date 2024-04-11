@@ -77,10 +77,16 @@ public:
 
 	void SetDir(EEngineDir _Dir);
 
+	inline EEngineDir GetDir() const
+	{
+		return Dir;
+	}
+
 	bool IsCurAnimationEnd();
 	
 protected:
 	void Tick(float _DeltaTime) override;
+	void MaterialSettingEnd() override;
 
 private:
 	bool AutoSize = false;
