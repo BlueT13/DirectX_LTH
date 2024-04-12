@@ -22,11 +22,10 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	void RendererOff();
-	void RendererOn();
+	//void RendererOff();
+	//void RendererOn();
 
 private:
 	USpriteRenderer* Renderer = nullptr;
-	int Index = 0;
 };
 

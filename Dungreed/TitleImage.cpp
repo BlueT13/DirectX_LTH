@@ -11,17 +11,6 @@ ATitleImage::~ATitleImage()
 {
 }
 
-void ATitleImage::RendererOn()
-{
-	Renderer->SetActive(true);
-	DelayCallBack(0.2f, std::bind(&ATitleImage::RendererOff, this));
-}
-
-void ATitleImage::RendererOff()
-{
-	Renderer->SetActive(false);
-	DelayCallBack(0.2f, std::bind(&ATitleImage::RendererOn, this));
-}
 
 void ATitleImage::BeginPlay()
 {
@@ -37,6 +26,16 @@ void ATitleImage::BeginPlay()
 void ATitleImage::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-
-
 }
+
+//void ATitleImage::RendererOn()
+//{
+//	Renderer->SetActive(true);
+//	DelayCallBack(0.2f, std::bind(&ATitleImage::RendererOff, this));
+//}
+//
+//void ATitleImage::RendererOff()
+//{
+//	Renderer->SetActive(false);
+//	DelayCallBack(0.2f, std::bind(&ATitleImage::RendererOn, this));
+//}

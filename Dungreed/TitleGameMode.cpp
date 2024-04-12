@@ -28,6 +28,10 @@ void ATitleGameMode::Tick(float _DeltaTime)
 	{
 		GEngine->ChangeLevel("PlayLevel");
 	}
+	if (true == UEngineInput::IsDown(VK_ESCAPE))
+	{
+		GEngine->EngineWindow.Off();
+	}
 }
 
 void ATitleGameMode::LevelEnd(ULevel* _NextLevel)
