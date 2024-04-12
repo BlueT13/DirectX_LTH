@@ -21,7 +21,7 @@ void APlayer::BeginPlay()
 	Renderer->CreateAnimation("Jump", "Jump");
 	Renderer->CreateAnimation("Run", "Run", 0.1f);
 
-	Renderer->SetAutoSize(1.0f, true);
+	Renderer->SetAutoSize(4.0f, true);
 	Renderer->SetOrder(ERenderOrder::Player);
 
 	StateInit();
