@@ -30,6 +30,8 @@ private:
 	float Speed = 100.0f;
 	float4 Color;
 
+	void DebugMessageFunction();
+
 	// State
 	void StateInit();
 

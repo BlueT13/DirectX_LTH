@@ -30,6 +30,7 @@ void ULevel::Tick(float _DeltaTime)
 
 		for (std::shared_ptr<AActor> Actor : GroupActors)
 		{
+
 			Actor->Tick(_DeltaTime);
 		}
 	}
@@ -48,6 +49,15 @@ void ULevel::Render(float _DeltaTime)
 
 		for (std::shared_ptr<URenderer> Renderer : GroupRenderers)
 		{
+			// 액터는 존재하는게 중요하지 
+			// 그리거나 충돌할때가 문제이기 때문에
+			if (nullptr == Renderer->GetActor()->RootComponent)
+			{
+				MsgBoxAssert("루트컴포넌트가 지정되지 않은 액터가 있습니다" + Renderer->GetActor()->GetName());
+				continue;
+			}
+
+
 			if (false == Renderer->IsActive())
 			{
 				continue;
@@ -73,9 +83,10 @@ void ULevel::PushActor(std::shared_ptr<AActor> _Actor)
 	Actors[_Actor->GetOrder()].push_back(_Actor);
 }
 
-void ULevel::ConstructorActor(std::shared_ptr<AActor> _Actor)
+void ULevel::ConstructorActor(std::shared_ptr<AActor> _Actor, std::string_view _Name, int _Order)
 {
-	_Actor->RootCheck();
+	_Actor->SetName(_Name);
+	_Actor->SetOrder(_Order);
 }
 
 void ULevel::PushRenderer(std::shared_ptr<URenderer> _Renderer)

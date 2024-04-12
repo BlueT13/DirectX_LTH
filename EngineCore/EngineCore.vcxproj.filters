@@ -31,9 +31,6 @@
     <Filter Include="Object\Rendering">
       <UniqueIdentifier>{a56c251a-da6a-4cc9-8eb4-c118e805da3f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Rendering\Component">
-      <UniqueIdentifier>{4828b2a0-63aa-4338-8b40-edf411574969}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object\EngineContent">
       <UniqueIdentifier>{0f25cb76-5eb2-41b5-b6f3-8fc34324db8b}</UniqueIdentifier>
     </Filter>
@@ -76,6 +73,12 @@
     <Filter Include="Editor\Imgui">
       <UniqueIdentifier>{9c6a8787-a349-4cff-876c-7b39f3c8234b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Component\Collision">
+      <UniqueIdentifier>{6e67b238-40ba-4dba-9f89-9ad442fab222}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Component\Rendering">
+      <UniqueIdentifier>{b5bc080a-0b86-42e2-aefb-6bd2a70e0689}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -113,9 +116,6 @@
     </ClCompile>
     <ClCompile Include="TickObject.cpp">
       <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Object\Rendering\Component</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Object\Rendering</Filter>
@@ -174,9 +174,6 @@
     <ClCompile Include="EngineSampler.cpp">
       <Filter>Resources\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>Object\Rendering\Component</Filter>
-    </ClCompile>
     <ClCompile Include="EngineSprite.cpp">
       <Filter>Resources\Texture</Filter>
     </ClCompile>
@@ -216,6 +213,15 @@
     <ClCompile Include="imgui_widgets.cpp">
       <Filter>Editor\Imgui</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Object\Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Object\Component\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Object\Component\Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -253,9 +259,6 @@
     </ClInclude>
     <ClInclude Include="TickObject.h">
       <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Object\Rendering\Component</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Object\Rendering</Filter>
@@ -317,9 +320,6 @@
     <ClInclude Include="ThirdParty\DirectxTex\inc\DirectXTex.h">
       <Filter>ThirdParty\DirectXTex\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteRenderer.h">
-      <Filter>Object\Rendering\Component</Filter>
-    </ClInclude>
     <ClInclude Include="EngineSprite.h">
       <Filter>Resources\Texture</Filter>
     </ClInclude>
@@ -364,6 +364,15 @@
     </ClInclude>
     <ClInclude Include="imstb_truetype.h">
       <Filter>Editor\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Object\Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Object\Component\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Object\Component\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

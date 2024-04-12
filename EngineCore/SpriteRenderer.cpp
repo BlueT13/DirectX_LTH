@@ -82,7 +82,7 @@ void USpriteRenderer::MaterialSettingEnd()
 	Super::MaterialSettingEnd();
 	Resources->SettingTexture("Image", "EngineBaseTexture.png", "POINT");
 	CurTexture = nullptr;
-	Resources->SettingConstantBuffer("ResultColorValue", PlusColor);
+	Resources->SettingConstantBuffer("ResultColorValue", ColorData);
 	Resources->SettingConstantBuffer("FCuttingData", CuttingDataValue);
 }
 
@@ -125,6 +125,34 @@ void USpriteRenderer::SetSpriteInfo(const FSpriteInfo& _Info)
 		Transform.SetScale(TexScale * CuttingDataValue.CuttingSize * ScaleRatio);
 	}
 
+	switch (Pivot)
+	{
+	case EPivot::BOT:
+	{
+		float4 Scale = Transform.WorldScale;
+		Scale.X = 0.0f;
+		Scale.Y = abs(Scale.Y) * 0.5f;
+		Scale.Z = 0.0f;
+		CuttingDataValue.PivotMat.Position(Scale);
+		break;
+	}
+	case EPivot::RIGHT:
+	{
+		float4 Scale = Transform.WorldScale;
+		Scale.X = -abs(Scale.X) * 0.5f;
+		Scale.Y = 0.0f;
+		Scale.Z = 0.0f;
+		CuttingDataValue.PivotMat.Position(Scale);
+		break;
+	}
+	case EPivot::MAX:
+	default:
+	{
+		CuttingDataValue.PivotMat.Identity();
+	}
+		break;
+	}
+
 	if (Dir != EEngineDir::MAX)
 	{
 		float4 Scale = Transform.GetScale();
@@ -156,6 +184,10 @@ void USpriteRenderer::SetSpriteInfo(const FSpriteInfo& _Info)
 	}
 
 	CurInfo = _Info;
+
+	// CuttingDataValue.PivotMat.Position({ 0.0f,100.0f, 0.0f });
+	// Transform.World * CuttingDataValue.PivotMat;
+
 
 	Resources->SettingTexture("Image", _Info.Texture, "POINT");
 	SetSamplering(SamplingValue);
@@ -200,11 +232,6 @@ void USpriteRenderer::SetSamplering(ETextureSampling _Value)
 	default:
 		break;
 	}
-}
-
-void USpriteRenderer::SetPlusColor(float4 _Color)
-{
-	PlusColor = _Color;
 }
 
 void USpriteRenderer::CreateAnimation(

@@ -1,7 +1,8 @@
 #pragma once
 #include <map>
+#include <EngineBase/NameObject.h>
 
-class UState
+class UState : public UNameObject
 {
 public:
 	std::function<void()> Start;
@@ -24,7 +25,7 @@ public:
 	UStateManager& operator=(UStateManager&& _Other) noexcept = delete;
 
 	void CreateState(std::string_view _Name);
-	void SetFunction(std::string_view _Name, 
+	void SetFunction(std::string_view _Name,
 		std::function<void()> _Start = nullptr,
 		std::function<void(float)> _Update = nullptr,
 		std::function<void()> _End = nullptr
@@ -37,6 +38,11 @@ public:
 	std::shared_ptr<UState> FindState(std::string_view _Name);
 
 	void ChangeState(std::string_view _Name);
+
+	inline std::string GetCurStateName() const
+	{
+		return CurState->GetName();
+	}
 
 	void Update(float _Time);
 

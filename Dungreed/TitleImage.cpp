@@ -4,6 +4,7 @@
 ATitleImage::ATitleImage()
 {
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	SetRoot(Renderer);
 }
 
 ATitleImage::~ATitleImage()

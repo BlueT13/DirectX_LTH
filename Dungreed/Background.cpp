@@ -4,6 +4,7 @@
 ABackground::ABackground()
 {
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	SetRoot(Renderer);
 }
 
 ABackground::~ABackground()
@@ -14,9 +15,8 @@ void ABackground::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetActorScale3D(FVector(1920.0f, 1080.0f, 0.0f));
-
-	Renderer->SetSprite("Background",0);
+	Renderer->SetSprite("Town",0);
+	Renderer->SetAutoSize(1.0f,true);
 }
 
 void ABackground::Tick(float _DeltaTime)

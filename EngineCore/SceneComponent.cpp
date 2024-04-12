@@ -9,3 +9,7 @@ USceneComponent::~USceneComponent()
 {
 }
 
+void USceneComponent::SetupAttachment(USceneComponent* _Parent)
+{
+	SetParent(_Parent);
+}
