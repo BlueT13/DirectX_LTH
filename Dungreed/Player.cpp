@@ -34,6 +34,10 @@ void APlayer::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 
 	DebugMessageFunction();
+
+	PlayerPos = GetActorLocation();
+
+	ColorColCheck(_DeltaTime);
 }
 
 void APlayer::DebugMessageFunction()
@@ -48,4 +52,15 @@ void APlayer::DebugMessageFunction()
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
 
+}
+
+void APlayer::ColorColCheck(float _DeltaTime)
+{
+	std::shared_ptr<UEngineTexture> Tex = UDungreedConstValue::MapTexture;
+	Color = Tex->GetColor(PlayerPos, Color8Bit::Black);
+
+	if (Color == Color8Bit::Black);
+	{
+		AddActorLocation(float4::Down * _DeltaTime * 100.0f);
+	}
 }

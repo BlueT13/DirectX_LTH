@@ -28,9 +28,11 @@ protected:
 private:
 	USpriteRenderer* Renderer = nullptr;
 	float Speed = 100.0f;
-	float4 Color;
+	Color8Bit Color;
+	FVector PlayerPos = FVector::Zero;
 
 	void DebugMessageFunction();
+	void ColorColCheck(float _DeltaTime);
 
 	// State
 	void StateInit();
