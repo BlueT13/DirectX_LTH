@@ -24,13 +24,12 @@ void APlayGameMode::BeginPlay()
 
 	{
 		Player = GetWorld()->SpawnActor<APlayer>("Player");
-		Player->SetActorLocation({ 150.0f, -100.0f, 0.0f });
+		Player->SetActorLocation({ 600.0f, -300.0f, 0.0f });
 	}
 
 	{
 		std::shared_ptr<ABackground> Background = GetWorld()->SpawnActor<ABackground>("Background");
-		//Background->SetActorLocation(Background->GetActorScale3D() * 4.0f);
-		Background->SetActorLocation({ 150.0f, -150.0f, 0.0f });
+		Background->SetActorLocation({ 600.0f, -600.0f, 0.0f });
 	}
 
 }
@@ -39,5 +38,5 @@ void APlayGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	//Camera->SetActorLocation({ Player->GetActorLocation().X,Player->GetActorLocation().Y,-100.0f });
+	Camera->SetActorLocation({ Player->GetActorLocation().X,Player->GetActorLocation().Y,-100.0f });
 }
