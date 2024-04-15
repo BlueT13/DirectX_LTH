@@ -21,7 +21,7 @@ void APlayer::BeginPlay()
 	Renderer->CreateAnimation("Jump", "Jump");
 	Renderer->CreateAnimation("Run", "Run", 0.1f);
 
-	Renderer->SetAutoSize(4.0f, true);
+	Renderer->SetAutoSize(1.0f, true);
 	Renderer->SetOrder(ERenderOrder::Player);
 
 	StateInit();
@@ -57,9 +57,13 @@ void APlayer::DebugMessageFunction()
 void APlayer::ColorColCheck(float _DeltaTime)
 {
 	std::shared_ptr<UEngineTexture> Tex = UDungreedConstValue::MapTexture;
-	Color = Tex->GetColor(PlayerPos, Color8Bit::Black);
 
-	if (Color == Color8Bit::Black);
+	//PlayerPos /= 4.0f;
+	PlayerPos.Y = -PlayerPos.Y;
+
+	Color = Tex->GetColor(PlayerPos, Color8Bit::White);
+
+	if (Color != Color8Bit::Black)
 	{
 		AddActorLocation(float4::Down * _DeltaTime * 100.0f);
 	}

@@ -16,19 +16,21 @@ void APlayGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UDungreedConstValue::MapTexture = UEngineTexture::FindRes("Tow_Col.png");
+	UDungreedConstValue::MapTexture = UEngineTexture::FindRes("1.png");
 	UDungreedConstValue::MapTextureScale = UDungreedConstValue::MapTexture->GetScale();
 
 	Camera = GetWorld()->GetMainCamera();
-	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
+	Camera->SetActorLocation({ 0.0f, -0.0f, -100.0f });
 
 	{
 		Player = GetWorld()->SpawnActor<APlayer>("Player");
+		Player->SetActorLocation({ 150.0f, -100.0f, 0.0f });
 	}
 
 	{
 		std::shared_ptr<ABackground> Background = GetWorld()->SpawnActor<ABackground>("Background");
-		Background->SetActorLocation({ 0.0f,0.0f, 0.0f });
+		//Background->SetActorLocation(Background->GetActorScale3D() * 4.0f);
+		Background->SetActorLocation({ 150.0f, -150.0f, 0.0f });
 	}
 
 }
@@ -37,5 +39,5 @@ void APlayGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	Camera->SetActorLocation({ Player->GetActorLocation().X,Player->GetActorLocation().Y,-100.0f });
+	//Camera->SetActorLocation({ Player->GetActorLocation().X,Player->GetActorLocation().Y,-100.0f });
 }

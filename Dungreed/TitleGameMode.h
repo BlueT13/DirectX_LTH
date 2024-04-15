@@ -1,5 +1,6 @@
 #pragma once
 #include <EngineCore/GameMode.h>
+#include "TitleImage.h"
 
 // Ό³Έν :
 class ATitleGameMode : public AGameMode
@@ -25,6 +26,6 @@ protected:
 	void LevelStart(ULevel* _PrevLevel);
 
 private:
-
+	std::shared_ptr<ATitleImage> TitleImage = nullptr;
 };
 
