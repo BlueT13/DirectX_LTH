@@ -25,6 +25,8 @@ class ULevel;
 class UEngineCore
 {
 public:
+	bool IsDebug;
+
 	// constrcuter destructer
 	UEngineCore();
 	~UEngineCore();
@@ -91,7 +93,7 @@ public:
 
 		NewGameMode->SetOrder(INT_MIN);
 
-		std::shared_ptr<ULevel> Level = NewLevelCreate(UpperName, NewGameMode);
+		std::shared_ptr<ULevel> Level = NewLevelCreate(_Name, NewGameMode);
 	}
 
 	FEngineOption GetEngineOption()
@@ -124,7 +126,7 @@ private:
 	void EngineFrameUpdate();
 	void EngineEnd();
 
-	std::shared_ptr<ULevel> NewLevelCreate(std::string& _Name, std::shared_ptr<AActor> _GameMode);
+	std::shared_ptr<ULevel> NewLevelCreate(std::string_view _Name, std::shared_ptr<AActor> _GameMode);
 };
 
 extern UEngineCore* GEngine;

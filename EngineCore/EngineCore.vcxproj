@@ -177,6 +177,7 @@
     <ClCompile Include="EngineBuffer.cpp" />
     <ClCompile Include="EngineConstantBuffer.cpp" />
     <ClCompile Include="EngineCore.cpp" />
+    <ClCompile Include="EngineDebug3D.cpp" />
     <ClCompile Include="EngineDebugMsgWindow.cpp" />
     <ClCompile Include="EngineEditorGUI.cpp" />
     <ClCompile Include="EngineEditorWindow.cpp" />
@@ -194,6 +195,7 @@
     <ClCompile Include="EngineShader.cpp" />
     <ClCompile Include="EngineShaderResources.cpp" />
     <ClCompile Include="EngineSprite.cpp" />
+    <ClCompile Include="EngineStruct.cpp" />
     <ClCompile Include="EngineTexture.cpp" />
     <ClCompile Include="EngineVertex.cpp" />
     <ClCompile Include="EngineVertexBuffer.cpp" />
@@ -214,10 +216,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="RenderUnit.cpp" />
     <ClCompile Include="SceneComponent.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="TickObject.cpp" />
+    <ClCompile Include="TileRenderer.cpp" />
     <ClCompile Include="WorldObject.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -231,6 +235,7 @@
     <ClInclude Include="EngineBuffer.h" />
     <ClInclude Include="EngineConstantBuffer.h" />
     <ClInclude Include="EngineCore.h" />
+    <ClInclude Include="EngineDebug3D.h" />
     <ClInclude Include="EngineDebugMsgWindow.h" />
     <ClInclude Include="EngineDefines.h" />
     <ClInclude Include="EngineEditorGUI.h" />
@@ -249,6 +254,7 @@
     <ClInclude Include="EngineShader.h" />
     <ClInclude Include="EngineShaderResources.h" />
     <ClInclude Include="EngineSprite.h" />
+    <ClInclude Include="EngineStruct.h" />
     <ClInclude Include="EngineTexture.h" />
     <ClInclude Include="EngineVertex.h" />
     <ClInclude Include="EngineVertexBuffer.h" />
@@ -265,11 +271,13 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="PreCompile.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RenderUnit.h" />
     <ClInclude Include="SceneComponent.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="ThirdParty\DirectxTex\inc\DirectXTex.h" />
     <ClInclude Include="TickObject.h" />
+    <ClInclude Include="TileRenderer.h" />
     <ClInclude Include="WorldObject.h" />
   </ItemGroup>
   <ItemGroup>

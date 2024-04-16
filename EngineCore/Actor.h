@@ -36,7 +36,7 @@ public:
 		{
 			MsgBoxAssert("언리얼에서는 생성자에서밖에 컴포넌트를 생성할수 없습니다.");
 		}
-		
+
 		std::shared_ptr<UActorComponent> NewComponent = std::make_shared<ComponentType>();
 
 		PushComponent(NewComponent, _Name);
@@ -61,6 +61,16 @@ public:
 	void AddActorScale3D(FVector _Value);
 	void AddActorRotation(FVector _Value);
 	void AddActorLocation(FVector _Value);
+
+	inline USceneComponent* GetRoot() const
+	{
+		if (nullptr == RootComponent)
+		{
+			MsgBoxAssert("아직 루트를 지정하지 않았습니다.");
+		}
+
+		return RootComponent;
+	}
 
 	void SetRoot(USceneComponent* _Root)
 	{

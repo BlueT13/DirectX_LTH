@@ -134,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="ColorShader.fx" />
+    <FxCompile Include="DebugShader.fx" />
     <FxCompile Include="ImageShader.fx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

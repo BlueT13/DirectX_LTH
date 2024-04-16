@@ -12,6 +12,7 @@
 class AActor;
 class UCamera;
 class URenderer;
+class UCollision;
 class AGameMode;
 class UEngineCore;
 class ULevel final : public UTickObject, public UNameObject
@@ -20,6 +21,7 @@ class ULevel final : public UTickObject, public UNameObject
 
 	friend AActor;
 	friend URenderer;
+	friend UCollision;
 	friend UEngineCore;
 	static bool IsActorConstructer;
 
@@ -61,6 +63,11 @@ public:
 		return MainCamera;
 	}
 
+	std::shared_ptr<AGameMode> GetGameMode()
+	{
+		return GameMode;
+	}
+
 	template<typename EnumType>
 	std::list<std::shared_ptr<AActor>> GetTickGroup(EnumType _Type)
 	{
@@ -92,10 +99,18 @@ private:
 
 	std::map<int, std::list<std::shared_ptr<URenderer>>> Renderers;
 
+	std::map<int, std::list<std::shared_ptr<UCollision>>> Collisions;
+
 	void ConstructorActor(std::shared_ptr<AActor> _Actor, std::string_view _Name, int Order);
 	void PushActor(std::shared_ptr<AActor> _Actor);
 	void PushRenderer(std::shared_ptr<URenderer> _Renderer);
+	void PushCollision(std::shared_ptr<UCollision> _Collision);
 	void ChangeOrderRenderer(std::shared_ptr<URenderer> _Renderer, int _PrevOrder, int _ChangeOrder);
-	
+	void ChangeOrderCollision(std::shared_ptr<UCollision> _Collision, int _PrevOrder, int _ChangeOrder);
+
+	void SetGameMode(std::shared_ptr<AGameMode> _GameMode)
+	{
+		GameMode = _GameMode;
+	}
 };
 

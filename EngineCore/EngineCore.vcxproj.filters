@@ -79,6 +79,12 @@
     <Filter Include="Object\Component\Rendering">
       <UniqueIdentifier>{b5bc080a-0b86-42e2-aefb-6bd2a70e0689}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Component\Rendering\Contents">
+      <UniqueIdentifier>{9ef7c969-2680-4f76-a32e-0baed5b38b2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{20979723-aed9-4958-859e-ecf90f7b9af7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -219,7 +225,19 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Object\Component\Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="EngineStruct.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
     <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Object\Component\Rendering\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="TileRenderer.cpp">
+      <Filter>Object\Component\Rendering\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineDebug3D.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderUnit.cpp">
       <Filter>Object\Component\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
@@ -371,7 +389,19 @@
     <ClInclude Include="Renderer.h">
       <Filter>Object\Component\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="EngineStruct.h">
+      <Filter>Core</Filter>
+    </ClInclude>
     <ClInclude Include="SpriteRenderer.h">
+      <Filter>Object\Component\Rendering\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="TileRenderer.h">
+      <Filter>Object\Component\Rendering\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineDebug3D.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderUnit.h">
       <Filter>Object\Component\Rendering</Filter>
     </ClInclude>
   </ItemGroup>

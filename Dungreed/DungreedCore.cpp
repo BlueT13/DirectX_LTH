@@ -2,7 +2,13 @@
 #include "DungreedCore.h"
 #include "PlayGameMode.h"
 #include "TitleGameMode.h"
+#include "TileMapLevel.h"
+#include "CreateMapMode.h"
 #include <EngineCore/EngineSprite.h>
+
+#include <EngineCore/EngineEditorGUI.h>
+#include "ContentsGUI.h"
+#include "MapEditorGUI.h"
 
 UDungreedCore::UDungreedCore()
 {
@@ -30,6 +36,8 @@ void UDungreedCore::Initialize()
 		//{
 		//	UEngineSprite::Load(File.GetFullPath());
 		//}
+
+		UEngineSprite::CreateCutting("Tiles.png", 18, 6);
 	}
 
 	//{
@@ -50,7 +58,14 @@ void UDungreedCore::Initialize()
 	//	// UEngineSound::SoundPlay("~~~.wav");
 	//}
 
+	{
+		UEngineEditorGUI::CreateEditorWindow<ContentsGUI>("Contents");
+		UEngineEditorGUI::CreateEditorWindow<MapEditorGUI>("MapEditor");
+	}
+
 	GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
 	GEngine->CreateLevel<APlayGameMode>("PlayLevel");
-	GEngine->ChangeLevel("TitleLevel");
+	GEngine->CreateLevel<ATileMapLevel>("TileLevel");
+	GEngine->CreateLevel<ACreateMapMode>("CreateMapLevel");
+	GEngine->ChangeLevel("CreateMapLevel");
 }

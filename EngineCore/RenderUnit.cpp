@@ -1,32 +1,16 @@
 #include "PreCompile.h"
-#include "Renderer.h"
-#include "EngineInputLayOut.h"
-#include "EngineShaderResources.h"
-#include "Camera.h"
+#include "RenderUnit.h"
 
-URenderer::URenderer()
+URenderUnit::URenderUnit()
 {
 	Resources = std::make_shared<UEngineShaderResources>();
 }
 
-URenderer::~URenderer()
+URenderUnit::~URenderUnit()
 {
 }
 
-void URenderer::BeginPlay()
-{
-	Super::BeginPlay();
-
-	// 해줘야 한다
-	GetWorld()->PushRenderer(shared_from_this());
-}
-
-void URenderer::Tick(float _DeltaTime)
-{
-	Super::Tick(_DeltaTime);
-}
-
-void URenderer::RenderingSetting()
+void URenderUnit::RenderingSetting()
 {
 	Mesh->InputAssembler1Setting();
 	LayOut->Setting();
@@ -46,7 +30,7 @@ void URenderer::RenderingSetting()
 	Material->BlendSetting();
 }
 
-void URenderer::Render(float _DeltaTime)
+void URenderUnit::Render(float _DeltaTime)
 {
 	// 순서는 상관업습니다.
 
@@ -64,21 +48,8 @@ void URenderer::Render(float _DeltaTime)
 	Mesh->IndexedDraw();
 }
 
-void URenderer::SetOrder(int _Order)
-{
-	// UTickObject::SetOrder(_Order);
 
-	int PrevOrder = GetOrder();
-
-	Super::SetOrder(_Order);
-
-	if (nullptr != GetWorld())
-	{
-		GetWorld()->ChangeOrderRenderer(shared_from_this(), PrevOrder, _Order);
-	}
-}
-
-void URenderer::SetMesh(std::string_view _Name)
+void URenderUnit::SetMesh(std::string_view _Name)
 {
 	Mesh = UEngineMesh::FindRes(_Name);
 
@@ -94,7 +65,7 @@ void URenderer::SetMesh(std::string_view _Name)
 	}
 }
 
-void URenderer::SetMaterial(std::string_view _Name)
+void URenderUnit::SetMaterial(std::string_view _Name)
 {
 	Material = UEngineMaterial::FindRes(_Name);
 
@@ -113,16 +84,16 @@ void URenderer::SetMaterial(std::string_view _Name)
 	ResCopy(Material->GetVertexShader().get());
 	ResCopy(Material->GetPixelShader().get());
 
-	if (true == Resources->IsConstantBuffer("FTransform"))
-	{
-		Resources->SettingConstantBuffer("FTransform", Transform);
-	}
+	//if (true == Resources->IsConstantBuffer("FTransform"))
+	//{
+	//	Resources->SettingConstantBuffer("FTransform", Transform);
+	//}
 
 	MaterialSettingEnd();
 
 }
 
-void URenderer::ResCopy(UEngineShader* _Shader)
+void URenderUnit::ResCopy(UEngineShader* _Shader)
 {
 
 	// 상수버퍼 복사
@@ -186,8 +157,8 @@ void URenderer::ResCopy(UEngineShader* _Shader)
 
 }
 
-
-void URenderer::RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera)
-{
-	Transform.CalculateViewAndProjection(_Camera->GetView(), _Camera->GetProjection());
-}
+//
+//void URenderUnit::RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera)
+//{
+//	Transform.CalculateViewAndProjection(_Camera->GetView(), _Camera->GetProjection());
+//}

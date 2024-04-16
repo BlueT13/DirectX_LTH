@@ -3,8 +3,10 @@
 #include "EngineIndexBuffer.h"
 
 // Ό³Έν :
+class URenderUnit;
 class UEngineMesh : public UEngineResources<UEngineMesh>
 {
+	friend URenderUnit;
 	friend URenderer;
 
 public:
@@ -30,6 +32,8 @@ public:
 		return Res;
 	}
 
+	void IndexedDraw();
+
 protected:
 	void ResCreate(std::string_view _VertexName, std::string_view _IndexName);
 
@@ -39,6 +43,5 @@ private:
 
 	void InputAssembler1Setting();
 	void InputAssembler2Setting();
-	void IndexedDraw();
 };
 

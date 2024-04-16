@@ -27,10 +27,12 @@ UCamera::~UCamera()
 
 void UCamera::CameraTransformUpdate()
 {
+	float4 Scale = GEngine->EngineWindow.GetWindowScale();
+
+	ViewPortMat.ViewPort(Scale.X, Scale.Y, 0.0f, 0.0f, 0.0f, 1.0f);
+
 	// 뷰행렬 만들어짐
 	View.LookToLH(GetActorLocation(), GetActorForwardVector(), GetActorUpVector());
-
-	FVector Scale = GEngine->EngineWindow.GetWindowScale();
 
 	switch (ProjectionType)
 	{
@@ -156,4 +158,19 @@ void UCamera::Tick(float _DeltaTime)
 void UCamera::ViewPortSetting()
 {
 	GEngine->GetDirectXContext()->RSSetViewports(1, &ViewPort);
+}
+
+float4 UCamera::ScreenPosToWorldPos(float4 _ScreenPos)
+{
+	// A * B = C
+	// C * B의 역행렬 = A
+
+	float4x4 ViewPortIn = ViewPortMat.InverseReturn();
+	float4x4 ProjectionIn = Projection.InverseReturn();
+	float4x4 ViewIn = View.InverseReturn();
+
+	_ScreenPos *= ViewPortIn;
+	_ScreenPos *= ProjectionIn;
+	_ScreenPos *= ViewIn;
+	return _ScreenPos;
 }

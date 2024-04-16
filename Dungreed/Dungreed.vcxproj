@@ -171,6 +171,11 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ContentsGUI.h" />
+    <ClInclude Include="CreateMapMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="DungreedConstValue.h">
       <SubType>
       </SubType>
@@ -180,14 +185,22 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="DungreedEnum.h" />
+    <ClInclude Include="MapEditorGUI.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayGameMode.h" />
     <ClInclude Include="PreCompile.h" />
+    <ClInclude Include="TileMap.h" />
+    <ClInclude Include="TileMapLevel.h" />
     <ClInclude Include="TitleGameMode.h" />
     <ClInclude Include="TitleImage.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Background.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ContentsGUI.cpp" />
+    <ClCompile Include="CreateMapMode.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -199,6 +212,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="MapEditorGUI.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="PlayGameMode.cpp" />
@@ -208,6 +222,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="TileMapLevel.cpp" />
     <ClCompile Include="TitleGameMode.cpp" />
     <ClCompile Include="TitleImage.cpp" />
   </ItemGroup>

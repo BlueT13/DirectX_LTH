@@ -18,7 +18,7 @@ class UTickObject
 public:
 	// constrcuter destructer
 	UTickObject();
-	~UTickObject();
+	virtual ~UTickObject();
 
 	// delete Function
 	UTickObject(const UTickObject& _Other) = delete;
