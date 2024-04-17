@@ -62,6 +62,11 @@ bool UCollision::Collision(int _TargetGroup,
 
 	for (std::shared_ptr<UCollision> OtherCollision : Group)
 	{
+		if (false == OtherCollision->IsActive())
+		{
+			continue;
+		}
+
 		ECollisionType ThisType = CollisionType;
 		ECollisionType OtherType = OtherCollision->CollisionType;
 
@@ -128,12 +133,34 @@ void UCollision::Tick(float _Delta)
 
 	switch (CollisionType)
 	{
-	case ECollisionType::Point:
-	case ECollisionType::CirCle:
 	case ECollisionType::Rect:
-	case ECollisionType::RotRect:
-	case ECollisionType::Sphere:
 	case ECollisionType::Box:
+	{
+		FTransform Trans = Transform;
+
+		float4 Scale;
+		float4 Rot;
+		float4 Pos;
+
+		Trans.ParentMat.Decompose(Scale, Rot, Pos);
+
+		float4x4 PScale;
+		float4x4 PPos;
+
+		PScale.Scale(Scale);
+		PPos.Scale(Pos);
+
+		Trans.World = Trans.ScaleMat * Trans.PositionMat * PScale * PPos;
+		Trans.WVP = Trans.World * Trans.View * Trans.Projection;
+
+		UEngineDebug::DrawDebugRender(EDebugRenderType::Rect, Trans, float4::Black);
+		break;
+	}
+	case ECollisionType::CirCle:
+	case ECollisionType::Point:
+	case ECollisionType::Sphere:
+		break;
+	case ECollisionType::RotRect:
 	case ECollisionType::RotBox:
 		UEngineDebug::DrawDebugRender(EDebugRenderType::Rect, Transform, float4::Black);
 		break;

@@ -201,6 +201,7 @@
     <ClCompile Include="EngineVertexBuffer.cpp" />
     <ClCompile Include="EngineVertexShader.cpp" />
     <ClCompile Include="GameMode.cpp" />
+    <ClCompile Include="Image.cpp" />
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="imgui_demo.cpp" />
     <ClCompile Include="imgui_draw.cpp" />
@@ -222,6 +223,7 @@
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="TickObject.cpp" />
     <ClCompile Include="TileRenderer.cpp" />
+    <ClCompile Include="Widget.cpp" />
     <ClCompile Include="WorldObject.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -260,6 +262,7 @@
     <ClInclude Include="EngineVertexBuffer.h" />
     <ClInclude Include="EngineVertexShader.h" />
     <ClInclude Include="GameMode.h" />
+    <ClInclude Include="Image.h" />
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="imgui.h" />
     <ClInclude Include="imgui_impl_dx11.h" />
@@ -278,6 +281,7 @@
     <ClInclude Include="ThirdParty\DirectxTex\inc\DirectXTex.h" />
     <ClInclude Include="TickObject.h" />
     <ClInclude Include="TileRenderer.h" />
+    <ClInclude Include="Widget.h" />
     <ClInclude Include="WorldObject.h" />
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
 #include "Actor.h"
 #include "SceneComponent.h"
 #include "DefaultSceneComponent.h"
+#include "Widget.h"
 
 std::set<AActor*> AActor::InputActors;
 std::set<AActor*> AActor::PrevInputActors;
@@ -347,4 +348,12 @@ bool AActor::IsAnykeyFree()
 
 	return UEngineInput::IsAnykeyFree();
 
+}
+
+void AActor::WidgetInit(std::shared_ptr<UWidget> _Widget, std::string_view _Name)
+{
+	_Widget->SetWorld(GetWorld());
+	_Widget->SetName(_Name);
+
+	// GetWorld()->PushWidget(_Widget);
 }

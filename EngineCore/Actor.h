@@ -94,6 +94,37 @@ public:
 
 	virtual void End() {};
 
+	// 걷뵈만 똑같게 만들려고 만든 인터페이스
+	template<typename WidgetType>
+	std::shared_ptr<WidgetType> CreateWidget(ULevel* _Level, std::string_view _Name)
+	{
+		std::shared_ptr<UWidget> NewWidget = std::make_shared<WidgetType>();
+
+		WidgetInit(NewWidget, _Name);
+
+		return std::dynamic_pointer_cast<WidgetType>(NewWidget);
+	}
+
+	template<typename Class>
+	std::vector<std::shared_ptr<Class>> GetComponentToClass()
+	{
+		std::vector<std::shared_ptr<Class>> FindVector;
+
+		for (size_t i = 0; i < Components.size(); i++)
+		{
+			std::shared_ptr<Class> ClassType = std::dynamic_pointer_cast<Class>(Components[i]);
+
+			if (nullptr != ClassType)
+			{
+				FindVector.push_back(ClassType);
+			}
+		}
+
+		return FindVector;
+	}
+
+
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -144,6 +175,8 @@ private:
 	static std::set<AActor*> InputActors;
 	static std::set<AActor*> PrevInputActors;
 
+
+	void WidgetInit(std::shared_ptr<UWidget> _Widget, std::string_view _Name);
 
 };
 

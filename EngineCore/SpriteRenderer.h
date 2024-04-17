@@ -96,6 +96,17 @@ public:
 		Pivot = _Pivot;
 	}
 
+	inline FSpriteInfo GetCurInfo() const
+	{
+		return CurInfo;
+	}
+
+	void SetCurInfo(FSpriteInfo _CurInfo)
+	{
+		CurInfo = _CurInfo;
+		SetSpriteInfo(CurInfo);
+		CurAnimation = nullptr;
+	}
 	
 protected:
 	void Tick(float _DeltaTime) override;
@@ -107,12 +118,12 @@ private:
 	FSpriteInfo CurInfo;
 	EPivot Pivot = EPivot::MAX;
 	EEngineDir Dir = EEngineDir::MAX;
-	ResultColorValue ColorData;
-	FCuttingData CuttingDataValue;
 	std::shared_ptr<UEngineTexture> CurTexture = nullptr;
 	std::map<std::string, std::shared_ptr<USpriteAnimation>> Animations;
 	std::shared_ptr<USpriteAnimation> CurAnimation = nullptr;
 	ETextureSampling SamplingValue = ETextureSampling::POINT;
 
+	ResultColorValue ColorData;
+	FCuttingData CuttingDataValue;
 };
 

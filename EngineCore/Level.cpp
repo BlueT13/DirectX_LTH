@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "EngineCore.h"
 #include "EngineRenderTarget.h"
+#include "Widget.h"
 
 bool ULevel::IsActorConstructer = true;
 
@@ -15,6 +16,7 @@ ULevel::ULevel()
 
 	MainCamera = SpawnActor<UCamera>("MainCamera");
 	UICamera = SpawnActor<UCamera>("NewActor");
+	UICamera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 	UICamera->InputOff();
 }
 
@@ -65,9 +67,39 @@ void ULevel::Render(float _DeltaTime)
 			}
 
 			Renderer->RenderingTransformUpdate(MainCamera);
-			Renderer->Render(_DeltaTime);
+
+			if (false == Renderer->Render(_DeltaTime))
+			{
+				MsgBoxAssert("랜더링에 실패했습니다." + Renderer->GetName());
+			}
 		}
 	}
+
+	// 모든 일반오브젝트들이 랜더링을 하고
+
+	// 언리얼은 제약이 많다.
+	UICamera->CameraTransformUpdate();
+
+	for (std::pair<const int, std::list<std::shared_ptr<UWidget>>>& WidgetGroup : Widgets)
+	{
+		std::list<std::shared_ptr<UWidget>>& GroupRenderers = WidgetGroup.second;
+
+		for (std::shared_ptr<UWidget> Widget : GroupRenderers)
+		{
+			// 액터는 존재하는게 중요하지 
+			if (false == Widget->IsActive())
+			{
+				continue;
+			}
+
+			Widget->RenderingTransformUpdate(UICamera);
+			if (false == Widget->Render(_DeltaTime))
+			{
+				MsgBoxAssert("랜더링에 실패했습니다." + Widget->GetName());
+			}
+		}
+	}
+
 }
 
 void ULevel::Destroy()
@@ -213,4 +245,17 @@ void ULevel::LevelStart(ULevel* _PrevLevel)
 			Actor->LevelStart(_PrevLevel);
 		}
 	}
+}
+
+void ULevel::PushWidget(std::shared_ptr<UWidget> _Widget)
+{
+	if (nullptr == _Widget)
+	{
+		MsgBoxAssert("만들지 않은 위젯를 추가하려고 했습니다.");
+		return;
+	}
+
+	_Widget->SetWorld(this);
+
+	Widgets[_Widget->GetOrder()].push_back(_Widget);
 }
