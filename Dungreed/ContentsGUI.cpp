@@ -24,4 +24,9 @@ void ContentsGUI::OnGui(ULevel* _Level, float _Delta)
 	{
 		GEngine->ChangeLevel("PlayLevel");
 	}
+
+	if (true == ImGui::Button("CreateMapLevel"))
+	{
+		GEngine->ChangeLevel("CreateMapLevel");
+	}
 }

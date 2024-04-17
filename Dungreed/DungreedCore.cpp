@@ -68,5 +68,5 @@ void UDungreedCore::Initialize()
 	GEngine->CreateLevel<ATileMapLevel>("TileLevel");
 	GEngine->CreateLevel<ACreateMapMode>("CreateMapLevel");
 	
-	GEngine->ChangeLevel("PlayLevel");
+	GEngine->ChangeLevel("CreateMapLevel");
 }

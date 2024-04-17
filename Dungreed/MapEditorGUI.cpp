@@ -95,18 +95,11 @@ void MapEditorGUI::OnGui(ULevel* Level, float _Delta)
 	UTileRenderer* TileRenderer = Ptr->TileMap->TileRenderer;
 
 	
-	ImGui::InputFloat("TileSizeX", &TileSizeX);
-	// ImGui::InputFloat2()
-
-	// 타일 크기 지정
-	// 타일 개수 x
-	// 타일 개수 y를 
-	// 스프라이트 선택.
-	// 저장.
+	ImGui::InputFloat2("TileSize", TileCount);
 
 	if (true == ImGui::Button("Create"))
 	{
-		TileRenderer->CreateTileMap("Tiles.png", { 64, 64 }, 50, 50, 0);
+		TileRenderer->CreateTileMap("Tiles.png", { 64, 64 }, TileCount[0], TileCount[1], 0);
 	}
 
 
