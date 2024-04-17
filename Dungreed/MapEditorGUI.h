@@ -18,13 +18,14 @@ public:
 protected:
 	virtual void Init();
 
-	virtual void Tick(ULevel* Level, float _Delta);
+	virtual void Tick(ULevel* _Level, float _Delta);
 
-	virtual void OnGui(ULevel* Level, float _Delta);
+	virtual void OnGui(ULevel* _Level, float _Delta);
 
 private:
 	float4 MousePosWorld;
 	int SelectSpriteIndex = 0;
+	float TileSize =  64.0f;
 	float TileCount[2] = { 0, };
 };
 

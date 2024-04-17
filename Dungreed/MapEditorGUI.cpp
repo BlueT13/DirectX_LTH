@@ -6,11 +6,11 @@
 #include <EnginePlatform/EngineInput.h>
 #include <EngineCore/Camera.h>
 
-MapEditorGUI::MapEditorGUI() 
+MapEditorGUI::MapEditorGUI()
 {
 }
 
-MapEditorGUI::~MapEditorGUI() 
+MapEditorGUI::~MapEditorGUI()
 {
 }
 
@@ -19,43 +19,43 @@ void MapEditorGUI::Init()
 
 }
 
-void MapEditorGUI::Tick(ULevel* Level, float _Delta)
+void MapEditorGUI::Tick(ULevel* _Level, float _Delta)
 {
-	Level->GetMainCamera();
+	_Level->GetMainCamera();
 	float Speed = 500.0f;
 
 	if (true == UEngineInput::IsPress('A'))
 	{
-		Level->GetMainCamera()->AddActorLocation(float4::Left * _Delta * Speed);
+		_Level->GetMainCamera()->AddActorLocation(float4::Left * _Delta * Speed);
 	}
 
 	if (true == UEngineInput::IsPress('D'))
 	{
-		Level->GetMainCamera()->AddActorLocation(float4::Right * _Delta * Speed);
+		_Level->GetMainCamera()->AddActorLocation(float4::Right * _Delta * Speed);
 	}
 
 	if (true == UEngineInput::IsPress('W'))
 	{
-		Level->GetMainCamera()->AddActorLocation(float4::Up * _Delta * Speed);
+		_Level->GetMainCamera()->AddActorLocation(float4::Up * _Delta * Speed);
 	}
 
 	if (true == UEngineInput::IsPress('S'))
 	{
-		Level->GetMainCamera()->AddActorLocation(float4::Down * _Delta * Speed);
+		_Level->GetMainCamera()->AddActorLocation(float4::Down * _Delta * Speed);
 	}
 
-	std::string LevelName = Level->GetName();
+	std::string LevelName = _Level->GetName();
 
-	if ("CreateMapLevel" == Level->GetName())
+	if ("CreateMapLevel" == _Level->GetName())
 	{
 		On();
 	}
-	else 
+	else
 	{
 		Off();
 	}
 
-	std::shared_ptr<AGameMode> Mode = Level->GetGameMode();
+	std::shared_ptr<AGameMode> Mode = _Level->GetGameMode();
 
 	ATileMapLevel* Ptr = dynamic_cast<ATileMapLevel*>(Mode.get());
 
@@ -69,7 +69,7 @@ void MapEditorGUI::Tick(ULevel* Level, float _Delta)
 	if (true == UEngineInput::IsPress(VK_LBUTTON))
 	{
 		float4 MousePos = GEngine->EngineWindow.GetScreenMousePos();
-		MousePosWorld = Level->GetMainCamera()->ScreenPosToWorldPos(MousePos);
+		MousePosWorld = _Level->GetMainCamera()->ScreenPosToWorldPos(MousePos);
 
 		TileRenderer->SetTile(MousePosWorld, SelectSpriteIndex);
 	}
@@ -77,13 +77,13 @@ void MapEditorGUI::Tick(ULevel* Level, float _Delta)
 
 }
 
-void MapEditorGUI::OnGui(ULevel* Level, float _Delta)
+void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 {
 
 	float4 MousePos = GEngine->EngineWindow.GetScreenMousePos();
-	MousePosWorld = Level->GetMainCamera()->ScreenPosToWorldPos(MousePos);
+	MousePosWorld = _Level->GetMainCamera()->ScreenPosToWorldPos(MousePos);
 
-	std::shared_ptr<AGameMode> Mode = Level->GetGameMode();
+	std::shared_ptr<AGameMode> Mode = _Level->GetGameMode();
 
 	ATileMapLevel* Ptr = dynamic_cast<ATileMapLevel*>(Mode.get());
 
@@ -94,14 +94,24 @@ void MapEditorGUI::OnGui(ULevel* Level, float _Delta)
 
 	UTileRenderer* TileRenderer = Ptr->TileMap->TileRenderer;
 
-	
+
 	ImGui::InputFloat2("TileSize", TileCount);
 
 	if (true == ImGui::Button("Create"))
 	{
-		TileRenderer->CreateTileMap("Tiles.png", { 64, 64 }, TileCount[0], TileCount[1], 0);
+		TileRenderer->CreateTileMap("Tiles.png", { TileSize, TileSize }, TileCount[0], TileCount[1], 0);
+		_Level->GetMainCamera()->AddActorLocation({ TileSize * TileCount[0] / 2, TileSize * TileCount[1] / 2 });
 	}
 
+	if (true == ImGui::Button("Save"))
+	{
+		int a = 0;
+	}
+
+	if (true == ImGui::Button("Load"))
+	{
+		int a = 0;
+	}
 
 	ImGui::Text(("WorldMouse : " + MousePosWorld.ToString()).c_str());
 	float4 Index = TileRenderer->ConvertTileIndex(MousePosWorld);
@@ -132,7 +142,7 @@ void MapEditorGUI::OnGui(ULevel* Level, float _Delta)
 
 		ImGui::ImageButton("Select", Info.Texture->GetSRV(), { 100, 100 }, UV0, UV1);
 	}
-	else 
+	else
 	{
 		ImGui::ImageButton("Select", nullptr, { 100, 100 });
 	}
@@ -144,7 +154,7 @@ void MapEditorGUI::OnGui(ULevel* Level, float _Delta)
 	{
 		FSpriteInfo Info = Sprite->GetSpriteInfo(i);
 
-		ImVec2 UV0 = { Info.CuttingPosition.X, Info.CuttingPosition.Y};
+		ImVec2 UV0 = { Info.CuttingPosition.X, Info.CuttingPosition.Y };
 		ImVec2 UV1 = { Info.CuttingSize.X, Info.CuttingSize.Y };
 
 		UV1.x = UV1.x + UV0.x;
@@ -153,12 +163,12 @@ void MapEditorGUI::OnGui(ULevel* Level, float _Delta)
 		std::string Text = std::to_string(i);
 
 		// 줄바꿈을 자동으로 해준다.
-		if (true == ImGui::ImageButton(Text.c_str(), Info.Texture->GetSRV(), {64, 64}, UV0, UV1))
+		if (true == ImGui::ImageButton(Text.c_str(), Info.Texture->GetSRV(), { 64, 64 }, UV0, UV1))
 		{
 			SelectSpriteIndex = i;
 		}
-		
-		if ((i + 1) % 18 )
+
+		if ((i + 1) % 18)
 		{
 			ImGui::SameLine();
 		}
