@@ -7,14 +7,12 @@ void APlayer::StateInit()
 	// 스테이트 생성
 	State.CreateState("Die");
 	State.CreateState("Idle");
-	State.CreateState("Jump");
 	State.CreateState("Run");
+	State.CreateState("Jump");
+	State.CreateState("Dash");
 
 	// 함수들 세팅
 	State.SetUpdateFunction("Idle", std::bind(&APlayer::Idle, this, std::placeholders::_1));
-
-
-
 	State.SetStartFunction("Idle", [this]()
 		{
 			this->Renderer->ChangeAnimation("Idle");
@@ -22,6 +20,16 @@ void APlayer::StateInit()
 
 
 	State.SetUpdateFunction("Run", std::bind(&APlayer::Run, this, std::placeholders::_1));
+	State.SetStartFunction("Run", [this]()
+		{
+			this->Renderer->ChangeAnimation("Run");
+		});
+
+	State.SetUpdateFunction("Jump", std::bind(&APlayer::Jump, this, std::placeholders::_1));
+	State.SetStartFunction("Jump", [this]()
+		{
+			this->Renderer->ChangeAnimation("Jump");
+		});
 
 	State.ChangeState("Idle");
 }
@@ -59,19 +67,17 @@ void APlayer::Run(float _DeltaTime)
 	{
 		AddActorLocation(FVector::Left * _DeltaTime * Speed);
 	}
-
 	if (true == IsPress('D'))
 	{
 		AddActorLocation(FVector::Right * _DeltaTime * Speed);
 	}
-
 	if (true == IsPress('W'))
 	{
 		AddActorLocation(FVector::Up * _DeltaTime * Speed);
 	}
-
 	if (true == IsPress('S'))
 	{
 		AddActorLocation(FVector::Down * _DeltaTime * Speed);
 	}
+
 }

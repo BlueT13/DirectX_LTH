@@ -165,7 +165,7 @@ void MapEditorGUI::OnGui(ULevel* Level, float _Delta)
 			SelectSpriteIndex = i;
 		}
 		
-		if ((i + 1) % 5 )
+		if ((i + 1) % 18 )
 		{
 			ImGui::SameLine();
 		}

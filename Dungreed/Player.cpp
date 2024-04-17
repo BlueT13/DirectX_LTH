@@ -58,8 +58,9 @@ void APlayer::ColorColCheck(float _DeltaTime)
 {
 	std::shared_ptr<UEngineTexture> Tex = UDungreedConstValue::MapTexture;
 
+	// PlayerPos.Y = ¸ÊÀÇ yÃà ±æÀÌ - PlayerPos.Y;
+	PlayerPos.Y = 1200.0f - PlayerPos.Y;
 	PlayerPos /= 4.0f;
-	PlayerPos.Y = -PlayerPos.Y;
 
 	Color = Tex->GetColor(PlayerPos, Color8Bit::White);
 
