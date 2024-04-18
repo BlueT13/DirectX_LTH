@@ -15,7 +15,8 @@ void AMyMap::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetSprite("Town",0);
+	//Renderer->SetSprite("Town",0);
+	Renderer->SetSprite("1.png");
 	Renderer->SetAutoSize(4.0f, true);
 }
 

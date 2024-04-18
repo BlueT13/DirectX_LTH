@@ -23,6 +23,7 @@ void UDungreedCore::Initialize()
 	{
 		UEngineDirectory Dir;
 		Dir.MoveToSearchChild("Resources");
+		Dir.Move("Image");
 
 		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory(true);
 		for (size_t i = 0; i < Directorys.size(); i++)
@@ -31,11 +32,11 @@ void UDungreedCore::Initialize()
 			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
 		}
 
-		//std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
-		//for (UEngineFile& File : Files)
-		//{
-		//	UEngineSprite::Load(File.GetFullPath());
-		//}
+		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
+		for (UEngineFile& File : Files)
+		{
+			UEngineSprite::Load(File.GetFullPath());
+		}
 
 		UEngineSprite::CreateCutting("Tiles.png", 18, 6);
 	}
@@ -67,6 +68,6 @@ void UDungreedCore::Initialize()
 	GEngine->CreateLevel<APlayGameMode>("PlayLevel");
 	GEngine->CreateLevel<ATileMapMode>("TileLevel");
 	GEngine->CreateLevel<ACreateMapMode>("CreateMapLevel");
-	
+
 	GEngine->ChangeLevel("CreateMapLevel");
 }
