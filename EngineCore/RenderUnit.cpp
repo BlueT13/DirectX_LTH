@@ -8,6 +8,9 @@ URenderUnit::URenderUnit()
 
 URenderUnit::~URenderUnit()
 {
+	Mesh = nullptr;
+	Material = nullptr;
+	Resources = nullptr;
 }
 
 void URenderUnit::RenderingSetting()

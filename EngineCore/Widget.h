@@ -2,6 +2,7 @@
 #include <EngineBase/TransformObject.h>
 #include "RenderUnit.h"
 #include "TickObject.h"
+#include "EngineStruct.h"
 
 // 여기서 어떻게 할거냐가 중요하다.
 
@@ -28,7 +29,7 @@ public:
 	friend ULevel;
 	// constrcuter destructer
 	UWidget();
-	~UWidget();
+	virtual ~UWidget();
 
 	// delete Function
 	UWidget(const UWidget& _Other) = delete;
@@ -36,13 +37,47 @@ public:
 	UWidget& operator=(const UWidget& _Other) = delete;
 	UWidget& operator=(UWidget&& _Other) noexcept = delete;
 
-	void AddToViewPort();
+	template<typename EnumType>
+	void AddToViewPort(EnumType _Order)
+	{
+		AddToViewPort(static_cast<int>(_Order));
+	}
+
+	void AddToViewPort(int _Order);
+
+	void SetHover(std::function<void()> _Hover)
+	{
+		Hover = _Hover;
+	}
+
+	void SetDown(std::function<void()> _Down)
+	{
+		Down = _Down;
+	}
+
+	void SetUnHover(std::function<void()> _UnHover)
+	{
+		UnHover = _UnHover;
+	}
+
+
 
 protected:
 	void MaterialSettingEnd() override;
+	void Tick(float _DeltaTime) override;
+
+	void Reset()
+	{
+		IsHover = false;
+	}
 
 private:
 	void RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera);
 
+	bool IsHover = false;
+
+	std::function<void()> UnHover;
+	std::function<void()> Hover;
+	std::function<void()> Down;
 };
 

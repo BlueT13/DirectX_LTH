@@ -16,7 +16,8 @@ MapEditorGUI::~MapEditorGUI()
 
 void MapEditorGUI::Init()
 {
-
+	Dir.MoveToSearchChild("Resources");
+	Dir.Move("Save");
 }
 
 void MapEditorGUI::Tick(ULevel* _Level, float _Delta)
@@ -95,22 +96,43 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 	UTileRenderer* TileRenderer = Ptr->TileMap->TileRenderer;
 
 
-	ImGui::InputFloat2("TileSize", TileCount);
+	ImGui::InputInt2("TileSize", TileCount);
 
 	if (true == ImGui::Button("Create"))
 	{
 		TileRenderer->CreateTileMap("Tiles.png", { TileSize, TileSize }, TileCount[0], TileCount[1], 0);
 		_Level->GetMainCamera()->SetActorLocation({ TileSize * TileCount[0] / 2, TileSize * TileCount[1] / 2 });
 	}
-	                                                                                                          
+
 	if (true == ImGui::Button("Save"))
 	{
-		int a = 0;
+		UEngineSerializer Ser;
+		TilesData = TileRenderer->GetTileMapData();
+		Ser << TilesData;
+
+		UEngineFile File = Dir.GetPathFromFile("SaveData.Data");
+		File.Open(EIOOpenMode::Write, EIODataType::Binary);
+		File.Save(Ser);
 	}
 
 	if (true == ImGui::Button("Load"))
 	{
-		int a = 0;
+		UEngineSerializer Ser;
+
+		UEngineFile File = Dir.GetPathFromFile("SaveData.Data");
+		File.Open(EIOOpenMode::Read, EIODataType::Binary);
+		File.Load(Ser);
+
+		Ser >> TilesData;
+		TileRenderer->CreateTileMap("Tiles.png", { TileSize, TileSize }, TilesData.size(), TilesData[0].size(), 0);
+
+		for (size_t y = 0; y < TilesData.size(); y++)
+		{
+			for (size_t x = 0; x < TilesData[y].size(); x++)
+			{
+				TileRenderer->SetTile(x, y,TilesData[y][x]);
+			}
+		}
 	}
 
 	ImGui::Text(("WorldMouse : " + MousePosWorld.ToString()).c_str());

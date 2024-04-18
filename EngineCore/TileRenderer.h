@@ -37,7 +37,7 @@ protected:
 	bool Render(float _DeltaTime) override;
 
 	std::vector<std::vector<int>> Tiles;
-	ResultColorValue ColorData;
+	FResultColorValue ColorData;
 	FCuttingData CuttingDataValue;
 	std::shared_ptr<UEngineSprite> TileSprite;
 	float4 TileSize = {64, 64};

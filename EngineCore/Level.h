@@ -65,6 +65,11 @@ public:
 		return MainCamera;
 	}
 
+	std::shared_ptr<UCamera> GetUICamera()
+	{
+		return UICamera;
+	}
+
 	std::shared_ptr<AGameMode> GetGameMode()
 	{
 		return GameMode;
@@ -106,6 +111,7 @@ private:
 	// Widget이라고 불리고
 	// 아예 액터랑 분리되어 있다.
 	std::map<int, std::list<std::shared_ptr<UWidget>>> Widgets;
+	std::list<std::shared_ptr<UWidget>> WidgetInits; 
 
 	void ConstructorActor(std::shared_ptr<AActor> _Actor, std::string_view _Name, int Order);
 	void PushActor(std::shared_ptr<AActor> _Actor);

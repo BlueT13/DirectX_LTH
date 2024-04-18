@@ -123,7 +123,7 @@ private:
 	std::shared_ptr<USpriteAnimation> CurAnimation = nullptr;
 	ETextureSampling SamplingValue = ETextureSampling::POINT;
 
-	ResultColorValue ColorData;
+	FResultColorValue ColorData;
 	FCuttingData CuttingDataValue;
 };
 

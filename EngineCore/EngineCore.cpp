@@ -92,6 +92,7 @@ void UEngineCore::EngineOptionInit()
 
 void UEngineCore::EngineEnd()
 {
+	Levels.clear();
 	EngineDevice.EngineResourcesRelease();
 }
 

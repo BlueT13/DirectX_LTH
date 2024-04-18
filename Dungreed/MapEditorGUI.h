@@ -1,5 +1,6 @@
 #pragma once
 #include <EngineCore/EngineEditorWindow.h>
+#include <EngineBase/EngineDirectory.h>
 
 // Ό³Έν :
 class MapEditorGUI : public UEngineEditorWindow
@@ -26,6 +27,9 @@ private:
 	float4 MousePosWorld;
 	int SelectSpriteIndex = 0;
 	float TileSize =  64.0f;
-	float TileCount[2] = { 0, };
+	int TileCount[2] = { 0, };
+
+	UEngineDirectory Dir;
+	std::vector<std::vector<int>> TilesData;
 };
 
