@@ -2,7 +2,7 @@
 #include "DungreedCore.h"
 #include "PlayGameMode.h"
 #include "TitleGameMode.h"
-#include "TileMapLevel.h"
+#include "TileMapMode.h"
 #include "CreateMapMode.h"
 #include <EngineCore/EngineSprite.h>
 
@@ -65,7 +65,7 @@ void UDungreedCore::Initialize()
 
 	GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
 	GEngine->CreateLevel<APlayGameMode>("PlayLevel");
-	GEngine->CreateLevel<ATileMapLevel>("TileLevel");
+	GEngine->CreateLevel<ATileMapMode>("TileLevel");
 	GEngine->CreateLevel<ACreateMapMode>("CreateMapLevel");
 	
 	GEngine->ChangeLevel("CreateMapLevel");

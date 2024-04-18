@@ -1,25 +1,25 @@
 #include "PreCompile.h"
-#include "TileMapLevel.h"
+#include "TileMapMode.h"
 #include <EngineCore/TileRenderer.h>
 #include "TileMap.h"
 
 
-ATileMapLevel::ATileMapLevel() 
+ATileMapMode::ATileMapMode() 
 {
 }
 
-ATileMapLevel::~ATileMapLevel() 
+ATileMapMode::~ATileMapMode() 
 {
 }
 
-void ATileMapLevel::BeginPlay()
+void ATileMapMode::BeginPlay()
 {
 	Super::BeginPlay();
 
 	TileMap = GetWorld()->SpawnActor<ATileMap>("TileMap", ERenderOrder::Map);
 }
 
-void ATileMapLevel::Tick(float _DeltaTime)
+void ATileMapMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }

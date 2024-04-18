@@ -30,7 +30,7 @@ void APlayGameMode::BeginPlay()
 	{
 		std::shared_ptr<ABackground> Background = GetWorld()->SpawnActor<ABackground>("Background");
 		// (¸ÊÀÇ xÃà ±æÀÌ/2, ¸ÊÀÇ yÃà ±æÀÌ/2, 0.0f)
-		Background->SetActorLocation({ 600.0f, 600.0f, 0.0f });
+		Background->SetActorLocation({ 640.0f, 640.0f, 0.0f });
 	}
 
 }

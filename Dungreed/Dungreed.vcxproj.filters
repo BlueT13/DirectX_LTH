@@ -34,7 +34,7 @@
     <ClCompile Include="MapEditorGUI.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="TileMapLevel.cpp">
+    <ClCompile Include="TileMapMode.cpp">
       <Filter>Level\TileMapLevel</Filter>
     </ClCompile>
     <ClCompile Include="TileMap.cpp">
@@ -42,6 +42,9 @@
     </ClCompile>
     <ClCompile Include="CreateMapMode.cpp">
       <Filter>Level\CreateMapLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="MyMap.cpp">
+      <Filter>Level\CreateMapLevel\Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -78,7 +81,7 @@
     <ClInclude Include="MapEditorGUI.h">
       <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="TileMapLevel.h">
+    <ClInclude Include="TileMapMode.h">
       <Filter>Level\TileMapLevel</Filter>
     </ClInclude>
     <ClInclude Include="TileMap.h">
@@ -86,6 +89,9 @@
     </ClInclude>
     <ClInclude Include="CreateMapMode.h">
       <Filter>Level\CreateMapLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="MyMap.h">
+      <Filter>Level\CreateMapLevel\Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

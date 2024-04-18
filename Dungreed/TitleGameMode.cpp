@@ -18,7 +18,7 @@ void ATitleGameMode::BeginPlay()
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 
 	TitleImage = GetWorld()->SpawnActor<ATitleImage>("TitleImage");
-	TitleImage->SetActorLocation({ 0.0f,0.0f,100.0f });
+	TitleImage->SetActorLocation({ 0.0f, 0.0f, 100.0f });
 }
 
 void ATitleGameMode::Tick(float _DeltaTime)

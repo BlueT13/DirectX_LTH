@@ -1,6 +1,6 @@
 #include "PreCompile.h"
 #include "MapEditorGUI.h"
-#include "TileMapLevel.h"
+#include "TileMapMode.h"
 #include <EngineCore/TileRenderer.h>
 #include "TileMap.h"
 #include <EnginePlatform/EngineInput.h>
@@ -57,7 +57,7 @@ void MapEditorGUI::Tick(ULevel* _Level, float _Delta)
 
 	std::shared_ptr<AGameMode> Mode = _Level->GetGameMode();
 
-	ATileMapLevel* Ptr = dynamic_cast<ATileMapLevel*>(Mode.get());
+	ATileMapMode* Ptr = dynamic_cast<ATileMapMode*>(Mode.get());
 
 	if (nullptr == Ptr)
 	{
@@ -85,7 +85,7 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 
 	std::shared_ptr<AGameMode> Mode = _Level->GetGameMode();
 
-	ATileMapLevel* Ptr = dynamic_cast<ATileMapLevel*>(Mode.get());
+	ATileMapMode* Ptr = dynamic_cast<ATileMapMode*>(Mode.get());
 
 	if (nullptr == Ptr)
 	{

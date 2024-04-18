@@ -186,11 +186,15 @@
     </ClInclude>
     <ClInclude Include="DungreedEnum.h" />
     <ClInclude Include="MapEditorGUI.h" />
+    <ClInclude Include="MyMap.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayGameMode.h" />
     <ClInclude Include="PreCompile.h" />
     <ClInclude Include="TileMap.h" />
-    <ClInclude Include="TileMapLevel.h" />
+    <ClInclude Include="TileMapMode.h" />
     <ClInclude Include="TitleGameMode.h" />
     <ClInclude Include="TitleImage.h" />
   </ItemGroup>
@@ -213,6 +217,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="MapEditorGUI.cpp" />
+    <ClCompile Include="MyMap.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="PlayGameMode.cpp" />
@@ -223,7 +231,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TileMap.cpp" />
-    <ClCompile Include="TileMapLevel.cpp" />
+    <ClCompile Include="TileMapMode.cpp" />
     <ClCompile Include="TitleGameMode.cpp" />
     <ClCompile Include="TitleImage.cpp" />
   </ItemGroup>

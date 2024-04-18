@@ -1,10 +1,11 @@
 #pragma once
-#include "TileMapLevel.h"
+#include "TileMapMode.h"
+#include "MyMap.h"
 
 // Ό³Έν :
-class ACreateMapMode : public ATileMapLevel
+class ACreateMapMode : public ATileMapMode
 {
-	GENERATED_BODY(ATileMapLevel)
+	GENERATED_BODY(ATileMapMode)
 
 public:
 	// constrcuter destructer
@@ -22,6 +23,6 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-
+	std::shared_ptr<AMyMap> MyMap = nullptr;
 };
 
