@@ -4,8 +4,8 @@
 class UDungreedConstValue
 {
 public:
-	static const float TileSize;
-	static std::shared_ptr<UEngineTexture> MapTexture;
-	static float4 MapTextureScale;
+	static const float AutoSize;
+	static std::shared_ptr<UEngineTexture> ColMap;
+	static float4 ColMapScale;
 };
 

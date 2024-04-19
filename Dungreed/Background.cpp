@@ -15,7 +15,7 @@ void ABackground::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetSprite("Town", 0);
+	Renderer->SetSprite("Tow_Col.png");
 	Renderer->SetAutoSize(4.0f, true);
 }
 

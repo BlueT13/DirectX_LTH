@@ -21,8 +21,9 @@ void APlayer::BeginPlay()
 	Renderer->CreateAnimation("Jump", "Jump");
 	Renderer->CreateAnimation("Run", "Run", 0.1f);
 
-	Renderer->SetAutoSize(4.0f, true);
+	Renderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
 	Renderer->SetOrder(ERenderOrder::Player);
+	Renderer->SetPivot(EPivot::BOT);
 
 	StateInit();
 }
@@ -56,10 +57,11 @@ void APlayer::DebugMessageFunction()
 
 void APlayer::ColorColCheck(float _DeltaTime)
 {
-	std::shared_ptr<UEngineTexture> Tex = UDungreedConstValue::MapTexture;
+	std::shared_ptr<UEngineTexture> Tex = UDungreedConstValue::ColMap;
+	float MapY = Tex->GetScale().Y * UDungreedConstValue::AutoSize;
 
 	// PlayerPos.Y = ¸ÊÀÇ yÃà ±æÀÌ - PlayerPos.Y;
-	PlayerPos.Y = 1200.0f - PlayerPos.Y;
+	PlayerPos.Y = MapY - PlayerPos.Y;
 	PlayerPos /= 4.0f;
 
 	Color = Tex->GetColor(PlayerPos, Color8Bit::White);
