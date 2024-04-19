@@ -5,28 +5,28 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="PlayGameMode.cpp">
-      <Filter>Level\PlayLevel</Filter>
+      <Filter>Level\02. PlayLevel</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Level\PlayLevel\Actor</Filter>
+      <Filter>Level\02. PlayLevel\Actor</Filter>
     </ClCompile>
     <ClCompile Include="PreCompile.cpp">
       <Filter>PreCompile</Filter>
     </ClCompile>
     <ClCompile Include="TitleGameMode.cpp">
-      <Filter>Level\TitleLevel</Filter>
+      <Filter>Level\01. TitleLevel</Filter>
     </ClCompile>
     <ClCompile Include="TitleImage.cpp">
-      <Filter>Level\TitleLevel\Actor</Filter>
+      <Filter>Level\01. TitleLevel\Actor</Filter>
     </ClCompile>
     <ClCompile Include="Background.cpp">
-      <Filter>Level\PlayLevel\Actor</Filter>
+      <Filter>Level\02. PlayLevel\Actor</Filter>
     </ClCompile>
     <ClCompile Include="DungreedConstValue.cpp">
       <Filter>Option</Filter>
     </ClCompile>
     <ClCompile Include="PlayerState.cpp">
-      <Filter>Level\PlayLevel\Actor</Filter>
+      <Filter>Level\02. PlayLevel\Actor</Filter>
     </ClCompile>
     <ClCompile Include="ContentsGUI.cpp">
       <Filter>GUI</Filter>
@@ -35,16 +35,16 @@
       <Filter>GUI</Filter>
     </ClCompile>
     <ClCompile Include="TileMapMode.cpp">
-      <Filter>Level\TileMapLevel</Filter>
+      <Filter>Level\00. TileMapLevel</Filter>
     </ClCompile>
     <ClCompile Include="TileMap.cpp">
-      <Filter>Level\TileMapLevel\Actor</Filter>
+      <Filter>Level\00. TileMapLevel\Actor</Filter>
     </ClCompile>
     <ClCompile Include="CreateMapMode.cpp">
-      <Filter>Level\CreateMapLevel</Filter>
+      <Filter>Level\00. CreateMapLevel</Filter>
     </ClCompile>
     <ClCompile Include="MyMap.cpp">
-      <Filter>Level\CreateMapLevel\Actor</Filter>
+      <Filter>Level\00. CreateMapLevel\Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -52,22 +52,22 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="PlayGameMode.h">
-      <Filter>Level\PlayLevel</Filter>
+      <Filter>Level\02. PlayLevel</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Level\PlayLevel\Actor</Filter>
+      <Filter>Level\02. PlayLevel\Actor</Filter>
     </ClInclude>
     <ClInclude Include="PreCompile.h">
       <Filter>PreCompile</Filter>
     </ClInclude>
     <ClInclude Include="TitleGameMode.h">
-      <Filter>Level\TitleLevel</Filter>
+      <Filter>Level\01. TitleLevel</Filter>
     </ClInclude>
     <ClInclude Include="TitleImage.h">
-      <Filter>Level\TitleLevel\Actor</Filter>
+      <Filter>Level\01. TitleLevel\Actor</Filter>
     </ClInclude>
     <ClInclude Include="Background.h">
-      <Filter>Level\PlayLevel\Actor</Filter>
+      <Filter>Level\02. PlayLevel\Actor</Filter>
     </ClInclude>
     <ClInclude Include="DungreedConstValue.h">
       <Filter>Option</Filter>
@@ -82,16 +82,16 @@
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="TileMapMode.h">
-      <Filter>Level\TileMapLevel</Filter>
+      <Filter>Level\00. TileMapLevel</Filter>
     </ClInclude>
     <ClInclude Include="TileMap.h">
-      <Filter>Level\TileMapLevel\Actor</Filter>
+      <Filter>Level\00. TileMapLevel\Actor</Filter>
     </ClInclude>
     <ClInclude Include="CreateMapMode.h">
-      <Filter>Level\CreateMapLevel</Filter>
+      <Filter>Level\00. CreateMapLevel</Filter>
     </ClInclude>
     <ClInclude Include="MyMap.h">
-      <Filter>Level\CreateMapLevel\Actor</Filter>
+      <Filter>Level\00. CreateMapLevel\Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -100,18 +100,6 @@
     </Filter>
     <Filter Include="Level">
       <UniqueIdentifier>{46ec390e-358e-4737-9d7b-85e629c12bf6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\PlayLevel">
-      <UniqueIdentifier>{439de66a-6ef8-4585-9350-d7e1a15e92d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\TitleLevel">
-      <UniqueIdentifier>{6c01fc04-7696-449f-9b11-7cbab330636e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\TitleLevel\Actor">
-      <UniqueIdentifier>{05955cd7-2b5d-4833-b1d7-1ab1fdaf4617}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\PlayLevel\Actor">
-      <UniqueIdentifier>{59672136-0515-44b8-afd9-2264780cf9e8}</UniqueIdentifier>
     </Filter>
     <Filter Include="PreCompile">
       <UniqueIdentifier>{ca6b2e85-8502-441c-97e9-7f40dbe55370}</UniqueIdentifier>
@@ -122,17 +110,29 @@
     <Filter Include="GUI">
       <UniqueIdentifier>{d02d1f22-0771-47ff-b325-492de92c4082}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\TileMapLevel">
-      <UniqueIdentifier>{d43db1c9-b8fd-41fc-a3ea-cd6cbc4ec609}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\TileMapLevel\Actor">
-      <UniqueIdentifier>{bdbb71c5-2e41-4ef6-a8a4-d02e8fcc4e37}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\CreateMapLevel">
+    <Filter Include="Level\00. CreateMapLevel">
       <UniqueIdentifier>{52ce011b-4e9e-4fae-acdc-d146aac7cc1f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\CreateMapLevel\Actor">
+    <Filter Include="Level\00. CreateMapLevel\Actor">
       <UniqueIdentifier>{0858b302-cb6c-44ed-aa93-a7973275b1c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\00. TileMapLevel">
+      <UniqueIdentifier>{d43db1c9-b8fd-41fc-a3ea-cd6cbc4ec609}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\00. TileMapLevel\Actor">
+      <UniqueIdentifier>{bdbb71c5-2e41-4ef6-a8a4-d02e8fcc4e37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\01. TitleLevel">
+      <UniqueIdentifier>{6c01fc04-7696-449f-9b11-7cbab330636e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\01. TitleLevel\Actor">
+      <UniqueIdentifier>{05955cd7-2b5d-4833-b1d7-1ab1fdaf4617}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\02. PlayLevel">
+      <UniqueIdentifier>{439de66a-6ef8-4585-9350-d7e1a15e92d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\02. PlayLevel\Actor">
+      <UniqueIdentifier>{59672136-0515-44b8-afd9-2264780cf9e8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
