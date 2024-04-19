@@ -15,7 +15,7 @@ void ABackground::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetSprite("Tow_Col.png");
+	Renderer->SetSprite("Town.png");
 	Renderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
 }
 

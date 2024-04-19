@@ -16,7 +16,7 @@ void APlayGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UDungreedConstValue::ColMap = UEngineTexture::FindRes("Tow_Col.png");
+	UDungreedConstValue::ColMap = UEngineTexture::FindRes("Town_Col.png");
 	UDungreedConstValue::ColMapScale = UDungreedConstValue::ColMap->GetScale();
 
 	Camera = GetWorld()->GetMainCamera();
