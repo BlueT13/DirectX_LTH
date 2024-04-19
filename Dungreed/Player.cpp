@@ -62,7 +62,7 @@ void APlayer::ColorColCheck(float _DeltaTime)
 
 	// PlayerPos.Y = ¸ÊÀÇ yÃà ±æÀÌ - PlayerPos.Y;
 	PlayerPos.Y = MapY - PlayerPos.Y;
-	PlayerPos /= 4.0f;
+	PlayerPos /= UDungreedConstValue::AutoSize;
 
 	Color = Tex->GetColor(PlayerPos, Color8Bit::White);
 

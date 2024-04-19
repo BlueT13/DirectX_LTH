@@ -17,7 +17,7 @@ void AMyMap::BeginPlay()
 
 	//Renderer->SetSprite("Town",0);
 	Renderer->SetSprite("1.png");
-	Renderer->SetAutoSize(4.0f, true);
+	Renderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
 }
 
 void AMyMap::Tick(float _DeltaTime)

@@ -19,7 +19,7 @@ void ATitleImage::BeginPlay()
 	//DelayCallBack(1.0f, std::bind(&ATitleImage::RendererOff, this));
 
 	Renderer->SetSprite("Title");
-	Renderer->SetAutoSize(4.0f, true);
+	Renderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
 }
 
 void ATitleImage::Tick(float _DeltaTime)

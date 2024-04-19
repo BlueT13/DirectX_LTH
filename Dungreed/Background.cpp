@@ -16,7 +16,7 @@ void ABackground::BeginPlay()
 	Super::BeginPlay();
 
 	Renderer->SetSprite("Tow_Col.png");
-	Renderer->SetAutoSize(4.0f, true);
+	Renderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
 }
 
 void ABackground::Tick(float _DeltaTime)
