@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineCore/GameMode.h>
 #include "Player.h"
+#include "Cursor.h"
 
 // Ό³Έν :
 class APlayGameMode : public AGameMode
@@ -25,5 +26,6 @@ protected:
 private:
 	std::shared_ptr<UCamera> Camera = nullptr;
 	std::shared_ptr<APlayer> Player = nullptr;
+	std::shared_ptr<ACursor> Cursor = nullptr;
 };
 

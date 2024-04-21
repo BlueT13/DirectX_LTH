@@ -46,6 +46,9 @@
     <ClCompile Include="MyMap.cpp">
       <Filter>Level\00. CreateMapLevel\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="Cursor.cpp">
+      <Filter>Level\02. PlayLevel\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DungreedCore.h">
@@ -92,6 +95,9 @@
     </ClInclude>
     <ClInclude Include="MyMap.h">
       <Filter>Level\00. CreateMapLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Cursor.h">
+      <Filter>Level\02. PlayLevel\Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

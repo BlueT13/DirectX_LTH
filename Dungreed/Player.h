@@ -30,6 +30,9 @@ private:
 	float Speed = 100.0f;
 	Color8Bit Color;
 	FVector PlayerPos = FVector::Zero;
+	FVector PlayerDir = FVector::Zero;
+	FVector PlayerScale = FVector::Zero;
+	FVector JumpVector = FVector::Zero;
 
 	void DebugMessageFunction();
 	void ColorColCheck(float _DeltaTime);
@@ -41,5 +44,7 @@ private:
 	void Idle(float _DeltaTime);
 	void Jump(float _DeltaTime);
 	void Run(float _DeltaTime);
+
+	void PlayerDirCheck();
 };
 

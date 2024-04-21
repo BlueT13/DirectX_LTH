@@ -25,9 +25,9 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	//USpriteRenderer* Renderer;
+	USpriteRenderer* Renderer;
+	//UTileRenderer* TileRenderer = nullptr;
 
-	UTileRenderer* TileRenderer = nullptr;
 	UEngineDirectory Dir;
 	std::vector<std::vector<int>> TilesData;
 };

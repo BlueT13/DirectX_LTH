@@ -30,6 +30,8 @@ void APlayGameMode::BeginPlay()
 
 	Player = GetWorld()->SpawnActor<APlayer>("Player");
 	Player->SetActorLocation({ MapHalfX, MapHalfY + 100.0f, 0.0f });
+
+	Cursor = GetWorld()->SpawnActor<ACursor>("Cursor");
 }
 
 void APlayGameMode::Tick(float _DeltaTime)

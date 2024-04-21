@@ -16,14 +16,16 @@ void APlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->CreateAnimation("Die", "Die");
-	Renderer->CreateAnimation("Idle", "Idle");
-	Renderer->CreateAnimation("Jump", "Jump");
+	Renderer->CreateAnimation("Die", "Die", 0.1f);
+	Renderer->CreateAnimation("Idle", "Idle", 0.1f);
+	Renderer->CreateAnimation("Jump", "Jump", 0.1f);
 	Renderer->CreateAnimation("Run", "Run", 0.1f);
 
 	Renderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
 	Renderer->SetOrder(ERenderOrder::Player);
 	Renderer->SetPivot(EPivot::BOT);
+
+	PlayerScale = GetActorScale3D();
 
 	StateInit();
 }
@@ -39,6 +41,8 @@ void APlayer::Tick(float _DeltaTime)
 	PlayerPos = GetActorLocation();
 
 	ColorColCheck(_DeltaTime);
+
+	PlayerDirCheck();
 }
 
 void APlayer::DebugMessageFunction()
