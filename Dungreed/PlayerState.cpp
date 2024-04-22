@@ -27,6 +27,7 @@ void APlayer::StateInit()
 	State.SetUpdateFunction("Jump", std::bind(&APlayer::Jump, this, std::placeholders::_1));
 	State.SetStartFunction("Jump", [this]()
 		{
+			JumpVector = FVector::Up * 1000.0f;
 			this->Renderer->ChangeAnimation("Jump");
 		});
 
@@ -56,18 +57,24 @@ void APlayer::Idle(float _DeltaTime)
 
 void APlayer::Jump(float _DeltaTime)
 {
-	if (true == IsPress(VK_SPACE))
+	Gravity();
+	JumpPower = JumpVector + GravityVector;
+	AddActorLocation(JumpPower * _DeltaTime);
+
+	if (true == IsPress('A'))
 	{
-		JumpVector = FVector::Up * 1000.0f;
+		AddActorLocation(FVector::Left * _DeltaTime * Speed);
 	}
-	//if (true == IsPress('A'))
-	//{
-	//	AddActorLocation(FVector::Left * _DeltaTime * Speed);
-	//}
-	//if (true == IsPress('D'))
-	//{
-	//	AddActorLocation(FVector::Right * _DeltaTime * Speed);
-	//}
+	if (true == IsPress('D'))
+	{
+		AddActorLocation(FVector::Right * _DeltaTime * Speed);
+	}
+
+	while (Color != Color8Bit::Black)
+	{
+		AddActorLocation(FVector::Up);
+		return;
+	}
 
 	if (true == IsFree(VK_SPACE))
 	{
@@ -84,8 +91,6 @@ void APlayer::Run(float _DeltaTime)
 	//{
 	//}
 
-	float Speed = 500.0f;
-
 	if (true == IsPress('A'))
 	{
 		AddActorLocation(FVector::Left * _DeltaTime * Speed);
@@ -97,6 +102,11 @@ void APlayer::Run(float _DeltaTime)
 	if (true == IsPress('W'))
 	{
 		AddActorLocation(FVector::Up * _DeltaTime * Speed);
+	}
+	if (true == IsDown(VK_SPACE))
+	{
+		State.ChangeState("Jump");
+		return;
 	}
 
 	if (true == IsFree('A') && true == IsFree('D') && true == IsFree('W') && true == IsFree('S'))
@@ -117,4 +127,9 @@ void APlayer::PlayerDirCheck()
 	{
 		Renderer->SetDir(EEngineDir::Right);
 	}
+}
+
+void APlayer::Gravity()
+{
+	GravityVector += FVector::Down * 5.0f;
 }

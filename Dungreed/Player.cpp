@@ -70,8 +70,8 @@ void APlayer::ColorColCheck(float _DeltaTime)
 
 	Color = Tex->GetColor(PlayerPos, Color8Bit::White);
 
-	if (Color != Color8Bit::Black)
+	if (Color == Color8Bit::Black && JumpPower.Y < 0)
 	{
-		AddActorLocation(float4::Down * _DeltaTime * 100.0f);
+		GravityVector = FVector::Zero;
 	}
 }

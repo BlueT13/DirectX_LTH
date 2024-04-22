@@ -33,24 +33,26 @@ protected:
 
 private:
 	USpriteRenderer* Renderer = nullptr;
-	float Speed = 100.0f;
+	float Speed = 500.0f;
 	Color8Bit Color;
 	FVector PlayerPos = FVector::Zero;
 	EPlayerDir PlayerDir = EPlayerDir::Right;
 	FVector PlayerScale = FVector::Zero;
 	FVector JumpVector = FVector::Zero;
+	FVector GravityVector = FVector::Zero;
+	FVector JumpPower = FVector::Zero;
 
 	void DebugMessageFunction();
 	void ColorColCheck(float _DeltaTime);
 
 	// State
 	void StateInit();
-
 	void Die(float _DeltaTime);
 	void Idle(float _DeltaTime);
 	void Jump(float _DeltaTime);
 	void Run(float _DeltaTime);
 
 	void PlayerDirCheck();
+	void Gravity();
 };
 
