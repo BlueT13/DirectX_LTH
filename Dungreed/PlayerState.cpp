@@ -80,10 +80,10 @@ void APlayer::Jump(float _DeltaTime)
 	}
 
 	ColorColCheck(_DeltaTime);
-	if (Color == Color8Bit::Black)
+	if (Color == Color8Bit::Black && 0 >= JumpPower.Y)
 	{
-		AddActorLocation(FVector::Up);
-		GravityVector = FVector::Zero;
+		//AddActorLocation(FVector::Up);
+		//GravityVector = FVector::Zero;
 		State.ChangeState("Idle");
 	}
 }

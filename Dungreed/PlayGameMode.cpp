@@ -29,7 +29,7 @@ void APlayGameMode::BeginPlay()
 	Background->SetActorLocation({ MapHalfX, MapHalfY, 0.0f });
 
 	Player = GetWorld()->SpawnActor<APlayer>("Player");
-	Player->SetActorLocation({ MapHalfX, MapHalfY + 100.0f, 0.0f });
+	Player->SetActorLocation({ MapHalfX, MapHalfY - 400.0f, 0.0f });
 
 	Cursor = GetWorld()->SpawnActor<ACursor>("Cursor");
 }
