@@ -3,6 +3,12 @@
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/StateManager.h>
 
+enum class EPlayerDir
+{
+	Left,
+	Right,
+};
+
 // Ό³Έν :
 class APlayer : public AActor
 {
@@ -30,7 +36,7 @@ private:
 	float Speed = 100.0f;
 	Color8Bit Color;
 	FVector PlayerPos = FVector::Zero;
-	FVector PlayerDir = FVector::Zero;
+	EPlayerDir PlayerDir = EPlayerDir::Right;
 	FVector PlayerScale = FVector::Zero;
 	FVector JumpVector = FVector::Zero;
 

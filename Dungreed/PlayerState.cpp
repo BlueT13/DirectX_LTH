@@ -78,10 +78,11 @@ void APlayer::Jump(float _DeltaTime)
 
 void APlayer::Run(float _DeltaTime)
 {
-	if (true == Renderer->IsCurAnimationEnd())
-	{
-		int a = 0;
-	}
+	PlayerDirCheck();
+
+	//if (true == Renderer->IsCurAnimationEnd())
+	//{
+	//}
 
 	float Speed = 500.0f;
 
@@ -107,12 +108,13 @@ void APlayer::Run(float _DeltaTime)
 
 void APlayer::PlayerDirCheck()
 {
+	// CursorPos에 맞게 방향 전환 조건문으로 변경 필요
 	if (true == IsPress('A'))
 	{
-		PlayerDir = FVector::Left;
+		Renderer->SetDir(EEngineDir::Left);
 	}
 	if (true == IsPress('D'))
 	{
-		PlayerDir = FVector::Right;
+		Renderer->SetDir(EEngineDir::Right);
 	}
 }
