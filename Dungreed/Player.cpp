@@ -35,14 +35,7 @@ void APlayer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
-
 	DebugMessageFunction();
-
-	PlayerPos = GetActorLocation();
-
-	ColorColCheck(_DeltaTime);
-
-	PlayerDirCheck();
 }
 
 void APlayer::DebugMessageFunction()
@@ -64,14 +57,10 @@ void APlayer::ColorColCheck(float _DeltaTime)
 	std::shared_ptr<UEngineTexture> Tex = UDungreedConstValue::ColMap;
 	float MapY = Tex->GetScale().Y * UDungreedConstValue::AutoSize;
 
+	PlayerPos = GetActorLocation();
 	// PlayerPos.Y = ¸ÊÀÇ yÃà ±æÀÌ - PlayerPos.Y;
 	PlayerPos.Y = MapY - PlayerPos.Y;
 	PlayerPos /= UDungreedConstValue::AutoSize;
 
 	Color = Tex->GetColor(PlayerPos, Color8Bit::White);
-
-	if (Color == Color8Bit::Black && JumpPower.Y < 0)
-	{
-		GravityVector = FVector::Zero;
-	}
 }

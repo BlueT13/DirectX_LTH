@@ -27,6 +27,7 @@ void APlayer::StateInit()
 	State.SetUpdateFunction("Jump", std::bind(&APlayer::Jump, this, std::placeholders::_1));
 	State.SetStartFunction("Jump", [this]()
 		{
+			// 점프 시작할 때 JumpVector값 한번만 대입
 			JumpVector = FVector::Up * 1000.0f;
 			this->Renderer->ChangeAnimation("Jump");
 		});
@@ -42,13 +43,20 @@ void APlayer::Die(float _DeltaTime)
 
 void APlayer::Idle(float _DeltaTime)
 {
+	ColorColCheck(_DeltaTime);
+	if (Color == Color8Bit::Black)
+	{
+		AddActorLocation(FVector::Up);
+		GravityVector = FVector::Zero;
+	}
+
 	if (true == IsPress('A') || true == IsPress('D') || true == IsPress('W') || true == IsPress('S'))
 	{
 		State.ChangeState("Run");
 		return;
 	}
 
-	if (true == IsDown(VK_SPACE))
+	if (true == IsPress(VK_SPACE))
 	{
 		State.ChangeState("Jump");
 		return;
@@ -57,6 +65,7 @@ void APlayer::Idle(float _DeltaTime)
 
 void APlayer::Jump(float _DeltaTime)
 {
+	PlayerDirCheck();
 	Gravity();
 	JumpPower = JumpVector + GravityVector;
 	AddActorLocation(JumpPower * _DeltaTime);
@@ -70,26 +79,18 @@ void APlayer::Jump(float _DeltaTime)
 		AddActorLocation(FVector::Right * _DeltaTime * Speed);
 	}
 
-	while (Color != Color8Bit::Black)
+	ColorColCheck(_DeltaTime);
+	if (Color == Color8Bit::Black)
 	{
 		AddActorLocation(FVector::Up);
-		return;
-	}
-
-	if (true == IsFree(VK_SPACE))
-	{
+		GravityVector = FVector::Zero;
 		State.ChangeState("Idle");
-		return;
 	}
 }
 
 void APlayer::Run(float _DeltaTime)
 {
 	PlayerDirCheck();
-
-	//if (true == Renderer->IsCurAnimationEnd())
-	//{
-	//}
 
 	if (true == IsPress('A'))
 	{
@@ -131,5 +132,5 @@ void APlayer::PlayerDirCheck()
 
 void APlayer::Gravity()
 {
-	GravityVector += FVector::Down * 5.0f;
+	GravityVector += FVector::Down;
 }
