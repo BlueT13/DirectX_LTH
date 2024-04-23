@@ -32,11 +32,16 @@ void APlayGameMode::BeginPlay()
 	Player->SetActorLocation({ MapHalfX, MapHalfY - 400.0f, 0.0f });
 
 	Cursor = GetWorld()->SpawnActor<ACursor>("Cursor");
+	WindowScale = GEngine->EngineWindow.GetWindowScale();
+	GEngine->EngineWindow.CursorOff();
 }
 
 void APlayGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+	Camera->SetActorLocation({ Player->GetActorLocation().X, Player->GetActorLocation().Y,-100.0f });
 
-	Camera->SetActorLocation({ Player->GetActorLocation().X,Player->GetActorLocation().Y,-100.0f });
+	PlayerPos = Player->GetActorLocation();
+	CursorPos = GEngine->EngineWindow.GetScreenMousePos();
+	Cursor->SetActorLocation({ PlayerPos.X + CursorPos.X - WindowScale.hX() , PlayerPos.Y - CursorPos.Y + WindowScale.hY(), 0.0f });
 }

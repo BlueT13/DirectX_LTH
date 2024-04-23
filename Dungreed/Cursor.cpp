@@ -24,7 +24,7 @@ void ACursor::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	CursorPos = GEngine->EngineWindow.GetScreenMousePos();
-	SetActorLocation(CursorPos);
+	//CursorPos = GEngine->EngineWindow.GetScreenMousePos();
+	//SetActorLocation(CursorPos);
 }
 

@@ -104,6 +104,10 @@ void APlayer::Run(float _DeltaTime)
 	{
 		AddActorLocation(FVector::Up * _DeltaTime * Speed);
 	}
+	if (true == IsPress('S'))
+	{
+		AddActorLocation(FVector::Down * _DeltaTime * Speed);
+	}
 	if (true == IsDown(VK_SPACE))
 	{
 		State.ChangeState("Jump");
