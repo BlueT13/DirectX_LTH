@@ -35,7 +35,8 @@ protected:
 private:
 	USpriteRenderer* Renderer = nullptr;
 	float Speed = 500.0f;
-	Color8Bit Color;
+	Color8Bit GroundColor;
+	Color8Bit HillColor;
 	FVector PlayerPos = FVector::Zero;
 	EPlayerDir PlayerDir = EPlayerDir::Right;
 	FVector PlayerScale = FVector::Zero;

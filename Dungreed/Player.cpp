@@ -72,7 +72,8 @@ void APlayer::ColorColCheck(float _DeltaTime)
 	PlayerPos.Y = MapY - PlayerPos.Y;
 	PlayerPos /= UDungreedConstValue::AutoSize;
 
-	Color = Tex->GetColor(PlayerPos, Color8Bit::White);
+	GroundColor = Tex->GetColor(PlayerPos, Color8Bit::White);
+	HillColor = Tex->GetColor({ PlayerPos.X, PlayerPos.Y, PlayerPos.Z }, Color8Bit::White);
 }
 
 void APlayer::CursorCheck()

@@ -28,7 +28,7 @@ void APlayer::StateInit()
 	State.SetStartFunction("Jump", [this]()
 		{
 			// 점프 시작할 때 JumpVector값 한번만 대입
-			JumpVector = FVector::Up * 1000.0f;
+			JumpVector = FVector::Up * 1200.0f;
 			this->Renderer->ChangeAnimation("Jump");
 		});
 
@@ -40,7 +40,7 @@ void APlayer::Idle(float _DeltaTime)
 	PlayerDirCheck();
 	Gravity();
 	ColorColCheck(_DeltaTime);
-	if (Color == Color8Bit::Black || Color == Color8Bit::Magenta || Color == Color8Bit::Red)
+	if (GroundColor == Color8Bit::Black || GroundColor == Color8Bit::Magenta || GroundColor == Color8Bit::Red)
 	{
 		GravityVector = FVector::Zero;
 	}
@@ -65,9 +65,13 @@ void APlayer::Run(float _DeltaTime)
 	PlayerDirCheck();
 	Gravity();
 	ColorColCheck(_DeltaTime);
-	if (Color == Color8Bit::Black || Color == Color8Bit::Magenta || Color == Color8Bit::Red)
+	if (GroundColor == Color8Bit::Black || GroundColor == Color8Bit::Magenta || GroundColor == Color8Bit::Red)
 	{
 		GravityVector = FVector::Zero;
+	}
+	if (HillColor == Color8Bit::Red)
+	{
+		AddActorLocation(FVector::Up);
 	}
 
 	AddActorLocation(GravityVector * _DeltaTime);
@@ -110,10 +114,13 @@ void APlayer::Jump(float _DeltaTime)
 	}
 
 	ColorColCheck(_DeltaTime);
-	if (Color == Color8Bit::Black || Color == Color8Bit::Magenta || Color == Color8Bit::Red && 0 >= JumpPower.Y)
+	if (0 >= JumpPower.Y)
 	{
-		GravityVector = FVector::Zero;
-		State.ChangeState("Idle");
+		if (GroundColor == Color8Bit::Black || GroundColor == Color8Bit::Magenta || GroundColor == Color8Bit::Red)
+		{
+			GravityVector = FVector::Zero;
+			State.ChangeState("Idle");
+		}
 	}
 }
 
