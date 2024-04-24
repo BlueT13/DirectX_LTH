@@ -44,6 +44,19 @@ void UTileRenderer::CreateTileMap(std::string_view _TileSet, float4 _TileSize, i
 	{
 		Tiles[i].resize(_X);
 	}
+
+	SetAllTile(_DefaultIndex);
+}
+
+void UTileRenderer::SetAllTile(int _Index)
+{
+	for (size_t y = 0; y < Tiles.size(); y++)
+	{
+		for (size_t x = 0; x < Tiles[y].size(); x++)
+		{
+			Tiles[y][x] = _Index;
+		}
+	}
 }
 
 float4 UTileRenderer::ConvertTileIndex(float4 _WorldXY)

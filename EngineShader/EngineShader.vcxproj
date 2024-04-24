@@ -133,9 +133,11 @@
     <None Include="TransformData.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="BlurEffectShader.fx" />
     <FxCompile Include="ColorShader.fx" />
     <FxCompile Include="DebugShader.fx" />
     <FxCompile Include="ImageShader.fx" />
+    <FxCompile Include="ImageShaderInstanced.fx" />
     <FxCompile Include="TargetCopyShader.fx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

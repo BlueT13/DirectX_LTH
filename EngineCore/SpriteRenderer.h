@@ -38,8 +38,10 @@ public:
 
 // Ό³Έν :
 class UEngineTexture;
+class USpriteInstancingRender;
 class USpriteRenderer : public URenderer
 {
+	friend USpriteInstancingRender;
 	GENERATED_BODY(URenderer);
 
 public:
@@ -72,6 +74,11 @@ public:
 	inline EEngineDir GetDir() const
 	{
 		return Dir;
+	}
+
+	inline void AnimationReset()
+	{
+		CurAnimation = nullptr;
 	}
 
 	bool IsCurAnimationEnd();

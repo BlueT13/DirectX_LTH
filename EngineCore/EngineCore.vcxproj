@@ -169,6 +169,7 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="ActorComponent.cpp" />
+    <ClCompile Include="BlurEffect.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="DefaultSceneComponent.cpp" />
@@ -196,6 +197,7 @@
     <ClCompile Include="EngineShaderResources.cpp" />
     <ClCompile Include="EngineSprite.cpp" />
     <ClCompile Include="EngineStruct.cpp" />
+    <ClCompile Include="EngineStructuredBuffer.cpp" />
     <ClCompile Include="EngineTexture.cpp" />
     <ClCompile Include="EngineVertex.cpp" />
     <ClCompile Include="EngineVertexBuffer.cpp" />
@@ -209,6 +211,7 @@
     <ClCompile Include="imgui_impl_win32.cpp" />
     <ClCompile Include="imgui_tables.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
+    <ClCompile Include="InstancingRender.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="PreCompile.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -219,6 +222,7 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderUnit.cpp" />
     <ClCompile Include="SceneComponent.cpp" />
+    <ClCompile Include="SpriteInstancingRender.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="TickObject.cpp" />
@@ -229,6 +233,7 @@
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="ActorComponent.h" />
+    <ClInclude Include="BlurEffect.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DefaultSceneComponent.h" />
@@ -257,6 +262,7 @@
     <ClInclude Include="EngineShaderResources.h" />
     <ClInclude Include="EngineSprite.h" />
     <ClInclude Include="EngineStruct.h" />
+    <ClInclude Include="EngineStructuredBuffer.h" />
     <ClInclude Include="EngineTexture.h" />
     <ClInclude Include="EngineVertex.h" />
     <ClInclude Include="EngineVertexBuffer.h" />
@@ -271,11 +277,13 @@
     <ClInclude Include="imstb_rectpack.h" />
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
+    <ClInclude Include="InstancingRender.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="PreCompile.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderUnit.h" />
     <ClInclude Include="SceneComponent.h" />
+    <ClInclude Include="SpriteInstancingRender.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="ThirdParty\DirectxTex\inc\DirectXTex.h" />

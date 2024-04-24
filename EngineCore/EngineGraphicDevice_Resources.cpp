@@ -281,6 +281,13 @@ void MaterialInit()
 	}
 
 	{
+		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("2DImageInstancing");
+		Mat->SetPixelShader("ImageShaderInstanced.fx");
+		Mat->SetVertexShader("ImageShaderInstanced.fx");
+	}
+
+
+	{
 		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("Debug");
 		Mat->SetPixelShader("DebugShader.fx");
 		Mat->SetVertexShader("DebugShader.fx");
@@ -292,6 +299,13 @@ void MaterialInit()
 		Mat->SetPixelShader("TargetCopyShader.fx");
 		Mat->SetVertexShader("TargetCopyShader.fx");
 	}
+
+	{
+		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("Blur");
+		Mat->SetPixelShader("BlurEffectShader.fx");
+		Mat->SetVertexShader("BlurEffectShader.fx");
+	}
+
 
 }
 

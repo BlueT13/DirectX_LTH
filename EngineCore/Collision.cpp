@@ -51,7 +51,6 @@ bool UCollision::Collision(int _TargetGroup,
 {
 	// Group 상대 그룹
 
-
 	auto Test = GetWorld()->Collisions;
 
 	std::list<std::shared_ptr<UCollision>>& Group = GetWorld()->Collisions[_TargetGroup];
@@ -75,6 +74,7 @@ bool UCollision::Collision(int _TargetGroup,
 
 		if (true == Transform.Collision(ThisType, OtherType, OtherCollision->Transform))
 		{
+
 			if (false == FirstCheck.contains(CollisionPtr) && false == OtherCheck.contains(CollisionPtr))
 			{
 				FirstCheck.insert(CollisionPtr);
@@ -83,16 +83,7 @@ bool UCollision::Collision(int _TargetGroup,
 					_Enter(OtherCollision);
 				}
 			}
-
-			//if (true == FirstCheck.contains(CollisionPtr) && false == OtherCheck.contains(CollisionPtr))
-			//{
-			//	if (nullptr != _Enter)
-			//	{
-			//		_Enter(OtherCollision);
-			//	}
-			//}
-
-			
+						
 			if (true == OtherCheck.contains(CollisionPtr))
 			{
 				if (nullptr != _Stay)
@@ -101,13 +92,24 @@ bool UCollision::Collision(int _TargetGroup,
 				}
 			}
 		}
-		else if(true == OtherCheck.contains(CollisionPtr))
+		else if(true == OtherCheck.contains(CollisionPtr) || true == ExitCheck.contains(CollisionPtr))
 		{
 			OtherCheck.erase(CollisionPtr);
-			if (nullptr != _Exit)
+
+			if (false == ExitCheck.contains(CollisionPtr))
 			{
-				_Exit(OtherCollision);
+				ExitCheck.insert(CollisionPtr);
 			}
+
+			if (true == ExitCheck.contains(CollisionPtr))
+			{
+				if (nullptr != _Exit)
+				{
+					_Exit(OtherCollision);
+				}
+				return false;
+			}
+
 		}
 	}
 
@@ -139,7 +141,7 @@ void UCollision::Tick(float _Delta)
 		OtherCheck.insert(Col);
 	}
 	FirstCheck.clear();
-
+	ExitCheck.clear();
 
 	if (false == GEngine->IsDebug)
 	{
@@ -163,7 +165,7 @@ void UCollision::Tick(float _Delta)
 		float4x4 PPos;
 
 		PScale.Scale(Scale);
-		PPos.Scale(Pos);
+		PPos.Position(Pos);
 
 		Trans.World = Trans.ScaleMat * Trans.PositionMat * PScale * PPos;
 		Trans.WVP = Trans.World * Trans.View * Trans.Projection;

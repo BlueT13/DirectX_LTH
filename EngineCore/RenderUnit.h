@@ -3,6 +3,7 @@
 #include "EngineMaterial.h"
 #include "Camera.h"
 #include "EngineShaderResources.h"
+#include "EngineStruct.h"
 
 // 설명 :
 // 랜더로만 하기에는 디버깅이나 위젯이나 
@@ -11,7 +12,7 @@ class URenderUnit
 public:
 	// constrcuter destructer
 	URenderUnit();
-	~URenderUnit();
+	virtual ~URenderUnit();
 
 	std::shared_ptr<UEngineMesh> GetMesh()
 	{
@@ -35,9 +36,22 @@ public:
 
 	void RenderingSetting();
 	void ResCopy(UEngineShader* _Shader);
+
+
 	virtual bool Render(float _DeltaTime);
 
+	virtual bool RenderInstancing(float _DeltaTime, int _Count);
+
+	void Update(float _DeltaTime);
+
+	void ResetTime()
+	{
+		BaseValue.AccTime = 0.0f;
+	}
+
 protected:
+	FBaseRenderValue BaseValue;
+
 	std::shared_ptr<UEngineInputLayOut> LayOut;
 	std::shared_ptr<UEngineMesh> Mesh;
 	std::shared_ptr<UEngineMaterial> Material;

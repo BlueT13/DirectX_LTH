@@ -7,6 +7,7 @@
 #include "EngineCore.h"
 #include "EngineRenderTarget.h"
 #include "EngineGraphicDevice.h"
+#include "InstancingRender.h"
 #include "Widget.h"
 
 bool ULevel::IsActorConstructer = true;
@@ -19,6 +20,11 @@ ULevel::ULevel()
 	UICamera = SpawnActor<UCamera>("NewActor");
 	UICamera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 	UICamera->InputOff();
+
+	LastTarget = UEngineRenderTarget::Create();
+	// 내가 바라보는 애들을 모아서 그릴수 있는 랜더타겟을 만들고 싶어.
+	float4 Scale = GEngine->EngineWindow.GetWindowScale();
+	LastTarget->CreateTexture(DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, Scale, float4::Zero);
 }
 
 ULevel::~ULevel() 
@@ -38,16 +44,20 @@ void ULevel::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 	for (std::pair<const int, std::list<std::shared_ptr<AActor>>>& TickGroup : Actors)
 	{
+		if (false == GEngine->TimeScales.contains(TickGroup.first))
+		{
+			GEngine->TimeScales[TickGroup.first] = 1.0f;
+		}
+
+		float TimeScale = GEngine->TimeScales[TickGroup.first];
+
 		std::list<std::shared_ptr<AActor>>& GroupActors = TickGroup.second;
 
 		for (std::shared_ptr<AActor> Actor : GroupActors)
 		{
-
-			Actor->Tick(_DeltaTime);
+			Actor->Tick(_DeltaTime * TimeScale);
 		}
 	}
-
-
 }
 
 void ULevel::Render(float _DeltaTime)
@@ -63,6 +73,44 @@ void ULevel::Render(float _DeltaTime)
 	for (std::pair<const int, std::list<std::shared_ptr<URenderer>>>& RenderGroup : Renderers)
 	{
 		std::list<std::shared_ptr<URenderer>>& GroupRenderers = RenderGroup.second;
+
+		if (true == GroupRenderers.empty())
+		{
+			continue;
+		}
+
+
+		if (true == InstancingRenders.contains(RenderGroup.first))
+		{
+			std::shared_ptr<UInstancingRender> Inst = InstancingRenders[RenderGroup.first];
+			// 첫번째 랜더러 어차피 뒤에 있는 모든애들은 같은 텍스처
+			// 같은 샘플러
+			// 같은 상수 버퍼 쓰고 있을것이다.
+			std::shared_ptr<URenderUnit> Unit = GroupRenderers.front();
+			Inst->Resources->OtherResCopy(Unit->Resources);
+
+			int Count = 0;
+			for (std::shared_ptr<URenderer> Renderer : GroupRenderers)
+			{
+				// 액터는 존재하는게 중요하지 
+				// 그리거나 충돌할때가 문제이기 때문에
+				if (nullptr == Renderer->GetActor()->RootComponent)
+				{
+					MsgBoxAssert("루트컴포넌트가 지정되지 않은 액터가 있습니다" + Renderer->GetActor()->GetName());
+					continue;
+				}
+
+				if (false == Renderer->IsActive())
+				{
+					continue;
+				}
+				Renderer->RenderingTransformUpdate(MainCamera);
+				Inst->InstancingDataCheck(Renderer.get(), Count++);
+			}
+
+			Inst->RenderInstancing(_DeltaTime, static_cast<int>(RenderGroup.second.size()));
+			continue;
+		}
 
 		for (std::shared_ptr<URenderer> Renderer : GroupRenderers)
 		{
@@ -88,6 +136,8 @@ void ULevel::Render(float _DeltaTime)
 			}
 		}
 	}
+
+	MainCamera->CameraTarget->Effect(_DeltaTime);
 
 	// 모든 일반오브젝트들이 랜더링을 하고
 
@@ -117,10 +167,25 @@ void ULevel::Render(float _DeltaTime)
 		}
 	}
 
-	UEngineGraphicDevice& Device = GEngine->GetEngineDevice();
-	Device.BackBufferRenderTarget->Merge(MainCamera->CameraTarget);
-	Device.BackBufferRenderTarget->Merge(UICamera->CameraTarget);
+	UICamera->CameraTarget->Effect(_DeltaTime);
 
+	UEngineGraphicDevice& Device = GEngine->GetEngineDevice();
+
+	// 백버퍼는 그냥 마지막 출력을 위해서 한번만 복제되는게 맞다.
+
+	// 1-r g b a
+
+	LastTarget->Clear();
+	LastTarget->Merge(MainCamera->CameraTarget);
+	LastTarget->Merge(UICamera->CameraTarget);
+	LastTarget->Effect(_DeltaTime);
+
+	// 여기 이순간.
+	// 포스트 이팩트
+	// 효과를 준다.
+	// LastTarget->AddEffect<UBlurEffect>();
+
+	Device.BackBufferRenderTarget->Copy(LastTarget);
 }
 
 void ULevel::Destroy()
@@ -281,3 +346,5 @@ void ULevel::PushWidget(std::shared_ptr<UWidget> _Widget)
 	WidgetInits.remove(_Widget);
 	Widgets[_Widget->GetOrder()].push_back(_Widget);
 }
+
+

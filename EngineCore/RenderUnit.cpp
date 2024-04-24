@@ -1,9 +1,11 @@
 #include "PreCompile.h"
 #include "RenderUnit.h"
+#include "EngineCore.h"
 
 URenderUnit::URenderUnit()
 {
 	Resources = std::make_shared<UEngineShaderResources>();
+
 }
 
 URenderUnit::~URenderUnit()
@@ -64,6 +66,46 @@ bool URenderUnit::Render(float _DeltaTime)
 	// Draw
 	Mesh->IndexedDraw();
 
+	BaseValue;
+
+	Resources->ResetAllShaderResources();
+
+	return true;
+}
+
+bool URenderUnit::RenderInstancing(float _DeltaTime, int _Count)
+{
+	// 순서는 상관업습니다.
+
+	if (nullptr == Mesh)
+	{
+		MsgBoxLog("매쉬가 세팅되지 않았습니다.")
+			return false;
+	}
+
+	if (nullptr == Material)
+	{
+		MsgBoxLog("머티리얼이 세팅되지 않았습니다.")
+			return false;
+	}
+
+	// 여기에서 이걸 하는 이유는 딱 1개입니다.
+	// 교육용으로 랜더링파이프라인의 순서에 따라 세팅해주려는 것뿐이지
+	// 꼭 아래의 순서대로 세팅을 해야만 랜더링이 되는게 아니에요.
+	// Mesh->Setting()
+
+	RenderingSetting();
+
+
+	Resources->SettingAllShaderResources();
+
+	// Draw
+	Mesh->DrawIndexedInstanced(_Count);
+
+	BaseValue;
+
+	Resources->ResetAllShaderResources();
+
 	return true;
 }
 
@@ -86,6 +128,12 @@ void URenderUnit::SetMesh(std::string_view _Name)
 
 void URenderUnit::SetMaterial(std::string_view _Name)
 {
+	float4 ScreenScale = GEngine->EngineWindow.GetWindowScale();
+
+	BaseValue.ScreenX = ScreenScale.X;
+	BaseValue.ScreenY = ScreenScale.Y;
+
+
 	Material = UEngineMaterial::FindRes(_Name);
 
 	if (nullptr == Material)
@@ -102,6 +150,12 @@ void URenderUnit::SetMaterial(std::string_view _Name)
 	Resources->Reset();
 	ResCopy(Material->GetVertexShader().get());
 	ResCopy(Material->GetPixelShader().get());
+
+
+	if (true == Resources->IsConstantBuffer("FBaseRenderValue"))
+	{
+		Resources->SettingConstantBuffer("FBaseRenderValue", BaseValue);
+	}
 
 	MaterialSettingEnd();
 }
@@ -167,11 +221,29 @@ void URenderUnit::ResCopy(UEngineShader* _Shader)
 		}
 	}
 
+	{
+		std::map<EShaderType, std::map<std::string, UEngineStructuredBufferSetter>>& RendererSetters
+			= Resources->StructuredBuffers;
+
+		std::shared_ptr<UEngineShaderResources> ShaderResources = _Shader->Resources;
+
+		std::map<EShaderType, std::map<std::string, UEngineStructuredBufferSetter>>& ShaderSetters
+			= ShaderResources->StructuredBuffers;
+
+		for (std::pair<const EShaderType, std::map<std::string, UEngineStructuredBufferSetter>> Setters : ShaderSetters)
+		{
+			for (std::pair<const std::string, UEngineStructuredBufferSetter> Setter : Setters.second)
+			{
+				RendererSetters[Setters.first][Setter.first] = Setter.second;
+			}
+		}
+	}
+
+
 
 }
 
-//
-//void URenderUnit::RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera)
-//{
-//	Transform.CalculateViewAndProjection(_Camera->GetView(), _Camera->GetProjection());
-//}
+void URenderUnit::Update(float _DeltaTime)
+{
+	BaseValue.AccTime += _DeltaTime;
+}

@@ -69,3 +69,8 @@ void UEngineMesh::IndexedDraw()
 
 	GEngine->GetDirectXContext()->DrawIndexed(IndexBuffer->Count, 0, 0);
 }
+
+void UEngineMesh::DrawIndexedInstanced(int _InstancingCount)
+{
+	GEngine->GetDirectXContext()->DrawIndexedInstanced(IndexBuffer->Count, _InstancingCount, 0, 0, 0);
+}

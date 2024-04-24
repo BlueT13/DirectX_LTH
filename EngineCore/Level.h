@@ -16,6 +16,8 @@ class UCollision;
 class AGameMode;
 class UEngineCore;
 class UWidget;
+class UEngineRenderTarget;
+class UInstancingRender;
 class ULevel final : public UTickObject, public UNameObject
 {
 	GENERATED_BODY(UTickObject)
@@ -87,6 +89,28 @@ public:
 		return Actors[_Order];
 	}
 
+	std::shared_ptr<UEngineRenderTarget> GetLastTarget()
+	{
+		return LastTarget;
+	}
+
+	template<typename InstancingType, typename EnumType>
+	void InstancingOn(EnumType _Order)
+	{
+		InstancingOn<InstancingType>(static_cast<int>(_Order));
+	}
+
+	template<typename InstancingType>
+	void InstancingOn(int _Order)
+	{
+		if (true == InstancingRenders.contains(_Order))
+		{
+			return;
+		}
+
+		InstancingRenders[_Order] = std::make_shared<InstancingType>();
+	}
+
 
 protected:
 	void Tick(float _DeltaTime) override;
@@ -98,6 +122,8 @@ protected:
 	void Destroy();
 
 private:
+	std::shared_ptr<UEngineRenderTarget> LastTarget = nullptr;
+
 	std::shared_ptr<UCamera> MainCamera = nullptr;
 	std::shared_ptr<UCamera> UICamera = nullptr;
 
@@ -105,6 +131,11 @@ private:
 	std::map<int, std::list<std::shared_ptr<AActor>>> Actors;
 
 	std::map<int, std::list<std::shared_ptr<URenderer>>> Renderers;
+	std::map<int, std::shared_ptr<UInstancingRender>> InstancingRenders;
+	// std::map<int, >> Renderers;
+
+	
+	// std::map<int, > Renderers;
 
 	std::map<int, std::list<std::shared_ptr<UCollision>>> Collisions;
 

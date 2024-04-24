@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "EngineShaderResources.h"
 #include "EngineConstantBuffer.h"
+#include "EngineStructuredBuffer.h"
 #include "EngineTexture.h"
 #include "EngineSampler.h"
 
@@ -20,6 +21,38 @@ void UEngineConstantBufferSetter::Setting()
 	Res->Setting(Type, Slot);
 }
 
+void UEngineConstantBufferSetter::Reset()
+{
+	Res->Reset(Type, Slot);
+}
+
+
+void UEngineStructuredBufferSetter::PushData(const void* _Data, UINT _Size)
+{
+	Ser.Write(_Data, _Size);
+}
+
+void UEngineStructuredBufferSetter::Setting()
+{
+	// 672 * 3000
+
+	if (0 == Ser.WriteSize())
+	{
+		MsgBoxAssert(Res->GetName() + " 구조화 버퍼에 크기가 0입니다.");
+		return;
+	}
+
+	Res->ChangeData(Ser.DataPtr(), Ser.WriteSize());
+
+	Res->Setting(Type, Slot);
+}
+void UEngineStructuredBufferSetter::Reset()
+{
+	Res->Reset(Type, Slot);
+	Ser.ResetWrite();
+}
+
+
 void UEngineTextureSetter::Setting()
 {
 #ifdef _DEBUG
@@ -32,6 +65,19 @@ void UEngineTextureSetter::Setting()
 	Res->Setting(Type, Slot);
 }
 
+void UEngineTextureSetter::Reset()
+{
+#ifdef _DEBUG
+	if (nullptr == Res)
+	{
+		MsgBoxAssert(GetName() + " 텍스처를 세팅해주지 않았습니다.");
+	}
+#endif
+
+	Res->Reset(Type, Slot);
+}
+
+
 void UEngineSamplerSetter::Setting()
 {
 #ifdef _DEBUG
@@ -43,6 +89,19 @@ void UEngineSamplerSetter::Setting()
 
 	Res->Setting(Type, Slot);
 }
+
+void UEngineSamplerSetter::Reset()
+{
+#ifdef _DEBUG
+	if (nullptr == Res)
+	{
+		MsgBoxAssert(GetName() + " 샘플러를 세팅해주지 않았습니다.");
+	}
+#endif
+
+	Res->Reset(Type, Slot);
+}
+
 
 ///
 
@@ -132,6 +191,25 @@ void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string
 			NewSetter.Slot = ResDesc.BindPoint;
 			break;
 		}
+		case D3D_SIT_STRUCTURED:
+		{
+			ID3D11ShaderReflectionConstantBuffer* BufferInfo = CompileInfo->GetConstantBufferByName(ResDesc.Name);
+			D3D11_SHADER_BUFFER_DESC ConstantBufferDesc = {};
+			BufferInfo->GetDesc(&ConstantBufferDesc);
+			_EntryName;
+
+			ResDesc.Name;
+			UEngineStructuredBufferSetter& NewSetter = StructuredBuffers[_Type][UpperName];
+			NewSetter.SetName(ResDesc.Name);
+			NewSetter.Type = _Type;
+			NewSetter.Slot = ResDesc.BindPoint;
+			NewSetter.BufferSize = ConstantBufferDesc.Size;
+
+			std::shared_ptr<UEngineStructuredBuffer> Buffer = UEngineStructuredBuffer::CreateAndFind(_Type, ResDesc.Name, NewSetter.BufferSize);
+			NewSetter.Res = Buffer;
+
+			break;
+		}
 		default:
 			MsgBoxAssert("처리할수 없는 타입입니다.");
 			break;
@@ -193,6 +271,24 @@ bool UEngineShaderResources::IsConstantBuffer(std::string_view _Name)
 	return false;
 }
 
+UEngineStructuredBufferSetter* UEngineShaderResources::GetStructuredBuffer(std::string_view _ResName)
+{
+	std::string UpperName = UEngineString::ToUpper(_ResName);
+
+	for (std::pair<const EShaderType, std::map<std::string, UEngineStructuredBufferSetter>>& Pair : StructuredBuffers)
+	{
+		std::map<std::string, UEngineStructuredBufferSetter>& ResMap = Pair.second;
+
+		if (true == ResMap.contains(UpperName))
+		{
+			return &ResMap[UpperName];
+		}
+	}
+
+	return nullptr;
+
+}
+
 void UEngineShaderResources::SettingAllShaderResources()
 {
 	for (std::pair<const EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& Pair : ConstantBuffers)
@@ -225,6 +321,60 @@ void UEngineShaderResources::SettingAllShaderResources()
 		}
 	}
 
+	for (std::pair<const EShaderType, std::map<std::string, UEngineStructuredBufferSetter>>& Pair : StructuredBuffers)
+	{
+		std::map<std::string, UEngineStructuredBufferSetter>& ResMap = Pair.second;
+
+		for (std::pair<const std::string, UEngineStructuredBufferSetter>& Setter : ResMap)
+		{
+			Setter.second.Setting();
+		}
+	}
+
+}
+
+
+void UEngineShaderResources::ResetAllShaderResources()
+{
+	for (std::pair<const EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& Pair : ConstantBuffers)
+	{
+		std::map<std::string, UEngineConstantBufferSetter>& ResMap = Pair.second;
+
+		for (std::pair<const std::string, UEngineConstantBufferSetter>& Setter : ResMap)
+		{
+			Setter.second.Reset();
+		}
+	}
+
+	for (std::pair<const EShaderType, std::map<std::string, UEngineTextureSetter>>& Pair : Textures)
+	{
+		std::map<std::string, UEngineTextureSetter>& ResMap = Pair.second;
+
+		for (std::pair<const std::string, UEngineTextureSetter>& Setter : ResMap)
+		{
+			Setter.second.Reset();
+		}
+	}
+
+	for (std::pair<const EShaderType, std::map<std::string, UEngineSamplerSetter>>& Pair : Samplers)
+	{
+		std::map<std::string, UEngineSamplerSetter>& ResMap = Pair.second;
+
+		for (std::pair<const std::string, UEngineSamplerSetter>& Setter : ResMap)
+		{
+			Setter.second.Reset();
+		}
+	}
+
+	for (std::pair<const EShaderType, std::map<std::string, UEngineStructuredBufferSetter>>& Pair : StructuredBuffers)
+	{
+		std::map<std::string, UEngineStructuredBufferSetter>& ResMap = Pair.second;
+
+		for (std::pair<const std::string, UEngineStructuredBufferSetter>& Setter : ResMap)
+		{
+			Setter.second.Reset();
+		}
+	}
 
 }
 
@@ -284,4 +434,95 @@ void UEngineShaderResources::Reset()
 	ConstantBuffers.clear();
 	Textures.clear();
 	Samplers.clear();
+}
+
+void UEngineShaderResources::OtherResCopy(std::shared_ptr<UEngineShaderResources> _Resource)
+{
+	// 상대 리소스가 내 리소스랑 비교해서 같은게 있으면 그 리소스를 복사해온다.
+	for (std::pair<const EShaderType, std::map<std::string, UEngineTextureSetter>> Pair : _Resource->Textures)
+	{
+		if (false == Textures.contains(Pair.first))
+		{
+			continue;
+		}
+
+		std::map<std::string, UEngineTextureSetter>& OtherSetters = Pair.second;
+		std::map<std::string, UEngineTextureSetter>& ThisSetters = Textures[Pair.first];
+
+		for (std::pair<const std::string, UEngineTextureSetter>& SetterPair : OtherSetters)
+		{
+			if (false == ThisSetters.contains(SetterPair.first))
+			{
+				continue;
+			}
+
+			ThisSetters[SetterPair.first].Res = SetterPair.second.Res;
+		}
+	}
+
+	for (std::pair<const EShaderType, std::map<std::string, UEngineSamplerSetter>> Pair : _Resource->Samplers)
+	{
+		if (false == Textures.contains(Pair.first))
+		{
+			continue;
+		}
+
+		std::map<std::string, UEngineSamplerSetter>& OtherSetters = Pair.second;
+		std::map<std::string, UEngineSamplerSetter>& ThisSetters = Samplers[Pair.first];
+
+		for (std::pair<const std::string, UEngineSamplerSetter>& SetterPair : OtherSetters)
+		{
+			if (false == ThisSetters.contains(SetterPair.first))
+			{
+				continue;
+			}
+
+			ThisSetters[SetterPair.first].Res = SetterPair.second.Res;
+		}
+	}
+
+	for (std::pair<const EShaderType, std::map<std::string, UEngineConstantBufferSetter>> Pair : _Resource->ConstantBuffers)
+	{
+		if (false == Textures.contains(Pair.first))
+		{
+			continue;
+		}
+
+		std::map<std::string, UEngineConstantBufferSetter>& OtherSetters = Pair.second;
+		std::map<std::string, UEngineConstantBufferSetter>& ThisSetters = ConstantBuffers[Pair.first];
+
+		for (std::pair<const std::string, UEngineConstantBufferSetter>& SetterPair : OtherSetters)
+		{
+			if (false == ThisSetters.contains(SetterPair.first))
+			{
+				continue;
+			}
+
+			ThisSetters[SetterPair.first].Res = SetterPair.second.Res;
+		}
+	}
+
+
+	for (std::pair<const EShaderType, std::map<std::string, UEngineStructuredBufferSetter>> Pair : _Resource->StructuredBuffers)
+	{
+		if (false == Textures.contains(Pair.first))
+		{
+			continue;
+		}
+
+		std::map<std::string, UEngineStructuredBufferSetter>& OtherSetters = Pair.second;
+		std::map<std::string, UEngineStructuredBufferSetter>& ThisSetters = StructuredBuffers[Pair.first];
+
+		for (std::pair<const std::string, UEngineStructuredBufferSetter>& SetterPair : OtherSetters)
+		{
+			if (false == ThisSetters.contains(SetterPair.first))
+			{
+				continue;
+			}
+
+			ThisSetters[SetterPair.first].Res = SetterPair.second.Res;
+		}
+	}
+
+	
 }

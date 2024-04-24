@@ -17,12 +17,6 @@ public:
 	UEngineSerializer();
 	~UEngineSerializer();
 
-	// delete Function
-	UEngineSerializer(const UEngineSerializer& _Other) = delete;
-	UEngineSerializer(UEngineSerializer&& _Other) noexcept = delete;
-	UEngineSerializer& operator=(const UEngineSerializer& _Other) = delete;
-	UEngineSerializer& operator=(UEngineSerializer&& _Other) noexcept = delete;
-
 	void Write(const void* _Data, size_t _Size);
 
 	void WriteText(const std::string& _Text);
@@ -116,9 +110,22 @@ public:
 	}
 
 
+	void ResetWrite();
+
 	void BufferResize(int _Size);
 
 	std::string ToString();
+
+	unsigned int WriteSize()
+	{
+		return WriteOffset;
+	}
+
+	void* DataPtr()
+	{
+		return &Data[0];
+	}
+
 
 protected:
 

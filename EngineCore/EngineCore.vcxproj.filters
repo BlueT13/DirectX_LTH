@@ -91,6 +91,9 @@
     <Filter Include="Object\UI\Contents">
       <UniqueIdentifier>{c2cb0469-34f3-41c0-8543-98acb103c6a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Rendering\Contents">
+      <UniqueIdentifier>{b0a31064-eaec-498c-80da-a0414cc3708e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -251,6 +254,18 @@
     </ClCompile>
     <ClCompile Include="Widget.cpp">
       <Filter>Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="InstancingRender.cpp">
+      <Filter>Object\Component\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteInstancingRender.cpp">
+      <Filter>Object\Component\Rendering\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="BlurEffect.cpp">
+      <Filter>Object\Rendering\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineStructuredBuffer.cpp">
+      <Filter>Resources\ShaderResources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -421,6 +436,18 @@
     </ClInclude>
     <ClInclude Include="Widget.h">
       <Filter>Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="InstancingRender.h">
+      <Filter>Object\Component\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteInstancingRender.h">
+      <Filter>Object\Component\Rendering\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="BlurEffect.h">
+      <Filter>Object\Rendering\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineStructuredBuffer.h">
+      <Filter>Resources\ShaderResources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
