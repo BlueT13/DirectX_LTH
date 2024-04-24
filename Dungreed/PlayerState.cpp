@@ -4,11 +4,11 @@
 void APlayer::StateInit()
 {
 	// 스테이트 생성
-	State.CreateState("Die");
 	State.CreateState("Idle");
 	State.CreateState("Run");
 	State.CreateState("Jump");
 	State.CreateState("Dash");
+	State.CreateState("Die");
 
 	// 함수들 세팅
 	State.SetUpdateFunction("Idle", std::bind(&APlayer::Idle, this, std::placeholders::_1));
@@ -40,6 +40,11 @@ void APlayer::Idle(float _DeltaTime)
 	PlayerDirCheck();
 	Gravity();
 	ColorColCheck(_DeltaTime);
+	if (Color == Color8Bit::Black || Color == Color8Bit::Magenta || Color == Color8Bit::Red)
+	{
+		GravityVector = FVector::Zero;
+	}
+
 	AddActorLocation(GravityVector * _DeltaTime);
 
 	if (true == IsPress('A') || true == IsPress('D'))
@@ -60,6 +65,11 @@ void APlayer::Run(float _DeltaTime)
 	PlayerDirCheck();
 	Gravity();
 	ColorColCheck(_DeltaTime);
+	if (Color == Color8Bit::Black || Color == Color8Bit::Magenta || Color == Color8Bit::Red)
+	{
+		GravityVector = FVector::Zero;
+	}
+
 	AddActorLocation(GravityVector * _DeltaTime);
 
 	if (true == IsPress('A'))
@@ -100,10 +110,15 @@ void APlayer::Jump(float _DeltaTime)
 	}
 
 	ColorColCheck(_DeltaTime);
-	if (Color == Color8Bit::Black || Color == Color8Bit::Magenta && 0 >= JumpPower.Y)
+	if (Color == Color8Bit::Black || Color == Color8Bit::Magenta || Color == Color8Bit::Red && 0 >= JumpPower.Y)
 	{
+		GravityVector = FVector::Zero;
 		State.ChangeState("Idle");
 	}
+}
+
+void APlayer::Dash(float _DeltaTime)
+{
 }
 
 void APlayer::Die(float _DeltaTime)
@@ -127,5 +142,5 @@ void APlayer::PlayerDirCheck()
 
 void APlayer::Gravity()
 {
-	GravityVector += FVector::Down;
+	GravityVector += FVector::Down * 1.5f;
 }

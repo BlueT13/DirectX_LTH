@@ -58,6 +58,7 @@ private:
 	void Idle(float _DeltaTime);
 	void Run(float _DeltaTime);
 	void Jump(float _DeltaTime);
+	void Dash(float _DeltaTime);
 	void Die(float _DeltaTime);
 
 	void PlayerDirCheck();
