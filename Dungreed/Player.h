@@ -2,6 +2,7 @@
 #include <EngineCore/Actor.h>
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/StateManager.h>
+#include "Cursor.h"
 
 enum class EPlayerDir
 {
@@ -42,8 +43,14 @@ private:
 	FVector GravityVector = FVector::Zero;
 	FVector JumpPower = FVector::Zero;
 
+	FVector WindowScale = FVector::Zero;
+	std::shared_ptr<ACursor> Cursor = nullptr;
+	FVector CursorPos = FVector::Zero;
+	FVector InGameCursorPos = FVector::Zero;
+
 	void DebugMessageFunction();
 	void ColorColCheck(float _DeltaTime);
+	void CursorCheck();
 
 	// State
 	void StateInit();

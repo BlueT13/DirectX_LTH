@@ -43,6 +43,7 @@ void APlayer::Die(float _DeltaTime)
 
 void APlayer::Idle(float _DeltaTime)
 {
+	PlayerDirCheck();
 	ColorColCheck(_DeltaTime);
 	if (Color == Color8Bit::Black)
 	{
@@ -124,11 +125,12 @@ void APlayer::Run(float _DeltaTime)
 void APlayer::PlayerDirCheck()
 {
 	// CursorPos에 맞게 방향 전환 조건문으로 변경 필요
-	if (true == IsPress('A'))
+
+	if (0 > InGameCursorPos.X - PlayerPos.X)
 	{
 		Renderer->SetDir(EEngineDir::Left);
 	}
-	if (true == IsPress('D'))
+	else
 	{
 		Renderer->SetDir(EEngineDir::Right);
 	}

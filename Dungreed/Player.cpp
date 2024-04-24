@@ -27,6 +27,9 @@ void APlayer::BeginPlay()
 
 	PlayerScale = GetActorScale3D();
 
+	Cursor = GetWorld()->SpawnActor<ACursor>("Cursor");
+	WindowScale = GEngine->EngineWindow.GetWindowScale();
+
 	StateInit();
 }
 
@@ -35,6 +38,7 @@ void APlayer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
+	CursorCheck();
 	DebugMessageFunction();
 }
 
@@ -63,4 +67,12 @@ void APlayer::ColorColCheck(float _DeltaTime)
 	PlayerPos /= UDungreedConstValue::AutoSize;
 
 	Color = Tex->GetColor(PlayerPos, Color8Bit::White);
+}
+
+void APlayer::CursorCheck()
+{
+	PlayerPos = GetActorLocation();
+	CursorPos = GEngine->EngineWindow.GetScreenMousePos();
+	InGameCursorPos = { PlayerPos.X + CursorPos.X - WindowScale.hX() , PlayerPos.Y - CursorPos.Y + WindowScale.hY(), 0.0f };
+	Cursor->SetActorLocation(InGameCursorPos);
 }
