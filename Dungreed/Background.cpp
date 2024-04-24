@@ -5,6 +5,10 @@ ABackground::ABackground()
 {
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	SetRoot(Renderer);
+	
+	ColMapRenderer = CreateDefaultSubObject<USpriteRenderer>("ColMapRenderer");
+	ColMapRenderer->SetupAttachment(Renderer);
+
 
 	//TileRenderer = CreateDefaultSubObject<UTileRenderer>("TileRenderer");
 	//SetRoot(TileRenderer);
@@ -14,12 +18,30 @@ ABackground::~ABackground()
 {
 }
 
+void ABackground::MapRendererSwitch()
+{
+	if (Renderer->IsActive())
+	{
+		Renderer->SetActive(false);
+		ColMapRenderer->SetActive(true);
+	}
+	else
+	{
+		Renderer->SetActive(true);
+		ColMapRenderer->SetActive(false);
+	}
+}
+
 void ABackground::BeginPlay()
 {
 	Super::BeginPlay();
 
 	Renderer->SetSprite("Town.png");
+	Renderer->SetOrder(ERenderOrder::Map);
 	Renderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
+
+
+	ColMapRenderer->SetSprite("Town_Col.png");
 
 	//UEngineSerializer Ser;
 

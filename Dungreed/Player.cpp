@@ -39,6 +39,7 @@ void APlayer::Tick(float _DeltaTime)
 
 	State.Update(_DeltaTime);
 	CursorCheck();
+
 	DebugMessageFunction();
 }
 
@@ -56,6 +57,11 @@ void APlayer::DebugMessageFunction()
 
 }
 
+void APlayer::DebugModeOn()
+{
+
+}
+
 void APlayer::ColorColCheck(float _DeltaTime)
 {
 	std::shared_ptr<UEngineTexture> Tex = UDungreedConstValue::ColMap;
@@ -67,6 +73,12 @@ void APlayer::ColorColCheck(float _DeltaTime)
 	PlayerPos /= UDungreedConstValue::AutoSize;
 
 	Color = Tex->GetColor(PlayerPos, Color8Bit::White);
+
+	if (Color == Color8Bit::Black || Color == Color8Bit::Magenta)
+	{
+		AddActorLocation(FVector::Up);
+		GravityVector = FVector::Zero;
+	}
 }
 
 void APlayer::CursorCheck()

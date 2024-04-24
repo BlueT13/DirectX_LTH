@@ -49,15 +49,16 @@ private:
 	FVector InGameCursorPos = FVector::Zero;
 
 	void DebugMessageFunction();
+	void DebugModeOn();
 	void ColorColCheck(float _DeltaTime);
 	void CursorCheck();
 
 	// State
 	void StateInit();
-	void Die(float _DeltaTime);
 	void Idle(float _DeltaTime);
-	void Jump(float _DeltaTime);
 	void Run(float _DeltaTime);
+	void Jump(float _DeltaTime);
+	void Die(float _DeltaTime);
 
 	void PlayerDirCheck();
 	void Gravity();

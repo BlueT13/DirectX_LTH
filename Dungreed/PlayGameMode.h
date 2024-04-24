@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineCore/GameMode.h>
 #include "Player.h"
+#include "Background.h"
 
 // Ό³Έν :
 class APlayGameMode : public AGameMode
@@ -23,6 +24,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	std::shared_ptr<ABackground> Background = nullptr;
 	std::shared_ptr<UCamera> Camera = nullptr;
 	std::shared_ptr<APlayer> Player = nullptr;
 };

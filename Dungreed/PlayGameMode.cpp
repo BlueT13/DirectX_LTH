@@ -22,7 +22,7 @@ void APlayGameMode::BeginPlay()
 	Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation({ 0.0f, -0.0f, -100.0f });
 
-	std::shared_ptr<ABackground> Background = GetWorld()->SpawnActor<ABackground>("Background");
+	Background = GetWorld()->SpawnActor<ABackground>("Background");
 	// (¸ÊÀÇ xÃà ±æÀÌ/2, ¸ÊÀÇ yÃà ±æÀÌ/2, 0.0f)
 	float MapHalfX = Background->GetActorScale3D().hX();
 	float MapHalfY = Background->GetActorScale3D().hY();
@@ -38,4 +38,9 @@ void APlayGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 	Camera->SetActorLocation({ Player->GetActorLocation().X, Player->GetActorLocation().Y,-100.0f });
+
+	if (true == UEngineInput::IsDown('O'))
+	{
+		Background->MapRendererSwitch();
+	}
 }

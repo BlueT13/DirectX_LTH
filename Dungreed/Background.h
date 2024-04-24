@@ -20,12 +20,15 @@ public:
 	ABackground& operator=(const ABackground& _Other) = delete;
 	ABackground& operator=(ABackground&& _Other) noexcept = delete;
 
+	void MapRendererSwitch();
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
 private:
 	USpriteRenderer* Renderer;
+	USpriteRenderer* ColMapRenderer;
 	//UTileRenderer* TileRenderer = nullptr;
 
 	UEngineDirectory Dir;
