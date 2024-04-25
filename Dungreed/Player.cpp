@@ -56,15 +56,9 @@ void APlayer::DebugMessageFunction()
 		std::string Msg = std::format("MousePos : {}\n", GEngine->EngineWindow.GetScreenMousePos().ToString());
 		UEngineDebugMsgWindow::PushMsg(Msg);
 	}
-
 }
 
-void APlayer::DebugModeOn()
-{
-
-}
-
-void APlayer::ColorColCheck(float _DeltaTime)
+void APlayer::ColorColCheck()
 {
 	std::shared_ptr<UEngineTexture> Tex = UDungreedConstValue::ColMap;
 	float MapY = Tex->GetScale().Y * UDungreedConstValue::AutoSize;
@@ -74,8 +68,11 @@ void APlayer::ColorColCheck(float _DeltaTime)
 	PlayerPos.Y = MapY - PlayerPos.Y;
 	PlayerPos /= UDungreedConstValue::AutoSize;
 
-	GroundColor = Tex->GetColor(PlayerPos, Color8Bit::White);
-	HillColor = Tex->GetColor({ PlayerPos.X, PlayerPos.Y, PlayerPos.Z }, Color8Bit::White);
+	LeftColor = Tex->GetColor({ PlayerPos.X - 4.0f, PlayerPos.Y, PlayerPos.Z }, Color8Bit::Black);
+	RightColor = Tex->GetColor({ PlayerPos.X + 4.0f, PlayerPos.Y, PlayerPos.Z }, Color8Bit::Black);
+	UpColor = Tex->GetColor({ PlayerPos.X, PlayerPos.Y - 20.0f, PlayerPos.Z }, Color8Bit::Black);
+	DownColor = Tex->GetColor({ PlayerPos.X, PlayerPos.Y, PlayerPos.Z }, Color8Bit::Black);
+	BottomColor = Tex->GetColor({ PlayerPos.X, PlayerPos.Y - 1.0f, PlayerPos.Z }, Color8Bit::Black);
 }
 
 void APlayer::CursorCheck()

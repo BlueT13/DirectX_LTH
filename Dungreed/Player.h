@@ -8,6 +8,8 @@ enum class EPlayerDir
 {
 	Left,
 	Right,
+	Up,
+	Down,
 };
 
 // Ό³Έν :
@@ -37,10 +39,16 @@ protected:
 private:
 	USpriteRenderer* Renderer = nullptr;
 	float Speed = 500.0f;
-	Color8Bit GroundColor;
-	Color8Bit HillColor;
+
+	Color8Bit LeftColor;
+	Color8Bit RightColor;
+	Color8Bit UpColor;
+	Color8Bit DownColor;
+	Color8Bit BottomColor;
+
 	FVector PlayerPos = FVector::Zero;
 	EPlayerDir PlayerDir = EPlayerDir::Right;
+	EPlayerDir PlayerMoveDir = EPlayerDir::Right;
 	FVector PlayerScale = FVector::Zero;
 	FVector JumpVector = FVector::Zero;
 	FVector GravityVector = FVector::Zero;
@@ -52,8 +60,8 @@ private:
 	FVector InGameCursorPos = FVector::Zero;
 
 	void DebugMessageFunction();
-	void DebugModeOn();
-	void ColorColCheck(float _DeltaTime);
+
+	void ColorColCheck();
 	void CursorCheck();
 
 	// State
@@ -66,5 +74,6 @@ private:
 
 	void PlayerDirCheck();
 	void Gravity();
+	void GroundUp();
 };
 
