@@ -23,6 +23,9 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+	void LevelEnd(ULevel* _NextLevel);
+	void LevelStart(ULevel* _PrevLevel);
+
 private:
 	std::shared_ptr<ABackground> Background = nullptr;
 	std::shared_ptr<UCamera> Camera = nullptr;

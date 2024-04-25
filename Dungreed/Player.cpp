@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "Player.h"
 
+std::shared_ptr<APlayer> APlayer::MainPlayer = nullptr;
+
 APlayer::APlayer()
 {
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");

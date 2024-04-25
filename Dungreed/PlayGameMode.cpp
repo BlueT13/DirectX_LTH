@@ -44,3 +44,15 @@ void APlayGameMode::Tick(float _DeltaTime)
 		Background->MapRendererSwitch();
 	}
 }
+
+void APlayGameMode::LevelEnd(ULevel* _NextLevel)
+{
+	Super::LevelEnd(_NextLevel);
+}
+
+void APlayGameMode::LevelStart(ULevel* _PrevLevel)
+{
+	Super::LevelStart(_PrevLevel);
+
+	APlayer::MainPlayer = Player;
+}

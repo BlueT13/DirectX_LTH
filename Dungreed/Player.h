@@ -28,6 +28,8 @@ public:
 
 	UStateManager State;
 
+	static std::shared_ptr<APlayer> MainPlayer;
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
