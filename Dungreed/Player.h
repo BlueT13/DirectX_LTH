@@ -73,7 +73,7 @@ private:
 	void Die(float _DeltaTime);
 
 	void PlayerDirCheck();
-	void Gravity();
+	void Gravity(float _DeltaTime);
 	void GroundUp();
 };
 

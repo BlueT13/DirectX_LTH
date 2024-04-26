@@ -28,7 +28,7 @@ void APlayer::StateInit()
 	State.SetStartFunction("Jump", [this]()
 		{
 			// 점프 시작할 때 JumpVector값 한번만 대입
-			JumpVector = FVector::Up * 1200.0f;
+			JumpVector = FVector::Up * 1000.0f;
 			this->Renderer->ChangeAnimation("Jump");
 		});
 
@@ -38,7 +38,7 @@ void APlayer::StateInit()
 void APlayer::Idle(float _DeltaTime)
 {
 	PlayerDirCheck();
-	Gravity();
+	Gravity(_DeltaTime);
 	ColorColCheck();
 	if (DownColor == Color8Bit::Black || RightColor == Color8Bit::Black || LeftColor == Color8Bit::Black)
 	{
@@ -73,7 +73,7 @@ void APlayer::Idle(float _DeltaTime)
 void APlayer::Run(float _DeltaTime)
 {
 	PlayerDirCheck();
-	Gravity();
+	Gravity(_DeltaTime);
 	ColorColCheck();
 	if (DownColor == Color8Bit::Black || DownColor == Color8Bit::Magenta)
 	{
@@ -129,7 +129,7 @@ void APlayer::Run(float _DeltaTime)
 void APlayer::Jump(float _DeltaTime)
 {
 	PlayerDirCheck();
-	Gravity();
+	Gravity(_DeltaTime);
 	JumpPower = JumpVector + GravityVector;
 
 	if (true == IsPress('A'))
@@ -204,9 +204,9 @@ void APlayer::PlayerDirCheck()
 	}
 }
 
-void APlayer::Gravity()
+void APlayer::Gravity(float _DeltaTime)
 {
-	GravityVector += FVector::Down * 1.5f;
+	GravityVector += FVector::Down * 2000.0f * _DeltaTime;
 }
 
 void APlayer::GroundUp()
