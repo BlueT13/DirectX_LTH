@@ -47,12 +47,15 @@ private:
 	Color8Bit GroundColor;
 
 	FVector PlayerPos = FVector::Zero;
-	EPlayerDir PlayerDir = EPlayerDir::Right;
+	FVector PlayerDir = FVector::Zero;
 	EPlayerDir PlayerMoveDir = EPlayerDir::Right;
 	FVector PlayerScale = FVector::Zero;
-	FVector JumpVector = FVector::Zero;
 	FVector GravityVector = FVector::Zero;
+	FVector JumpVector = FVector::Zero;
 	FVector JumpPower = FVector::Zero;
+	FVector DashVector = FVector::Zero;
+	FVector DashPower = FVector::Zero;
+	float DashTime = 0.2f;
 
 	FVector WindowScale = FVector::Zero;
 	std::shared_ptr<ACursor> Cursor = nullptr;

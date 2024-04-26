@@ -32,6 +32,14 @@ void APlayer::StateInit()
 			this->Renderer->ChangeAnimation("Jump");
 		});
 
+	State.SetUpdateFunction("Dash", std::bind(&APlayer::Dash, this, std::placeholders::_1));
+	State.SetStartFunction("Dash", [this]()
+		{
+			// 점프 시작할 때 JumpVector값 한번만 대입
+			DashVector = PlayerDir * 1500.0f;
+			this->Renderer->ChangeAnimation("Jump");
+		});
+
 	State.ChangeState("Idle");
 }
 
@@ -64,6 +72,12 @@ void APlayer::Idle(float _DeltaTime)
 	if (true == IsPress(VK_SPACE) || true == IsPress('W'))
 	{
 		State.ChangeState("Jump");
+		return;
+	}
+
+	if (true == IsPress(VK_RBUTTON))
+	{
+		State.ChangeState("Dash");
 		return;
 	}
 
@@ -111,6 +125,7 @@ void APlayer::Run(float _DeltaTime)
 	{
 		AddActorLocation(FVector::Right * _DeltaTime * Speed);
 	}
+
 	if (true == IsDown(VK_SPACE) || true == IsPress('W'))
 	{
 		State.ChangeState("Jump");
@@ -120,6 +135,12 @@ void APlayer::Run(float _DeltaTime)
 	if (true == IsFree('A') && true == IsFree('D'))
 	{
 		State.ChangeState("Idle");
+		return;
+	}
+
+	if (true == IsPress(VK_RBUTTON))
+	{
+		State.ChangeState("Dash");
 		return;
 	}
 
@@ -161,11 +182,29 @@ void APlayer::Jump(float _DeltaTime)
 		}
 	}
 
+	if (true == IsPress(VK_RBUTTON))
+	{
+		State.ChangeState("Dash");
+		return;
+	}
+
 	AddActorLocation(JumpPower * _DeltaTime);
 }
 
 void APlayer::Dash(float _DeltaTime)
 {
+	PlayerDirCheck();
+	GravityVector = FVector::Zero;
+	DashTime -= _DeltaTime;
+
+	if (DashTime <= 0)
+	{
+		State.ChangeState("Idle");
+		DashTime = 0.2f;
+		return;
+	}
+	
+	AddActorLocation(DashVector * _DeltaTime);
 }
 
 void APlayer::Die(float _DeltaTime)
@@ -176,8 +215,10 @@ void APlayer::Die(float _DeltaTime)
 void APlayer::PlayerDirCheck()
 {
 	// CursorPos에 맞게 방향 전환 조건문으로 변경 필요
+	PlayerDir = InGameCursorPos - PlayerPos;
+	PlayerDir = PlayerDir.Normalize3DReturn();
 
-	if (0 > InGameCursorPos.X - PlayerPos.X)
+	if (0 > PlayerDir.X)
 	{
 		Renderer->SetDir(EEngineDir::Left);
 	}
