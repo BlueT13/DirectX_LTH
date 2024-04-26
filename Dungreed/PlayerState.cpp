@@ -85,7 +85,7 @@ void APlayer::Run(float _DeltaTime)
 		GravityVector = FVector::Zero;
 		AddActorLocation(FVector::Up);
 	}
-	if (RightColor == Color8Bit::Red && PlayerMoveDir == EPlayerDir::Left)
+	if (DownColor == Color8Bit::White && RightColor == Color8Bit::Red && PlayerMoveDir == EPlayerDir::Left)
 	{
 		GravityVector = FVector::Zero;
 		AddActorLocation(FVector::Down);
@@ -95,7 +95,7 @@ void APlayer::Run(float _DeltaTime)
 		GravityVector = FVector::Zero;
 		AddActorLocation(FVector::Up);
 	}
-	if (LeftColor == Color8Bit::Red && PlayerMoveDir == EPlayerDir::Right)
+	if (DownColor == Color8Bit::White && LeftColor == Color8Bit::Red && PlayerMoveDir == EPlayerDir::Right)
 	{
 		GravityVector = FVector::Zero;
 		AddActorLocation(FVector::Down);
@@ -162,7 +162,6 @@ void APlayer::Jump(float _DeltaTime)
 	}
 
 	AddActorLocation(JumpPower * _DeltaTime);
-	GroundUp();
 }
 
 void APlayer::Dash(float _DeltaTime)
@@ -212,9 +211,9 @@ void APlayer::Gravity()
 
 void APlayer::GroundUp()
 {
-
-	if (BottomColor != Color8Bit::White)
+	while (BottomColor != Color8Bit::White)
 	{
+		ColorColCheck();
 		AddActorLocation(FVector::Up);
 	}
 }
