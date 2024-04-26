@@ -40,11 +40,11 @@ private:
 	USpriteRenderer* Renderer = nullptr;
 	float Speed = 500.0f;
 
-	Color8Bit LeftColor;
-	Color8Bit RightColor;
-	Color8Bit UpColor;
-	Color8Bit DownColor;
 	Color8Bit BottomColor;
+	Color8Bit BottomLeftColor;
+	Color8Bit BottomRightColor;
+	Color8Bit TopColor;
+	Color8Bit GroundColor;
 
 	FVector PlayerPos = FVector::Zero;
 	EPlayerDir PlayerDir = EPlayerDir::Right;

@@ -40,15 +40,15 @@ void APlayer::Idle(float _DeltaTime)
 	PlayerDirCheck();
 	Gravity(_DeltaTime);
 	ColorColCheck();
-	if (DownColor == Color8Bit::Black || RightColor == Color8Bit::Black || LeftColor == Color8Bit::Black)
+	if (BottomColor == Color8Bit::Black || BottomRightColor == Color8Bit::Black || BottomLeftColor == Color8Bit::Black)
 	{
 		GravityVector = FVector::Zero;
 	}
-	if (DownColor == Color8Bit::Magenta || RightColor == Color8Bit::Magenta || LeftColor == Color8Bit::Magenta)
+	if (BottomColor == Color8Bit::Magenta || BottomRightColor == Color8Bit::Magenta || BottomLeftColor == Color8Bit::Magenta)
 	{
 		GravityVector = FVector::Zero;
 	}
-	if (DownColor == Color8Bit::Red || RightColor == Color8Bit::Red || LeftColor == Color8Bit::Red)
+	if (BottomColor == Color8Bit::Red || BottomRightColor == Color8Bit::Red || BottomLeftColor == Color8Bit::Red)
 	{
 		GravityVector = FVector::Zero;
 	}
@@ -75,27 +75,27 @@ void APlayer::Run(float _DeltaTime)
 	PlayerDirCheck();
 	Gravity(_DeltaTime);
 	ColorColCheck();
-	if (DownColor == Color8Bit::Black || DownColor == Color8Bit::Magenta)
+	if (BottomColor == Color8Bit::Black || BottomColor == Color8Bit::Magenta)
 	{
 		GravityVector = FVector::Zero;
 	}
 
-	if (RightColor == Color8Bit::Red && PlayerMoveDir == EPlayerDir::Right)
+	if (BottomRightColor == Color8Bit::Red && PlayerMoveDir == EPlayerDir::Right)
 	{
 		GravityVector = FVector::Zero;
 		AddActorLocation(FVector::Up);
 	}
-	if (DownColor == Color8Bit::White && RightColor == Color8Bit::Red && PlayerMoveDir == EPlayerDir::Left)
+	if (BottomColor == Color8Bit::White && BottomRightColor == Color8Bit::Red && PlayerMoveDir == EPlayerDir::Left)
 	{
 		GravityVector = FVector::Zero;
 		AddActorLocation(FVector::Down);
 	}
-	if (LeftColor == Color8Bit::Red && PlayerMoveDir == EPlayerDir::Left)
+	if (BottomLeftColor == Color8Bit::Red && PlayerMoveDir == EPlayerDir::Left)
 	{
 		GravityVector = FVector::Zero;
 		AddActorLocation(FVector::Up);
 	}
-	if (DownColor == Color8Bit::White && LeftColor == Color8Bit::Red && PlayerMoveDir == EPlayerDir::Right)
+	if (BottomColor == Color8Bit::White && BottomLeftColor == Color8Bit::Red && PlayerMoveDir == EPlayerDir::Right)
 	{
 		GravityVector = FVector::Zero;
 		AddActorLocation(FVector::Down);
@@ -144,17 +144,17 @@ void APlayer::Jump(float _DeltaTime)
 	ColorColCheck();
 	if (0 >= JumpPower.Y)
 	{
-		if (DownColor == Color8Bit::Black || RightColor == Color8Bit::Black || LeftColor == Color8Bit::Black)
+		if (BottomColor == Color8Bit::Black || BottomRightColor == Color8Bit::Black || BottomLeftColor == Color8Bit::Black)
 		{
 			GravityVector = FVector::Zero;
 			State.ChangeState("Idle");
 		}
-		if (DownColor == Color8Bit::Magenta || RightColor == Color8Bit::Magenta || LeftColor == Color8Bit::Magenta)
+		if (BottomColor == Color8Bit::Magenta || BottomRightColor == Color8Bit::Magenta || BottomLeftColor == Color8Bit::Magenta)
 		{
 			GravityVector = FVector::Zero;
 			State.ChangeState("Idle");
 		}
-		if (DownColor == Color8Bit::Red || RightColor == Color8Bit::Red || LeftColor == Color8Bit::Red)
+		if (BottomColor == Color8Bit::Red || BottomRightColor == Color8Bit::Red || BottomLeftColor == Color8Bit::Red)
 		{
 			GravityVector = FVector::Zero;
 			State.ChangeState("Idle");
@@ -211,7 +211,7 @@ void APlayer::Gravity(float _DeltaTime)
 
 void APlayer::GroundUp()
 {
-	while (BottomColor != Color8Bit::White)
+	while (GroundColor != Color8Bit::White)
 	{
 		ColorColCheck();
 		AddActorLocation(FVector::Up);
