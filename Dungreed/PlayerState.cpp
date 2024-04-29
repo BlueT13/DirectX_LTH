@@ -9,6 +9,7 @@ void APlayer::StateInit()
 	State.CreateState("Jump");
 	State.CreateState("Dash");
 	State.CreateState("Fall");
+	State.CreateState("Attack");
 	State.CreateState("Die");
 
 	// 함수들 세팅
@@ -46,6 +47,19 @@ void APlayer::StateInit()
 	State.SetStartFunction("Fall", [this]()
 		{
 			this->BodyRenderer->ChangeAnimation("Jump");
+		});
+
+	State.SetUpdateFunction("Attack", std::bind(&APlayer::Fall, this, std::placeholders::_1));
+	State.SetStartFunction("Attack", [this]()
+		{
+			// 무기 공격 이펙트 생성
+
+		});
+
+	State.SetUpdateFunction("Die", std::bind(&APlayer::Fall, this, std::placeholders::_1));
+	State.SetStartFunction("Die", [this]()
+		{
+			this->BodyRenderer->ChangeAnimation("Die");
 		});
 
 	State.ChangeState("Idle");
@@ -214,7 +228,16 @@ void APlayer::Dash(float _DeltaTime)
 		return;
 	}
 
-	AddActorLocation(DashVector * _DeltaTime);
+	PlayerNextPos = PlayerPos + DashVector;
+	ColorColCheck();
+	if (NextPosColor != Color8Bit::Black)
+	{
+		AddActorLocation(DashVector * _DeltaTime);
+	}
+	else
+	{
+		return;
+	}
 }
 
 void APlayer::Fall(float _DeltaTime)
@@ -259,6 +282,15 @@ void APlayer::Fall(float _DeltaTime)
 	}
 }
 
+void APlayer::Attack(float _DeltaTime)
+{
+	PlayerDirCheck();
+
+	// 충돌 구현 필요
+
+	State.ChangeState("Idle");
+}
+
 void APlayer::Die(float _DeltaTime)
 {
 }
@@ -266,7 +298,6 @@ void APlayer::Die(float _DeltaTime)
 
 void APlayer::PlayerDirCheck()
 {
-	// CursorPos에 맞게 방향 전환 조건문으로 변경 필요
 	PlayerDir = InGameCursorPos - PlayerPos;
 	PlayerDir = PlayerDir.Normalize3DReturn();
 

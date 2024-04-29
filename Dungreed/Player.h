@@ -49,8 +49,10 @@ private:
 	Color8Bit BottomRightColor;
 	Color8Bit TopColor;
 	Color8Bit GroundColor;
+	Color8Bit NextPosColor;
 
 	FVector PlayerPos = FVector::Zero;
+	FVector PlayerNextPos = FVector::Zero;
 	FVector PlayerDir = FVector::Zero;
 	EPlayerDir PlayerMoveDir = EPlayerDir::Right;
 	FVector PlayerScale = FVector::Zero;
@@ -78,6 +80,7 @@ private:
 	void Jump(float _DeltaTime);
 	void Dash(float _DeltaTime);
 	void Fall(float _DeltaTime);
+	void Attack(float _DeltaTime);
 	void Die(float _DeltaTime);
 
 	void PlayerDirCheck();

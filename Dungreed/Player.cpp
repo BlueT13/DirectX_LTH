@@ -47,7 +47,7 @@ void APlayer::BeginPlay()
 	WeaponRenderer->SetSprite("ShortSword010.png");
 	WeaponRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
 	WeaponRenderer->SetOrder(ERenderOrder::WeaponBack);
-	
+
 	PlayerScale = GetActorScale3D();
 
 	Cursor = GetWorld()->SpawnActor<ACursor>("Cursor");
@@ -89,11 +89,13 @@ void APlayer::ColorColCheck()
 	PlayerPos.Y = MapY - PlayerPos.Y;
 	PlayerPos /= UDungreedConstValue::AutoSize;
 
-	BottomLeftColor = Tex->GetColor({ PlayerPos.X - 4.0f, PlayerPos.Y, PlayerPos.Z }, Color8Bit::Black);
-	BottomRightColor = Tex->GetColor({ PlayerPos.X + 4.0f, PlayerPos.Y, PlayerPos.Z }, Color8Bit::Black);
-	TopColor = Tex->GetColor({ PlayerPos.X, PlayerPos.Y - 20.0f, PlayerPos.Z }, Color8Bit::Black);
-	BottomColor = Tex->GetColor({ PlayerPos.X, PlayerPos.Y, PlayerPos.Z }, Color8Bit::Black);
-	GroundColor = Tex->GetColor({ PlayerPos.X, PlayerPos.Y - 1.0f, PlayerPos.Z }, Color8Bit::Black);
+	BottomLeftColor = Tex->GetColor({ PlayerPos.X - 4.0f, PlayerPos.Y, PlayerPos.Z }, Color8Bit::White);
+	BottomRightColor = Tex->GetColor({ PlayerPos.X + 4.0f, PlayerPos.Y, PlayerPos.Z }, Color8Bit::White);
+	TopColor = Tex->GetColor({ PlayerPos.X, PlayerPos.Y - 20.0f, PlayerPos.Z }, Color8Bit::White);
+	BottomColor = Tex->GetColor({ PlayerPos.X, PlayerPos.Y, PlayerPos.Z }, Color8Bit::White);
+	GroundColor = Tex->GetColor({ PlayerPos.X, PlayerPos.Y - 1.0f, PlayerPos.Z }, Color8Bit::White);
+
+	NextPosColor = Tex->GetColor(PlayerNextPos, Color8Bit::White);
 }
 
 void APlayer::CursorCheck()
