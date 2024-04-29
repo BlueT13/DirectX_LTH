@@ -67,6 +67,16 @@ public:
 
 	bool IsCurAnimationEnd();
 
+	void SetPlusColor(float4 _Color)
+	{
+		ColorData.PlusColor = _Color;
+	}
+
+	void SetMulColor(float4 _Color)
+	{
+		ColorData.MulColor = _Color;
+	}
+
 protected:
 	void MaterialSettingEnd() override;
 	void Tick(float _DetaTime) override;
@@ -86,6 +96,7 @@ private:
 
 	FResultColorValue ColorData;
 	FCuttingData CuttingDataValue;
+	FVertexUV VertexUVValue;
 
 	// 여기에 자기자신의 std::shared_ptr
 	// std::shared_ptr<UWidget> This = ;

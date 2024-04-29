@@ -8,7 +8,7 @@ class UTransformObject
 public:
 	// constrcuter destructer
 	UTransformObject();
-	~UTransformObject();
+	virtual ~UTransformObject();
 
 	// delete Function
 	UTransformObject(const UTransformObject& _Other) = delete;
@@ -23,7 +23,7 @@ public:
 		Parent = _Parent;
 		Parent->Transform.TransformUpdate();
 		Parent->Childs.push_back(this);
-		ChildUpdate();
+		Parent->ChildUpdate();
 	}
 
 	void ChildUpdate();
@@ -131,9 +131,9 @@ public:
 
 
 protected:
+	UTransformObject* Parent = nullptr;
 
 private:
-	UTransformObject* Parent = nullptr;
 	std::vector<UTransformObject*> Childs;
 
 };

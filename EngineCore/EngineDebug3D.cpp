@@ -48,19 +48,21 @@ namespace UEngineDebug
 
 		UDebugRenderInfo& CurInfo = DebugRenderUnits[DebugIndex];
 
+		CurInfo.Trans = _Transform;
+
 		switch (_DebugText)
 		{
 		case EDebugRenderType::Rect:
 			CurInfo.Unit.SetMesh("Rect");
 			break;
 		case EDebugRenderType::CirCle:
+			CurInfo.Trans.SetScale({ CurInfo.Trans.GetScale().X, CurInfo.Trans.GetScale().X , CurInfo.Trans.GetScale().X });
 			CurInfo.Unit.SetMesh("Sphere");
 			break;
 		default:
 			break;
 		}
 
-		CurInfo.Trans = _Transform;
 		CurInfo.Color = _Color;
 		CurInfo.Unit.SetMaterial("Debug");
 		CurInfo.Unit.Resources->SettingConstantBuffer("DebugColorValue", CurInfo.Color);

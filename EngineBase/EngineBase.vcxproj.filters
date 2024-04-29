@@ -43,6 +43,12 @@
     <ClInclude Include="TransformObject.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="EngineThread.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineDebug.cpp">
@@ -87,6 +93,12 @@
     <ClCompile Include="TransformObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="EngineThread.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPool.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Debug">
@@ -109,6 +121,9 @@
     </Filter>
     <Filter Include="PreCompile">
       <UniqueIdentifier>{8f5ed156-e764-4a95-81c3-5b4b86a45e6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Thread">
+      <UniqueIdentifier>{700a0691-df6d-456a-9ad0-a9be9c7432f1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

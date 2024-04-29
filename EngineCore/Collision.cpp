@@ -78,6 +78,10 @@ bool UCollision::Collision(int _TargetGroup,
 			if (false == FirstCheck.contains(CollisionPtr) && false == OtherCheck.contains(CollisionPtr))
 			{
 				FirstCheck.insert(CollisionPtr);
+			}
+
+			if (true == FirstCheck.contains(CollisionPtr))
+			{
 				if (nullptr != _Enter)
 				{
 					_Enter(OtherCollision);
@@ -176,6 +180,7 @@ void UCollision::Tick(float _Delta)
 	case ECollisionType::CirCle:
 	case ECollisionType::Point:
 	case ECollisionType::Sphere:
+		UEngineDebug::DrawDebugRender(EDebugRenderType::CirCle, Transform, float4::Black);
 		break;
 	case ECollisionType::RotRect:
 	case ECollisionType::RotBox:
