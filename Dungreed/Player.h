@@ -59,7 +59,7 @@ private:
 	FVector JumpPower = FVector::Zero;
 	FVector DashVector = FVector::Zero;
 	FVector DashPower = FVector::Zero;
-	float DashTime = 0.2f;
+	float DashTime = 0.24f;
 
 	FVector WindowScale = FVector::Zero;
 	std::shared_ptr<ACursor> Cursor = nullptr;
@@ -77,6 +77,7 @@ private:
 	void Run(float _DeltaTime);
 	void Jump(float _DeltaTime);
 	void Dash(float _DeltaTime);
+	void Fall(float _DeltaTime);
 	void Die(float _DeltaTime);
 
 	void PlayerDirCheck();

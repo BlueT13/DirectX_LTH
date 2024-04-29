@@ -8,6 +8,7 @@ void APlayer::StateInit()
 	State.CreateState("Run");
 	State.CreateState("Jump");
 	State.CreateState("Dash");
+	State.CreateState("Fall");
 	State.CreateState("Die");
 
 	// 함수들 세팅
@@ -36,7 +37,14 @@ void APlayer::StateInit()
 	State.SetStartFunction("Dash", [this]()
 		{
 			// 점프 시작할 때 JumpVector값 한번만 대입
+			GravityVector = FVector::Zero;
 			DashVector = PlayerDir * 1500.0f;
+			this->BodyRenderer->ChangeAnimation("Jump");
+		});
+
+	State.SetUpdateFunction("Fall", std::bind(&APlayer::Fall, this, std::placeholders::_1));
+	State.SetStartFunction("Fall", [this]()
+		{
 			this->BodyRenderer->ChangeAnimation("Jump");
 		});
 
@@ -75,7 +83,7 @@ void APlayer::Idle(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsPress(VK_RBUTTON))
+	if (true == IsDown(VK_RBUTTON))
 	{
 		State.ChangeState("Dash");
 		return;
@@ -138,7 +146,7 @@ void APlayer::Run(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsPress(VK_RBUTTON))
+	if (true == IsDown(VK_RBUTTON))
 	{
 		State.ChangeState("Dash");
 		return;
@@ -169,20 +177,23 @@ void APlayer::Jump(float _DeltaTime)
 		{
 			GravityVector = FVector::Zero;
 			State.ChangeState("Idle");
+			return;
 		}
 		if (BottomColor == Color8Bit::Magenta || BottomRightColor == Color8Bit::Magenta || BottomLeftColor == Color8Bit::Magenta)
 		{
 			GravityVector = FVector::Zero;
 			State.ChangeState("Idle");
+			return;
 		}
 		if (BottomColor == Color8Bit::Red || BottomRightColor == Color8Bit::Red || BottomLeftColor == Color8Bit::Red)
 		{
 			GravityVector = FVector::Zero;
 			State.ChangeState("Idle");
+			return;
 		}
 	}
 
-	if (true == IsPress(VK_RBUTTON))
+	if (true == IsDown(VK_RBUTTON))
 	{
 		State.ChangeState("Dash");
 		return;
@@ -194,17 +205,58 @@ void APlayer::Jump(float _DeltaTime)
 void APlayer::Dash(float _DeltaTime)
 {
 	PlayerDirCheck();
-	GravityVector = FVector::Zero;
 	DashTime -= _DeltaTime;
 
 	if (DashTime <= 0)
 	{
-		State.ChangeState("Idle");
-		DashTime = 0.2f;
+		DashTime = 0.24f;
+		State.ChangeState("Fall");
 		return;
 	}
 
 	AddActorLocation(DashVector * _DeltaTime);
+}
+
+void APlayer::Fall(float _DeltaTime)
+{
+	PlayerDirCheck();
+	Gravity(_DeltaTime);
+	AddActorLocation(GravityVector * _DeltaTime);
+
+	if (true == IsPress('A'))
+	{
+		AddActorLocation(FVector::Left * _DeltaTime * Speed);
+	}
+	if (true == IsPress('D'))
+	{
+		AddActorLocation(FVector::Right * _DeltaTime * Speed);
+	}
+
+	if (true == IsDown(VK_RBUTTON))
+	{
+		State.ChangeState("Dash");
+		return;
+	}
+
+	ColorColCheck();
+	if (BottomColor == Color8Bit::Black || BottomRightColor == Color8Bit::Black || BottomLeftColor == Color8Bit::Black)
+	{
+		GravityVector = FVector::Zero;
+		State.ChangeState("Idle");
+		return;
+	}
+	if (BottomColor == Color8Bit::Magenta || BottomRightColor == Color8Bit::Magenta || BottomLeftColor == Color8Bit::Magenta)
+	{
+		GravityVector = FVector::Zero;
+		State.ChangeState("Idle");
+		return;
+	}
+	if (BottomColor == Color8Bit::Red || BottomRightColor == Color8Bit::Red || BottomLeftColor == Color8Bit::Red)
+	{
+		GravityVector = FVector::Zero;
+		State.ChangeState("Idle");
+		return;
+	}
 }
 
 void APlayer::Die(float _DeltaTime)
@@ -223,17 +275,16 @@ void APlayer::PlayerDirCheck()
 		BodyRenderer->SetDir(EEngineDir::Left);
 		HandRenderer->SetPosition({ 26,20,0 });
 
-		WeaponRenderer->SetPosition({ -32, 64, 0 });
+		RotationRenderer->SetPosition({ -32, 64, 0 });
 		RotationRenderer->SetRotationDeg({ 0, 0, -15 });
-		RotationRenderer->SetRotationDeg({ 0.0f, 0.0f, PlayerDir.Z });
-		//RotationRenderer->SetRotationDeg({ 0.0f, 0.0f, 0.0f });
+		//RotationRenderer->SetRotationDeg({ 0.0f, 0.0f, PlayerDir.Z });
 	}
 	else
 	{
 		BodyRenderer->SetDir(EEngineDir::Right);
 		HandRenderer->SetPosition({ -26, 20, 0 });
 
-		WeaponRenderer->SetPosition({ 32, 64, 0 });
+		RotationRenderer->SetPosition({ 32, 64, 0 });
 		RotationRenderer->SetRotationDeg({ 0, 0, 15 });
 		//RotationRenderer->SetRotationDeg({ 0.0f, 0.0f, PlayerDir.Z });
 	}
