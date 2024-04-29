@@ -4,8 +4,8 @@ enum class ERenderOrder
 {
 	ColMap,
 	Map,
-	Hand01,
+	WeaponBack,
 	Player,
-	Hand02,
+	WeaponFront,
 	Cursor,
 };

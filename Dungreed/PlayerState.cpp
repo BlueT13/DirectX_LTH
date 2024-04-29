@@ -203,7 +203,7 @@ void APlayer::Dash(float _DeltaTime)
 		DashTime = 0.2f;
 		return;
 	}
-	
+
 	AddActorLocation(DashVector * _DeltaTime);
 }
 
@@ -222,11 +222,20 @@ void APlayer::PlayerDirCheck()
 	{
 		BodyRenderer->SetDir(EEngineDir::Left);
 		HandRenderer->SetPosition({ 26,20,0 });
+
+		WeaponRenderer->SetPosition({ -32, 64, 0 });
+		RotationRenderer->SetRotationDeg({ 0, 0, -15 });
+		RotationRenderer->SetRotationDeg({ 0.0f, 0.0f, PlayerDir.Z });
+		//RotationRenderer->SetRotationDeg({ 0.0f, 0.0f, 0.0f });
 	}
 	else
 	{
 		BodyRenderer->SetDir(EEngineDir::Right);
-		HandRenderer->SetPosition({ -26,20,0 });
+		HandRenderer->SetPosition({ -26, 20, 0 });
+
+		WeaponRenderer->SetPosition({ 32, 64, 0 });
+		RotationRenderer->SetRotationDeg({ 0, 0, 15 });
+		//RotationRenderer->SetRotationDeg({ 0.0f, 0.0f, PlayerDir.Z });
 	}
 
 	if (true == IsPress('A'))

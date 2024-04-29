@@ -5,17 +5,20 @@ std::shared_ptr<APlayer> APlayer::MainPlayer = nullptr;
 
 APlayer::APlayer()
 {
-	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	SetRoot(Renderer);
+	DefaultRenderer = CreateDefaultSubObject<USpriteRenderer>("DefaultRenderer");
+	SetRoot(DefaultRenderer);
+
+	RotationRenderer = CreateDefaultSubObject<USpriteRenderer>("RotationRenderer");
+	RotationRenderer->SetupAttachment(DefaultRenderer);
 
 	BodyRenderer = CreateDefaultSubObject<USpriteRenderer>("BodyRenderer");
-	BodyRenderer->SetupAttachment(Renderer);
+	BodyRenderer->SetupAttachment(DefaultRenderer);
 
 	HandRenderer = CreateDefaultSubObject<USpriteRenderer>("HandRenderer");
-	HandRenderer->SetupAttachment(Renderer);
+	HandRenderer->SetupAttachment(DefaultRenderer);
 
-	AttackHandRenderer = CreateDefaultSubObject<USpriteRenderer>("AttackHandRenderer");
-	AttackHandRenderer->SetupAttachment(Renderer);
+	WeaponRenderer = CreateDefaultSubObject<USpriteRenderer>("AttackHandRenderer");
+	WeaponRenderer->SetupAttachment(RotationRenderer);
 
 	InputOn();
 }
@@ -39,9 +42,12 @@ void APlayer::BeginPlay()
 
 	HandRenderer->SetSprite("Hand.png");
 	HandRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
-	HandRenderer->SetOrder(ERenderOrder::Hand02);
+	HandRenderer->SetOrder(ERenderOrder::Player);
 
-
+	WeaponRenderer->SetSprite("ShortSword010.png");
+	WeaponRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
+	WeaponRenderer->SetOrder(ERenderOrder::WeaponBack);
+	
 	PlayerScale = GetActorScale3D();
 
 	Cursor = GetWorld()->SpawnActor<ACursor>("Cursor");

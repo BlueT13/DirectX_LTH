@@ -37,10 +37,11 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	USpriteRenderer* Renderer = nullptr;
+	USpriteRenderer* DefaultRenderer = nullptr;
+	USpriteRenderer* RotationRenderer = nullptr;
 	USpriteRenderer* BodyRenderer = nullptr;
 	USpriteRenderer* HandRenderer = nullptr;
-	USpriteRenderer* AttackHandRenderer = nullptr;
+	USpriteRenderer* WeaponRenderer = nullptr;
 	float Speed = 500.0f;
 
 	Color8Bit BottomColor;
