@@ -38,6 +38,9 @@ protected:
 
 private:
 	USpriteRenderer* Renderer = nullptr;
+	USpriteRenderer* BodyRenderer = nullptr;
+	USpriteRenderer* HandRenderer = nullptr;
+	USpriteRenderer* AttackHandRenderer = nullptr;
 	float Speed = 500.0f;
 
 	Color8Bit BottomColor;

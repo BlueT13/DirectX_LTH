@@ -7,6 +7,16 @@ APlayer::APlayer()
 {
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	SetRoot(Renderer);
+
+	BodyRenderer = CreateDefaultSubObject<USpriteRenderer>("BodyRenderer");
+	BodyRenderer->SetupAttachment(Renderer);
+
+	HandRenderer = CreateDefaultSubObject<USpriteRenderer>("HandRenderer");
+	HandRenderer->SetupAttachment(Renderer);
+
+	AttackHandRenderer = CreateDefaultSubObject<USpriteRenderer>("AttackHandRenderer");
+	AttackHandRenderer->SetupAttachment(Renderer);
+
 	InputOn();
 }
 
@@ -18,14 +28,19 @@ void APlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->CreateAnimation("Die", "Die", 0.1f);
-	Renderer->CreateAnimation("Idle", "Idle", 0.1f);
-	Renderer->CreateAnimation("Jump", "Jump", 0.1f);
-	Renderer->CreateAnimation("Run", "Run", 0.1f);
+	BodyRenderer->CreateAnimation("Die", "Die", 0.1f);
+	BodyRenderer->CreateAnimation("Idle", "Idle", 0.1f);
+	BodyRenderer->CreateAnimation("Jump", "Jump", 0.1f);
+	BodyRenderer->CreateAnimation("Run", "Run", 0.1f);
 
-	Renderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
-	Renderer->SetOrder(ERenderOrder::Player);
-	Renderer->SetPivot(EPivot::BOT);
+	BodyRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
+	BodyRenderer->SetOrder(ERenderOrder::Player);
+	BodyRenderer->SetPivot(EPivot::BOT);
+
+	HandRenderer->SetSprite("Hand.png");
+	HandRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
+	HandRenderer->SetOrder(ERenderOrder::Hand02);
+
 
 	PlayerScale = GetActorScale3D();
 

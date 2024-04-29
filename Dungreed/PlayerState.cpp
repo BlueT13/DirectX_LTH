@@ -14,14 +14,14 @@ void APlayer::StateInit()
 	State.SetUpdateFunction("Idle", std::bind(&APlayer::Idle, this, std::placeholders::_1));
 	State.SetStartFunction("Idle", [this]()
 		{
-			this->Renderer->ChangeAnimation("Idle");
+			this->BodyRenderer->ChangeAnimation("Idle");
 		});
 
 
 	State.SetUpdateFunction("Run", std::bind(&APlayer::Run, this, std::placeholders::_1));
 	State.SetStartFunction("Run", [this]()
 		{
-			this->Renderer->ChangeAnimation("Run");
+			this->BodyRenderer->ChangeAnimation("Run");
 		});
 
 	State.SetUpdateFunction("Jump", std::bind(&APlayer::Jump, this, std::placeholders::_1));
@@ -29,7 +29,7 @@ void APlayer::StateInit()
 		{
 			// 점프 시작할 때 JumpVector값 한번만 대입
 			JumpVector = FVector::Up * 1000.0f;
-			this->Renderer->ChangeAnimation("Jump");
+			this->BodyRenderer->ChangeAnimation("Jump");
 		});
 
 	State.SetUpdateFunction("Dash", std::bind(&APlayer::Dash, this, std::placeholders::_1));
@@ -37,7 +37,7 @@ void APlayer::StateInit()
 		{
 			// 점프 시작할 때 JumpVector값 한번만 대입
 			DashVector = PlayerDir * 1500.0f;
-			this->Renderer->ChangeAnimation("Jump");
+			this->BodyRenderer->ChangeAnimation("Jump");
 		});
 
 	State.ChangeState("Idle");
@@ -220,11 +220,13 @@ void APlayer::PlayerDirCheck()
 
 	if (0 > PlayerDir.X)
 	{
-		Renderer->SetDir(EEngineDir::Left);
+		BodyRenderer->SetDir(EEngineDir::Left);
+		HandRenderer->SetPosition({ 26,20,0 });
 	}
 	else
 	{
-		Renderer->SetDir(EEngineDir::Right);
+		BodyRenderer->SetDir(EEngineDir::Right);
+		HandRenderer->SetPosition({ -26,20,0 });
 	}
 
 	if (true == IsPress('A'))
