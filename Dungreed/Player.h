@@ -49,7 +49,10 @@ private:
 	Color8Bit BottomRightColor;
 	Color8Bit TopColor;
 	Color8Bit GroundColor;
-	Color8Bit NextPosColor;
+
+	Color8Bit NextBottomLeftColor;
+	Color8Bit NextBottomRightColor;
+	Color8Bit NextTopColor;
 
 	FVector PlayerPos = FVector::Zero;
 	FVector PlayerNextPos = FVector::Zero;

@@ -218,7 +218,7 @@ void APlayer::Jump(float _DeltaTime)
 
 void APlayer::Dash(float _DeltaTime)
 {
-	PlayerDirCheck();
+	ColorColCheck();
 	DashTime -= _DeltaTime;
 
 	if (DashTime <= 0)
@@ -228,9 +228,17 @@ void APlayer::Dash(float _DeltaTime)
 		return;
 	}
 
-	PlayerNextPos = PlayerPos + DashVector;
-	ColorColCheck();
-	if (NextPosColor != Color8Bit::Black)
+	//
+	std::shared_ptr<UEngineTexture> Tex = UDungreedConstValue::ColMap;
+	float MapY = Tex->GetScale().Y * UDungreedConstValue::AutoSize;
+
+	PlayerPos = GetActorLocation();
+	PlayerNextPos = PlayerPos + (DashVector * _DeltaTime);
+	PlayerNextPos.Y = MapY - PlayerPos.Y;
+	PlayerNextPos /= UDungreedConstValue::AutoSize;
+	//
+
+	if (NextBottomLeftColor != Color8Bit::Black && NextBottomRightColor != Color8Bit::Black && NextTopColor != Color8Bit::Black)
 	{
 		AddActorLocation(DashVector * _DeltaTime);
 	}
