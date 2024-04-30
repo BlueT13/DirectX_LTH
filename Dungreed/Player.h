@@ -87,12 +87,14 @@ private:
 	void Jump(float _DeltaTime);
 	void Dash(float _DeltaTime);
 	void Fall(float _DeltaTime);
-	void Attack(float _DeltaTime);
 	void Die(float _DeltaTime);
+
+	void Attack(float _DeltaTime);
 
 	void PlayerDirCheck();
 	void Gravity(float _DeltaTime);
 	void GroundUp();
+
 
 	float Speed = 500.0f;
 };

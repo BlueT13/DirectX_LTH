@@ -9,7 +9,6 @@ void APlayer::StateInit()
 	State.CreateState("Jump");
 	State.CreateState("Dash");
 	State.CreateState("Fall");
-	State.CreateState("Attack");
 	State.CreateState("Die");
 
 	// 함수들 세팅
@@ -47,13 +46,6 @@ void APlayer::StateInit()
 	State.SetStartFunction("Fall", [this]()
 		{
 			this->BodyRenderer->ChangeAnimation("Jump");
-		});
-
-	State.SetUpdateFunction("Attack", std::bind(&APlayer::Fall, this, std::placeholders::_1));
-	State.SetStartFunction("Attack", [this]()
-		{
-			// 무기 공격 이펙트 생성
-
 		});
 
 	State.SetUpdateFunction("Die", std::bind(&APlayer::Fall, this, std::placeholders::_1));
@@ -298,17 +290,13 @@ void APlayer::Fall(float _DeltaTime)
 	}
 }
 
-void APlayer::Attack(float _DeltaTime)
-{
-	PlayerDirCheck();
-
-	// 충돌 구현 필요
-
-	State.ChangeState("Idle");
-}
-
 void APlayer::Die(float _DeltaTime)
 {
+}
+
+void APlayer::Attack(float _DeltaTime)
+{
+
 }
 
 

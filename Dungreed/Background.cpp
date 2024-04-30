@@ -5,10 +5,9 @@ ABackground::ABackground()
 {
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	SetRoot(Renderer);
-	
+
 	ColMapRenderer = CreateDefaultSubObject<USpriteRenderer>("ColMapRenderer");
 	ColMapRenderer->SetupAttachment(Renderer);
-
 
 	//TileRenderer = CreateDefaultSubObject<UTileRenderer>("TileRenderer");
 	//SetRoot(TileRenderer);
@@ -42,6 +41,8 @@ void ABackground::BeginPlay()
 
 
 	ColMapRenderer->SetSprite("Town_Col.png");
+	ColMapRenderer->SetOrder(ERenderOrder::ColMap);
+	ColMapRenderer->SetActive(false);
 
 	//UEngineSerializer Ser;
 

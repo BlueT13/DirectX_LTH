@@ -17,7 +17,7 @@ APlayer::APlayer()
 	HandRenderer = CreateDefaultSubObject<USpriteRenderer>("HandRenderer");
 	HandRenderer->SetupAttachment(DefaultRenderer);
 
-	WeaponRenderer = CreateDefaultSubObject<USpriteRenderer>("AttackHandRenderer");
+	WeaponRenderer = CreateDefaultSubObject<USpriteRenderer>("WeaponRenderer");
 	WeaponRenderer->SetupAttachment(RotationRenderer);
 
 	InputOn();
@@ -111,6 +111,9 @@ void APlayer::CursorCheck()
 {
 	PlayerPos = GetActorLocation();
 	CursorPos = GEngine->EngineWindow.GetScreenMousePos();
+
+	//InGameCursorPos = GetWorld()->GetMainCamera()->ScreenPosToWorldPos(GEngine->EngineWindow.GetScreenMousePos());
 	InGameCursorPos = { PlayerPos.X + CursorPos.X - WindowScale.hX() , PlayerPos.Y - CursorPos.Y + WindowScale.hY(), 0.0f };
+
 	Cursor->SetActorLocation(InGameCursorPos);
 }

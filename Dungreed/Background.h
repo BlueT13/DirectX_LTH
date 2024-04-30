@@ -27,8 +27,8 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	USpriteRenderer* Renderer;
-	USpriteRenderer* ColMapRenderer;
+	USpriteRenderer* Renderer = nullptr;
+	USpriteRenderer* ColMapRenderer = nullptr;
 	//UTileRenderer* TileRenderer = nullptr;
 
 	UEngineDirectory Dir;
