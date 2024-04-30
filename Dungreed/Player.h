@@ -39,6 +39,7 @@ protected:
 
 private:
 	UDefaultSceneComponent* DefaultComponent = nullptr;
+	UDefaultSceneComponent* RotationComponent = nullptr;
 	USpriteRenderer* RotationRenderer = nullptr;
 	USpriteRenderer* BodyRenderer = nullptr;
 	USpriteRenderer* HandRenderer = nullptr;
@@ -60,7 +61,7 @@ private:
 
 	FVector PlayerPos = FVector::Zero;
 	FVector PlayerNextPos = FVector::Zero;
-	FVector PlayerDir = FVector::Zero;
+	float4 PlayerDir = float4::Zero;
 	EPlayerDir PlayerMoveDir = EPlayerDir::Right;
 	FVector PlayerScale = FVector::Zero;
 	FVector GravityVector = FVector::Zero;
@@ -92,7 +93,7 @@ private:
 
 	void Attack(float _DeltaTime);
 
-	void PlayerDirCheck();
+	void PlayerDirCheck(float _DeltaTime);
 	void Gravity(float _DeltaTime);
 	void GroundUp();
 

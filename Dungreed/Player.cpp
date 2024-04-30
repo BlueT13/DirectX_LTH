@@ -8,6 +8,9 @@ APlayer::APlayer()
 	DefaultComponent = CreateDefaultSubObject<UDefaultSceneComponent>("DefaultComponent");
 	SetRoot(DefaultComponent);
 
+	RotationComponent = CreateDefaultSubObject<UDefaultSceneComponent>("DefaultComponent");
+	RotationComponent->SetupAttachment(DefaultComponent);
+
 	RotationRenderer = CreateDefaultSubObject<USpriteRenderer>("RotationRenderer");
 	RotationRenderer->SetupAttachment(DefaultComponent);
 
@@ -15,10 +18,10 @@ APlayer::APlayer()
 	BodyRenderer->SetupAttachment(DefaultComponent);
 
 	HandRenderer = CreateDefaultSubObject<USpriteRenderer>("HandRenderer");
-	HandRenderer->SetupAttachment(DefaultComponent);
+	HandRenderer->SetupAttachment(RotationComponent);
 
 	WeaponRenderer = CreateDefaultSubObject<USpriteRenderer>("WeaponRenderer");
-	WeaponRenderer->SetupAttachment(RotationRenderer);
+	WeaponRenderer->SetupAttachment(RotationComponent);
 
 	InputOn();
 }
@@ -45,7 +48,9 @@ void APlayer::BeginPlay()
 	HandRenderer->SetOrder(ERenderOrder::Player);
 
 	WeaponRenderer->SetSprite("ShortSword010.png");
+	WeaponRenderer->SetPivot(EPivot::BOT);
 	WeaponRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
+	WeaponRenderer->SetPosition({30.0f, 0.0f, 0.0f});
 	WeaponRenderer->SetOrder(ERenderOrder::WeaponBack);
 
 	PlayerScale = GetActorScale3D();
@@ -62,6 +67,10 @@ void APlayer::BeginPlay()
 void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	float Rot = PlayerDir.RightVectorToAngle2DDeg();
+
+	RotationComponent->SetRotationDeg({0.0f, 0.0f, Rot });
 
 	State.Update(_DeltaTime);
 	CursorCheck();

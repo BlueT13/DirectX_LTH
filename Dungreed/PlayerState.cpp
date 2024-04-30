@@ -59,7 +59,7 @@ void APlayer::StateInit()
 
 void APlayer::Idle(float _DeltaTime)
 {
-	PlayerDirCheck();
+	PlayerDirCheck(_DeltaTime);
 
 	// 중력
 	Gravity(_DeltaTime);
@@ -101,7 +101,7 @@ void APlayer::Idle(float _DeltaTime)
 
 void APlayer::Run(float _DeltaTime)
 {
-	PlayerDirCheck();
+	PlayerDirCheck(_DeltaTime);
 
 	// 중력
 	Gravity(_DeltaTime);
@@ -168,7 +168,7 @@ void APlayer::Run(float _DeltaTime)
 
 void APlayer::Jump(float _DeltaTime)
 {
-	PlayerDirCheck();
+	PlayerDirCheck(_DeltaTime);
 
 	// 중력
 	Gravity(_DeltaTime);
@@ -250,7 +250,7 @@ void APlayer::Dash(float _DeltaTime)
 
 void APlayer::Fall(float _DeltaTime)
 {
-	PlayerDirCheck();
+	PlayerDirCheck(_DeltaTime);
 	Gravity(_DeltaTime);
 	AddActorLocation(GravityVector * _DeltaTime);
 
@@ -300,28 +300,32 @@ void APlayer::Attack(float _DeltaTime)
 }
 
 
-void APlayer::PlayerDirCheck()
+void APlayer::PlayerDirCheck(float _DeltaTime)
 {
-	PlayerDir = InGameCursorPos - PlayerPos;
-	PlayerDir = PlayerDir.Normalize3DReturn();
 
+	PlayerDir = InGameCursorPos - RotationRenderer->GetWorldPosition();
+	PlayerDir = PlayerDir.Normalize3DReturn();
+	float Rot = PlayerDir.RightVectorToAngle2DDeg();
+	FVector Testvec = { 0,0,1,1 };
+	Testvec.Z = Testvec.Z + _DeltaTime * 0.1f;
+	//RotationRenderer->AddRotationDeg(Testvec);
 	if (0 > PlayerDir.X)
 	{
 		BodyRenderer->SetDir(EEngineDir::Left);
 		HandRenderer->SetPosition({ 26,20,0 });
+		// WeaponRenderer->SetRotationDeg({ 0, 0, -15 });
 
 		RotationRenderer->SetPosition({ -32, 64, 0 });
-		RotationRenderer->SetRotationDeg({ 0, 0, -15 });
-		//RotationRenderer->SetRotationDeg({ 0.0f, 0.0f, PlayerDir.Z });
+		//RotationRenderer->SetRotationDeg({ 0.0f, 0.0f, Rot });
 	}
 	else
 	{
 		BodyRenderer->SetDir(EEngineDir::Right);
 		HandRenderer->SetPosition({ -26, 20, 0 });
+		// WeaponRenderer->SetRotationDeg({ 0, 0, 15 });
 
 		RotationRenderer->SetPosition({ 32, 64, 0 });
-		RotationRenderer->SetRotationDeg({ 0, 0, 15 });
-		//RotationRenderer->SetRotationDeg({ 0.0f, 0.0f, PlayerDir.Z });
+		//RotationRenderer->SetRotationDeg({ 0.0f, 0.0f, Rot });
 	}
 
 	if (true == IsPress('A'))
