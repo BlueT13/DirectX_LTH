@@ -75,5 +75,5 @@ void UEngineFont::TextDraw(float4 _ScreenPos,
 
 	std::wstring Text = UEngineString::AnsiToUniCode(_Text);
 
-	Font->DrawString(GEngine->GetDirectXContext(), Text.c_str(), 40, _ScreenPos.X, _ScreenPos.Y, _Color.Color, _Flag);
+	Font->DrawString(GEngine->GetDirectXContext(), Text.c_str(), _Scale, _ScreenPos.X, _ScreenPos.Y, _Color.Color, _Flag);
 }
