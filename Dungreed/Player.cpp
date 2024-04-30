@@ -60,7 +60,7 @@ void APlayer::BeginPlay()
 	// 무기 위치 조정
 	HandRenderer->SetPosition({ -26, 20, 0 });
 
-	RotationComponent->SetPosition({ 20, 40, 0 });
+	RotationComponent->SetPosition({ 24, 40, 0 });
 
 	WeaponRenderer->SetPosition({ 0.0f, 30.0f, 0.0f });
 	WeaponRenderer->SetRotationDeg({ 0, 0, 15 });

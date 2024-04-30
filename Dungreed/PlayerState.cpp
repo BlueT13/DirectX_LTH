@@ -307,39 +307,15 @@ void APlayer::PlayerDirCheck(float _DeltaTime)
 	PlayerDir = PlayerDir.Normalize3DReturn();
 	float Rot = PlayerDir.RightVectorToAngle2DDeg();
 
-	if (0 > PlayerDir.X)
+	if (0 <= PlayerDir.X)
 	{
-		DefaultComponent->SetScale({-1.0f, 1.0f, 1.0f});
-		
-		HandRenderer->SetPosition({ 26,20,0 });
-		
-		RotationComponent->SetPosition({ -20, 40, 0 });
-		RotationComponent->SetRotationDeg({ 0.0f, 0.0f, -Rot });
-		
-		WeaponRenderer->SetPosition({ 0.0f, -30.0f, 0.0f });
-		WeaponRenderer->SetRotationDeg({ 0, 0, -15 });
-
-		// BodyRenderer->SetDir(EEngineDir::Left);
-
-		//WeaponRenderer->SetPosition({ -32, 0, 0 });
+		DefaultComponent->SetScale({ 1.0f, 1.0f, 1.0f });
+		RotationComponent->SetRotationDeg({ 0.0f, 0.0f, Rot });
 	}
 	else
 	{
-		DefaultComponent->SetScale({ 1.0f, 1.0f, 1.0f });
-		
-		HandRenderer->SetPosition({ -26, 20, 0 });
-		
-		RotationComponent->SetPosition({ 20, 40, 0 });
-		RotationComponent->SetRotationDeg({ 0.0f, 0.0f, Rot });
-		
-		WeaponRenderer->SetPosition({ 0.0f, 30.0f, 0.0f });
-		WeaponRenderer->SetRotationDeg({ 0, 0, 15 });		
-
-		//RotationComponent->SetPosition({16,64,0 });
-		// BodyRenderer->SetDir(EEngineDir::Right);
-
-		// WeaponRenderer->SetPosition({ 32, 50, 0 });
-		// RotationComponent->SetRotationDeg({ 0.0f, 0.0f, Rot });
+		DefaultComponent->SetScale({-1.0f, 1.0f, 1.0f});
+		RotationComponent->SetRotationDeg({ 0.0f, 0.0f, 180.0f - Rot });
 	}
 
 	if (true == IsPress('A'))
