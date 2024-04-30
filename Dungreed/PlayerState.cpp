@@ -68,6 +68,8 @@ void APlayer::StateInit()
 void APlayer::Idle(float _DeltaTime)
 {
 	PlayerDirCheck();
+
+	// 중력
 	Gravity(_DeltaTime);
 	ColorColCheck();
 	if (BottomColor == Color8Bit::Black || BottomRightColor == Color8Bit::Black || BottomLeftColor == Color8Bit::Black)
@@ -82,9 +84,10 @@ void APlayer::Idle(float _DeltaTime)
 	{
 		GravityVector = FVector::Zero;
 	}
-
 	AddActorLocation(GravityVector * _DeltaTime);
+	GroundUp();
 
+	// 상태 변화
 	if (true == IsPress('A') || true == IsPress('D'))
 	{
 		State.ChangeState("Run");
@@ -102,20 +105,22 @@ void APlayer::Idle(float _DeltaTime)
 		State.ChangeState("Dash");
 		return;
 	}
-
-	GroundUp();
 }
 
 void APlayer::Run(float _DeltaTime)
 {
 	PlayerDirCheck();
+
+	// 중력
 	Gravity(_DeltaTime);
 	ColorColCheck();
 	if (BottomColor == Color8Bit::Black || BottomColor == Color8Bit::Magenta)
 	{
 		GravityVector = FVector::Zero;
 	}
+	AddActorLocation(GravityVector * _DeltaTime);
 
+	// 경사 이동
 	if (BottomRightColor == Color8Bit::Red && PlayerMoveDir == EPlayerDir::Right)
 	{
 		GravityVector = FVector::Zero;
@@ -137,17 +142,18 @@ void APlayer::Run(float _DeltaTime)
 		AddActorLocation(FVector::Down);
 	}
 
-	AddActorLocation(GravityVector * _DeltaTime);
-
-	if (true == IsPress('A'))
+	// 이동
+	if (true == IsPress('A') && LeftColor != Color8Bit::Black)
 	{
-		AddActorLocation(FVector::Left * _DeltaTime * Speed);
+		AddActorLocation(FVector::Left * Speed * _DeltaTime);
 	}
-	if (true == IsPress('D'))
+	if (true == IsPress('D') && RightColor != Color8Bit::Black)
 	{
-		AddActorLocation(FVector::Right * _DeltaTime * Speed);
+		AddActorLocation(FVector::Right * Speed * _DeltaTime);
 	}
+	GroundUp();
 
+	// 상태 변화
 	if (true == IsDown(VK_SPACE) || true == IsPress('W'))
 	{
 		State.ChangeState("Jump");
@@ -166,24 +172,15 @@ void APlayer::Run(float _DeltaTime)
 		return;
 	}
 
-	GroundUp();
 }
 
 void APlayer::Jump(float _DeltaTime)
 {
 	PlayerDirCheck();
+
+	// 중력
 	Gravity(_DeltaTime);
 	JumpPower = JumpVector + GravityVector;
-
-	if (true == IsPress('A'))
-	{
-		AddActorLocation(FVector::Left * _DeltaTime * Speed);
-	}
-	if (true == IsPress('D'))
-	{
-		AddActorLocation(FVector::Right * _DeltaTime * Speed);
-	}
-
 	ColorColCheck();
 	if (0 >= JumpPower.Y)
 	{
@@ -207,13 +204,26 @@ void APlayer::Jump(float _DeltaTime)
 		}
 	}
 
+	AddActorLocation(JumpPower * _DeltaTime);
+
+
+	// 공중에서 이동
+	if (true == IsPress('A') && LeftColor != Color8Bit::Black)
+	{
+		AddActorLocation(FVector::Left * _DeltaTime * Speed);
+	}
+	if (true == IsPress('D') && RightColor != Color8Bit::Black)
+	{
+		AddActorLocation(FVector::Right * _DeltaTime * Speed);
+	}
+
+	// 상태 변화
 	if (true == IsDown(VK_RBUTTON))
 	{
 		State.ChangeState("Dash");
 		return;
 	}
 
-	AddActorLocation(JumpPower * _DeltaTime);
 }
 
 void APlayer::Dash(float _DeltaTime)
@@ -224,20 +234,18 @@ void APlayer::Dash(float _DeltaTime)
 	if (DashTime <= 0)
 	{
 		DashTime = 0.24f;
+		DashVector = FVector::Zero;
 		State.ChangeState("Fall");
 		return;
 	}
 
-	//
-	std::shared_ptr<UEngineTexture> Tex = UDungreedConstValue::ColMap;
-	float MapY = Tex->GetScale().Y * UDungreedConstValue::AutoSize;
-
+	// PlayerNextPos 계산
 	PlayerPos = GetActorLocation();
 	PlayerNextPos = PlayerPos + (DashVector * _DeltaTime);
-	PlayerNextPos.Y = MapY - PlayerPos.Y;
+	PlayerNextPos.Y = ColMapY - PlayerPos.Y;
 	PlayerNextPos /= UDungreedConstValue::AutoSize;
-	//
 
+	// 벽이 아니면 이동
 	if (NextBottomLeftColor != Color8Bit::Black && NextBottomRightColor != Color8Bit::Black && NextTopColor != Color8Bit::Black)
 	{
 		AddActorLocation(DashVector * _DeltaTime);
@@ -254,11 +262,11 @@ void APlayer::Fall(float _DeltaTime)
 	Gravity(_DeltaTime);
 	AddActorLocation(GravityVector * _DeltaTime);
 
-	if (true == IsPress('A'))
+	if (true == IsPress('A') && LeftColor != Color8Bit::Black)
 	{
 		AddActorLocation(FVector::Left * _DeltaTime * Speed);
 	}
-	if (true == IsPress('D'))
+	if (true == IsPress('D') && RightColor != Color8Bit::Black)
 	{
 		AddActorLocation(FVector::Right * _DeltaTime * Speed);
 	}

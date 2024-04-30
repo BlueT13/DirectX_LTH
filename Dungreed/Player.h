@@ -42,14 +42,17 @@ private:
 	USpriteRenderer* BodyRenderer = nullptr;
 	USpriteRenderer* HandRenderer = nullptr;
 	USpriteRenderer* WeaponRenderer = nullptr;
-	float Speed = 500.0f;
+
+	std::shared_ptr<UEngineTexture> ColMapTex = nullptr;
+	float ColMapY = 0.0f;
 
 	Color8Bit BottomColor;
 	Color8Bit BottomLeftColor;
 	Color8Bit BottomRightColor;
 	Color8Bit TopColor;
+	Color8Bit LeftColor;
+	Color8Bit RightColor;
 	Color8Bit GroundColor;
-
 	Color8Bit NextBottomLeftColor;
 	Color8Bit NextBottomRightColor;
 	Color8Bit NextTopColor;
@@ -74,6 +77,7 @@ private:
 	void DebugMessageFunction();
 
 	void ColorColCheck();
+	void CalPlayerPos();
 	void CursorCheck();
 
 	// State
@@ -89,5 +93,7 @@ private:
 	void PlayerDirCheck();
 	void Gravity(float _DeltaTime);
 	void GroundUp();
+
+	float Speed = 500.0f;
 };
 
