@@ -40,7 +40,6 @@ protected:
 private:
 	UDefaultSceneComponent* DefaultComponent = nullptr;
 	UDefaultSceneComponent* RotationComponent = nullptr;
-	USpriteRenderer* RotationRenderer = nullptr;
 	USpriteRenderer* BodyRenderer = nullptr;
 	USpriteRenderer* HandRenderer = nullptr;
 	USpriteRenderer* WeaponRenderer = nullptr;

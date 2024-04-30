@@ -11,14 +11,11 @@ APlayer::APlayer()
 	RotationComponent = CreateDefaultSubObject<UDefaultSceneComponent>("DefaultComponent");
 	RotationComponent->SetupAttachment(DefaultComponent);
 
-	RotationRenderer = CreateDefaultSubObject<USpriteRenderer>("RotationRenderer");
-	RotationRenderer->SetupAttachment(DefaultComponent);
-
 	BodyRenderer = CreateDefaultSubObject<USpriteRenderer>("BodyRenderer");
 	BodyRenderer->SetupAttachment(DefaultComponent);
 
 	HandRenderer = CreateDefaultSubObject<USpriteRenderer>("HandRenderer");
-	HandRenderer->SetupAttachment(RotationComponent);
+	HandRenderer->SetupAttachment(DefaultComponent);
 
 	WeaponRenderer = CreateDefaultSubObject<USpriteRenderer>("WeaponRenderer");
 	WeaponRenderer->SetupAttachment(RotationComponent);
@@ -48,10 +45,9 @@ void APlayer::BeginPlay()
 	HandRenderer->SetOrder(ERenderOrder::Player);
 
 	WeaponRenderer->SetSprite("ShortSword010.png");
-	WeaponRenderer->SetPivot(EPivot::BOT);
 	WeaponRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
-	WeaponRenderer->SetPosition({30.0f, 0.0f, 0.0f});
 	WeaponRenderer->SetOrder(ERenderOrder::WeaponBack);
+	WeaponRenderer->SetPivot(EPivot::BOT);
 
 	PlayerScale = GetActorScale3D();
 
@@ -61,16 +57,20 @@ void APlayer::BeginPlay()
 	ColMapTex = UDungreedConstValue::ColMap;
 	ColMapY = ColMapTex->GetScale().Y * UDungreedConstValue::AutoSize;
 
+	// 무기 위치 조정
+	HandRenderer->SetPosition({ -26, 20, 0 });
+
+	RotationComponent->SetPosition({ 20, 40, 0 });
+
+	WeaponRenderer->SetPosition({ 0.0f, 30.0f, 0.0f });
+	WeaponRenderer->SetRotationDeg({ 0, 0, 15 });
+
 	StateInit();
 }
 
 void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-
-	float Rot = PlayerDir.RightVectorToAngle2DDeg();
-
-	RotationComponent->SetRotationDeg({0.0f, 0.0f, Rot });
 
 	State.Update(_DeltaTime);
 	CursorCheck();
