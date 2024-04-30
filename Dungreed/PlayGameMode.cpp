@@ -20,13 +20,13 @@ void APlayGameMode::BeginPlay()
 	UDungreedConstValue::ColMapScale = UDungreedConstValue::ColMap->GetScale();
 
 	Camera = GetWorld()->GetMainCamera();
-	Camera->SetActorLocation({ 0.0f, -0.0f, -100.0f });
+	Camera->SetActorLocation({ 0.0f, 0.0f, -100.0f });
 
 	Background = GetWorld()->SpawnActor<ABackground>("Background");
 	// (¸ÊÀÇ xÃà ±æÀÌ/2, ¸ÊÀÇ yÃà ±æÀÌ/2, 0.0f)
-	float MapHalfX = Background->GetActorScale3D().hX();
-	float MapHalfY = Background->GetActorScale3D().hY();
-	Background->SetActorLocation({ MapHalfX, MapHalfY, 0.0f });
+	float MapHalfX = UDungreedConstValue::ColMap->GetScale().hX();
+	float MapHalfY = UDungreedConstValue::ColMap->GetScale().hY();
+	Background->SetActorLocation({ MapHalfX * UDungreedConstValue::AutoSize, MapHalfY * UDungreedConstValue::AutoSize, 0.0f });
 
 	Player = GetWorld()->SpawnActor<APlayer>("Player");
 	Player->SetActorLocation({ MapHalfX, MapHalfY + 200.0f, 0.0f });

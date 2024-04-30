@@ -3,11 +3,14 @@
 
 ABackground::ABackground()
 {
+	DefaultComponent = CreateDefaultSubObject<UDefaultSceneComponent>("DefaultComponent");
+	SetRoot(DefaultComponent);
+
 	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	SetRoot(Renderer);
+	Renderer->SetupAttachment(DefaultComponent);
 
 	ColMapRenderer = CreateDefaultSubObject<USpriteRenderer>("ColMapRenderer");
-	ColMapRenderer->SetupAttachment(Renderer);
+	ColMapRenderer->SetupAttachment(DefaultComponent);
 
 	//TileRenderer = CreateDefaultSubObject<UTileRenderer>("TileRenderer");
 	//SetRoot(TileRenderer);
@@ -42,6 +45,7 @@ void ABackground::BeginPlay()
 
 	ColMapRenderer->SetSprite("Town_Col.png");
 	ColMapRenderer->SetOrder(ERenderOrder::ColMap);
+	ColMapRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
 	ColMapRenderer->SetActive(false);
 
 	//UEngineSerializer Ser;

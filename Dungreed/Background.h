@@ -3,6 +3,7 @@
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineBase/EngineDirectory.h>
 #include <EngineCore/TileRenderer.h>
+#include <EngineCore/DefaultSceneComponent.h>
 
 // Ό³Έν :
 class ABackground : public AActor
@@ -27,6 +28,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	UDefaultSceneComponent* DefaultComponent = nullptr;
 	USpriteRenderer* Renderer = nullptr;
 	USpriteRenderer* ColMapRenderer = nullptr;
 	//UTileRenderer* TileRenderer = nullptr;
