@@ -5,17 +5,17 @@ std::shared_ptr<APlayer> APlayer::MainPlayer = nullptr;
 
 APlayer::APlayer()
 {
-	DefaultRenderer = CreateDefaultSubObject<USpriteRenderer>("DefaultRenderer");
-	SetRoot(DefaultRenderer);
+	DefaultComponent = CreateDefaultSubObject<UDefaultSceneComponent>("DefaultComponent");
+	SetRoot(DefaultComponent);
 
 	RotationRenderer = CreateDefaultSubObject<USpriteRenderer>("RotationRenderer");
-	RotationRenderer->SetupAttachment(DefaultRenderer);
+	RotationRenderer->SetupAttachment(DefaultComponent);
 
 	BodyRenderer = CreateDefaultSubObject<USpriteRenderer>("BodyRenderer");
-	BodyRenderer->SetupAttachment(DefaultRenderer);
+	BodyRenderer->SetupAttachment(DefaultComponent);
 
 	HandRenderer = CreateDefaultSubObject<USpriteRenderer>("HandRenderer");
-	HandRenderer->SetupAttachment(DefaultRenderer);
+	HandRenderer->SetupAttachment(DefaultComponent);
 
 	WeaponRenderer = CreateDefaultSubObject<USpriteRenderer>("WeaponRenderer");
 	WeaponRenderer->SetupAttachment(RotationRenderer);

@@ -2,6 +2,7 @@
 #include <EngineCore/Actor.h>
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/StateManager.h>
+#include <EngineCore/DefaultSceneComponent.h>
 #include "Cursor.h"
 
 enum class EPlayerDir
@@ -37,7 +38,7 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	USpriteRenderer* DefaultRenderer = nullptr;
+	UDefaultSceneComponent* DefaultComponent = nullptr;
 	USpriteRenderer* RotationRenderer = nullptr;
 	USpriteRenderer* BodyRenderer = nullptr;
 	USpriteRenderer* HandRenderer = nullptr;
