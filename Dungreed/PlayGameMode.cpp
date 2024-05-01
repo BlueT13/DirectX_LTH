@@ -30,8 +30,6 @@ void APlayGameMode::BeginPlay()
 
 	Player = GetWorld()->SpawnActor<APlayer>("Player");
 	Player->SetActorLocation({ MapHalfX, MapHalfY + 200.0f, 0.0f });
-
-	GEngine->EngineWindow.CursorOff();
 }
 
 void APlayGameMode::Tick(float _DeltaTime)
@@ -48,11 +46,15 @@ void APlayGameMode::Tick(float _DeltaTime)
 void APlayGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+
+	GEngine->EngineWindow.CursorOn();
 }
 
 void APlayGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
+
+	GEngine->EngineWindow.CursorOff();
 
 	APlayer::MainPlayer = Player;
 }

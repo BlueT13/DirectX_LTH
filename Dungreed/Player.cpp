@@ -52,7 +52,7 @@ void APlayer::BeginPlay()
 	WeaponRenderer->SetOrder(ERenderOrder::WeaponBack);
 	WeaponRenderer->SetPivot(EPivot::BOT);
 
-	AttackEffectRenderer->CreateAnimation("AttackEffect", "AttackEffect", 0.1f/*, false*/);
+	AttackEffectRenderer->CreateAnimation("AttackEffect", "AttackEffect", 0.1f);
 	AttackEffectRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
 	AttackEffectRenderer->SetOrder(ERenderOrder::Player);
 
