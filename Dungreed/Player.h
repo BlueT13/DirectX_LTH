@@ -98,5 +98,6 @@ private:
 
 
 	float Speed = 500.0f;
+	bool WeaponUp = true;
 };
 

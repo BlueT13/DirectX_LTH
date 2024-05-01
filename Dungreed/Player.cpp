@@ -57,12 +57,11 @@ void APlayer::BeginPlay()
 	ColMapTex = UDungreedConstValue::ColMap;
 	ColMapY = ColMapTex->GetScale().Y * UDungreedConstValue::AutoSize;
 
-	// 무기 위치 조정
 	HandRenderer->SetPosition({ -26, 20, 0 });
 
+	// 무기 최초 위치 설정
 	RotationComponent->SetPosition({ 24, 40, 0 });
-
-	WeaponRenderer->SetPosition({ 0.0f, 30.0f, 0.0f });
+	WeaponRenderer->SetPosition({ -4.0f, 24.0f, 0.0f });
 	WeaponRenderer->SetRotationDeg({ 0, 0, 15 });
 
 	StateInit();

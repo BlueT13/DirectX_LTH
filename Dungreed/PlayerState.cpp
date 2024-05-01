@@ -79,6 +79,12 @@ void APlayer::Idle(float _DeltaTime)
 	AddActorLocation(GravityVector * _DeltaTime);
 	GroundUp();
 
+	// 공격
+	if (true == IsDown(VK_LBUTTON))
+	{
+		Attack(_DeltaTime);
+	}
+
 	// 상태 변화
 	if (true == IsPress('A') || true == IsPress('D'))
 	{
@@ -145,6 +151,12 @@ void APlayer::Run(float _DeltaTime)
 	}
 	GroundUp();
 
+	// 공격
+	if (true == IsDown(VK_LBUTTON))
+	{
+		Attack(_DeltaTime);
+	}
+
 	// 상태 변화
 	if (true == IsDown(VK_SPACE) || true == IsPress('W'))
 	{
@@ -209,6 +221,12 @@ void APlayer::Jump(float _DeltaTime)
 		AddActorLocation(FVector::Right * _DeltaTime * Speed);
 	}
 
+	// 공격
+	if (true == IsDown(VK_LBUTTON))
+	{
+		Attack(_DeltaTime);
+	}
+
 	// 상태 변화
 	if (true == IsDown(VK_RBUTTON))
 	{
@@ -237,6 +255,12 @@ void APlayer::Dash(float _DeltaTime)
 	PlayerNextPos.Y = ColMapY - PlayerPos.Y;
 	PlayerNextPos /= UDungreedConstValue::AutoSize;
 
+	// 공격
+	if (true == IsDown(VK_LBUTTON))
+	{
+		Attack(_DeltaTime);
+	}
+
 	// 벽이 아니면 이동
 	if (NextBottomLeftColor != Color8Bit::Black && NextBottomRightColor != Color8Bit::Black && NextTopColor != Color8Bit::Black)
 	{
@@ -261,6 +285,12 @@ void APlayer::Fall(float _DeltaTime)
 	if (true == IsPress('D') && RightColor != Color8Bit::Black)
 	{
 		AddActorLocation(FVector::Right * _DeltaTime * Speed);
+	}
+
+	// 공격
+	if (true == IsDown(VK_LBUTTON))
+	{
+		Attack(_DeltaTime);
 	}
 
 	if (true == IsDown(VK_RBUTTON))
@@ -296,7 +326,21 @@ void APlayer::Die(float _DeltaTime)
 
 void APlayer::Attack(float _DeltaTime)
 {
-
+	WeaponUp = !WeaponUp;
+	if (false == WeaponUp)
+	{
+		RotationComponent->SetPosition({ 30, 24, 0 });
+		WeaponRenderer->SetPosition({ -32.0f, -24.0f, 0.0f });
+		WeaponRenderer->SetRotationDeg({ 0, 0, 165 });
+		WeaponRenderer->SetOrder(ERenderOrder::WeaponFront);
+	}
+	else
+	{
+		RotationComponent->SetPosition({ 24, 40, 0 });
+		WeaponRenderer->SetPosition({ -4.0f, 24.0f, 0.0f });
+		WeaponRenderer->SetRotationDeg({ 0, 0, 15 });
+		WeaponRenderer->SetOrder(ERenderOrder::WeaponBack);
+	}
 }
 
 
