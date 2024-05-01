@@ -351,14 +351,14 @@ void APlayer::PlayerDirCheck(float _DeltaTime)
 	PlayerDir = PlayerDir.Normalize3DReturn();
 	float Rot = PlayerDir.RightVectorToAngle2DDeg();
 
-	if (0 <= PlayerDir.X)
+	if (0 <= InGameCursorPos.X - PlayerPos.X)
 	{
 		DefaultComponent->SetScale({ 1.0f, 1.0f, 1.0f });
 		RotationComponent->SetRotationDeg({ 0.0f, 0.0f, Rot });
 	}
 	else
 	{
-		DefaultComponent->SetScale({-1.0f, 1.0f, 1.0f});
+		DefaultComponent->SetScale({ -1.0f, 1.0f, 1.0f });
 		RotationComponent->SetRotationDeg({ 0.0f, 0.0f, 180.0f - Rot });
 	}
 
