@@ -167,6 +167,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AttackEffect.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Background.h">
       <SubType>
       </SubType>
@@ -203,6 +207,10 @@
     <ClInclude Include="TitleImage.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AttackEffect.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Background.cpp">
       <SubType>
       </SubType>

@@ -345,7 +345,15 @@ void APlayer::Attack(float _DeltaTime)
 		WeaponRenderer->SetOrder(ERenderOrder::WeaponBack);
 	}
 
-	AttackEffectRenderer->ChangeAnimation("AttackEffect");
+	//AttackEffectRenderer->ChangeAnimation("AttackEffect");
+	AttackEffect = GetWorld()->SpawnActor<AAttackEffect>("AttackEffect");
+	FVector UpPos = { 0,40,0 };
+	PlayerCenterPos = GetActorLocation() + UpPos;
+	FVector AttackDir = InGameCursorPos - PlayerCenterPos;
+	AttackDir = AttackDir.Normalize3DReturn();
+	AttackEffect->SetActorLocation(PlayerCenterPos + AttackDir * 60);
+	float AttackRot = AttackDir.RightVectorToAngle2DDeg();
+	AttackEffect->SetActorRotation({ 0.0f, 0.0f, AttackRot });
 }
 
 

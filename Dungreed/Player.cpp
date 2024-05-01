@@ -8,7 +8,7 @@ APlayer::APlayer()
 	DefaultComponent = CreateDefaultSubObject<UDefaultSceneComponent>("DefaultComponent");
 	SetRoot(DefaultComponent);
 
-	RotationComponent = CreateDefaultSubObject<UDefaultSceneComponent>("DefaultComponent");
+	RotationComponent = CreateDefaultSubObject<UDefaultSceneComponent>("RotationComponent");
 	RotationComponent->SetupAttachment(DefaultComponent);
 
 	BodyRenderer = CreateDefaultSubObject<USpriteRenderer>("BodyRenderer");
@@ -20,8 +20,8 @@ APlayer::APlayer()
 	WeaponRenderer = CreateDefaultSubObject<USpriteRenderer>("WeaponRenderer");
 	WeaponRenderer->SetupAttachment(RotationComponent);
 
-	AttackEffectRenderer = CreateDefaultSubObject<USpriteRenderer>("WeaponRenderer");
-	AttackEffectRenderer->SetupAttachment(RotationComponent);
+	//AttackEffectRenderer = CreateDefaultSubObject<USpriteRenderer>("WeaponRenderer");
+	//AttackEffectRenderer->SetupAttachment(RotationComponent);
 
 	InputOn();
 }
@@ -52,9 +52,9 @@ void APlayer::BeginPlay()
 	WeaponRenderer->SetOrder(ERenderOrder::WeaponBack);
 	WeaponRenderer->SetPivot(EPivot::BOT);
 
-	AttackEffectRenderer->CreateAnimation("AttackEffect", "AttackEffect", 0.1f);
-	AttackEffectRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
-	AttackEffectRenderer->SetOrder(ERenderOrder::Player);
+	//AttackEffectRenderer->CreateAnimation("AttackEffect", "AttackEffect", 0.1f);
+	//AttackEffectRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
+	//AttackEffectRenderer->SetOrder(ERenderOrder::Player);
 
 	PlayerScale = GetActorScale3D();
 
@@ -71,7 +71,7 @@ void APlayer::BeginPlay()
 	WeaponRenderer->SetPosition({ -4, 24, 0 });
 	WeaponRenderer->SetRotationDeg({ 0, 0, 15 });
 
-	AttackEffectRenderer->SetPosition({ 20,0,0 });
+	//AttackEffectRenderer->SetPosition({ 20,0,0 });
 
 	StateInit();
 }

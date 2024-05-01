@@ -4,6 +4,7 @@
 #include <EngineCore/StateManager.h>
 #include <EngineCore/DefaultSceneComponent.h>
 #include "Cursor.h"
+#include "AttackEffect.h"
 
 enum class EPlayerDir
 {
@@ -43,7 +44,7 @@ private:
 	USpriteRenderer* BodyRenderer = nullptr;
 	USpriteRenderer* HandRenderer = nullptr;
 	USpriteRenderer* WeaponRenderer = nullptr;
-	USpriteRenderer* AttackEffectRenderer = nullptr;
+	//USpriteRenderer* AttackEffectRenderer = nullptr;
 
 	std::shared_ptr<UEngineTexture> ColMapTex = nullptr;
 	float ColMapY = 0.0f;
@@ -75,6 +76,9 @@ private:
 	std::shared_ptr<ACursor> Cursor = nullptr;
 	FVector CursorPos = FVector::Zero;
 	FVector InGameCursorPos = FVector::Zero;
+
+	FVector PlayerCenterPos = FVector::Zero;
+	std::shared_ptr<AAttackEffect> AttackEffect = nullptr;
 
 	void DebugMessageFunction();
 

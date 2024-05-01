@@ -49,6 +49,9 @@
     <ClCompile Include="Cursor.cpp">
       <Filter>Level\02. PlayLevel\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="AttackEffect.cpp">
+      <Filter>Level\02. PlayLevel\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DungreedCore.h">
@@ -97,6 +100,9 @@
       <Filter>Level\00. CreateMapLevel\Actor</Filter>
     </ClInclude>
     <ClInclude Include="Cursor.h">
+      <Filter>Level\02. PlayLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackEffect.h">
       <Filter>Level\02. PlayLevel\Actor</Filter>
     </ClInclude>
   </ItemGroup>
