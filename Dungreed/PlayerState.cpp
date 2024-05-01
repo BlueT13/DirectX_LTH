@@ -59,7 +59,7 @@ void APlayer::StateInit()
 
 void APlayer::Idle(float _DeltaTime)
 {
-	PlayerDirCheck(_DeltaTime);
+	PlayerDirCheck();
 
 	// 중력
 	Gravity(_DeltaTime);
@@ -107,7 +107,7 @@ void APlayer::Idle(float _DeltaTime)
 
 void APlayer::Run(float _DeltaTime)
 {
-	PlayerDirCheck(_DeltaTime);
+	PlayerDirCheck();
 
 	// 중력
 	Gravity(_DeltaTime);
@@ -180,7 +180,7 @@ void APlayer::Run(float _DeltaTime)
 
 void APlayer::Jump(float _DeltaTime)
 {
-	PlayerDirCheck(_DeltaTime);
+	PlayerDirCheck();
 
 	// 중력
 	Gravity(_DeltaTime);
@@ -238,6 +238,7 @@ void APlayer::Jump(float _DeltaTime)
 
 void APlayer::Dash(float _DeltaTime)
 {
+	PlayerDirCheck();
 	ColorColCheck();
 	DashTime -= _DeltaTime;
 
@@ -274,7 +275,7 @@ void APlayer::Dash(float _DeltaTime)
 
 void APlayer::Fall(float _DeltaTime)
 {
-	PlayerDirCheck(_DeltaTime);
+	PlayerDirCheck();
 	Gravity(_DeltaTime);
 	AddActorLocation(GravityVector * _DeltaTime);
 
@@ -326,30 +327,34 @@ void APlayer::Die(float _DeltaTime)
 
 void APlayer::Attack(float _DeltaTime)
 {
+	PlayerDirCheck();
+
 	WeaponUp = !WeaponUp;
 	if (false == WeaponUp)
 	{
 		RotationComponent->SetPosition({ 30, 24, 0 });
-		WeaponRenderer->SetPosition({ -32.0f, -24.0f, 0.0f });
+		WeaponRenderer->SetPosition({ -32, -24, 0 });
 		WeaponRenderer->SetRotationDeg({ 0, 0, 165 });
 		WeaponRenderer->SetOrder(ERenderOrder::WeaponFront);
 	}
 	else
 	{
 		RotationComponent->SetPosition({ 24, 40, 0 });
-		WeaponRenderer->SetPosition({ -4.0f, 24.0f, 0.0f });
+		WeaponRenderer->SetPosition({ -4, 24, 0 });
 		WeaponRenderer->SetRotationDeg({ 0, 0, 15 });
 		WeaponRenderer->SetOrder(ERenderOrder::WeaponBack);
 	}
+
+	AttackEffectRenderer->ChangeAnimation("AttackEffect");
 }
 
 
-void APlayer::PlayerDirCheck(float _DeltaTime)
+void APlayer::PlayerDirCheck()
 {
 
 	PlayerDir = InGameCursorPos - PlayerPos;
 	PlayerDir = PlayerDir.Normalize3DReturn();
-	float Rot = PlayerDir.RightVectorToAngle2DDeg();
+	Rot = PlayerDir.RightVectorToAngle2DDeg();
 
 	if (0 <= PlayerDir.X)
 	{

@@ -20,6 +20,9 @@ APlayer::APlayer()
 	WeaponRenderer = CreateDefaultSubObject<USpriteRenderer>("WeaponRenderer");
 	WeaponRenderer->SetupAttachment(RotationComponent);
 
+	AttackEffectRenderer = CreateDefaultSubObject<USpriteRenderer>("WeaponRenderer");
+	AttackEffectRenderer->SetupAttachment(RotationComponent);
+
 	InputOn();
 }
 
@@ -49,6 +52,10 @@ void APlayer::BeginPlay()
 	WeaponRenderer->SetOrder(ERenderOrder::WeaponBack);
 	WeaponRenderer->SetPivot(EPivot::BOT);
 
+	AttackEffectRenderer->CreateAnimation("AttackEffect", "AttackEffect", 0.1f/*, false*/);
+	AttackEffectRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
+	AttackEffectRenderer->SetOrder(ERenderOrder::Player);
+
 	PlayerScale = GetActorScale3D();
 
 	Cursor = GetWorld()->SpawnActor<ACursor>("Cursor");
@@ -61,8 +68,10 @@ void APlayer::BeginPlay()
 
 	// 무기 최초 위치 설정
 	RotationComponent->SetPosition({ 24, 40, 0 });
-	WeaponRenderer->SetPosition({ -4.0f, 24.0f, 0.0f });
+	WeaponRenderer->SetPosition({ -4, 24, 0 });
 	WeaponRenderer->SetRotationDeg({ 0, 0, 15 });
+
+	AttackEffectRenderer->SetPosition({ 20,0,0 });
 
 	StateInit();
 }

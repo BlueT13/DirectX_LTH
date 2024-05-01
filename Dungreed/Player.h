@@ -43,6 +43,7 @@ private:
 	USpriteRenderer* BodyRenderer = nullptr;
 	USpriteRenderer* HandRenderer = nullptr;
 	USpriteRenderer* WeaponRenderer = nullptr;
+	USpriteRenderer* AttackEffectRenderer = nullptr;
 
 	std::shared_ptr<UEngineTexture> ColMapTex = nullptr;
 	float ColMapY = 0.0f;
@@ -92,11 +93,11 @@ private:
 
 	void Attack(float _DeltaTime);
 
-	void PlayerDirCheck(float _DeltaTime);
+	void PlayerDirCheck();
 	void Gravity(float _DeltaTime);
 	void GroundUp();
 
-
+	float Rot = 0.0f;
 	float Speed = 500.0f;
 	bool WeaponUp = true;
 };
