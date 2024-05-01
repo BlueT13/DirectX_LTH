@@ -36,6 +36,11 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ContentsShader", "ContentsShader\ContentsShader.vcxproj", "{4422AE8E-F965-43B1-A6E7-C88286C62505}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dungreed", "Dungreed\Dungreed.vcxproj", "{37FA132E-B027-4AA3-BFE6-45B5E7842EBE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AD9E0091-1AE7-48AC-85EC-2EE6A9646535} = {AD9E0091-1AE7-48AC-85EC-2EE6A9646535}
+		{EA197215-13BB-4729-9573-DB483A0EE1A3} = {EA197215-13BB-4729-9573-DB483A0EE1A3}
+		{F0716EC2-0BC5-43EA-9046-B203E0985A67} = {F0716EC2-0BC5-43EA-9046-B203E0985A67}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
