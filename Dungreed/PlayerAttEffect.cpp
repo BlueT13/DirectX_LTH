@@ -24,7 +24,7 @@ void APlayerAttEffect::BeginPlay()
 {
 	Super::BeginPlay();
 
-	PlayerAttCollisionVector = { 100, 150, 100 };
+	PlayerAttCollisionVector = { 150, 150, 100 };
 
 	PlayerAttEffectRenderer->CreateAnimation("PlayerAttackEffect", "PlayerAttackEffect", 0.1f);
 	PlayerAttEffectRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
