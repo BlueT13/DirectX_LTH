@@ -9,7 +9,6 @@
 class ABackground : public AActor
 {
 	GENERATED_BODY(AActor)
-
 public:
 	// constrcuter destructer
 	ABackground();

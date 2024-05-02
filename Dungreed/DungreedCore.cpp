@@ -1,11 +1,12 @@
 #include "PreCompile.h"
 #include "DungreedCore.h"
-#include "PlayGameMode.h"
-#include "TitleGameMode.h"
-#include "TileMapMode.h"
 #include "CreateMapMode.h"
-#include <EngineCore/EngineSprite.h>
+#include "TileMapMode.h"
+#include "TitleGameMode.h"
+#include "PlayGameMode.h"
+#include "BossStageMode.h"
 
+#include <EngineCore/EngineSprite.h>
 #include <EngineCore/EngineEditorGUI.h>
 #include "ContentsGUI.h"
 #include "MapEditorGUI.h"
@@ -68,6 +69,7 @@ void UDungreedCore::Initialize()
 	GEngine->CreateLevel<APlayGameMode>("PlayLevel");
 	GEngine->CreateLevel<ATileMapMode>("TileLevel");
 	GEngine->CreateLevel<ACreateMapMode>("CreateMapLevel");
+	GEngine->CreateLevel<ABossStageMode>("BossStageLevel");
 
-	GEngine->ChangeLevel("PlayLevel");
+	GEngine->ChangeLevel("BossStageLevel");
 }

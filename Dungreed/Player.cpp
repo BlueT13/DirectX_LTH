@@ -103,17 +103,17 @@ void APlayer::ColorColCheck()
 {
 	CalPlayerPos();
 	BottomColor = ColMapTex->GetColor({ PlayerPos.X, PlayerPos.Y, PlayerPos.Z }, Color8Bit::Black);
-	BottomLeftColor = ColMapTex->GetColor({ PlayerPos.X - 4.0f, PlayerPos.Y, PlayerPos.Z }, Color8Bit::Black);
-	BottomRightColor = ColMapTex->GetColor({ PlayerPos.X + 4.0f, PlayerPos.Y, PlayerPos.Z }, Color8Bit::Black);
-	TopColor = ColMapTex->GetColor({ PlayerPos.X, PlayerPos.Y - 20.0f, PlayerPos.Z }, Color8Bit::Black);
-	LeftColor = ColMapTex->GetColor({ PlayerPos.X - 8.0f, PlayerPos.Y - 10.0f, PlayerPos.Z }, Color8Bit::Black);
-	RightColor = ColMapTex->GetColor({ PlayerPos.X + 8.0f, PlayerPos.Y - 10.0f, PlayerPos.Z }, Color8Bit::Black);
+	BottomLeftColor = ColMapTex->GetColor({ PlayerPos.X - 30.0f, PlayerPos.Y, PlayerPos.Z }, Color8Bit::Black);
+	BottomRightColor = ColMapTex->GetColor({ PlayerPos.X + 30.0f, PlayerPos.Y, PlayerPos.Z }, Color8Bit::Black);
+	TopColor = ColMapTex->GetColor({ PlayerPos.X, PlayerPos.Y - 80.0f, PlayerPos.Z }, Color8Bit::Black);
+	LeftColor = ColMapTex->GetColor({ PlayerPos.X - 30.0f, PlayerPos.Y - 40.0f, PlayerPos.Z }, Color8Bit::Black);
+	RightColor = ColMapTex->GetColor({ PlayerPos.X + 30.0f, PlayerPos.Y - 40.0f, PlayerPos.Z }, Color8Bit::Black);
 
 	GroundColor = ColMapTex->GetColor({ PlayerPos.X, PlayerPos.Y - 1.0f, PlayerPos.Z }, Color8Bit::Black);
 
-	NextBottomLeftColor = ColMapTex->GetColor({ PlayerNextPos.X - 8.0f, PlayerNextPos.Y - 1.0f, PlayerNextPos.Z }, Color8Bit::Black);
-	NextBottomRightColor = ColMapTex->GetColor({ PlayerNextPos.X + 8.0f, PlayerNextPos.Y - 1.0f, PlayerNextPos.Z }, Color8Bit::Black);
-	NextTopColor = ColMapTex->GetColor({ PlayerNextPos.X, PlayerNextPos.Y - 20.0f, PlayerNextPos.Z }, Color8Bit::Black);
+	NextBottomLeftColor = ColMapTex->GetColor({ PlayerNextPos.X - 40.0f, PlayerNextPos.Y - 1.0f, PlayerNextPos.Z }, Color8Bit::Black);
+	NextBottomRightColor = ColMapTex->GetColor({ PlayerNextPos.X + 40.0f, PlayerNextPos.Y - 1.0f, PlayerNextPos.Z }, Color8Bit::Black);
+	NextTopColor = ColMapTex->GetColor({ PlayerNextPos.X, PlayerNextPos.Y - 80.0f, PlayerNextPos.Z }, Color8Bit::Black);
 }
 
 void APlayer::CalPlayerPos()

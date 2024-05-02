@@ -64,15 +64,7 @@ void APlayer::Idle(float _DeltaTime)
 	// 중력
 	Gravity(_DeltaTime);
 	ColorColCheck();
-	if (BottomColor == Color8Bit::Black || BottomRightColor == Color8Bit::Black || BottomLeftColor == Color8Bit::Black)
-	{
-		GravityVector = FVector::Zero;
-	}
-	if (BottomColor == Color8Bit::Magenta || BottomRightColor == Color8Bit::Magenta || BottomLeftColor == Color8Bit::Magenta)
-	{
-		GravityVector = FVector::Zero;
-	}
-	if (BottomColor == Color8Bit::Red || BottomRightColor == Color8Bit::Red || BottomLeftColor == Color8Bit::Red)
+	if (BottomColor == Color8Bit::Black || BottomColor == Color8Bit::Magenta || BottomColor == Color8Bit::Red)
 	{
 		GravityVector = FVector::Zero;
 	}
@@ -186,6 +178,12 @@ void APlayer::Jump(float _DeltaTime)
 	Gravity(_DeltaTime);
 	JumpPower = JumpVector + GravityVector;
 	ColorColCheck();
+
+	if (TopColor == Color8Bit::Black)
+	{
+		JumpVector = FVector::Zero;
+	}
+
 	if (0 >= JumpPower.Y)
 	{
 		if (BottomColor == Color8Bit::Black || BottomRightColor == Color8Bit::Black || BottomLeftColor == Color8Bit::Black)
@@ -209,7 +207,6 @@ void APlayer::Jump(float _DeltaTime)
 	}
 
 	AddActorLocation(JumpPower * _DeltaTime);
-
 
 	// 공중에서 이동
 	if (true == IsPress('A') && LeftColor != Color8Bit::Black)
@@ -263,7 +260,11 @@ void APlayer::Dash(float _DeltaTime)
 	}
 
 	// 벽이 아니면 이동
-	if (NextBottomLeftColor != Color8Bit::Black && NextBottomRightColor != Color8Bit::Black && NextTopColor != Color8Bit::Black)
+	if (0 <= PlayerDir.X && NextBottomRightColor != Color8Bit::Black && NextTopColor != Color8Bit::Black)
+	{
+		AddActorLocation(DashVector * _DeltaTime);
+	}
+	else if (0 > PlayerDir.X && NextBottomLeftColor != Color8Bit::Black && NextTopColor != Color8Bit::Black)
 	{
 		AddActorLocation(DashVector * _DeltaTime);
 	}
