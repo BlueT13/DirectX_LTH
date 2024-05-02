@@ -351,7 +351,7 @@ void APlayer::Attack(float _DeltaTime)
 	FVector UpPos = { 0,40,0 };
 	PlayerCenterPos = GetActorLocation() + UpPos;
 	FVector AttackDir = InGameCursorPos - PlayerCenterPos;
-	AttackDir = AttackDir.Normalize3DReturn();
+	AttackDir = AttackDir.Normalize2DReturn();
 	PlayerAttackEffect->SetActorLocation(PlayerCenterPos + AttackDir * 60);
 	float AttackRot = AttackDir.RightVectorToAngle2DDeg();
 	PlayerAttackEffect->SetActorRotation({ 0.0f, 0.0f, AttackRot });
@@ -362,7 +362,7 @@ void APlayer::PlayerDirCheck()
 {
 
 	PlayerDir = InGameCursorPos - PlayerPos;
-	PlayerDir = PlayerDir.Normalize3DReturn();
+	PlayerDir = PlayerDir.Normalize2DReturn();
 	Rot = PlayerDir.RightVectorToAngle2DDeg();
 
 	if (0 <= PlayerDir.X)
