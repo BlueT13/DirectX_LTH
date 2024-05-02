@@ -52,6 +52,9 @@
     <ClCompile Include="AttackEffect.cpp">
       <Filter>Level\02. PlayLevel\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="BossStageMode.cpp">
+      <Filter>Level\03. BossStageLevel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DungreedCore.h">
@@ -105,6 +108,9 @@
     <ClInclude Include="AttackEffect.h">
       <Filter>Level\02. PlayLevel\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="BossStageMode.h">
+      <Filter>Level\03. BossStageLevel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -145,6 +151,12 @@
     </Filter>
     <Filter Include="Level\02. PlayLevel\Actor">
       <UniqueIdentifier>{59672136-0515-44b8-afd9-2264780cf9e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\03. BossStageLevel">
+      <UniqueIdentifier>{56313e04-40a3-4a6a-8809-132d1adeb76f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\03. BossStageLevel\Actor">
+      <UniqueIdentifier>{8be680e9-134e-40c2-ae56-90b1307a5064}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
