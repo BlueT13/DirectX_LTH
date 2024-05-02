@@ -186,19 +186,7 @@ void APlayer::Jump(float _DeltaTime)
 
 	if (0 >= JumpPower.Y)
 	{
-		if (BottomColor == Color8Bit::Black || BottomRightColor == Color8Bit::Black || BottomLeftColor == Color8Bit::Black)
-		{
-			GravityVector = FVector::Zero;
-			State.ChangeState("PlayerIdle");
-			return;
-		}
-		if (BottomColor == Color8Bit::Magenta || BottomRightColor == Color8Bit::Magenta || BottomLeftColor == Color8Bit::Magenta)
-		{
-			GravityVector = FVector::Zero;
-			State.ChangeState("PlayerIdle");
-			return;
-		}
-		if (BottomColor == Color8Bit::Red || BottomRightColor == Color8Bit::Red || BottomLeftColor == Color8Bit::Red)
+		if (BottomColor == Color8Bit::Black || BottomColor == Color8Bit::Magenta || BottomColor == Color8Bit::Red)
 		{
 			GravityVector = FVector::Zero;
 			State.ChangeState("PlayerIdle");
@@ -302,19 +290,7 @@ void APlayer::Fall(float _DeltaTime)
 	}
 
 	ColorColCheck();
-	if (BottomColor == Color8Bit::Black || BottomRightColor == Color8Bit::Black || BottomLeftColor == Color8Bit::Black)
-	{
-		GravityVector = FVector::Zero;
-		State.ChangeState("PlayerIdle");
-		return;
-	}
-	if (BottomColor == Color8Bit::Magenta || BottomRightColor == Color8Bit::Magenta || BottomLeftColor == Color8Bit::Magenta)
-	{
-		GravityVector = FVector::Zero;
-		State.ChangeState("PlayerIdle");
-		return;
-	}
-	if (BottomColor == Color8Bit::Red || BottomRightColor == Color8Bit::Red || BottomLeftColor == Color8Bit::Red)
+	if (BottomColor == Color8Bit::Black || BottomColor == Color8Bit::Magenta || BottomColor == Color8Bit::Red)
 	{
 		GravityVector = FVector::Zero;
 		State.ChangeState("PlayerIdle");

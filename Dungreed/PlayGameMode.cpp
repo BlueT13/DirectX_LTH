@@ -36,6 +36,29 @@ void APlayGameMode::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 	Camera->SetActorLocation({ Player->GetActorLocation().X, Player->GetActorLocation().Y,-100.0f });
 
+	// 카메라 이동 범위 제한
+	float CameraLeft = Camera->GetActorLocation().X - GEngine->EngineWindow.GetWindowScale().hX();
+	float CameraBottom = Camera->GetActorLocation().Y - GEngine->EngineWindow.GetWindowScale().hY();
+	float CameraRight = Camera->GetActorLocation().X + GEngine->EngineWindow.GetWindowScale().hX();
+	float CameraTop = Camera->GetActorLocation().Y + GEngine->EngineWindow.GetWindowScale().hY();
+
+	if (0 > CameraLeft)
+	{
+		Camera->SetActorLocation({ GEngine->EngineWindow.GetWindowScale().hX(), Camera->GetActorLocation().Y, -100.0f });
+	}
+	if (0 > CameraBottom)
+	{
+		Camera->SetActorLocation({ Camera->GetActorLocation().X, GEngine->EngineWindow.GetWindowScale().hY(), -100.0f });
+	}
+	if (MapX < CameraRight)
+	{
+		Camera->SetActorLocation({ MapX - GEngine->EngineWindow.GetWindowScale().hX(), Camera->GetActorLocation().Y, -100.0f });
+	}
+	if (MapY < CameraTop)
+	{
+		Camera->SetActorLocation({ Camera->GetActorLocation().X, MapY - GEngine->EngineWindow.GetWindowScale().hY(), -100.0f });
+	}
+
 	if (true == UEngineInput::IsDown('O'))
 	{
 		Background->MapRendererSwitch();

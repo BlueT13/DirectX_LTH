@@ -19,8 +19,10 @@ void ABossStageMode::BeginPlay()
 	Camera->SetActorLocation({ 0.0f, 0.0f, -100.0f });
 
 	BossStageMap = GetWorld()->SpawnActor<ABossStageMap>("BossStageMap");
-	float MapHalfX = UDungreedConstValue::ColMap->GetScale().hX();
-	float MapHalfY = UDungreedConstValue::ColMap->GetScale().hY();
+	MapX = UDungreedConstValue::ColMap->GetScale().X;
+	MapY = UDungreedConstValue::ColMap->GetScale().Y;
+	MapHalfX = UDungreedConstValue::ColMap->GetScale().hX();
+	MapHalfY = UDungreedConstValue::ColMap->GetScale().hY();
 	BossStageMap->SetActorLocation({ MapHalfX * UDungreedConstValue::AutoSize, MapHalfY * UDungreedConstValue::AutoSize, 0.0f });
 
 	Player = GetWorld()->SpawnActor<APlayer>("Player");
@@ -32,14 +34,29 @@ void ABossStageMode::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 	Camera->SetActorLocation({ Player->GetActorLocation().X, Player->GetActorLocation().Y,-100.0f });
 
-	float4 Pos = Camera->GetActorLocation();
-
 	// 카메라 이동 범위 제한
-	float a = Camera->GetActorLocation().X - GEngine->EngineWindow.GetWindowScale().hX();
-	if (a < 0)
+	float CameraLeft = Camera->GetActorLocation().X - GEngine->EngineWindow.GetWindowScale().hX();
+	float CameraBottom = Camera->GetActorLocation().Y - GEngine->EngineWindow.GetWindowScale().hY();
+	float CameraRight = Camera->GetActorLocation().X + GEngine->EngineWindow.GetWindowScale().hX();
+	float CameraTop = Camera->GetActorLocation().Y + GEngine->EngineWindow.GetWindowScale().hY();
+
+	if (0 > CameraLeft)
 	{
-		Camera->SetActorLocation({ Camera->GetActorLocation().X - a, Camera->GetActorLocation().Y, -100.0f });
+		Camera->SetActorLocation({ GEngine->EngineWindow.GetWindowScale().hX(), Camera->GetActorLocation().Y, -100.0f });
 	}
+	if (0 > CameraBottom)
+	{
+		Camera->SetActorLocation({ Camera->GetActorLocation().X, GEngine->EngineWindow.GetWindowScale().hY(), -100.0f });
+	}
+	if (MapX < CameraRight)
+	{
+		Camera->SetActorLocation({ MapX - GEngine->EngineWindow.GetWindowScale().hX(), Camera->GetActorLocation().Y, -100.0f });
+	}
+	if (MapY < CameraTop)
+	{
+		Camera->SetActorLocation({ Camera->GetActorLocation().X, MapY - GEngine->EngineWindow.GetWindowScale().hY(), -100.0f });
+	}
+
 
 	if (true == UEngineInput::IsDown('O'))
 	{

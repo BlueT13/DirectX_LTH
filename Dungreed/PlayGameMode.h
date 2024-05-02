@@ -29,5 +29,10 @@ private:
 	std::shared_ptr<UCamera> Camera = nullptr;
 	std::shared_ptr<ABackground> Background = nullptr;
 	std::shared_ptr<APlayer> Player = nullptr;
+
+	float MapX = 0.0f;
+	float MapY = 0.0f;
+	float MapHalfX = 0.0f;
+	float MapHalfY = 0.0f;
 };
 
