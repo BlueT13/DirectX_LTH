@@ -4,7 +4,7 @@
 #include <EngineCore/StateManager.h>
 #include <EngineCore/DefaultSceneComponent.h>
 #include "Cursor.h"
-#include "AttackEffect.h"
+#include "PlayerAttEffect.h"
 
 enum class EPlayerDir
 {
@@ -78,7 +78,7 @@ private:
 	FVector InGameCursorPos = FVector::Zero;
 
 	FVector PlayerCenterPos = FVector::Zero;
-	std::shared_ptr<AAttackEffect> AttackEffect = nullptr;
+	std::shared_ptr<APlayerAttEffect> PlayerAttackEffect = nullptr;
 
 	void DebugMessageFunction();
 

@@ -4,57 +4,57 @@
 void APlayer::StateInit()
 {
 	// 스테이트 생성
-	State.CreateState("Idle");
-	State.CreateState("Run");
-	State.CreateState("Jump");
-	State.CreateState("Dash");
-	State.CreateState("Fall");
-	State.CreateState("Die");
+	State.CreateState("PlayerIdle");
+	State.CreateState("PlayerRun");
+	State.CreateState("PlayerJump");
+	State.CreateState("PlayerDash");
+	State.CreateState("PlayerFall");
+	State.CreateState("PlayerDie");
 
 	// 함수들 세팅
-	State.SetUpdateFunction("Idle", std::bind(&APlayer::Idle, this, std::placeholders::_1));
-	State.SetStartFunction("Idle", [this]()
+	State.SetUpdateFunction("PlayerIdle", std::bind(&APlayer::Idle, this, std::placeholders::_1));
+	State.SetStartFunction("PlayerIdle", [this]()
 		{
-			this->BodyRenderer->ChangeAnimation("Idle");
+			this->BodyRenderer->ChangeAnimation("PlayerIdle");
 		});
 
 
-	State.SetUpdateFunction("Run", std::bind(&APlayer::Run, this, std::placeholders::_1));
-	State.SetStartFunction("Run", [this]()
+	State.SetUpdateFunction("PlayerRun", std::bind(&APlayer::Run, this, std::placeholders::_1));
+	State.SetStartFunction("PlayerRun", [this]()
 		{
-			this->BodyRenderer->ChangeAnimation("Run");
+			this->BodyRenderer->ChangeAnimation("PlayerRun");
 		});
 
-	State.SetUpdateFunction("Jump", std::bind(&APlayer::Jump, this, std::placeholders::_1));
-	State.SetStartFunction("Jump", [this]()
+	State.SetUpdateFunction("PlayerJump", std::bind(&APlayer::Jump, this, std::placeholders::_1));
+	State.SetStartFunction("PlayerJump", [this]()
 		{
 			// 점프 시작할 때 JumpVector값 한번만 대입
 			JumpVector = FVector::Up * 1000.0f;
-			this->BodyRenderer->ChangeAnimation("Jump");
+			this->BodyRenderer->ChangeAnimation("PlayerJump");
 		});
 
-	State.SetUpdateFunction("Dash", std::bind(&APlayer::Dash, this, std::placeholders::_1));
-	State.SetStartFunction("Dash", [this]()
+	State.SetUpdateFunction("PlayerDash", std::bind(&APlayer::Dash, this, std::placeholders::_1));
+	State.SetStartFunction("PlayerDash", [this]()
 		{
 			// 점프 시작할 때 JumpVector값 한번만 대입
 			GravityVector = FVector::Zero;
 			DashVector = PlayerDir * 1500.0f;
-			this->BodyRenderer->ChangeAnimation("Jump");
+			this->BodyRenderer->ChangeAnimation("PlayerJump");
 		});
 
-	State.SetUpdateFunction("Fall", std::bind(&APlayer::Fall, this, std::placeholders::_1));
-	State.SetStartFunction("Fall", [this]()
+	State.SetUpdateFunction("PlayerFall", std::bind(&APlayer::Fall, this, std::placeholders::_1));
+	State.SetStartFunction("PlayerFall", [this]()
 		{
-			this->BodyRenderer->ChangeAnimation("Jump");
+			this->BodyRenderer->ChangeAnimation("PlayerJump");
 		});
 
-	State.SetUpdateFunction("Die", std::bind(&APlayer::Fall, this, std::placeholders::_1));
-	State.SetStartFunction("Die", [this]()
+	State.SetUpdateFunction("PlayerDie", std::bind(&APlayer::Fall, this, std::placeholders::_1));
+	State.SetStartFunction("PlayerDie", [this]()
 		{
-			this->BodyRenderer->ChangeAnimation("Die");
+			this->BodyRenderer->ChangeAnimation("PlayerDie");
 		});
 
-	State.ChangeState("Idle");
+	State.ChangeState("PlayerIdle");
 }
 
 void APlayer::Idle(float _DeltaTime)
@@ -88,19 +88,19 @@ void APlayer::Idle(float _DeltaTime)
 	// 상태 변화
 	if (true == IsPress('A') || true == IsPress('D'))
 	{
-		State.ChangeState("Run");
+		State.ChangeState("PlayerRun");
 		return;
 	}
 
 	if (true == IsPress(VK_SPACE) || true == IsPress('W'))
 	{
-		State.ChangeState("Jump");
+		State.ChangeState("PlayerJump");
 		return;
 	}
 
 	if (true == IsDown(VK_RBUTTON))
 	{
-		State.ChangeState("Dash");
+		State.ChangeState("PlayerDash");
 		return;
 	}
 }
@@ -160,19 +160,19 @@ void APlayer::Run(float _DeltaTime)
 	// 상태 변화
 	if (true == IsDown(VK_SPACE) || true == IsPress('W'))
 	{
-		State.ChangeState("Jump");
+		State.ChangeState("PlayerJump");
 		return;
 	}
 
 	if (true == IsFree('A') && true == IsFree('D'))
 	{
-		State.ChangeState("Idle");
+		State.ChangeState("PlayerIdle");
 		return;
 	}
 
 	if (true == IsDown(VK_RBUTTON))
 	{
-		State.ChangeState("Dash");
+		State.ChangeState("PlayerDash");
 		return;
 	}
 
@@ -191,19 +191,19 @@ void APlayer::Jump(float _DeltaTime)
 		if (BottomColor == Color8Bit::Black || BottomRightColor == Color8Bit::Black || BottomLeftColor == Color8Bit::Black)
 		{
 			GravityVector = FVector::Zero;
-			State.ChangeState("Idle");
+			State.ChangeState("PlayerIdle");
 			return;
 		}
 		if (BottomColor == Color8Bit::Magenta || BottomRightColor == Color8Bit::Magenta || BottomLeftColor == Color8Bit::Magenta)
 		{
 			GravityVector = FVector::Zero;
-			State.ChangeState("Idle");
+			State.ChangeState("PlayerIdle");
 			return;
 		}
 		if (BottomColor == Color8Bit::Red || BottomRightColor == Color8Bit::Red || BottomLeftColor == Color8Bit::Red)
 		{
 			GravityVector = FVector::Zero;
-			State.ChangeState("Idle");
+			State.ChangeState("PlayerIdle");
 			return;
 		}
 	}
@@ -230,7 +230,7 @@ void APlayer::Jump(float _DeltaTime)
 	// 상태 변화
 	if (true == IsDown(VK_RBUTTON))
 	{
-		State.ChangeState("Dash");
+		State.ChangeState("PlayerDash");
 		return;
 	}
 
@@ -246,7 +246,7 @@ void APlayer::Dash(float _DeltaTime)
 	{
 		DashTime = 0.24f;
 		DashVector = FVector::Zero;
-		State.ChangeState("Fall");
+		State.ChangeState("PlayerFall");
 		return;
 	}
 
@@ -296,7 +296,7 @@ void APlayer::Fall(float _DeltaTime)
 
 	if (true == IsDown(VK_RBUTTON))
 	{
-		State.ChangeState("Dash");
+		State.ChangeState("PlayerDash");
 		return;
 	}
 
@@ -304,19 +304,19 @@ void APlayer::Fall(float _DeltaTime)
 	if (BottomColor == Color8Bit::Black || BottomRightColor == Color8Bit::Black || BottomLeftColor == Color8Bit::Black)
 	{
 		GravityVector = FVector::Zero;
-		State.ChangeState("Idle");
+		State.ChangeState("PlayerIdle");
 		return;
 	}
 	if (BottomColor == Color8Bit::Magenta || BottomRightColor == Color8Bit::Magenta || BottomLeftColor == Color8Bit::Magenta)
 	{
 		GravityVector = FVector::Zero;
-		State.ChangeState("Idle");
+		State.ChangeState("PlayerIdle");
 		return;
 	}
 	if (BottomColor == Color8Bit::Red || BottomRightColor == Color8Bit::Red || BottomLeftColor == Color8Bit::Red)
 	{
 		GravityVector = FVector::Zero;
-		State.ChangeState("Idle");
+		State.ChangeState("PlayerIdle");
 		return;
 	}
 }
@@ -346,14 +346,14 @@ void APlayer::Attack(float _DeltaTime)
 	}
 
 	//AttackEffectRenderer->ChangeAnimation("AttackEffect");
-	AttackEffect = GetWorld()->SpawnActor<AAttackEffect>("AttackEffect");
+	PlayerAttackEffect = GetWorld()->SpawnActor<APlayerAttEffect>("PlayerAttackEffect");
 	FVector UpPos = { 0,40,0 };
 	PlayerCenterPos = GetActorLocation() + UpPos;
 	FVector AttackDir = InGameCursorPos - PlayerCenterPos;
 	AttackDir = AttackDir.Normalize3DReturn();
-	AttackEffect->SetActorLocation(PlayerCenterPos + AttackDir * 60);
+	PlayerAttackEffect->SetActorLocation(PlayerCenterPos + AttackDir * 60);
 	float AttackRot = AttackDir.RightVectorToAngle2DDeg();
-	AttackEffect->SetActorRotation({ 0.0f, 0.0f, AttackRot });
+	PlayerAttackEffect->SetActorRotation({ 0.0f, 0.0f, AttackRot });
 }
 
 

@@ -1,22 +1,33 @@
 #pragma once
+#include <EngineCore/GameMode.h>
+#include "BossStageMap.h"
+#include "Player.h"
 
 // Ό³Έν :
-class BossStageMode
+class ABossStageMode : public AGameMode
 {
+	GENERATED_BODY(AGameMode)
 public:
 	// constrcuter destructer
-	BossStageMode();
-	~BossStageMode();
+	ABossStageMode();
+	~ABossStageMode();
 
 	// delete Function
-	BossStageMode(const BossStageMode& _Other) = delete;
-	BossStageMode(BossStageMode&& _Other) noexcept = delete;
-	BossStageMode& operator=(const BossStageMode& _Other) = delete;
-	BossStageMode& operator=(BossStageMode&& _Other) noexcept = delete;
+	ABossStageMode(const ABossStageMode& _Other) = delete;
+	ABossStageMode(ABossStageMode&& _Other) noexcept = delete;
+	ABossStageMode& operator=(const ABossStageMode& _Other) = delete;
+	ABossStageMode& operator=(ABossStageMode&& _Other) noexcept = delete;
 
 protected:
+	void BeginPlay() override;
+	void Tick(float _DeltaTime) override;
+
+	void LevelEnd(ULevel* _NextLevel) override;
+	void LevelStart(ULevel* _PrevLevel) override;
 
 private:
-
+	std::shared_ptr<UCamera> Camera = nullptr;
+	std::shared_ptr<ABossStageMap> BossStageMap = nullptr;
+	std::shared_ptr<APlayer> Player = nullptr;
 };
 

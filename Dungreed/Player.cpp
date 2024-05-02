@@ -34,20 +34,20 @@ void APlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
-	BodyRenderer->CreateAnimation("Die", "Die", 0.1f);
-	BodyRenderer->CreateAnimation("Idle", "Idle", 0.1f);
-	BodyRenderer->CreateAnimation("Jump", "Jump", 0.1f);
-	BodyRenderer->CreateAnimation("Run", "Run", 0.1f);
+	BodyRenderer->CreateAnimation("PlayerDie", "PlayerDie", 0.1f);
+	BodyRenderer->CreateAnimation("PlayerIdle", "PlayerIdle", 0.1f);
+	BodyRenderer->CreateAnimation("PlayerJump", "PlayerJump", 0.1f);
+	BodyRenderer->CreateAnimation("PlayerRun", "PlayerRun", 0.1f);
 
 	BodyRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
 	BodyRenderer->SetOrder(ERenderOrder::Player);
 	BodyRenderer->SetPivot(EPivot::BOT);
 
-	HandRenderer->SetSprite("Hand.png");
+	HandRenderer->SetSprite("PlayerHand.png");
 	HandRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
 	HandRenderer->SetOrder(ERenderOrder::Player);
 
-	WeaponRenderer->SetSprite("ShortSword010.png");
+	WeaponRenderer->SetSprite("ShortSword.png");
 	WeaponRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
 	WeaponRenderer->SetOrder(ERenderOrder::WeaponBack);
 	WeaponRenderer->SetPivot(EPivot::BOT);

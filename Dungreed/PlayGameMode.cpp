@@ -17,7 +17,6 @@ void APlayGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	UDungreedConstValue::ColMap = UEngineTexture::FindRes("Town_Col.png");
-	UDungreedConstValue::ColMapScale = UDungreedConstValue::ColMap->GetScale();
 
 	Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation({ 0.0f, 0.0f, -100.0f });
