@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineCore/Actor.h>
 #include <EngineCore/SpriteRenderer.h>
+#include <EngineCore/DefaultSceneComponent.h>
 
 // Ό³Έν :
 class AAttackEffect : public AActor
@@ -22,6 +23,10 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	UDefaultSceneComponent* DefaultComponent = nullptr;
 	USpriteRenderer* AttackEffectRenderer = nullptr;
+	UCollision* AttackEffectCollision = nullptr;
+
+	FVector AttackCollisionVector = FVector::Zero;
 };
 

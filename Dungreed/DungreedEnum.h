@@ -9,3 +9,9 @@ enum class ERenderOrder
 	WeaponFront,
 	Cursor,
 };
+
+enum class ECollisionOrder
+{
+	Attack,
+	Monster,
+};
