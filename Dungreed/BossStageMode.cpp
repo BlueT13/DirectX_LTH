@@ -29,7 +29,7 @@ void ABossStageMode::BeginPlay()
 	Player->SetActorLocation({ MapHalfX - 200.0f, MapHalfY + 200.0f, 0.0f });
 
 	Envyrok = GetWorld()->SpawnActor<AEnvyrok>("Envyrok");
-	Envyrok->SetActorLocation({ MapHalfX + 200.0f, MapHalfY - 160.0f, 0.0f });
+	Envyrok->SetActorLocation({ MapHalfX + 512.0f, MapHalfY - 224.0f, 0.0f });
 }
 
 void ABossStageMode::Tick(float _DeltaTime)
