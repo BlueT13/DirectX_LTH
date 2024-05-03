@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "PlayerAttEffect.h"
+#include "Envyrok.h"
 
 APlayerAttEffect::APlayerAttEffect()
 {
@@ -51,7 +52,10 @@ void APlayerAttEffect::Tick(float _DeltaTime)
 		{
 			int a = 0;
 
-			 _Collison->GetActor()->Destroy();
+			AEnvyrok* Envyrok = dynamic_cast<AEnvyrok*>(_Collison->GetActor());
+			
+			//Envyrok->GetHit();
+			Envyrok->Destroy();
 		}
 	);
 
