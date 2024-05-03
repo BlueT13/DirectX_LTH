@@ -15,6 +15,11 @@ void ContentsGUI::Init()
 
 void ContentsGUI::OnGui(ULevel* _Level, float _Delta)
 {
+	if (true == ImGui::Button("CreateMapLevel"))
+	{
+		GEngine->ChangeLevel("CreateMapLevel");
+	}
+	
 	if (true == ImGui::Button("TitleLevel"))
 	{
 		GEngine->ChangeLevel("TitleLevel");
@@ -25,8 +30,9 @@ void ContentsGUI::OnGui(ULevel* _Level, float _Delta)
 		GEngine->ChangeLevel("PlayLevel");
 	}
 
-	if (true == ImGui::Button("CreateMapLevel"))
+	if (true == ImGui::Button("BossStageLevel"))
 	{
-		GEngine->ChangeLevel("CreateMapLevel");
+		GEngine->ChangeLevel("BossStageLevel");
 	}
+
 }
