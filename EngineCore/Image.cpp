@@ -56,7 +56,7 @@ void UIAnimation::Update(float _DeltaTime)
 UImage::UImage() 
 {
 	SetMesh("Rect");
-	SetMaterial("2DImage");
+	SetMaterial("Widget2DImage");
 }
 
 UImage::~UImage() 

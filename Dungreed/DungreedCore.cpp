@@ -65,11 +65,12 @@ void UDungreedCore::Initialize()
 		UEngineEditorGUI::CreateEditorWindow<MapEditorGUI>("MapEditor");
 	}
 
+	GEngine->CreateLevel<ACreateMapMode>("CreateMapLevel");
+	GEngine->CreateLevel<ATileMapMode>("TileLevel");
+
 	GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
 	GEngine->CreateLevel<APlayGameMode>("PlayLevel");
-	GEngine->CreateLevel<ATileMapMode>("TileLevel");
-	GEngine->CreateLevel<ACreateMapMode>("CreateMapLevel");
 	GEngine->CreateLevel<ABossStageMode>("BossStageLevel");
 
-	GEngine->ChangeLevel("BossStageLevel");
+	GEngine->ChangeLevel("PlayLevel");
 }

@@ -139,6 +139,7 @@
     <FxCompile Include="ImageShader.fx" />
     <FxCompile Include="ImageShaderInstanced.fx" />
     <FxCompile Include="TargetCopyShader.fx" />
+    <FxCompile Include="WidgetImageShader.fx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
