@@ -26,7 +26,10 @@ void ABossStageMode::BeginPlay()
 	BossStageMap->SetActorLocation({ MapHalfX * UDungreedConstValue::AutoSize, MapHalfY * UDungreedConstValue::AutoSize, 0.0f });
 
 	Player = GetWorld()->SpawnActor<APlayer>("Player");
-	Player->SetActorLocation({ MapHalfX, MapHalfY + 200.0f, 0.0f });
+	Player->SetActorLocation({ MapHalfX - 200.0f, MapHalfY + 200.0f, 0.0f });
+
+	Envyrok = GetWorld()->SpawnActor<AEnvyrok>("Envyrok");
+	Envyrok->SetActorLocation({ MapHalfX + 200.0f, MapHalfY - 160.0f, 0.0f });
 }
 
 void ABossStageMode::Tick(float _DeltaTime)

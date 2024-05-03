@@ -7,6 +7,7 @@ enum class ERenderOrder
 	WeaponBack,
 	Player,
 	WeaponFront,
+	Monster,
 	Cursor,
 };
 

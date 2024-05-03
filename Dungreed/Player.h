@@ -30,7 +30,6 @@ public:
 	APlayer& operator=(const APlayer& _Other) = delete;
 	APlayer& operator=(APlayer&& _Other) noexcept = delete;
 
-	UStateManager State;
 
 	static std::shared_ptr<APlayer> MainPlayer;
 
@@ -39,6 +38,8 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	UStateManager State;
+
 	UDefaultSceneComponent* DefaultComponent = nullptr;
 	UDefaultSceneComponent* RotationComponent = nullptr;
 	USpriteRenderer* BodyRenderer = nullptr;

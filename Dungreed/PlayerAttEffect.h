@@ -27,6 +27,6 @@ private:
 	USpriteRenderer* PlayerAttEffectRenderer = nullptr;
 	UCollision* PlayerAttEffectCollision = nullptr;
 
-	FVector PlayerAttCollisionVector = FVector::Zero;
+	FVector PlayerAttColScale = { 150, 150, 100 };
 };
 

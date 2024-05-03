@@ -2,6 +2,7 @@
 #include <EngineCore/GameMode.h>
 #include "BossStageMap.h"
 #include "Player.h"
+#include "Envyrok.h"
 
 // Ό³Έν :
 class ABossStageMode : public AGameMode
@@ -29,6 +30,7 @@ private:
 	std::shared_ptr<UCamera> Camera = nullptr;
 	std::shared_ptr<ABossStageMap> BossStageMap = nullptr;
 	std::shared_ptr<APlayer> Player = nullptr;
+	std::shared_ptr<AEnvyrok> Envyrok = nullptr;
 
 	float MapX = 0.0f;
 	float MapY = 0.0f;

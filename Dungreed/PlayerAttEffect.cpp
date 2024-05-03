@@ -24,14 +24,12 @@ void APlayerAttEffect::BeginPlay()
 {
 	Super::BeginPlay();
 
-	PlayerAttCollisionVector = { 150, 150, 100 };
-
 	PlayerAttEffectRenderer->CreateAnimation("PlayerAttackEffect", "PlayerAttackEffect", 0.1f);
 	PlayerAttEffectRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
 	PlayerAttEffectRenderer->SetOrder(ERenderOrder::Player);
 	PlayerAttEffectRenderer->ChangeAnimation("PlayerAttackEffect");
 
-	PlayerAttEffectCollision->SetScale(PlayerAttCollisionVector);
+	PlayerAttEffectCollision->SetScale(PlayerAttColScale);
 
 }
 
@@ -39,6 +37,34 @@ void APlayerAttEffect::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	// 충돌
+	PlayerAttEffectCollision->CollisionStay(ECollisionOrder::Monster, [=](std::shared_ptr<UCollision> _Collison)
+		{
+			int a = 0;
+
+			// _Collison[0]->GetActor()->Destroy();
+		}
+	);
+
+
+	PlayerAttEffectCollision->CollisionEnter(ECollisionOrder::Monster, [=](std::shared_ptr<UCollision> _Collison)
+		{
+			int a = 0;
+
+			 _Collison->GetActor()->Destroy();
+		}
+	);
+
+	PlayerAttEffectCollision->CollisionExit(ECollisionOrder::Monster, [=](std::shared_ptr<UCollision> _Collison)
+		{
+			int a = 0;
+
+			// _Collison[0]->GetActor()->Destroy();
+		}
+	);
+
+
+	// 애니메이션 끝나면 삭제
 	if (PlayerAttEffectRenderer->IsCurAnimationEnd())
 	{
 		Destroy();
