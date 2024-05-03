@@ -39,7 +39,7 @@ void APlayerAttEffect::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	// Ãæµ¹
-	PlayerAttEffectCollision->CollisionStay(ECollisionOrder::Monster, [=](std::shared_ptr<UCollision> _Collison)
+	PlayerAttEffectCollision->CollisionStay(ECollisionOrder::Monster, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			int a = 0;
 
@@ -48,18 +48,18 @@ void APlayerAttEffect::Tick(float _DeltaTime)
 	);
 
 
-	PlayerAttEffectCollision->CollisionEnter(ECollisionOrder::Monster, [=](std::shared_ptr<UCollision> _Collison)
+	PlayerAttEffectCollision->CollisionEnter(ECollisionOrder::Monster, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			int a = 0;
 
-			AEnvyrok* Envyrok = dynamic_cast<AEnvyrok*>(_Collison->GetActor());
+			AEnvyrok* Envyrok = dynamic_cast<AEnvyrok*>(_Collision->GetActor());
 			
 			//Envyrok->GetHit();
 			Envyrok->Destroy();
 		}
 	);
 
-	PlayerAttEffectCollision->CollisionExit(ECollisionOrder::Monster, [=](std::shared_ptr<UCollision> _Collison)
+	PlayerAttEffectCollision->CollisionExit(ECollisionOrder::Monster, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			int a = 0;
 
