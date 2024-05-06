@@ -92,7 +92,7 @@ void AEnvyrok::StateInit()
 	State.SetUpdateFunction("EnvyrokAirSpike", std::bind(&AEnvyrok::AirSpike, this, std::placeholders::_1));
 	State.SetStartFunction("EnvyrokAirSpike", [this]()
 		{
-			JumpVector = FVector::Up * 1500.0f;
+			JumpVector = FVector::Up * 1200.0f;
 			this->Renderer->ChangeAnimation("EnvyrokAirSpike");
 		});
 	State.SetUpdateFunction("EnvyrokAirSpike_End", std::bind(&AEnvyrok::AirSpike_End, this, std::placeholders::_1));
