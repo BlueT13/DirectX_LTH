@@ -297,6 +297,16 @@ void USpriteRenderer::SetSamplering(ETextureSampling _Value)
 		Resources->SettingTexture("Image", CurTexture, "POINT");
 		break;
 	}
+	case ETextureSampling::LINEARCLAMP:
+	{
+		Resources->SettingTexture("Image", CurTexture, "LINEARCLAMP");
+		break;
+	}
+	case ETextureSampling::POINTCLAMP:
+	{
+		Resources->SettingTexture("Image", CurTexture, "POINTCLAMP");
+		break;
+	}
 	default:
 		break;
 	}
@@ -360,7 +370,15 @@ void USpriteRenderer::CreateAnimation(
 
 void USpriteRenderer::ChangeAnimation(std::string_view _AnimationName, int StartFrame)
 {
-	if (nullptr != CurAnimation && _AnimationName == CurAnimation->GetName())
+	std::string ChangeAnimaionName = UEngineString::ToUpper(_AnimationName);
+	std::string CurAnimaionName;
+
+	if (nullptr != CurAnimation) {
+		CurAnimaionName = CurAnimation->GetName();
+		CurAnimaionName = UEngineString::ToUpper(CurAnimaionName);
+	}
+
+	if (CurAnimaionName == ChangeAnimaionName)
 	{
 		return;
 	}

@@ -30,8 +30,13 @@ void URenderer::Tick(float _DeltaTime)
 void URenderer::SetOrder(int _Order)
 {
 	// UTickObject::SetOrder(_Order);
+	
 
 	int PrevOrder = GetOrder();
+
+	if (_Order == PrevOrder) {
+		return;
+	}
 
 	Super::SetOrder(_Order);
 

@@ -55,6 +55,11 @@ void ULevel::Tick(float _DeltaTime)
 
 		for (std::shared_ptr<AActor> Actor : GroupActors)
 		{
+			if (false == Actor->IsActive())
+			{
+				continue;
+			}
+
 			Actor->Tick(_DeltaTime * TimeScale);
 		}
 	}
