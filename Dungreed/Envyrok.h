@@ -56,5 +56,7 @@ private:
 
 	void EnvyrokDirCheck();
 	void Gravity(float _DeltaTime);
+
+	float Speed = 850.0f;
 };
 

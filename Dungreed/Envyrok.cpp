@@ -153,6 +153,7 @@ void AEnvyrok::AirSpike(float _DeltaTime)
 	}
 
 	AddActorLocation(JumpPower * _DeltaTime);
+	AddActorLocation(FVector::Left * _DeltaTime * Speed);
 }
 
 void AEnvyrok::AirSpike_End(float _DeltaTime)
