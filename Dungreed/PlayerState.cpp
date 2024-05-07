@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Player.h"
+#include "AfterImage.h"
 
 void APlayer::StateInit()
 {
@@ -36,10 +37,24 @@ void APlayer::StateInit()
 	State.SetUpdateFunction("PlayerDash", std::bind(&APlayer::Dash, this, std::placeholders::_1));
 	State.SetStartFunction("PlayerDash", [this]()
 		{
-			// 점프 시작할 때 JumpVector값 한번만 대입
 			GravityVector = FVector::Zero;
-			DashVector = PlayerDir * 1500.0f;
+			DashVector = PlayerDir * 1200.0f;
 			this->BodyRenderer->ChangeAnimation("PlayerJump");
+
+			//잔상
+			std::shared_ptr<AAfterImage> AfterImage = GetWorld()->SpawnActor<AAfterImage>("AfterImage");
+			FVector UpPos = { 0,64,0 };
+			FVector AfterImagePos = GetActorLocation() + UpPos;
+			AfterImage->SetActorLocation(AfterImagePos);
+			if (0 <= PlayerDir.X)
+			{
+				AfterImage->SetActorScale3D({ 1.0f, 1.0f, 1.0f });
+			}
+			else
+			{
+				AfterImage->SetActorScale3D({ -1.0f, 1.0f, 1.0f });
+			}
+			//
 		});
 
 	State.SetUpdateFunction("PlayerFall", std::bind(&APlayer::Fall, this, std::placeholders::_1));
@@ -226,6 +241,7 @@ void APlayer::Dash(float _DeltaTime)
 	PlayerDirCheck();
 	ColorColCheck();
 	DashTime -= _DeltaTime;
+
 
 	if (DashTime <= 0)
 	{

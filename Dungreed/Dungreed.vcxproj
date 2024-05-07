@@ -167,6 +167,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AfterImage.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Envyrok.h">
       <SubType>
       </SubType>
@@ -219,6 +223,10 @@
     <ClInclude Include="TitleImage.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AfterImage.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Envyrok.cpp">
       <SubType>
       </SubType>

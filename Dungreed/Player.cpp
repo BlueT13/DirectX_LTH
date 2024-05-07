@@ -80,6 +80,9 @@ void APlayer::BeginPlay()
 
 	//AttackEffectRenderer->SetPosition({ 20,0,0 });
 
+	FVector UpPos = { 0,40,0 };
+	PlayerCenterPos = GetActorLocation() + UpPos;
+
 	StateInit();
 }
 

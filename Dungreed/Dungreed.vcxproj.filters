@@ -61,6 +61,9 @@
     <ClCompile Include="Envyrok.cpp">
       <Filter>Level\03. BossStageLevel\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="AfterImage.cpp">
+      <Filter>Level\02. PlayLevel\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DungreedCore.h">
@@ -122,6 +125,9 @@
     </ClInclude>
     <ClInclude Include="Envyrok.h">
       <Filter>Level\03. BossStageLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="AfterImage.h">
+      <Filter>Level\02. PlayLevel\Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

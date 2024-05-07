@@ -5,6 +5,7 @@ enum class ERenderOrder
 	ColMap,
 	Map,
 	WeaponBack,
+	AfterImage,
 	Player,
 	WeaponFront,
 	Monster,
