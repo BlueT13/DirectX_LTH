@@ -18,6 +18,8 @@ public:
 	ABackground& operator=(const ABackground& _Other) = delete;
 	ABackground& operator=(ABackground&& _Other) noexcept = delete;
 
+	void MapRendererSwitch();
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

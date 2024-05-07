@@ -21,6 +21,22 @@ ABackground::~ABackground()
 {
 }
 
+void ABackground::MapRendererSwitch()
+{
+	if (Renderer0->IsActive())
+	{
+		Renderer0->SetActive(false);
+		Renderer1->SetActive(false);
+		Renderer2->SetActive(false);
+	}
+	else
+	{
+		Renderer0->SetActive(true);
+		Renderer1->SetActive(true);
+		Renderer2->SetActive(true);
+	}
+}
+
 void ABackground::BeginPlay()
 {
 	Super::BeginPlay();

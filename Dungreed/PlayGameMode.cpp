@@ -64,6 +64,7 @@ void APlayGameMode::Tick(float _DeltaTime)
 	if (true == UEngineInput::IsDown('O'))
 	{
 		TownMap->MapRendererSwitch();
+		Background->MapRendererSwitch();
 	}
 }
 
