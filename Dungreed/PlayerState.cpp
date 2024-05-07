@@ -38,23 +38,10 @@ void APlayer::StateInit()
 	State.SetStartFunction("PlayerDash", [this]()
 		{
 			GravityVector = FVector::Zero;
-			DashVector = PlayerDir * 1200.0f;
+			DashVector = PlayerDir * 1600.0f;
 			this->BodyRenderer->ChangeAnimation("PlayerJump");
-
-			//¿‹ªÛ
-			std::shared_ptr<AAfterImage> AfterImage = GetWorld()->SpawnActor<AAfterImage>("AfterImage");
-			FVector UpPos = { 0,64,0 };
-			FVector AfterImagePos = GetActorLocation() + UpPos;
-			AfterImage->SetActorLocation(AfterImagePos);
-			if (0 <= PlayerDir.X)
-			{
-				AfterImage->SetActorScale3D({ 1.0f, 1.0f, 1.0f });
-			}
-			else
-			{
-				AfterImage->SetActorScale3D({ -1.0f, 1.0f, 1.0f });
-			}
-			//
+			
+			// CurAfterImageTime = AfterImageTime;
 		});
 
 	State.SetUpdateFunction("PlayerFall", std::bind(&APlayer::Fall, this, std::placeholders::_1));
@@ -243,9 +230,31 @@ void APlayer::Dash(float _DeltaTime)
 	DashTime -= _DeltaTime;
 
 
+	//¿‹ªÛ
+	CurAfterImageTime -= _DeltaTime;
+	if (CurAfterImageTime < 0)
+	{
+		CurAfterImageTime = AfterImageTime;
+
+		std::shared_ptr<AAfterImage> AfterImage = GetWorld()->SpawnActor<AAfterImage>("AfterImage");
+		FVector UpPos = { 0,64,0 };
+		FVector AfterImagePos = GetActorLocation() + UpPos;
+		AfterImage->SetActorLocation(AfterImagePos);
+		if (0 <= PlayerDir.X)
+		{
+			AfterImage->SetActorScale3D({ 1.0f, 1.0f, 1.0f });
+		}
+		else
+		{
+			AfterImage->SetActorScale3D({ -1.0f, 1.0f, 1.0f });
+		}
+	}
+
+	//
+
 	if (DashTime <= 0)
 	{
-		DashTime = 0.24f;
+		DashTime = 0.2f;
 		DashVector = FVector::Zero;
 		State.ChangeState("PlayerFall");
 		return;
