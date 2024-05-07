@@ -13,6 +13,7 @@ enum class ERenderOrder
 
 enum class ECollisionOrder
 {
+	Player,
 	Attack,
 	Monster,
 };

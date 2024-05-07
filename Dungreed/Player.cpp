@@ -23,6 +23,12 @@ APlayer::APlayer()
 	//AttackEffectRenderer = CreateDefaultSubObject<USpriteRenderer>("WeaponRenderer");
 	//AttackEffectRenderer->SetupAttachment(RotationComponent);
 
+	PlayerCollision = CreateDefaultSubObject<UCollision>("PlayerCollision");
+	PlayerCollision->SetupAttachment(DefaultComponent);
+	// Collision은 반드시 SetCollisionGroup을 해야 한다.
+	PlayerCollision->SetCollisionGroup(ECollisionOrder::Player);
+	PlayerCollision->SetCollisionType(ECollisionType::Rect);
+
 	InputOn();
 }
 
@@ -56,7 +62,8 @@ void APlayer::BeginPlay()
 	//AttackEffectRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
 	//AttackEffectRenderer->SetOrder(ERenderOrder::Player);
 
-	PlayerScale = GetActorScale3D();
+	PlayerCollision->SetScale(PlayerColScale);
+	PlayerCollision->SetPosition({ 0,32,0 });
 
 	Cursor = GetWorld()->SpawnActor<ACursor>("Cursor");
 	WindowScale = GEngine->EngineWindow.GetWindowScale();

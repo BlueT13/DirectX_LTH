@@ -18,6 +18,7 @@ enum class EPlayerDir
 class APlayer : public AActor
 {
 	GENERATED_BODY(AActor)
+	friend class AEnvyrok;
 
 public:
 	// constrcuter destructer
@@ -46,6 +47,7 @@ private:
 	USpriteRenderer* HandRenderer = nullptr;
 	USpriteRenderer* WeaponRenderer = nullptr;
 	//USpriteRenderer* AttackEffectRenderer = nullptr;
+	UCollision* PlayerCollision = nullptr;
 
 	std::shared_ptr<UEngineTexture> ColMapTex = nullptr;
 	float ColMapY = 0.0f;
@@ -65,7 +67,7 @@ private:
 	FVector PlayerNextPos = FVector::Zero;
 	float4 PlayerDir = float4::Zero;
 	EPlayerDir PlayerMoveDir = EPlayerDir::Right;
-	FVector PlayerScale = FVector::Zero;
+	FVector PlayerColScale = { 64,64,100 };
 	FVector GravityVector = FVector::Zero;
 	FVector JumpVector = FVector::Zero;
 	FVector JumpPower = FVector::Zero;
@@ -97,6 +99,7 @@ private:
 	void Die(float _DeltaTime);
 
 	void Attack(float _DeltaTime);
+	void GetHit(float _Damage);
 
 	void PlayerDirCheck();
 	void Gravity(float _DeltaTime);
@@ -105,5 +108,7 @@ private:
 	float Rot = 0.0f;
 	float Speed = 500.0f;
 	bool WeaponUp = true;
+	float PlayerHp = 100.0f;
+	float InvincibleTime = 0.5f;
 };
 

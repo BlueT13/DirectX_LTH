@@ -333,6 +333,16 @@ void APlayer::Attack(float _DeltaTime)
 	PlayerAttackEffect->SetActorRotation({ 0.0f, 0.0f, AttackRot });
 }
 
+void APlayer::GetHit(float _Damage)
+{
+	PlayerHp -= _Damage;
+
+	BodyRenderer->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.5f });
+	PlayerCollision->SetActive(false);
+	DelayCallBack(0.5f, [=]() {
+		BodyRenderer->SetMulColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+		});
+}
 
 void APlayer::PlayerDirCheck()
 {
