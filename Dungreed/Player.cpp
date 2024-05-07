@@ -90,8 +90,8 @@ void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	State.Update(_DeltaTime);
 	CursorCheck();
+	State.Update(_DeltaTime);
 
 	DebugMessageFunction();
 }

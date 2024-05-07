@@ -230,7 +230,6 @@ void APlayer::Dash(float _DeltaTime)
 	ColorColCheck();
 	CurDashTime -= _DeltaTime;
 
-
 	// 잔상
 	CurAfterImageTime -= _DeltaTime;
 	if (CurAfterImageTime < 0)
@@ -273,11 +272,11 @@ void APlayer::Dash(float _DeltaTime)
 	}
 
 	// 벽이 아니면 이동
-	if (0 <= PlayerDir.X && NextBottomRightColor != Color8Bit::Black && NextTopColor != Color8Bit::Black)
+	if (0 <= PlayerDir.X && NextBottomRightColor != Color8Bit::Black && NextTopColor != Color8Bit::Black && NextBottomLeftColor != Color8Bit::Black && NextTopColor != Color8Bit::Black)
 	{
 		AddActorLocation(DashVector * _DeltaTime);
 	}
-	else if (0 > PlayerDir.X && NextBottomLeftColor != Color8Bit::Black && NextTopColor != Color8Bit::Black)
+	else if (0 > PlayerDir.X && NextBottomRightColor != Color8Bit::Black && NextTopColor != Color8Bit::Black && NextBottomLeftColor != Color8Bit::Black && NextTopColor != Color8Bit::Black)
 	{
 		AddActorLocation(DashVector * _DeltaTime);
 	}
@@ -291,7 +290,7 @@ void APlayer::Fall(float _DeltaTime)
 {
 	PlayerDirCheck();
 	Gravity(_DeltaTime);
-	AddActorLocation(GravityVector * _DeltaTime);
+	ColorColCheck();
 
 	if (true == IsPress('A') && LeftColor != Color8Bit::Black)
 	{
@@ -301,6 +300,7 @@ void APlayer::Fall(float _DeltaTime)
 	{
 		AddActorLocation(FVector::Right * _DeltaTime * Speed);
 	}
+	AddActorLocation(GravityVector * _DeltaTime);
 
 	// 공격
 	if (true == IsDown(VK_LBUTTON))
@@ -314,7 +314,6 @@ void APlayer::Fall(float _DeltaTime)
 		return;
 	}
 
-	ColorColCheck();
 	if (BottomColor == Color8Bit::Black || BottomColor == Color8Bit::Magenta || BottomColor == Color8Bit::Red)
 	{
 		GravityVector = FVector::Zero;
