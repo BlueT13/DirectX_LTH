@@ -24,7 +24,7 @@ void AAfterImage::BeginPlay()
 
 	//Renderer->SetPlusColor({10000000.0f, 10000000.0f, 10000000.0f, 0.0f});
 	//Renderer->SetMulColor({1.0f / 10000000.0f, 1.0f / 10000000.0f, 1.0f / 10000000.0f, 0.5f});
-	Renderer->SetMulColor({ 1.0f,1.0f,1.0f,0.5f });
+	Renderer->SetMulColor({ 1.0f,1.0f,1.0f,0.7f });
 
 	DelayCallBack(0.2f, [=]() {
 		Destroy();

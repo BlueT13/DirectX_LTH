@@ -1,7 +1,6 @@
 #include "PreCompile.h"
 #include "PlayGameMode.h"
 #include "Player.h"
-#include "Background.h"
 #include <EngineCore/Camera.h>
 
 APlayGameMode::APlayGameMode()
@@ -21,15 +20,17 @@ void APlayGameMode::BeginPlay()
 	Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation({ 0.0f, 0.0f, -100.0f });
 
-	Background = GetWorld()->SpawnActor<ABackground>("Background");
+	TownMap = GetWorld()->SpawnActor<ATownMap>("TownMap");
 	MapX = UDungreedConstValue::ColMap->GetScale().X;
 	MapY = UDungreedConstValue::ColMap->GetScale().Y;
 	MapHalfX = UDungreedConstValue::ColMap->GetScale().hX();
 	MapHalfY = UDungreedConstValue::ColMap->GetScale().hY();
-	Background->SetActorLocation({ MapHalfX * UDungreedConstValue::AutoSize, MapHalfY * UDungreedConstValue::AutoSize, 0.0f });
+	TownMap->SetActorLocation({ MapHalfX * UDungreedConstValue::AutoSize, MapHalfY * UDungreedConstValue::AutoSize, 0.0f });
 
 	Player = GetWorld()->SpawnActor<APlayer>("Player");
 	Player->SetActorLocation({ MapHalfX, MapHalfY + 200.0f, 0.0f });
+
+	Background = GetWorld()->SpawnActor<ABackground>("Background", 1);
 }
 
 void APlayGameMode::Tick(float _DeltaTime)
@@ -62,7 +63,7 @@ void APlayGameMode::Tick(float _DeltaTime)
 
 	if (true == UEngineInput::IsDown('O'))
 	{
-		Background->MapRendererSwitch();
+		TownMap->MapRendererSwitch();
 	}
 }
 

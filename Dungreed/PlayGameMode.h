@@ -1,5 +1,6 @@
 #pragma once
 #include <EngineCore/GameMode.h>
+#include "TownMap.h"
 #include "Background.h"
 #include "Player.h"
 
@@ -28,6 +29,7 @@ protected:
 private:
 	std::shared_ptr<UCamera> Camera = nullptr;
 	std::shared_ptr<ABackground> Background = nullptr;
+	std::shared_ptr<ATownMap> TownMap = nullptr;
 	std::shared_ptr<APlayer> Player = nullptr;
 
 	float MapX = 0.0f;

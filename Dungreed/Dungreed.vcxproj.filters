@@ -19,7 +19,7 @@
     <ClCompile Include="TitleImage.cpp">
       <Filter>Level\01. TitleLevel\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="Background.cpp">
+    <ClCompile Include="TownMap.cpp">
       <Filter>Level\02. PlayLevel\Actor</Filter>
     </ClCompile>
     <ClCompile Include="DungreedConstValue.cpp">
@@ -64,6 +64,9 @@
     <ClCompile Include="AfterImage.cpp">
       <Filter>Level\02. PlayLevel\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>Level\02. PlayLevel\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DungreedCore.h">
@@ -84,7 +87,7 @@
     <ClInclude Include="TitleImage.h">
       <Filter>Level\01. TitleLevel\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="Background.h">
+    <ClInclude Include="TownMap.h">
       <Filter>Level\02. PlayLevel\Actor</Filter>
     </ClInclude>
     <ClInclude Include="DungreedConstValue.h">
@@ -127,6 +130,9 @@
       <Filter>Level\03. BossStageLevel\Actor</Filter>
     </ClInclude>
     <ClInclude Include="AfterImage.h">
+      <Filter>Level\02. PlayLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.h">
       <Filter>Level\02. PlayLevel\Actor</Filter>
     </ClInclude>
   </ItemGroup>

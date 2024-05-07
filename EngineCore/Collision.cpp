@@ -19,7 +19,14 @@ void UCollision::BeginPlay()
 
 	Super::BeginPlay();
 
-	GetWorld()->PushCollision(shared_from_this());
+	if (nullptr != GetWorld())
+	{
+		GetWorld()->PushCollision(shared_from_this());
+	}
+	else if (nullptr != UEngineCore::GetCurCreateLevel())
+	{
+		UEngineCore::GetCurCreateLevel()->PushCollision(shared_from_this());
+	}
 }
 
 void UCollision::SetCollisionGroup(int _Index)

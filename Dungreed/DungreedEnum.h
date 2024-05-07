@@ -3,6 +3,9 @@
 enum class ERenderOrder
 {
 	ColMap,
+	Background_0,
+	Background_1,
+	Background_2,
 	Map,
 	WeaponBack,
 	AfterImage,

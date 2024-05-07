@@ -88,6 +88,14 @@ public:
 
 	void SetOrder(int _Order) override;
 
+	void SetActive(bool _Value) override
+	{
+		Super::SetActive(_Value);
+		FirstCheck.clear();
+		OtherCheck.clear();
+		ExitCheck.clear();
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _Delta) override;

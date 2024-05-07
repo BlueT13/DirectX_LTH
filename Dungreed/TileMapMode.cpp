@@ -16,7 +16,7 @@ void ATileMapMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	TileMap = GetWorld()->SpawnActor<ATileMap>("TileMap", ERenderOrder::Map);
+	TileMap = GetWorld()->SpawnActor<ATileMap>("TileMap", ERenderOrder::Background_2);
 }
 
 void ATileMapMode::Tick(float _DeltaTime)

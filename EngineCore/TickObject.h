@@ -68,7 +68,7 @@ public:
 		return ActiveValue;
 	}
 
-	void SetActive(bool _Value)
+	virtual void SetActive(bool _Value)
 	{
 		ActiveValue = _Value;
 	}

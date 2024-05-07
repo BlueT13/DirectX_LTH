@@ -171,6 +171,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Background.h" />
     <ClInclude Include="Envyrok.h">
       <SubType>
       </SubType>
@@ -179,7 +180,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Background.h">
+    <ClInclude Include="TownMap.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -227,6 +228,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Background.cpp" />
     <ClCompile Include="Envyrok.cpp">
       <SubType>
       </SubType>
@@ -235,7 +237,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Background.cpp">
+    <ClCompile Include="TownMap.cpp">
       <SubType>
       </SubType>
     </ClCompile>

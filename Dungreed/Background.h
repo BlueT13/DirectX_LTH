@@ -1,8 +1,6 @@
 #pragma once
 #include <EngineCore/Actor.h>
 #include <EngineCore/SpriteRenderer.h>
-#include <EngineBase/EngineDirectory.h>
-#include <EngineCore/TileRenderer.h>
 #include <EngineCore/DefaultSceneComponent.h>
 
 // Ό³Έν :
@@ -20,19 +18,17 @@ public:
 	ABackground& operator=(const ABackground& _Other) = delete;
 	ABackground& operator=(ABackground&& _Other) noexcept = delete;
 
-	void MapRendererSwitch();
-
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
 private:
 	UDefaultSceneComponent* DefaultComponent = nullptr;
-	USpriteRenderer* Renderer = nullptr;
-	USpriteRenderer* ColMapRenderer = nullptr;
-	//UTileRenderer* TileRenderer = nullptr;
+	USpriteRenderer* Renderer0 = nullptr;
+	USpriteRenderer* Renderer1 = nullptr;
+	USpriteRenderer* Renderer2 = nullptr;
 
-	UEngineDirectory Dir;
-	std::vector<std::vector<int>> TilesData;
+	FVector CameraPos = FVector::Zero;
+	float4 UVTest = float4::Zero;
 };
 

@@ -1,26 +1,27 @@
 #include "PreCompile.h"
-#include "BossStageMap.h"
+#include "TownMap.h"
+#include "Player.h"
 
-ABossStageMap::ABossStageMap() 
+ATownMap::ATownMap()
 {
 	DefaultComponent = CreateDefaultSubObject<UDefaultSceneComponent>("DefaultComponent");
 	SetRoot(DefaultComponent);
 
-	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	Renderer->SetupAttachment(DefaultComponent);
-
 	ColMapRenderer = CreateDefaultSubObject<USpriteRenderer>("ColMapRenderer");
 	ColMapRenderer->SetupAttachment(DefaultComponent);
+
+	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer_3");
+	Renderer->SetupAttachment(DefaultComponent);
 
 	//TileRenderer = CreateDefaultSubObject<UTileRenderer>("TileRenderer");
 	//SetRoot(TileRenderer);
 }
 
-ABossStageMap::~ABossStageMap() 
+ATownMap::~ATownMap()
 {
 }
 
-void ABossStageMap::MapRendererSwitch()
+void ATownMap::MapRendererSwitch()
 {
 	if (Renderer->IsActive())
 	{
@@ -34,19 +35,18 @@ void ABossStageMap::MapRendererSwitch()
 	}
 }
 
-void ABossStageMap::BeginPlay()
+void ATownMap::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Renderer->SetSprite("BossRoom.png");
-	Renderer->SetOrder(ERenderOrder::Background_2);
-	Renderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
-
-
-	ColMapRenderer->SetSprite("BossRoom_Col.png");
+	ColMapRenderer->SetSprite("Town_Col.png");
 	ColMapRenderer->SetOrder(ERenderOrder::ColMap);
 	ColMapRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
 	ColMapRenderer->SetActive(false);
+
+	Renderer->SetSprite("Town.png");
+	Renderer->SetOrder(ERenderOrder::Map);
+	Renderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
 
 	//UEngineSerializer Ser;
 
@@ -68,7 +68,7 @@ void ABossStageMap::BeginPlay()
 	//TileRenderer->SetOrder(ERenderOrder::Map);
 }
 
-void ABossStageMap::Tick(float _DeltaTime)
+void ATownMap::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }
