@@ -60,10 +60,8 @@ void UDungreedCore::Initialize()
 	//	// UEngineSound::SoundPlay("~~~.wav");
 	//}
 
-	{
-		UEngineEditorGUI::CreateEditorWindow<ContentsGUI>("Contents");
-		UEngineEditorGUI::CreateEditorWindow<MapEditorGUI>("MapEditor");
-	}
+	UEngineEditorGUI::CreateEditorWindow<ContentsGUI>("Contents");
+	UEngineEditorGUI::CreateEditorWindow<MapEditorGUI>("MapEditor");
 
 	GEngine->CreateLevel<ACreateMapMode>("CreateMapLevel");
 	GEngine->CreateLevel<ATileMapMode>("TileLevel");

@@ -14,11 +14,11 @@ void ATitleGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
-	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
-
 	TitleImage = GetWorld()->SpawnActor<ATitleImage>("TitleImage", EUpdateOrder::Map);
 	TitleImage->SetActorLocation({ 0.0f, 0.0f, 100.0f });
+
+	Camera = GetWorld()->GetMainCamera();
+	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 }
 
 void ATitleGameMode::Tick(float _DeltaTime)

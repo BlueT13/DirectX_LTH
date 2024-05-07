@@ -22,3 +22,15 @@ void ACreateMapMode::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 }
 
+void ACreateMapMode::LevelEnd(ULevel* _NextLevel)
+{
+	Super::LevelEnd(_NextLevel);
+}
+
+void ACreateMapMode::LevelStart(ULevel* _PrevLevel)
+{
+	Super::LevelStart(_PrevLevel);
+
+	
+}
+

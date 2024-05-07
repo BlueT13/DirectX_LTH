@@ -22,6 +22,9 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
+	void LevelEnd(ULevel* _NextLevel) override;
+	void LevelStart(ULevel* _PrevLevel) override;
+
 private:
 	std::shared_ptr<AMyMap> MyMap = nullptr;
 };

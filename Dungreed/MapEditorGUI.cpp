@@ -23,33 +23,33 @@ void MapEditorGUI::Init()
 void MapEditorGUI::Tick(ULevel* _Level, float _Delta)
 {
 	_Level->GetMainCamera();
-	float Speed = 500.0f;
-
-	if (true == UEngineInput::IsPress('A'))
-	{
-		_Level->GetMainCamera()->AddActorLocation(float4::Left * _Delta * Speed);
-	}
-
-	if (true == UEngineInput::IsPress('D'))
-	{
-		_Level->GetMainCamera()->AddActorLocation(float4::Right * _Delta * Speed);
-	}
-
-	if (true == UEngineInput::IsPress('W'))
-	{
-		_Level->GetMainCamera()->AddActorLocation(float4::Up * _Delta * Speed);
-	}
-
-	if (true == UEngineInput::IsPress('S'))
-	{
-		_Level->GetMainCamera()->AddActorLocation(float4::Down * _Delta * Speed);
-	}
 
 	std::string LevelName = _Level->GetName();
 
 	if ("CreateMapLevel" == _Level->GetName())
 	{
 		On();
+
+		float Speed = 500.0f;
+		if (true == UEngineInput::IsPress('A'))
+		{
+			_Level->GetMainCamera()->AddActorLocation(float4::Left * _Delta * Speed);
+		}
+
+		if (true == UEngineInput::IsPress('D'))
+		{
+			_Level->GetMainCamera()->AddActorLocation(float4::Right * _Delta * Speed);
+		}
+
+		if (true == UEngineInput::IsPress('W'))
+		{
+			_Level->GetMainCamera()->AddActorLocation(float4::Up * _Delta * Speed);
+		}
+
+		if (true == UEngineInput::IsPress('S'))
+		{
+			_Level->GetMainCamera()->AddActorLocation(float4::Down * _Delta * Speed);
+		}
 	}
 	else
 	{
@@ -130,7 +130,7 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 		{
 			for (size_t x = 0; x < TilesData[y].size(); x++)
 			{
-				TileRenderer->SetTile(x, y,TilesData[y][x]);
+				TileRenderer->SetTile(x, y, TilesData[y][x]);
 			}
 		}
 	}

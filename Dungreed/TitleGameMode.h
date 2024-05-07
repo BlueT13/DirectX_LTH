@@ -27,5 +27,6 @@ protected:
 
 private:
 	std::shared_ptr<ATitleImage> TitleImage = nullptr;
+	std::shared_ptr<UCamera> Camera = nullptr;
 };
 
