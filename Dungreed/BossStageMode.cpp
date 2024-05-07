@@ -18,17 +18,17 @@ void ABossStageMode::BeginPlay()
 	Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation({ 0.0f, 0.0f, -100.0f });
 
-	BossStageMap = GetWorld()->SpawnActor<ABossStageMap>("BossStageMap");
+	BossStageMap = GetWorld()->SpawnActor<ABossStageMap>("BossStageMap", EUpdateOrder::Map);
 	MapX = UDungreedConstValue::ColMap->GetScale().X;
 	MapY = UDungreedConstValue::ColMap->GetScale().Y;
 	MapHalfX = UDungreedConstValue::ColMap->GetScale().hX();
 	MapHalfY = UDungreedConstValue::ColMap->GetScale().hY();
 	BossStageMap->SetActorLocation({ MapHalfX * UDungreedConstValue::AutoSize, MapHalfY * UDungreedConstValue::AutoSize, 0.0f });
 
-	Player = GetWorld()->SpawnActor<APlayer>("Player");
+	Player = GetWorld()->SpawnActor<APlayer>("Player", EUpdateOrder::Player);
 	Player->SetActorLocation({ MapHalfX - 200.0f, MapHalfY + 200.0f, 0.0f });
 
-	Envyrok = GetWorld()->SpawnActor<AEnvyrok>("Envyrok");
+	Envyrok = GetWorld()->SpawnActor<AEnvyrok>("Envyrok", EUpdateOrder::Monster);
 	Envyrok->SetActorLocation({ MapHalfX + 512.0f, MapHalfY - 224.0f, 0.0f });
 
 	//Envyrok = GetWorld()->SpawnActor<AEnvyrok>("Envyrok", 100);

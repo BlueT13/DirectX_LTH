@@ -237,7 +237,7 @@ void APlayer::Dash(float _DeltaTime)
 	{
 		CurAfterImageTime = AfterImageTime;
 
-		std::shared_ptr<AAfterImage> AfterImage = GetWorld()->SpawnActor<AAfterImage>("AfterImage");
+		std::shared_ptr<AAfterImage> AfterImage = GetWorld()->SpawnActor<AAfterImage>("AfterImage",EUpdateOrder::Player);
 		FVector UpPos = { 0,64,0 };
 		FVector AfterImagePos = GetActorLocation() + UpPos;
 		AfterImage->SetActorLocation(AfterImagePos);
@@ -348,7 +348,7 @@ void APlayer::Attack(float _DeltaTime)
 	}
 
 	//AttackEffectRenderer->ChangeAnimation("AttackEffect");
-	PlayerAttackEffect = GetWorld()->SpawnActor<APlayerAttEffect>("PlayerAttackEffect");
+	PlayerAttackEffect = GetWorld()->SpawnActor<APlayerAttEffect>("PlayerAttackEffect", EUpdateOrder::Player);
 	FVector UpPos = { 0,40,0 };
 	PlayerCenterPos = GetActorLocation() + UpPos;
 	FVector AttackDir = InGameCursorPos - PlayerCenterPos;

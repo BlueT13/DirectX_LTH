@@ -1,5 +1,15 @@
 #pragma once
 
+enum class EUpdateOrder
+{
+	None,
+	Map,
+	Cursor,
+	Player,
+	Monster,
+	Background,
+};
+
 enum class ERenderOrder
 {
 	ColMap,

@@ -20,17 +20,17 @@ void APlayGameMode::BeginPlay()
 	Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation({ 0.0f, 0.0f, -100.0f });
 
-	TownMap = GetWorld()->SpawnActor<ATownMap>("TownMap");
+	TownMap = GetWorld()->SpawnActor<ATownMap>("TownMap", EUpdateOrder::Map);
 	MapX = UDungreedConstValue::ColMap->GetScale().X;
 	MapY = UDungreedConstValue::ColMap->GetScale().Y;
 	MapHalfX = UDungreedConstValue::ColMap->GetScale().hX();
 	MapHalfY = UDungreedConstValue::ColMap->GetScale().hY();
 	TownMap->SetActorLocation({ MapHalfX * UDungreedConstValue::AutoSize, MapHalfY * UDungreedConstValue::AutoSize, 0.0f });
 
-	Player = GetWorld()->SpawnActor<APlayer>("Player");
+	Player = GetWorld()->SpawnActor<APlayer>("Player", EUpdateOrder::Player);
 	Player->SetActorLocation({ MapHalfX, MapHalfY + 200.0f, 0.0f });
 
-	Background = GetWorld()->SpawnActor<ABackground>("Background", 1);
+	Background = GetWorld()->SpawnActor<ABackground>("Background", EUpdateOrder::Background);
 }
 
 void APlayGameMode::Tick(float _DeltaTime)
