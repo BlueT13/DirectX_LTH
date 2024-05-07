@@ -107,7 +107,7 @@ private:
 	void GroundUp();
 
 	float Rot = 0.0f;
-	float Speed = 400.0f;
+	float Speed = 360.0f;
 	bool WeaponUp = true;
 	float PlayerHp = 100.0f;
 	float InvincibleTime = 0.5f;
