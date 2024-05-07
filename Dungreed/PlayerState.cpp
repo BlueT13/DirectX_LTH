@@ -39,6 +39,7 @@ void APlayer::StateInit()
 		{
 			GravityVector = FVector::Zero;
 			DashVector = PlayerDir * 1600.0f;
+			CurDashTime = DashTime;
 			this->BodyRenderer->ChangeAnimation("PlayerJump");
 			
 			// CurAfterImageTime = AfterImageTime;
@@ -227,10 +228,10 @@ void APlayer::Dash(float _DeltaTime)
 {
 	PlayerDirCheck();
 	ColorColCheck();
-	DashTime -= _DeltaTime;
+	CurDashTime -= _DeltaTime;
 
 
-	//¿‹ªÛ
+	// ¿‹ªÛ
 	CurAfterImageTime -= _DeltaTime;
 	if (CurAfterImageTime < 0)
 	{
@@ -250,11 +251,10 @@ void APlayer::Dash(float _DeltaTime)
 		}
 	}
 
-	//
-
-	if (DashTime <= 0)
+	// Dash ≥°
+	if (CurDashTime <= 0)
 	{
-		DashTime = 0.2f;
+		CurDashTime = DashTime;
 		DashVector = FVector::Zero;
 		State.ChangeState("PlayerFall");
 		return;

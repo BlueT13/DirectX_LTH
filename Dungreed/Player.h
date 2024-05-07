@@ -74,6 +74,7 @@ private:
 	FVector DashVector = FVector::Zero;
 	FVector DashPower = FVector::Zero;
 	float DashTime = 0.2f;
+	float CurDashTime = 0.0f;
 
 	FVector WindowScale = FVector::Zero;
 	std::shared_ptr<ACursor> Cursor = nullptr;
@@ -110,7 +111,7 @@ private:
 	bool WeaponUp = true;
 	float PlayerHp = 100.0f;
 	float InvincibleTime = 0.5f;
-	float AfterImageTime = 0.05f;
+	float AfterImageTime = 0.04f;
 	float CurAfterImageTime = 0.0f;
 };
 
