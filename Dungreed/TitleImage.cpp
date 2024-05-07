@@ -3,8 +3,15 @@
 
 ATitleImage::ATitleImage()
 {
-	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	SetRoot(Renderer);
+	DefaultComponent = CreateDefaultSubObject<UDefaultSceneComponent>("DefaultComponent");
+	SetRoot(DefaultComponent);
+
+	
+	BackgroundRenderer = CreateDefaultSubObject<USpriteRenderer>("BackgroundRenderer");
+	BackgroundRenderer->SetupAttachment(DefaultComponent);
+
+	TitleImageRenderer = CreateDefaultSubObject<USpriteRenderer>("TitleImageRenderer");
+	TitleImageRenderer->SetupAttachment(DefaultComponent);
 }
 
 ATitleImage::~ATitleImage()
@@ -18,8 +25,13 @@ void ATitleImage::BeginPlay()
 
 	//DelayCallBack(1.0f, std::bind(&ATitleImage::RendererOff, this));
 
-	Renderer->SetSprite("Title");
-	Renderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
+	BackgroundRenderer->SetSprite("Sky_Day.png");
+	BackgroundRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
+	BackgroundRenderer->SetOrder(ERenderOrder::Background_0);
+
+	TitleImageRenderer->SetSprite("TitleImage.png");
+	TitleImageRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
+	TitleImageRenderer->SetOrder(ERenderOrder::Background_1);
 }
 
 void ATitleImage::Tick(float _DeltaTime)

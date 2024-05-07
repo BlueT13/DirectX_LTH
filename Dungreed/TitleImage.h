@@ -1,6 +1,7 @@
 #pragma once
 #include <Enginecore/Actor.h>
 #include <EngineCore/SpriteRenderer.h>
+#include <EngineCore/DefaultSceneComponent.h>
 
 // Ό³Έν :
 class ATitleImage : public AActor
@@ -26,6 +27,9 @@ protected:
 	//void RendererOn();
 
 private:
-	USpriteRenderer* Renderer = nullptr;
+	UDefaultSceneComponent* DefaultComponent = nullptr;
+	USpriteRenderer* BackgroundRenderer = nullptr;
+	USpriteRenderer* TitleImageRenderer = nullptr;
+
 };
 
