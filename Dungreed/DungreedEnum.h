@@ -18,6 +18,7 @@ enum class ERenderOrder
 	Background_1,
 	Background_2,
 	Map,
+	EnvyrokTrap,
 	WeaponBack,
 	AfterImage,
 	Player,
@@ -33,4 +34,5 @@ enum class ECollisionOrder
 	PlayerAttack,
 	Monster,
 	MonsterAttack,
+	EnvyrokTrap,
 };

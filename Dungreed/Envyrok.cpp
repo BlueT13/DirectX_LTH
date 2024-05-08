@@ -245,36 +245,42 @@ void AEnvyrok::AirSpike_End(float _DeltaTime)
 
 void AEnvyrok::SpawnTrap(float _DeltaTime)
 {
-	for (size_t i = 0; i < LeftBlocks.size(); i++)
-	{
-		LeftBlocks[i]->AddActorLocation(FVector::Right * 500.0f * _DeltaTime);
-	}
-	for (size_t i = 0; i < RightBlocks.size(); i++)
-	{
-		RightBlocks[i]->AddActorLocation(FVector::Left * 500.0f * _DeltaTime);
-	}
+	DelayCallBack(2.0f, [=]() {
+		for (size_t i = 0; i < LeftBlocks.size(); i++)
+		{
+			if (LeftBlocks[i]->GetActorLocation().X < ColMapHalfX - 130)
+			{
+				LeftBlocks[i]->AddActorLocation(FVector::Right * 500.0f * _DeltaTime);
+			}
+		}
+		for (size_t i = 0; i < RightBlocks.size(); i++)
+		{
+			if (RightBlocks[i]->GetActorLocation().X > ColMapHalfX + 130)
+			{
+				RightBlocks[i]->AddActorLocation(FVector::Left * 500.0f * _DeltaTime);
+			}
+		}
 
-	// 업데이트
+		});
 
-	// 23
+	// 충돌 체크
 	std::set<int> LeftCheck;
 	for (size_t i = 0; i < LeftBlocks.size(); i++)
 	{
 		LeftBlocks[i]->Collision->CollisionStay(ECollisionOrder::Player, [&](std::shared_ptr<UCollision> _Collision)
 			{
 				LeftCheck.insert(i);
-				APlayer::MainPlayer->AddActorLocation(FVector::Right * 100.0f * _DeltaTime);
+				APlayer::MainPlayer->AddActorLocation(FVector::Right * 1000.0f * _DeltaTime);
 			});
 	}
 
-	// [2]
 	std::set<int> RightCheck;
 	for (size_t i = 0; i < RightBlocks.size(); i++)
 	{
 		RightBlocks[i]->Collision->CollisionStay(ECollisionOrder::Player, [&](std::shared_ptr<UCollision> _Collision)
 			{
 				RightCheck.insert(i);
-				APlayer::MainPlayer->AddActorLocation(FVector::Left * 100.0f * _DeltaTime);
+				APlayer::MainPlayer->AddActorLocation(FVector::Left * 1000.0f * _DeltaTime);
 			});
 	}
 
@@ -283,9 +289,19 @@ void AEnvyrok::SpawnTrap(float _DeltaTime)
 		if (RightCheck.contains(Count))
 		{
 			APlayer::MainPlayer->GetHit(1);
+			for (size_t i = 0; i < LeftBlocks.size(); i++)
+			{
+				LeftBlocks[i]->Collision->SetActive(false);
+			}
+			for (size_t i = 0; i < RightBlocks.size(); i++)
+			{
+				RightBlocks[i]->Collision->SetActive(false);
+			}
 			break;
 		}
 	}
+
+
 }
 
 void AEnvyrok::EnvyrokDirCheck()

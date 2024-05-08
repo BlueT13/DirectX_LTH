@@ -7,6 +7,7 @@
 class AEnvyrokTrap : public AActor
 {
 	GENERATED_BODY(AActor)
+	friend class AEnvyrok;
 public:
 	// constrcuter destructer
 	AEnvyrokTrap();
@@ -18,7 +19,6 @@ public:
 	AEnvyrokTrap& operator=(const AEnvyrokTrap& _Other) = delete;
 	AEnvyrokTrap& operator=(AEnvyrokTrap&& _Other) noexcept = delete;
 
-	UCollision* Collision = nullptr;
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -26,6 +26,7 @@ protected:
 private:
 	UDefaultSceneComponent* DefaultComponent = nullptr;
 	USpriteRenderer* Renderer = nullptr;
+	UCollision* Collision = nullptr;
 
 	FVector ColScale = { 260, 132, 100 };
 };

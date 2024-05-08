@@ -11,7 +11,7 @@ AEnvyrokTrap::AEnvyrokTrap()
 
 	Collision = CreateDefaultSubObject<UCollision>("Collision");
 	Collision->SetupAttachment(DefaultComponent);
-	Collision->SetCollisionGroup(ECollisionOrder::MonsterAttack);
+	Collision->SetCollisionGroup(ECollisionOrder::EnvyrokTrap);
 	Collision->SetCollisionType(ECollisionType::Rect);
 }
 
@@ -25,7 +25,7 @@ void AEnvyrokTrap::BeginPlay()
 	
 	Renderer->SetSprite("EnvyrokTrap.png");
 	Renderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
-	Renderer->SetOrder(ERenderOrder::Monster);
+	Renderer->SetOrder(ERenderOrder::EnvyrokTrap);
 
 	Collision->SetScale(ColScale);
 }

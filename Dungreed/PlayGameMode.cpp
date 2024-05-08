@@ -36,7 +36,7 @@ void APlayGameMode::BeginPlay()
 void APlayGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-	Camera->SetActorLocation({ Player->GetActorLocation().X, Player->GetActorLocation().Y + 100.0f, -100.0f });
+	Camera->SetActorLocation({ Player->GetActorLocation().X, Player->GetActorLocation().Y + 96.0f, -100.0f });
 
 	// 카메라 이동 범위 제한
 	float CameraLeft = Camera->GetActorLocation().X - GEngine->EngineWindow.GetWindowScale().hX();
