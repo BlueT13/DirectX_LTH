@@ -172,10 +172,15 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Background.h" />
+    <ClInclude Include="EnvyrokBullet.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Envyrok.h">
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EnvyrokTrap.h" />
     <ClInclude Include="PlayerAttEffect.h">
       <SubType>
       </SubType>
@@ -229,10 +234,15 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="EnvyrokBullet.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Envyrok.cpp">
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EnvyrokTrap.cpp" />
     <ClCompile Include="PlayerAttEffect.cpp">
       <SubType>
       </SubType>

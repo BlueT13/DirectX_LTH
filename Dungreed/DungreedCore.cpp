@@ -70,5 +70,5 @@ void UDungreedCore::Initialize()
 	GEngine->CreateLevel<APlayGameMode>("PlayLevel");
 	GEngine->CreateLevel<ABossStageMode>("BossStageLevel");
 
-	GEngine->ChangeLevel("PlayLevel");
+	GEngine->ChangeLevel("BossStageLevel");
 }

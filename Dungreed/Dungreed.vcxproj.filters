@@ -67,6 +67,12 @@
     <ClCompile Include="Background.cpp">
       <Filter>Level\02. PlayLevel\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="EnvyrokBullet.cpp">
+      <Filter>Level\03. BossStageLevel\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="EnvyrokTrap.cpp">
+      <Filter>Level\03. BossStageLevel\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DungreedCore.h">
@@ -134,6 +140,12 @@
     </ClInclude>
     <ClInclude Include="Background.h">
       <Filter>Level\02. PlayLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="EnvyrokBullet.h">
+      <Filter>Level\03. BossStageLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="EnvyrokTrap.h">
+      <Filter>Level\03. BossStageLevel\Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

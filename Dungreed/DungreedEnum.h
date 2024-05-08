@@ -12,6 +12,7 @@ enum class EUpdateOrder
 
 enum class ERenderOrder
 {
+	None,
 	ColMap,
 	Background_0,
 	Background_1,
@@ -27,7 +28,9 @@ enum class ERenderOrder
 
 enum class ECollisionOrder
 {
+	None,
 	Player,
-	Attack,
+	PlayerAttack,
 	Monster,
+	MonsterAttack,
 };

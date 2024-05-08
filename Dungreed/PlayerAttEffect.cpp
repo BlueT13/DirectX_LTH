@@ -13,7 +13,7 @@ APlayerAttEffect::APlayerAttEffect()
 	PlayerAttEffectCollision = CreateDefaultSubObject<UCollision>("AttackEffectCollision");
 	PlayerAttEffectCollision->SetupAttachment(DefaultComponent);
 	// Collision은 반드시 SetCollisionGroup을 해야 한다.
-	PlayerAttEffectCollision->SetCollisionGroup(ECollisionOrder::Attack);
+	PlayerAttEffectCollision->SetCollisionGroup(ECollisionOrder::PlayerAttack);
 	PlayerAttEffectCollision->SetCollisionType(ECollisionType::Rect);
 }
 

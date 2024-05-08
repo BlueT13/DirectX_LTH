@@ -4,6 +4,8 @@
 #include <EngineCore/StateManager.h>
 #include <EngineCore/DefaultSceneComponent.h>
 #include "Player.h"
+#include "EnvyrokBullet.h"
+#include "EnvyrokTrap.h"
 
 // Ό³Έν :
 class AEnvyrok : public AActor
@@ -33,7 +35,10 @@ private:
 	UCollision* Collision = nullptr;
 
 	std::shared_ptr<UEngineTexture> ColMapTex = nullptr;
+	float ColMapX = 0.0f;
 	float ColMapY = 0.0f;
+	float ColMapHalfX = 0.0f;
+	float ColMapHalfY = 0.0f;
 
 	Color8Bit BottomColor;
 
@@ -42,6 +47,7 @@ private:
 	FVector GravityVector = FVector::Zero;
 	FVector JumpVector = FVector::Zero;
 	FVector JumpPower = FVector::Zero;
+	FVector AirSpikeDir = FVector::Zero;
 
 	void ColorColCheck();
 
@@ -52,11 +58,17 @@ private:
 	void AirSpike_Start(float _DeltaTime);
 	void AirSpike(float _DeltaTime);
 	void AirSpike_End(float _DeltaTime);
+	void SpawnTrap(float _DeltaTime);
 
 
 	void EnvyrokDirCheck();
 	void Gravity(float _DeltaTime);
 
 	float Speed = 850.0f;
+	float FireRate = 0.2f;
+	float CurFireTime = 0.0f;
+
+	std::vector<std::shared_ptr<AEnvyrokTrap>> LeftBlocks;
+	std::vector<std::shared_ptr<AEnvyrokTrap>> RightBlocks;
 };
 

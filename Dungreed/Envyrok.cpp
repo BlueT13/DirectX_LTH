@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Envyrok.h"
+#include <memory>
 
 AEnvyrok::AEnvyrok()
 {
@@ -40,7 +41,10 @@ void AEnvyrok::BeginPlay()
 	Collision->SetPosition({ 0,48,0 });
 
 	ColMapTex = UDungreedConstValue::ColMap;
+	ColMapX = ColMapTex->GetScale().X * UDungreedConstValue::AutoSize;
 	ColMapY = ColMapTex->GetScale().Y * UDungreedConstValue::AutoSize;
+	ColMapHalfX = ColMapTex->GetScale().hX() * UDungreedConstValue::AutoSize;
+	ColMapHalfY = ColMapTex->GetScale().hY() * UDungreedConstValue::AutoSize;
 
 	StateInit();
 }
@@ -69,6 +73,7 @@ void AEnvyrok::StateInit()
 	State.CreateState("EnvyrokAirSpike_Start");
 	State.CreateState("EnvyrokAirSpike");
 	State.CreateState("EnvyrokAirSpike_End");
+	State.CreateState("EnvyrokSpawnTrap");
 
 	// 함수들 세팅
 	State.SetUpdateFunction("EnvyrokIdle", std::bind(&AEnvyrok::Idle, this, std::placeholders::_1));
@@ -93,12 +98,44 @@ void AEnvyrok::StateInit()
 	State.SetStartFunction("EnvyrokAirSpike", [this]()
 		{
 			JumpVector = FVector::Up * 1200.0f;
+			CurFireTime = FireRate;
+
+			if (GetActorLocation().X < ColMapHalfX)
+			{
+				AirSpikeDir = FVector::Right;
+			}
+			else
+			{
+				AirSpikeDir = FVector::Left;
+			}
+
 			this->Renderer->ChangeAnimation("EnvyrokAirSpike");
 		});
 	State.SetUpdateFunction("EnvyrokAirSpike_End", std::bind(&AEnvyrok::AirSpike_End, this, std::placeholders::_1));
 	State.SetStartFunction("EnvyrokAirSpike_End", [this]()
 		{
 			this->Renderer->ChangeAnimation("EnvyrokAirSpike_End");
+		});
+	State.SetUpdateFunction("EnvyrokSpawnTrap", std::bind(&AEnvyrok::SpawnTrap, this, std::placeholders::_1));
+	State.SetStartFunction("EnvyrokSpawnTrap", [this]()
+		{
+			LeftBlocks.push_back(GetWorld()->SpawnActor<AEnvyrokTrap>("EnvyrokTrap0"));
+			LeftBlocks.push_back(GetWorld()->SpawnActor<AEnvyrokTrap>("EnvyrokTrap1"));
+			LeftBlocks.push_back(GetWorld()->SpawnActor<AEnvyrokTrap>("EnvyrokTrap2"));
+			LeftBlocks.push_back(GetWorld()->SpawnActor<AEnvyrokTrap>("EnvyrokTrap3"));
+			RightBlocks.push_back(GetWorld()->SpawnActor<AEnvyrokTrap>("EnvyrokTrap4"));
+			RightBlocks.push_back(GetWorld()->SpawnActor<AEnvyrokTrap>("EnvyrokTrap5"));
+			RightBlocks.push_back(GetWorld()->SpawnActor<AEnvyrokTrap>("EnvyrokTrap6"));
+			RightBlocks.push_back(GetWorld()->SpawnActor<AEnvyrokTrap>("EnvyrokTrap7"));
+
+			LeftBlocks[0]->SetActorLocation({ ColMapHalfX - 640 , ColMapHalfY - 160, 0.0f });
+			LeftBlocks[1]->SetActorLocation({ ColMapHalfX - 640 , ColMapHalfY - 28, 0.0f });
+			LeftBlocks[2]->SetActorLocation({ ColMapHalfX - 640 , ColMapHalfY + 104, 0.0f });
+			LeftBlocks[3]->SetActorLocation({ ColMapHalfX - 640 , ColMapHalfY + 236, 0.0f });
+			RightBlocks[0]->SetActorLocation({ ColMapHalfX + 640 , ColMapHalfY - 160, 0.0f });
+			RightBlocks[1]->SetActorLocation({ ColMapHalfX + 640 , ColMapHalfY - 28, 0.0f });
+			RightBlocks[2]->SetActorLocation({ ColMapHalfX + 640 , ColMapHalfY + 104, 0.0f });
+			RightBlocks[3]->SetActorLocation({ ColMapHalfX + 640 , ColMapHalfY + 236, 0.0f });
 		});
 
 	State.ChangeState("EnvyrokIdle");
@@ -120,6 +157,11 @@ void AEnvyrok::Idle(float _DeltaTime)
 	{
 		State.ChangeState("EnvyrokAirSpike_Start");
 	}
+	if (true == IsPress('2'))
+	{
+		State.ChangeState("EnvyrokSpawnTrap");
+	}
+
 }
 
 void AEnvyrok::Die(float _DeltaTime)
@@ -142,6 +184,39 @@ void AEnvyrok::AirSpike(float _DeltaTime)
 	JumpPower = JumpVector + GravityVector;
 	ColorColCheck();
 
+	// Bullet 생성
+	CurFireTime -= _DeltaTime;
+	if (CurFireTime < 0)
+	{
+		CurFireTime = FireRate;
+
+		std::shared_ptr<AEnvyrokBullet> EnvyrokBullet0 = GetWorld()->SpawnActor<AEnvyrokBullet>("EnvyrokBullet");
+		std::shared_ptr<AEnvyrokBullet> EnvyrokBullet1 = GetWorld()->SpawnActor<AEnvyrokBullet>("EnvyrokBullet");
+		std::shared_ptr<AEnvyrokBullet> EnvyrokBullet2 = GetWorld()->SpawnActor<AEnvyrokBullet>("EnvyrokBullet");
+		std::shared_ptr<AEnvyrokBullet> EnvyrokBullet3 = GetWorld()->SpawnActor<AEnvyrokBullet>("EnvyrokBullet");
+
+		EnvyrokBullet0->SetActorLocation(GetActorLocation());
+		EnvyrokBullet1->SetActorLocation(GetActorLocation());
+		EnvyrokBullet2->SetActorLocation(GetActorLocation());
+		EnvyrokBullet3->SetActorLocation(GetActorLocation());
+
+		if (GetActorLocation().X < ColMapHalfX)
+		{
+			EnvyrokBullet0->SetActorRotation({ 0.0f, 0.0f, 30.0f });
+			EnvyrokBullet1->SetActorRotation({ 0.0f, 0.0f, 120.0f });
+			EnvyrokBullet2->SetActorRotation({ 0.0f, 0.0f, 210.0f });
+			EnvyrokBullet3->SetActorRotation({ 0.0f, 0.0f, 300.0f });
+		}
+		else
+		{
+			EnvyrokBullet0->SetActorRotation({ 0.0f, 0.0f, -30.0f });
+			EnvyrokBullet1->SetActorRotation({ 0.0f, 0.0f, 60.0f });
+			EnvyrokBullet2->SetActorRotation({ 0.0f, 0.0f, 150.0f });
+			EnvyrokBullet3->SetActorRotation({ 0.0f, 0.0f, 240.0f });
+		}
+	}
+
+	// 착지
 	if (0 >= JumpPower.Y)
 	{
 		if (BottomColor == Color8Bit::Black)
@@ -153,7 +228,8 @@ void AEnvyrok::AirSpike(float _DeltaTime)
 	}
 
 	AddActorLocation(JumpPower * _DeltaTime);
-	AddActorLocation(FVector::Left * _DeltaTime * Speed);
+	AddActorLocation(AirSpikeDir * _DeltaTime * Speed);
+
 }
 
 void AEnvyrok::AirSpike_End(float _DeltaTime)
@@ -164,6 +240,51 @@ void AEnvyrok::AirSpike_End(float _DeltaTime)
 	{
 		Renderer->SetPosition(FVector::Zero);
 		State.ChangeState("EnvyrokIdle");
+	}
+}
+
+void AEnvyrok::SpawnTrap(float _DeltaTime)
+{
+	for (size_t i = 0; i < LeftBlocks.size(); i++)
+	{
+		LeftBlocks[i]->AddActorLocation(FVector::Right * 500.0f * _DeltaTime);
+	}
+	for (size_t i = 0; i < RightBlocks.size(); i++)
+	{
+		RightBlocks[i]->AddActorLocation(FVector::Left * 500.0f * _DeltaTime);
+	}
+
+	// 업데이트
+
+	// 23
+	std::set<int> LeftCheck;
+	for (size_t i = 0; i < LeftBlocks.size(); i++)
+	{
+		LeftBlocks[i]->Collision->CollisionStay(ECollisionOrder::Player, [&](std::shared_ptr<UCollision> _Collision)
+			{
+				LeftCheck.insert(i);
+				APlayer::MainPlayer->AddActorLocation(FVector::Right * 100.0f * _DeltaTime);
+			});
+	}
+
+	// [2]
+	std::set<int> RightCheck;
+	for (size_t i = 0; i < RightBlocks.size(); i++)
+	{
+		RightBlocks[i]->Collision->CollisionStay(ECollisionOrder::Player, [&](std::shared_ptr<UCollision> _Collision)
+			{
+				RightCheck.insert(i);
+				APlayer::MainPlayer->AddActorLocation(FVector::Left * 100.0f * _DeltaTime);
+			});
+	}
+
+	for (int Count : LeftCheck)
+	{
+		if (RightCheck.contains(Count))
+		{
+			APlayer::MainPlayer->GetHit(1);
+			break;
+		}
 	}
 }
 
