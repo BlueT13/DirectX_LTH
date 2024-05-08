@@ -23,7 +23,7 @@ AEnvyrokTrap::~AEnvyrokTrap()
 void AEnvyrokTrap::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	Renderer->SetSprite("EnvyrokTrap.png");
 	Renderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
 	Renderer->SetOrder(ERenderOrder::EnvyrokTrap);
@@ -38,8 +38,21 @@ void AEnvyrokTrap::Tick(float _DeltaTime)
 	// Ãæµ¹
 	Collision->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
-			int a = 0;
+			FVector PlayerPos = APlayer::MainPlayer->GetActorLocation();
+			FVector ThisPos = GetActorLocation();
+			FVector TrapToPlayerDir = FVector::Zero;
+			if (PlayerPos.Y > ThisPos.Y)
+			{
+				TrapToPlayerDir = FVector::Up;
+			}
+			else
+			{
+				TrapToPlayerDir = PlayerPos - ThisPos;
+			}
+			FVector TrapToPlayerDirNormal = TrapToPlayerDir.Normalize2DReturn();
 
+
+			APlayer::MainPlayer->AddActorLocation(TrapToPlayerDirNormal * _DeltaTime * 100.0f);
 		}
 	);
 
