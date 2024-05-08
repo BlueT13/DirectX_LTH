@@ -29,6 +29,10 @@ void AEnvyrokBullet::BeginPlay()
 	Renderer->ChangeAnimation("EnvyrokBullet");
 
 	Collision->SetScale(ColScale);
+
+	DelayCallBack(3.0f, [=]() {
+		Destroy();
+		});
 }
 
 void AEnvyrokBullet::Tick(float _DeltaTime)
@@ -36,5 +40,6 @@ void AEnvyrokBullet::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 	
 	AddActorLocation(GetActorTransform().GetUp() * 500.0f * _DeltaTime);
+
 }
 
