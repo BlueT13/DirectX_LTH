@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "EnvyrokTrap.h"
+#include "Player.h"
 
 AEnvyrokTrap::AEnvyrokTrap()
 {
@@ -34,6 +35,25 @@ void AEnvyrokTrap::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	// Ãæµ¹
+	Collision->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			int a = 0;
 
+		}
+	);
+
+
+	Collision->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			int a = 0;
+		}
+	);
+
+	Collision->CollisionExit(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			int a = 0;
+		}
+	);
 }
 

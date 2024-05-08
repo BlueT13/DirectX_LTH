@@ -19,7 +19,8 @@ class APlayer : public AActor
 {
 	GENERATED_BODY(AActor)
 	friend class AEnvyrok;
-
+	friend class AEnvyrokBullet;
+	friend class AEnvyrokTrap;
 public:
 	// constrcuter destructer
 	APlayer();

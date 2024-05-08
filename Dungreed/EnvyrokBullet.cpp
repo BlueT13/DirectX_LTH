@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "EnvyrokBullet.h"
+#include "Player.h"
 
 AEnvyrokBullet::AEnvyrokBullet() 
 {
@@ -12,7 +13,7 @@ AEnvyrokBullet::AEnvyrokBullet()
 	Collision = CreateDefaultSubObject<UCollision>("Collision");
 	Collision->SetupAttachment(DefaultComponent);
 	Collision->SetCollisionGroup(ECollisionOrder::MonsterAttack);
-	Collision->SetCollisionType(ECollisionType::Sphere);
+	Collision->SetCollisionType(ECollisionType::Rect);
 }
 
 AEnvyrokBullet::~AEnvyrokBullet() 
@@ -41,5 +42,28 @@ void AEnvyrokBullet::Tick(float _DeltaTime)
 	
 	AddActorLocation(GetActorTransform().GetUp() * 500.0f * _DeltaTime);
 
+	// Ãæµ¹
+	Collision->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			int a = 0;
+		}
+	);
+
+
+	Collision->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			int a = 0;
+			
+			Destroy();
+			APlayer* Player = dynamic_cast<APlayer*>(_Collision->GetActor());
+			Player->GetHit(1.0f);
+		}
+	);
+
+	Collision->CollisionExit(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			int a = 0;
+		}
+	);
 }
 

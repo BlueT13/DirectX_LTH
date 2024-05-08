@@ -1,9 +1,10 @@
 커밋 이력, 블로그 보면서 복습
 --------------------------------------------------------------------------------
 -Envyrok 구현
-1. AirSpike
+1. AirSpike (완료)
 2. SummonFlameSnake
 3. Stinger
+4. SpawnTrap
 
 -FlameSnake 공격 구현
 

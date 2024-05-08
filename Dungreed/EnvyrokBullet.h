@@ -27,6 +27,6 @@ private:
 	USpriteRenderer* Renderer = nullptr;
 	UCollision* Collision = nullptr;
 
-	FVector ColScale = { 84, 84, 84 };
+	FVector ColScale = { 84, 84, 100 };
 };
 

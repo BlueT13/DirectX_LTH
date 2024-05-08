@@ -68,6 +68,8 @@ private:
 	float FireRate = 0.2f;
 	float CurFireTime = 0.0f;
 
+	float BlockTime = 2.0f;
+	float CurBlockTime = 0.0f;
 	std::vector<std::shared_ptr<AEnvyrokTrap>> LeftBlocks;
 	std::vector<std::shared_ptr<AEnvyrokTrap>> RightBlocks;
 };
