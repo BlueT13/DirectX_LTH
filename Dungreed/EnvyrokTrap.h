@@ -29,5 +29,7 @@ private:
 	UCollision* Collision = nullptr;
 
 	FVector ColScale = { 260, 132, 100 };
+
+	bool IsCol = false;
 };
 
