@@ -53,8 +53,9 @@ void AEnvyrokTrap::Tick(float _DeltaTime)
 
 			APlayer::MainPlayer->GravityVector = FVector::Zero;
 			
-			_Collision->GetActor()->AddActorLocation(UpVector);
-			//_Collision->GetActor()->AddActorLocation(RightVector);
+			//_Collision->GetActor()->AddActorLocation(UpVector);
+			_Collision->GetActor()->AddActorLocation(RightVector);
+			//_Collision->GetActor()->AddActorLocation(-RightVector);
 
 
 		}
