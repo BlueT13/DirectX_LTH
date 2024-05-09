@@ -73,6 +73,9 @@
     <ClCompile Include="EnvyrokTrap.cpp">
       <Filter>Level\03. BossStageLevel\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="FlameSnake.cpp">
+      <Filter>Level\03. BossStageLevel\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DungreedCore.h">
@@ -145,6 +148,9 @@
       <Filter>Level\03. BossStageLevel\Actor</Filter>
     </ClInclude>
     <ClInclude Include="EnvyrokTrap.h">
+      <Filter>Level\03. BossStageLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="FlameSnake.h">
       <Filter>Level\03. BossStageLevel\Actor</Filter>
     </ClInclude>
   </ItemGroup>

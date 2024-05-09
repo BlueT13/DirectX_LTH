@@ -181,6 +181,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="EnvyrokTrap.h" />
+    <ClInclude Include="FlameSnake.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PlayerAttEffect.h">
       <SubType>
       </SubType>
@@ -243,6 +247,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="EnvyrokTrap.cpp" />
+    <ClCompile Include="FlameSnake.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PlayerAttEffect.cpp">
       <SubType>
       </SubType>

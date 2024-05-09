@@ -19,6 +19,16 @@ public:
 	AEnvyrokTrap& operator=(const AEnvyrokTrap& _Other) = delete;
 	AEnvyrokTrap& operator=(AEnvyrokTrap&& _Other) noexcept = delete;
 
+	void SetIsSafe(bool _Value)
+	{
+		IsSafe = _Value;
+	}
+
+	bool GetIsSafe()
+	{
+		return IsSafe;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -30,6 +40,6 @@ private:
 
 	FVector ColScale = { 260, 132, 100 };
 
-	bool IsCol = false;
+	bool IsSafe = false;
 };
 

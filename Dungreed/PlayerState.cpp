@@ -30,7 +30,7 @@ void APlayer::StateInit()
 	State.SetStartFunction("PlayerJump", [this]()
 		{
 			// 점프 시작할 때 JumpVector값 한번만 대입
-			JumpVector = FVector::Up * 1000.0f;
+			JumpVector = FVector::Up * 1200.0f;
 			this->BodyRenderer->ChangeAnimation("PlayerJump");
 		});
 
@@ -71,6 +71,12 @@ void APlayer::Idle(float _DeltaTime)
 	{
 		GravityVector = FVector::Zero;
 	}
+	
+	PlayerCollision->CollisionStay(ECollisionOrder::EnvyrokTrap, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			GravityVector = FVector::Zero;
+		}
+	);
 
 	// 발판 충돌체크
 	//if ()
@@ -204,6 +210,12 @@ void APlayer::Jump(float _DeltaTime)
 		}
 	}
 
+	PlayerCollision->CollisionStay(ECollisionOrder::EnvyrokTrap, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			State.ChangeState("PlayerIdle");
+		}
+	);
+
 	AddActorLocation(JumpPower * _DeltaTime);
 
 	// 공중에서 이동
@@ -298,6 +310,12 @@ void APlayer::Fall(float _DeltaTime)
 	PlayerDirCheck();
 	Gravity(_DeltaTime);
 	ColorColCheck();
+
+	PlayerCollision->CollisionStay(ECollisionOrder::EnvyrokTrap, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			State.ChangeState("PlayerIdle");
+		}
+	);
 
 	if (true == IsPress('A') && LeftColor != Color8Bit::Black)
 	{
