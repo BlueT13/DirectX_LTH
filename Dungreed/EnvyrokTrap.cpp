@@ -42,15 +42,19 @@ void AEnvyrokTrap::Tick(float _DeltaTime)
 			FVector ThisPos = GetActorLocation();
 			FVector PlayerScale = _Collision->GetWorldScale();
 			FVector ThisScale = Collision->GetWorldScale();
-			float CurInter = abs(PlayerPos.Y - ThisPos.Y);
-			float Inter = abs(PlayerScale.Y * 0.5f) + abs(ThisScale.Y * 0.5f);
-			float4 UpVector = float4(0.0f, Inter - CurInter, 0.0f);
+			
+			float CurInterY = abs(PlayerPos.Y - ThisPos.Y);
+			float InterY = abs(PlayerScale.Y * 0.5f) + abs(ThisScale.Y * 0.5f);
+			float4 UpVector = float4(0.0f, InterY - CurInterY, 0.0f);
 
-			APlayer::MainPlayer->JumpVector = FVector::Zero;
+			float CurInterX = abs(PlayerPos.X - ThisPos.X);
+			float InterX = abs(PlayerScale.X * 0.5f) + abs(ThisScale.X * 0.5f);
+			float4 RightVector = float4(InterX - CurInterX, 0.0f, 0.0f);
+
 			APlayer::MainPlayer->GravityVector = FVector::Zero;
 			
-
 			_Collision->GetActor()->AddActorLocation(UpVector);
+			//_Collision->GetActor()->AddActorLocation(RightVector);
 
 
 		}

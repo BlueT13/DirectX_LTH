@@ -269,33 +269,33 @@ void AEnvyrok::SpawnTrap(float _DeltaTime)
 		}
 	}
 	
-	// Trap 面倒 眉农
-	std::set<int> LeftCheck;
-	for (size_t i = 0; i < LeftBlocks.size(); i++)
-	{
-		LeftBlocks[i]->Collision->CollisionStay(ECollisionOrder::Player, [&](std::shared_ptr<UCollision> _Collision)
-			{
-				LeftCheck.insert(i);
-			});
-	}
+	//// Trap 面倒 眉农
+	//std::set<int> LeftCheck;
+	//for (size_t i = 0; i < LeftBlocks.size(); i++)
+	//{
+	//	LeftBlocks[i]->Collision->CollisionEnter(ECollisionOrder::Player, [&](std::shared_ptr<UCollision> _Collision)
+	//		{
+	//			LeftCheck.insert(i);
+	//		});
+	//}
 
-	std::set<int> RightCheck;
-	for (size_t i = 0; i < RightBlocks.size(); i++)
-	{
-		RightBlocks[i]->Collision->CollisionStay(ECollisionOrder::Player, [&](std::shared_ptr<UCollision> _Collision)
-			{
-				RightCheck.insert(i);
-			});
-	}
+	//std::set<int> RightCheck;
+	//for (size_t i = 0; i < RightBlocks.size(); i++)
+	//{
+	//	RightBlocks[i]->Collision->CollisionEnter(ECollisionOrder::Player, [&](std::shared_ptr<UCollision> _Collision)
+	//		{
+	//			RightCheck.insert(i);
+	//		});
+	//}
 
-	for (int Count : LeftCheck)
-	{
-		if (RightCheck.contains(Count))
-		{
-			APlayer::MainPlayer->GetHit(1);
-			break;
-		}
-	}
+	//for (int Count : LeftCheck)
+	//{
+	//	if (RightCheck.contains(Count))
+	//	{
+	//		APlayer::MainPlayer->GetHit(1);
+	//		break;
+	//	}
+	//}
 
 
 }
