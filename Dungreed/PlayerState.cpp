@@ -71,6 +71,14 @@ void APlayer::Idle(float _DeltaTime)
 	{
 		GravityVector = FVector::Zero;
 	}
+
+	// 발판 충돌체크
+
+	if (BottomColor == Color8Bit::Black || BottomColor == Color8Bit::Magenta || BottomColor == Color8Bit::Red)
+	{
+		GravityVector = FVector::Zero;
+	}
+
 	AddActorLocation(GravityVector * _DeltaTime);
 	GroundUp();
 

@@ -38,20 +38,21 @@ void AEnvyrokTrap::Tick(float _DeltaTime)
 	// 충돌
 	Collision->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
-			FVector PlayerPos = APlayer::MainPlayer->GetActorLocation();
+			FVector PlayerPos = _Collision->GetWorldPosition();
 			FVector ThisPos = GetActorLocation();
-			FVector TrapToPlayerDir = PlayerPos - ThisPos;
-			//if (PlayerPos.Y >= ThisPos.Y)
-			//{
-			//	TrapToPlayerDir.X = 0.0f;
-			//	APlayer::MainPlayer->State.ChangeState("PlayerIdle");
-			//}
+			FVector PlayerScale = _Collision->GetWorldScale();
+			FVector ThisScale = Collision->GetWorldScale();
+			float CurInter = abs(PlayerPos.Y - ThisPos.Y);
+			float Inter = abs(PlayerScale.Y * 0.5f) + abs(ThisScale.Y * 0.5f);
+			float4 UpVector = float4(0.0f, Inter - CurInter, 0.0f);
 
-			// 아예 안겹칠 위치로 무조건 순간이동 시켜야 한다.
-			while (true == IsCol)
-			{
-				APlayer::MainPlayer->AddActorLocation(TrapToPlayerDir.Normalize2DReturn());
-			}
+			APlayer::MainPlayer->JumpVector = FVector::Zero;
+			APlayer::MainPlayer->GravityVector = FVector::Zero;
+			
+
+			_Collision->GetActor()->AddActorLocation(UpVector);
+
+
 		}
 	);
 
@@ -59,15 +60,13 @@ void AEnvyrokTrap::Tick(float _DeltaTime)
 	Collision->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			int a = 0;
-			IsCol = true;
-			//APlayer::MainPlayer->State.ChangeState("PlayerIdle");
+			APlayer::MainPlayer->State.ChangeState("PlayerIdle");
 		}
 	);
 
 	Collision->CollisionExit(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			int a = 0;
-			IsCol = false;
 		}
 	);
 }

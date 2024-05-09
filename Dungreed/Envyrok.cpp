@@ -293,14 +293,6 @@ void AEnvyrok::SpawnTrap(float _DeltaTime)
 		if (RightCheck.contains(Count))
 		{
 			APlayer::MainPlayer->GetHit(1);
-			for (size_t i = 0; i < LeftBlocks.size(); i++)
-			{
-				LeftBlocks[i]->Collision->SetActive(false);
-			}
-			for (size_t i = 0; i < RightBlocks.size(); i++)
-			{
-				RightBlocks[i]->Collision->SetActive(false);
-			}
 			break;
 		}
 	}
