@@ -25,7 +25,7 @@ public:
 
 	void operator<<(UEngineSerializeObject* _Data);
 
-	void operator<<(const int& _Data) 
+	void operator<<(const int& _Data)
 	{
 		Write(&_Data, sizeof(int));
 	}
@@ -110,6 +110,14 @@ public:
 	}
 
 
+	int BufferSize()
+	{
+		return static_cast<int>(Data.size());
+	}
+
+	void Reset();
+
+	void ResetRead();
 	void ResetWrite();
 
 	void BufferResize(int _Size);
@@ -125,6 +133,22 @@ public:
 	{
 		return &Data[0];
 	}
+
+	char* DataCharPtr()
+	{
+		return &Data[0];
+	}
+
+	int GetWriteOffset()
+	{
+		return WriteOffset;
+	}
+
+	void SetWriteOffset(int _Offset)
+	{
+		WriteOffset = _Offset;
+	}
+
 
 
 protected:

@@ -11,7 +11,7 @@
 
 // 이녀석은 선생님 본래 관리 방식을 보여드리겠습니다.
 
-class UEngineSoundPlayer 
+class UEngineSoundPlayer
 {
 	friend class UEngineSound;
 
@@ -30,10 +30,7 @@ public:
 		Control->setLoopCount(Count);
 	}
 
-	void Replay()
-	{
-		Control->setPosition(0, FMOD_TIMEUNIT_MS);
-	}
+	UEngineSoundPlayer Replay();
 
 	void OnOffSwitch()
 	{
@@ -52,6 +49,7 @@ public:
 	void SetVolume(float _Volume);
 
 private:
+	std::string Name;
 	// 이게 사운드 재생에 대한 권한 입니다.
 	FMOD::Channel* Control = nullptr;
 };

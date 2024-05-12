@@ -17,6 +17,8 @@ public:
 	UEngineServer& operator=(const UEngineServer& _Other) = delete;
 	UEngineServer& operator=(UEngineServer&& _Other) noexcept = delete;
 
+	void Send(std::shared_ptr<UEngineProtocol> _Protocol) override;
+
 protected:
 	void ServerOpen(int _Port, int _BackLog = 512) override;
 
@@ -25,8 +27,10 @@ private:
 	UEngineThread AcceptThread;
 	UTCPSession AcceptSession;
 
+	// 뮤택스 만들어야할 가능성이 있다.
 	// std::shared_ptr 쓰레드에 안전합니다.
 	std::list<std::shared_ptr<USession>> Sessions;
+	std::list<std::shared_ptr<UEngineThread>> SessionRecvs;
 
 	static void AcceptThreadFunction(UEngineServer* _Server, SOCKET _AcceptSocket);
 };

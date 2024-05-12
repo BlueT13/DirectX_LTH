@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "TCPSession.h"
 #include "EngineDebug.h"
+#include "EngineProtocol.h"
 
 UTCPSession::UTCPSession() 
 {
@@ -42,4 +43,21 @@ void UTCPSession::Bind(int _Port)
 		assert(false);
 	}
 
+}
+
+
+int UTCPSession::Send(UEngineSerializer& _Ser)
+{
+	return Send(_Ser.DataPtr(), _Ser.WriteSize());
+}
+
+int UTCPSession::Send(void* Data, int Size)
+{
+	return send(Socket, reinterpret_cast<char*>(Data), Size, 0);
+}
+
+int UTCPSession::Send(std::shared_ptr<UEngineProtocol> _Packet)
+{
+	UEngineSerializer Ser = _Packet->GetSerialize();
+	return Send(Ser);
 }

@@ -6,6 +6,7 @@
 bool UEngineWindow::WindowLive = true;
 HINSTANCE UEngineWindow::hInstance;
 std::function<bool(HWND, UINT, WPARAM, LPARAM)> UEngineWindow::UserWndProcFunction;
+std::map<HWND, UEngineWindow*> UEngineWindow::AllWindow;
 
 void UEngineWindow::SetUserWindowCallBack(std::function<bool(HWND, UINT, WPARAM, LPARAM)> _UserWndProcFunction)
 {
@@ -16,10 +17,7 @@ LRESULT CALLBACK UEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, 
 {
 	if (nullptr != UserWndProcFunction)
 	{
-		if (true == UserWndProcFunction(hWnd, message, wParam, lParam))
-		{
-			return true;
-		}
+		UserWndProcFunction(hWnd, message, wParam, lParam);
 	}
 
 	//if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
@@ -32,8 +30,19 @@ LRESULT CALLBACK UEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, 
 		PAINTSTRUCT ps;
 		HDC hdc = BeginPaint(hWnd, &ps);
 		EndPaint(hWnd, &ps);
+		break;
 	}
-	break;
+	case WM_SETFOCUS:
+	{
+		// 내가 포커스가 됐다.
+		AllWindow[hWnd]->IsFocusValue = true;
+		break;
+	}
+	case WM_KILLFOCUS:
+	{
+		AllWindow[hWnd]->IsFocusValue = false;
+		break;
+	}
 	case WM_DESTROY:
 		WindowLive = false;
 		// PostQuitMessage(123213);
@@ -133,6 +142,8 @@ void UEngineWindow::Open(std::string_view _Title /*= "Title"*/, std::string_view
 
 	hWnd = CreateWindowA("DefaultWindow", _Title.data(), Style,
 		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+
+	AllWindow[hWnd] = this;
 
 	if (!hWnd)
 	{

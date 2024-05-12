@@ -50,25 +50,34 @@
       <Filter>Thread</Filter>
     </ClInclude>
     <ClInclude Include="EngineClient.h">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClInclude>
     <ClInclude Include="EngineNet.h">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClInclude>
     <ClInclude Include="EngineNetHeader.h">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClInclude>
     <ClInclude Include="EngineServer.h">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClInclude>
     <ClInclude Include="NetStartUpHelper.h">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClInclude>
     <ClInclude Include="Session.h">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClInclude>
     <ClInclude Include="TCPSession.h">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineDispatcher.h">
+      <Filter>Net\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineProtocol.h">
+      <Filter>Net\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="NetObject.h">
+      <Filter>Net\Protocol</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -121,22 +130,31 @@
       <Filter>Thread</Filter>
     </ClCompile>
     <ClCompile Include="EngineClient.cpp">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClCompile>
     <ClCompile Include="EngineNet.cpp">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClCompile>
     <ClCompile Include="EngineServer.cpp">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClCompile>
     <ClCompile Include="NetStartUpHelper.cpp">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClCompile>
     <ClCompile Include="Session.cpp">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
     </ClCompile>
     <ClCompile Include="TCPSession.cpp">
-      <Filter>Net</Filter>
+      <Filter>Net\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineDispatcher.cpp">
+      <Filter>Net\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineProtocol.cpp">
+      <Filter>Net\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="NetObject.cpp">
+      <Filter>Net\Protocol</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +184,12 @@
     </Filter>
     <Filter Include="Net">
       <UniqueIdentifier>{881652f5-dfff-4be2-aa9c-bb4b1a26548b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Net\Base">
+      <UniqueIdentifier>{4ed9185c-254e-4062-a074-7d096c7a5c7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Net\Protocol">
+      <UniqueIdentifier>{5d0ed52d-407f-4f90-a287-31ece72d2e03}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
