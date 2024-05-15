@@ -66,6 +66,15 @@ void APlayGameMode::Tick(float _DeltaTime)
 		TownMap->MapRendererSwitch();
 		Background->MapRendererSwitch();
 	}
+
+	if (true == UEngineInput::IsDown('P'))
+	{
+		GEngine->ChangeLevel("BossStageLevel");
+	}
+	if (true == UEngineInput::IsDown(VK_ESCAPE))
+	{
+		GEngine->EngineWindow.Off();
+	}
 }
 
 void APlayGameMode::LevelEnd(ULevel* _NextLevel)

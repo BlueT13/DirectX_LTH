@@ -94,6 +94,7 @@ void AEnvyrok::StateInit()
 			Renderer->SetPosition({ 0,-32,0 });
 			this->Renderer->ChangeAnimation("EnvyrokAirSpike_Start");
 		});
+
 	State.SetUpdateFunction("EnvyrokAirSpike", std::bind(&AEnvyrok::AirSpike, this, std::placeholders::_1));
 	State.SetStartFunction("EnvyrokAirSpike", [this]()
 		{
@@ -111,15 +112,20 @@ void AEnvyrok::StateInit()
 
 			this->Renderer->ChangeAnimation("EnvyrokAirSpike");
 		});
+
 	State.SetUpdateFunction("EnvyrokAirSpike_End", std::bind(&AEnvyrok::AirSpike_End, this, std::placeholders::_1));
 	State.SetStartFunction("EnvyrokAirSpike_End", [this]()
 		{
 			this->Renderer->ChangeAnimation("EnvyrokAirSpike_End");
 		});
+
 	State.SetUpdateFunction("EnvyrokSpawnTrap", std::bind(&AEnvyrok::SpawnTrap, this, std::placeholders::_1));
 	State.SetStartFunction("EnvyrokSpawnTrap", [this]()
 		{
-			CurBlockTime = 2.0f;
+			CurBlockTime = BlockTime;
+			CurAwayTime = AwayTime;
+
+			// 블록 생성
 			LeftBlocks.push_back(GetWorld()->SpawnActor<AEnvyrokTrap>("EnvyrokTrap0"));
 			LeftBlocks.push_back(GetWorld()->SpawnActor<AEnvyrokTrap>("EnvyrokTrap1"));
 			LeftBlocks.push_back(GetWorld()->SpawnActor<AEnvyrokTrap>("EnvyrokTrap2"));
@@ -129,6 +135,7 @@ void AEnvyrok::StateInit()
 			RightBlocks.push_back(GetWorld()->SpawnActor<AEnvyrokTrap>("EnvyrokTrap6"));
 			RightBlocks.push_back(GetWorld()->SpawnActor<AEnvyrokTrap>("EnvyrokTrap7"));
 
+			// 블록 생성 위치 설정
 			LeftBlocks[0]->SetActorLocation({ ColMapHalfX - 640 , ColMapHalfY - 160, 0.0f });
 			LeftBlocks[1]->SetActorLocation({ ColMapHalfX - 640 , ColMapHalfY - 28, 0.0f });
 			LeftBlocks[2]->SetActorLocation({ ColMapHalfX - 640 , ColMapHalfY + 104, 0.0f });
@@ -138,6 +145,7 @@ void AEnvyrok::StateInit()
 			RightBlocks[2]->SetActorLocation({ ColMapHalfX + 640 , ColMapHalfY + 104, 0.0f });
 			RightBlocks[3]->SetActorLocation({ ColMapHalfX + 640 , ColMapHalfY + 236, 0.0f });
 
+			// 안전 블록 선택
 			LeftBlocks[2]->SetIsSafe(true);
 			RightBlocks[2]->SetIsSafe(true);
 
@@ -265,6 +273,7 @@ void AEnvyrok::AirSpike_End(float _DeltaTime)
 void AEnvyrok::SpawnTrap(float _DeltaTime)
 {
 	CurBlockTime -= _DeltaTime;
+	CurAwayTime -= _DeltaTime;
 
 	if (0.0f < CurBlockTime)
 	{
@@ -320,6 +329,33 @@ void AEnvyrok::SpawnTrap(float _DeltaTime)
 		{
 			APlayer::MainPlayer->GetHit(1);
 			break;
+		}
+	}
+
+	if (CurAwayTime < 0)
+	{
+		for (size_t i = 0; i < LeftBlocks.size(); i++)
+		{
+				LeftBlocks[i]->AddActorLocation(FVector::Left * 4000.0f * _DeltaTime);
+		}
+		for (size_t i = 0; i < RightBlocks.size(); i++)
+		{
+				RightBlocks[i]->AddActorLocation(FVector::Right * 4000.0f * _DeltaTime);
+		}
+
+		if (LeftBlocks[0]->GetActorLocation().X < 100)
+		{
+			for (size_t i = 0; i < LeftBlocks.size(); i++)
+			{
+				LeftBlocks[i]->Destroy();
+			}
+			for (size_t i = 0; i < RightBlocks.size(); i++)
+			{
+				RightBlocks[i]->Destroy();
+			}
+			LeftBlocks.clear();
+			RightBlocks.clear();
+			State.ChangeState("EnvyrokIdle");
 		}
 	}
 

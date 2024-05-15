@@ -69,6 +69,11 @@ void ABossStageMode::Tick(float _DeltaTime)
 	{
 		BossStageMap->MapRendererSwitch();
 	}
+
+	if (true == UEngineInput::IsDown(VK_ESCAPE))
+	{
+		GEngine->EngineWindow.Off();
+	}
 }
 
 void ABossStageMode::LevelEnd(ULevel* _NextLevel)

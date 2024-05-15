@@ -69,8 +69,10 @@ private:
 	float CurFireTime = 0.0f;
 	bool ColJump = false;
 
-	float BlockTime = 1.0f;
+	float BlockTime = 2.0f;
 	float CurBlockTime = 0.0f;
+	float AwayTime = 3.0f;
+	float CurAwayTime = 0.0f;
 	std::vector<std::shared_ptr<AEnvyrokTrap>> LeftBlocks;
 	std::vector<std::shared_ptr<AEnvyrokTrap>> RightBlocks;
 };
