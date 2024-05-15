@@ -19,6 +19,15 @@ public:
 
 	void Send(std::shared_ptr<UEngineProtocol> _Protocol) override;
 
+	int GetSessionToken()
+	{
+		return Session.GetSessionToken();
+	}
+	void SetSessionToken(int _SessionToken)
+	{
+		Session.SetSessionToken(_SessionToken);
+	}
+
 protected:
 	void ServerOpen(int _Port, int _BackLog) override;
 	void Connect(std::string _Ip, int _Port) override;

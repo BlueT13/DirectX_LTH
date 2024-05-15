@@ -2,21 +2,18 @@
 --------------------------------------------------------------------------------
 -Envyrok 구현
 1. AirSpike (완료)
-2. SummonFlameSnake
-3. Stinger
-4. SpawnTrap
-
--FlameSnake 공격 구현
-
--Monster GetHit 구현, slash애니메이션 추가
-
--Player 아래키 누르면 내려가는 기능 구현
-
+2. SpawnTrap
+3. SummonFlameSnake
+4. Stinger
 
 -마을에서 보스레벨로 이동 구현 (collision Check)
 (던전에 먹히는 애니메이션 구현)
 
 -타이틀 UI, 구름 이미지, 버튼 구현
+
+-Monster GetHit 구현, slash애니메이션 추가
+
+-Player 아래키 누르면 내려가는 기능 구현
 --------------------------------------------------------------------------------
 -맵 저장 이름 설정 gui 구현
 -보스 col맵, 맵 제작

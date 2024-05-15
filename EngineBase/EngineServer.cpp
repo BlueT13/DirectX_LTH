@@ -30,9 +30,16 @@ void UEngineServer::AcceptThreadFunction(UEngineServer* Server, SOCKET _AcceptSo
 
 		std::shared_ptr<UTCPSession> NewSession = std::make_shared<UTCPSession>(ClientSocket);
 
-		int Token = USession::GetNewSessionToken();
+		// 토큰의 생성은 가장 쉬운게 서버에요.
+		// 서버가 다 담당할 겁니다.
+		int SessionToken = USession::GetNewSessionToken();
+		int ObjectToken = UNetObject::GetNewObjectToken();
+
 		USessionTokenPacket NewPacket;
-		NewPacket.SetSessionToken(Token);
+
+		// 세션 토큰과 
+		NewPacket.SetSessionToken(SessionToken);
+		NewPacket.SetObjectToken(ObjectToken);
 
 		UEngineSerializer Ser = NewPacket.GetSerialize();
 		NewSession->Send(Ser);
@@ -41,7 +48,7 @@ void UEngineServer::AcceptThreadFunction(UEngineServer* Server, SOCKET _AcceptSo
 		// 그녀석은 이제 준비가 된거다.
 		// 티키타가를 잘이해해야 한다.
 		std::shared_ptr<UEngineThread> ClientRecvThread = std::make_shared<UEngineThread>();
-		ClientRecvThread->SetName("Server Recv Thread " + std::to_string(Token));
+		ClientRecvThread->SetName("Server Recv Thread " + std::to_string(ObjectToken));
 		ClientRecvThread->Start(std::bind(UEngineNet::RecvThreadFunction, NewSession.get(), Server));
 
 		Server->SessionRecvs.push_back(ClientRecvThread);
@@ -56,6 +63,7 @@ void UEngineServer::ServerOpen(int _Port, int _BackLog /*= 512*/)
 
 	AcceptSession.Create();
 	AcceptSession.Bind(_Port);
+	AcceptSession.SetSessionToken(USession::GetNewSessionToken());
 
 	int BackLog = 1;
 	if (SOCKET_ERROR == listen(AcceptSession.GetSocket(), BackLog))
@@ -77,6 +85,11 @@ void UEngineServer::Send(std::shared_ptr<UEngineProtocol> _Protocol)
 	for (std::shared_ptr<USession> User : Sessions)
 	{
 		if (false == User->IsTokenInit())
+		{
+			continue;
+		}
+
+		if (User->GetSessionToken() == _Protocol->GetSessionToken())
 		{
 			continue;
 		}

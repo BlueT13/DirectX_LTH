@@ -1,10 +1,12 @@
 #pragma once
 #include "EngineSerializer.h"
 #include "EngineDispatcher.h"
+#include "EngineProtocol.h"
 
 // 설명 : 내가 뭔지는 중요하지 않다. 
 
-
+// 세션을 가지고 연결을 담당한다.
+// 서버와 클라
 class USession;
 class UEngineProtocol;
 class UEngineNet
@@ -42,17 +44,26 @@ public:
 		IsActiveValue = false;
 	}
 
+	void SetTokenPacketFunction(std::function<void(USessionTokenPacket*)> _Function)
+	{
+		TokenPacketFunction = _Function;
+	}
+
 	virtual void Send(std::shared_ptr<UEngineProtocol> _Protocol) {};
 
 	static void RecvThreadFunction(USession* _Session, UEngineNet* _Net);
 
 	// 값형으로 쓸때만 보통 public으로 둡니다..
+
+	virtual int GetSessionToken() = 0;
+	virtual void SetSessionToken(int _SessionToken) = 0;
+
 	UEngineDispatcher Dispatcher;
 
 protected:
-	int SessionToken = -1;
 
 private:
+	std::function<void(USessionTokenPacket*)> TokenPacketFunction = nullptr;
 	std::atomic_bool IsActiveValue = true;
 };
 

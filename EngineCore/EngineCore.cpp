@@ -112,6 +112,9 @@ void UEngineCore::EngineFrameUpdate()
 	{
 		UEngineInput::KeyCheckTick(DeltaTime);
 	}
+	else {
+		UEngineInput::AllKeyReset();
+	}
 
 	GEngine->EngineWindow.CalculateMouseUpdate(DeltaTime);
 

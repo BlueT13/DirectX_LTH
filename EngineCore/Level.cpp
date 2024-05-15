@@ -9,6 +9,7 @@
 #include "EngineGraphicDevice.h"
 #include "InstancingRender.h"
 #include "Widget.h"
+#include <EngineBase/NetObject.h>
 
 bool ULevel::IsActorConstructer = true;
 
@@ -41,6 +42,17 @@ ULevel::~ULevel()
 
 void ULevel::Tick(float _DeltaTime)
 {
+	{
+		std::lock_guard<std::mutex> Lock(FunctionLock);
+		for (std::function<void()> Function : Functions)
+		{
+			Function();
+		}
+		Functions.clear();
+	}
+
+	// UNetObject::UpdateProtocol();
+
 	// 1 플레이어 그룹 [][]
 	// 2 몬스터 그룹 [][]
 

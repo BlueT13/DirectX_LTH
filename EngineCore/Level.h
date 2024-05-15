@@ -18,6 +18,7 @@ class UEngineCore;
 class UWidget;
 class UEngineRenderTarget;
 class UInstancingRender;
+class UEngineProtocol;
 class ULevel final : public UTickObject, public UNameObject
 {
 	GENERATED_BODY(UTickObject)
@@ -111,6 +112,11 @@ public:
 		InstancingRenders[_Order] = std::make_shared<InstancingType>();
 	}
 
+	void PushFunction(std::function<void()> _Function)
+	{
+		std::lock_guard<std::mutex> Lock(FunctionLock);
+		Functions.push_back(_Function);
+	}
 
 protected:
 	void Tick(float _DeltaTime) override;
@@ -132,17 +138,15 @@ private:
 
 	std::map<int, std::list<std::shared_ptr<URenderer>>> Renderers;
 	std::map<int, std::shared_ptr<UInstancingRender>> InstancingRenders;
-	// std::map<int, >> Renderers;
-
-	
-	// std::map<int, > Renderers;
-
 	std::map<int, std::list<std::shared_ptr<UCollision>>> Collisions;
 
 	// Widget이라고 불리고
 	// 아예 액터랑 분리되어 있다.
 	std::map<int, std::list<std::shared_ptr<UWidget>>> Widgets;
 	std::list<std::shared_ptr<UWidget>> WidgetInits; 
+
+	std::mutex FunctionLock;
+	std::list<std::function<void()>> Functions;
 
 	void ConstructorActor(std::shared_ptr<AActor> _Actor, std::string_view _Name, int Order);
 	void PushActor(std::shared_ptr<AActor> _Actor);
@@ -156,5 +160,6 @@ private:
 	{
 		GameMode = _GameMode;
 	}
+
 };
 

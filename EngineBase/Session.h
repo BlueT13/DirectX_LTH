@@ -19,7 +19,7 @@ public:
 
 	static int GetNewSessionToken()
 	{
-		return ++CurSessionToken;
+		return CurSessionToken++;
 	}
 
 	SOCKET GetSocket()
@@ -37,9 +37,16 @@ public:
 		return Address;
 	}
 
-	void SetToken(int _Token)
+
+	int GetSessionToken()
 	{
-		Token = _Token;
+		return SessionToken;
+	}
+
+
+	void SetSessionToken(int _SessionToken)
+	{
+		SessionToken = _SessionToken;
 	}
 
 	bool Connect();
@@ -66,7 +73,7 @@ protected:
 	SOCKADDR_IN Address = {};
 	std::string IP = "127.0.0.1";
 	int Port = 0;
-	int Token = -1;
+	int SessionToken = -1;
 	bool TokenInit = false;
 
 private:
