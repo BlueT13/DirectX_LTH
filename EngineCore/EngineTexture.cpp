@@ -22,6 +22,12 @@ UEngineTexture::~UEngineTexture()
 		RTV->Release();
 	}
 
+	if (nullptr != DSV)
+	{
+		DSV->Release();
+	}
+
+
 	if (nullptr != Texture2D)
 	{
 		Texture2D->Release();
@@ -38,9 +44,13 @@ void UEngineTexture::ResCreate(const D3D11_TEXTURE2D_DESC& _Desc)
 	{
 		CreateRenderTargetView();
 	}
-	if (Desc.BindFlags & D3D11_BIND_FLAG::D3D11_BIND_RENDER_TARGET)
+	if (Desc.BindFlags & D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE)
 	{
 		CreateShaderResourceView();
+	}
+	if (Desc.BindFlags & D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL)
+	{
+		CreateDepthStencilView();
 	}
 }
 
@@ -51,6 +61,32 @@ void UEngineTexture::ResCreate(ID3D11Texture2D* _Texture)
 	Texture2D->GetDesc(&Desc);
 
 	CreateRenderTargetView();
+}
+
+void UEngineTexture::CreateDepthStencilView()
+{
+	if (nullptr != DSV)
+	{
+		return;
+	}
+
+	if (nullptr == Texture2D)
+	{
+		MsgBoxAssert("만들어지지 않은 텍스처로 랜더타겟뷰를 생성하려고 했습니다.");
+		return;
+	}
+
+	// 이제 텍스처 메모리에서 이미지를 수정할수 있는 권한을 만든다
+	// 다이렉트에서 뭔가를 하려면 근본적으로 2가지 관련되어 있습니다.
+	// 메모리 => Device
+	// 랜더링 => Context
+	HRESULT Result = GEngine->GetDirectXDevice()->CreateDepthStencilView(Texture2D, nullptr, &DSV);
+
+	if (S_OK != Result)
+	{
+		MsgBoxAssert("쉐이더 리소스 뷰 생성에 실패했습니다.");
+		return;
+	}
 }
 
 void UEngineTexture::CreateShaderResourceView()

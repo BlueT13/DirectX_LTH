@@ -62,6 +62,8 @@ public:
 		return CameraTarget;
 	}
 
+	void DepthOn();
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -85,6 +87,8 @@ private:
 	FTransform PrevTransform;
 
 	float FreeCameraMoveSpeed = 500.0f;
+
+	bool IsDepth = false;
 
 	ECameraType PrevProjectionType = ECameraType::Orthographic;
 

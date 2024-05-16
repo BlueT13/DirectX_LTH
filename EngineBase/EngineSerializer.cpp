@@ -89,6 +89,11 @@ void UEngineSerializer::ResetRead()
 	ReadOffset = 0;
 }
 
+void UEngineSerializer::AddReadOffset(int _Value)
+{
+	ReadOffset += _Value;
+}
+
 void UEngineSerializer::ResetWrite()
 {
 	WriteOffset = 0;

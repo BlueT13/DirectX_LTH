@@ -1,6 +1,6 @@
 #pragma once
 // 키보드를 제어해주는 건 OS일것이기 때문에
-// 입력에 대한 함수도 당연히 OS가 우리에게 제공해야 합니다.
+// 입력에 대한 함수도 당연히 OS가 제공해야 함
 #include <Windows.h>
 #include <map>
 #include <EngineBase\EngineDebug.h>
@@ -20,7 +20,7 @@ private:
 		bool Down = false; // 누른 순간
 		bool Press = false; // 계속 누르면
 		bool Up = false; // 떼어진 순간
-		bool Free = true; // 누리지 않으면
+		bool Free = true; // 눌리지 않으면
 
 		float PressTime = 0.0f;
 		float UpTime = 0.0f;
@@ -144,7 +144,7 @@ public:
 
 protected:
 	// 키 체크하는 정도의 수준
-	// 선택적으로 누가 잇풋을 받느냐 안받느냐는 이녀석이 체크하지는 못한다.
+	// 선택적으로 누가 인풋을 받느냐 안받느냐는 이녀석이 체크하지는 못한다.
 
 	
 	//              'A'  상태가 어때?

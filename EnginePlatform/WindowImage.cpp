@@ -12,7 +12,7 @@
 
 
 
-// Png를 로드하는 기능을 윈도우 기본 라이브러리만으로 지원해주지 않기 때문ㅇ
+// Png를 로드하는 기능을 윈도우 기본 라이브러리만으로 지원해주지 않기 때문
 // GDIPlus를 사용해야 한다.
 // GIDPlus는 윈도우가 초기 윈도우의 그래픽 시스템을 개선해서 추가한 라이브러리입니다.
 
@@ -24,9 +24,7 @@ UWindowImage::UWindowImage()
 
 UWindowImage::~UWindowImage()
 {
-	// 윈도우가 할당해준거지만
-	// 정리는 우리가 해주는게 좋습니다.
-
+	// 윈도우가 할당
 	switch (LoadType)
 	{
 	case EImageLoadType::IMG_Folder:

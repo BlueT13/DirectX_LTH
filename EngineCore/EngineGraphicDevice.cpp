@@ -221,7 +221,6 @@ void UEngineGraphicDevice::CreateSwapChain(const float4& _ClearColor)
 	// 안사용할수가 없다.
 	// 그림이 그려지기 까지 고정되어있는 과정의 마지막단계라고 보면되는데.
 	// 그림이 그려지기 까지 벌어지는 이 고정되어있는 과정을 랜더링파이프라인이라고 하고
-	// 이건 간혹가다 회사가리지 않고 물어볼때가 있어서
 	// 스왑체인은 그 랜더링 파이프라인의 가장 마지막단계를 담당합니다.
 	// 모니터에 출력.
 	// 랜더링에서 기존에 있던 그림을 깨끗히 지우고 다시그리는건 어느 랜더링이 거의 공통적인
@@ -246,7 +245,6 @@ void UEngineGraphicDevice::CreateSwapChain(const float4& _ClearColor)
 	ScInfo.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	// 모니터 픽셀을 갱신하는 순서 모니터 그대로
 	ScInfo.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
-	// 아예 기억안남
 	ScInfo.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 
 	// 이 스왑체인을 무슨용도로 쓰실건가요?
@@ -320,8 +318,8 @@ void UEngineGraphicDevice::CreateSwapChain(const float4& _ClearColor)
 	// 싱글톤 안씀
 	// 이제부터 그냥 그 클래스가 관리함.
 	// 당연히 static으로 모든 리소스는 관리방식이 동일해야 한다.
-	// 우리가 말하는 랜더리잉란 이녀석이 가장 중요한 텍스처 결국 여기에 그려야 화면에 나온다.
-	// 하지만 그릴수 있는 권한은 아직 없어요
+	// 우리가 말하는 랜더링이란 이녀석이 가장 중요한 텍스처 결국 여기에 그려야 화면에 나온다.
+	// 하지만 그릴수 있는 권한은 아직 없음
 	std::shared_ptr<UEngineTexture> Texture = UEngineTexture::Create(DXBackBufferTexture);
 
 	// 그릴수 있는 권한이나 지우는 기능들은 다 랜더타겟이라는 걸로 
@@ -329,11 +327,6 @@ void UEngineGraphicDevice::CreateSwapChain(const float4& _ClearColor)
 	// 오로지 랜더타겟 뷰로만 사용할 겁니다.
 	// 이미지에대 이미지로 그린다.
 	BackBufferRenderTarget = UEngineRenderTarget::Create(Texture, _ClearColor);
-	// 우리 winapi HDC를 HDC그대로 사용했나요?
-	// 
-
-
-	
 }
 
 void UEngineGraphicDevice::RenderStart()

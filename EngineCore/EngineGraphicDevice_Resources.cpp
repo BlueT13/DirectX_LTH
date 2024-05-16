@@ -11,6 +11,7 @@
 #include "EngineBlend.h"
 #include "EngineMaterial.h"
 #include "EngineSprite.h"
+#include "EngineDepthStencil.h"
 
 #include "EngineRenderTarget.h"
 
@@ -37,7 +38,7 @@ void UEngineGraphicDevice::EngineResourcesRelease()
 	UEnginePixelShader::ResourcesRelease();
 	UEngineRasterizer::ResourcesRelease();
 	UEngineBlend::ResourcesRelease();
-
+	UEngineDepthStencil::ResourcesRelease();
 
 	UEngineMaterial::ResourcesRelease();
 }
@@ -262,6 +263,19 @@ void SettingInit()
 		Desc.AntialiasedLineEnable = TRUE;
 		Desc.DepthClipEnable = TRUE;
 		UEngineRasterizer::Create("Debug", Desc);
+	}
+
+
+	{
+		D3D11_DEPTH_STENCIL_DESC Desc = { 0, };
+		Desc.DepthEnable = true;
+		// 깊이버퍼의 z값을 저장한다 => float
+		// 4바이트
+		Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK::D3D11_DEPTH_WRITE_MASK_ALL;
+		Desc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS;
+		Desc.StencilEnable = false;
+
+		UEngineDepthStencil::Create("EngineBase", Desc);
 	}
 
 

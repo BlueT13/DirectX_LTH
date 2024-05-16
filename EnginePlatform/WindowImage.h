@@ -10,7 +10,7 @@
 #include <objidl.h>
 #include <gdiplus.h>
 
-// 우리 엔진 WinAPi단계에서 랜더링이라는것은
+// WinAPi단계에서 랜더링이라는것은
 // 이미지가 다른 이미지를 자신내부에 그리는 겁니다.
 // DC라는게 외부로 드러나면 안됩니다.
 // DC를 통해서 그리는 모든 책임은 오로지 => UWindowImage가 모두 담당한다.

@@ -98,6 +98,11 @@ public:
 		return SRV;
 	}
 
+	ID3D11DepthStencilView* GetDSV()
+	{
+		return DSV;
+	}
+
 	float4 GetScale()
 	{
 		return float4(Desc.Width, Desc.Height);
@@ -131,6 +136,7 @@ private:
 	ID3D11RenderTargetView* RTV = nullptr;
 	// directx에서 이미지를 쉐이더에 세팅할수 있는 권한.
 	ID3D11ShaderResourceView* SRV = nullptr;
+	ID3D11DepthStencilView* DSV = nullptr;
 
 	D3D11_TEXTURE2D_DESC Desc;
 
@@ -147,6 +153,7 @@ private:
 
 	void CreateRenderTargetView();
 	void CreateShaderResourceView();
+	void CreateDepthStencilView();
 
 	void Setting(EShaderType _Type, UINT _Slot);
 	void Reset(EShaderType _Type, UINT _Slot);

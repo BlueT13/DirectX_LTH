@@ -180,6 +180,7 @@
     <ClCompile Include="EngineCore.cpp" />
     <ClCompile Include="EngineDebug3D.cpp" />
     <ClCompile Include="EngineDebugMsgWindow.cpp" />
+    <ClCompile Include="EngineDepthStencil.cpp" />
     <ClCompile Include="EngineEditorGUI.cpp" />
     <ClCompile Include="EngineEditorWindow.cpp" />
     <ClCompile Include="EngineFont.cpp" />
@@ -248,6 +249,7 @@
     <ClInclude Include="EngineDebug3D.h" />
     <ClInclude Include="EngineDebugMsgWindow.h" />
     <ClInclude Include="EngineDefines.h" />
+    <ClInclude Include="EngineDepthStencil.h" />
     <ClInclude Include="EngineEditorGUI.h" />
     <ClInclude Include="EngineEditorWindow.h" />
     <ClInclude Include="EngineEnums.h" />

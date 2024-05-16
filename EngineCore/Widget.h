@@ -13,7 +13,7 @@
 
 // 화면에 UI처럼 고정되어서 보이는 애들을 랜더링하는 기능이다.
 // 일반적으로 이런 UI관련 오브젝트들이 있으면 스크린좌표계를 기준으로 잡는다.
-// 그런데 우리는 그냥 일반 액터처럼 하겠습니다.
+// 일반 액터처럼 함
 class ULevel;
 class UWidget : 
 	public UTransformObject, 

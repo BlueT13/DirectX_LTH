@@ -19,7 +19,7 @@ void UThreadPool::Initialize(const std::string_view& _ThreadName, int _ThreadCou
 	// 적적한 양 코어 * 2 + 1
 	// cpu 수 * (cpu 목표 사용량) * (1+대기 시간/서비스 시간) + tomcat
 	// 그냥 상황에 따라서 적절한 수로 만들면 됩니다. 경험
-	// 선생님은 코어 개수만큼 만들겠습니다.
+	// 코어 개수만큼 만듬
 	if (0 >= ThreadCount)
 	{
 		SYSTEM_INFO Info;

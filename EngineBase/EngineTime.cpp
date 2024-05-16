@@ -26,7 +26,7 @@ UEngineTime::~UEngineTime()
 
 void UEngineTime::TimeCheckStart()
 {
-	// 초당 샐수 있는 양인데.
+	// 초당 셀 수 있는 양인데.
 	QueryPerformanceFrequency(&Count);
 
 	QueryPerformanceCounter(&PrevTime);

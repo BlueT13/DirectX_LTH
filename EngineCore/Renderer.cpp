@@ -52,6 +52,10 @@ void URenderer::SetOrder(int _Order)
 	{
 		GetWorld()->ChangeOrderRenderer(shared_from_this(), PrevOrder, _Order);
 	}
+	else if (nullptr != UEngineCore::GetCurCreateLevel())
+	{
+		UEngineCore::GetCurCreateLevel()->PushRenderer(shared_from_this());
+	}
 }
 
 

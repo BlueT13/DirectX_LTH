@@ -2,6 +2,7 @@
 #include "EngineVertexShader.h"
 #include "EnginePixelShader.h"
 #include "EngineRasterizer.h"
+#include "EngineDepthStencil.h"
 #include "EngineBlend.h"
 #include <EnginePlatform/EngineResources.h>
 
@@ -47,11 +48,13 @@ public:
 	void SetPixelShader(std::string_view _Name);
 	void SetRasterizer(std::string_view _Name);
 	void SetBlend(std::string_view _Name);
+	void SetDepthStencil(std::string_view _Name);
 
 	void VertexShaderSetting();
 	void RasterizerSetting();
 	void PixelShaderSetting();
 	void BlendSetting();
+	void DepthStencilSetting();
 
 protected:
 
@@ -60,6 +63,7 @@ private:
 	std::shared_ptr<UEnginePixelShader> PixelShader = nullptr;
 	std::shared_ptr<UEngineRasterizer> Rasterizer = nullptr;
 	std::shared_ptr<UEngineBlend> Blend = nullptr;
+	std::shared_ptr<UEngineDepthStencil> DepthStencil = nullptr;
 	
 };
 

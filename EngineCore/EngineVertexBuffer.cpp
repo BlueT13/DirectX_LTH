@@ -54,12 +54,12 @@ void UEngineVertexBuffer::Setting()
 	// std::vector<ID3D11Buffer*> Buffer
 
 	// 한번에 여러개의 버텍스 버퍼를 세팅해줄수 있습니다.
-	//UINT StartSlot, // 버텍스 버퍼가 여러개 세팅됐다면 그중 몇번재 버퍼부터 세팅할거냐? 우리는 그런 생각안함 0
+	//UINT StartSlot, // 버텍스 버퍼가 여러개 세팅됐다면 그중 몇번재 버퍼부터 세팅할거냐?
 	//UINT NumBuffers, // 그여러개의 버텍스 버퍼가 몇개에요? 여러개 만들지를 않아서 1
-	//ID3D11Buffer* const* ppVertexBuffers, 버퍼의 포인터 배열을 넣어주라. 어차피 우린 버퍼를 1개 만들었죠
+	//ID3D11Buffer* const* ppVertexBuffers, 버퍼의 포인터 배열을 넣어주라. 어차피 버퍼를 1개 만들었음
 	//const UINT* pStrides, 버퍼의 사이즈
 	//const UINT* pOffsets 점이 4개라면 그중 몇번째부터 할까
 
-	// 우린 그냥 1개의 버텍스 버퍼만 세팅하는 설정으로한다.
+	// 1개의 버텍스 버퍼만 세팅하는 설정으로한다.
 	GEngine->GetDirectXContext()->IASetVertexBuffers(0, 1, &Buffer, &Size, &Offset);
 }

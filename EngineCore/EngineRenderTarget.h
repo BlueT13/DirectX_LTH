@@ -77,7 +77,7 @@ public:
 
 	void Clear();
 
-	void Setting();
+	void Setting(bool IsDepth = false);
 
 	// _Other 를 나한테 카피한다.
 	void Copy(std::shared_ptr<UEngineRenderTarget> _Other);
@@ -102,11 +102,16 @@ public:
 		return Textures[_Index];
 	}
 
+	void CreateDepthTexture(int _Index = 0);
+
 protected:
 
 private:
 	// 저 텍스처 여러개를 엮어서 사용할수 있게 할겁니다.
 	std::vector<std::shared_ptr<UEngineTexture>> Textures;
+
+	std::shared_ptr<UEngineTexture> DepthTexture = nullptr;
+
 	std::vector<ID3D11RenderTargetView*> RTVs;
 	std::vector<float4> ClearColors;
 

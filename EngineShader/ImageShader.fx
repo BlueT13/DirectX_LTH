@@ -152,10 +152,19 @@ ImagePSOutPut ImageShader_PS(ImageVSOutPut _Input)
     
     // 01,    11
     Out.COLOR = Sampling(Image, _Input.TEXCOORD);
+    
+	if (0 >= Out.COLOR.a)
+	{
+        // 알파가 0이면 아예 그냥 
+		clip(-1);
+	}
+    
     Out.COLOR.xyz += PlusColor.xyz;
     Out.COLOR.xyzw *= MulColor.xyzw;
+   
+    
     // #define Sampling(Name, TEXCOORD) Name##.Sample(##Name##_Sampler, TEXCOORD.xy);
     // Image.Sample(Image_Sampler, _Input.TEXCOORD.xy);
     
-    return Out;
+		return Out;
 }
