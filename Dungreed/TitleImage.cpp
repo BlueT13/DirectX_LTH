@@ -6,7 +6,7 @@ ATitleImage::ATitleImage()
 	DefaultComponent = CreateDefaultSubObject<UDefaultSceneComponent>("DefaultComponent");
 	SetRoot(DefaultComponent);
 
-	
+
 	BackgroundRenderer = CreateDefaultSubObject<USpriteRenderer>("BackgroundRenderer");
 	BackgroundRenderer->SetupAttachment(DefaultComponent);
 
@@ -32,6 +32,7 @@ void ATitleImage::BeginPlay()
 	TitleImageRenderer->SetSprite("TitleImage.png");
 	TitleImageRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
 	TitleImageRenderer->SetOrder(ERenderOrder::Background_1);
+	TitleImageRenderer->SetPosition({ 0,160,0 });
 }
 
 void ATitleImage::Tick(float _DeltaTime)
