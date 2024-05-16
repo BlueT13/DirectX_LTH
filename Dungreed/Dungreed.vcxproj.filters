@@ -76,6 +76,9 @@
     <ClCompile Include="FlameSnake.cpp">
       <Filter>Level\03. BossStageLevel\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="DungeonEat.cpp">
+      <Filter>Level\02. PlayLevel\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DungreedCore.h">
@@ -152,6 +155,9 @@
     </ClInclude>
     <ClInclude Include="FlameSnake.h">
       <Filter>Level\03. BossStageLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonEat.h">
+      <Filter>Level\02. PlayLevel\Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

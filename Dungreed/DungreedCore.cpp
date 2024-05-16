@@ -40,6 +40,7 @@ void UDungreedCore::Initialize()
 		}
 
 		UEngineSprite::CreateCutting("Tiles.png", 18, 6);
+		UEngineSprite::CreateCutting("DungeonEat_sheet.png", 28, 1);
 	}
 
 	//{

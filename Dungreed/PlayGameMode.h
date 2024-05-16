@@ -1,8 +1,10 @@
 #pragma once
 #include <EngineCore/GameMode.h>
+#include <EngineCore/Camera.h>
 #include "TownMap.h"
 #include "Background.h"
 #include "Player.h"
+#include "DungeonEat.h"
 
 // Ό³Έν :
 class APlayGameMode : public AGameMode
@@ -31,6 +33,7 @@ private:
 	std::shared_ptr<ABackground> Background = nullptr;
 	std::shared_ptr<ATownMap> TownMap = nullptr;
 	std::shared_ptr<APlayer> Player = nullptr;
+	std::shared_ptr<ADungeonEat> DungeonEat = nullptr;
 
 	float MapX = 0.0f;
 	float MapY = 0.0f;

@@ -1,7 +1,5 @@
 #include "PreCompile.h"
 #include "PlayGameMode.h"
-#include "Player.h"
-#include <EngineCore/Camera.h>
 
 APlayGameMode::APlayGameMode()
 {
@@ -28,7 +26,10 @@ void APlayGameMode::BeginPlay()
 	TownMap->SetActorLocation({ MapHalfX * UDungreedConstValue::AutoSize, MapHalfY * UDungreedConstValue::AutoSize, 0.0f });
 
 	Player = GetWorld()->SpawnActor<APlayer>("Player", EUpdateOrder::Player);
-	Player->SetActorLocation({ MapHalfX, MapHalfY + 200.0f, 0.0f });
+	Player->SetActorLocation({ MapHalfX - 100.0f, MapHalfY - 300.0f, 0.0f });
+
+	DungeonEat = GetWorld()->SpawnActor<ADungeonEat>("DungeonEat", EUpdateOrder::Map);
+	DungeonEat->SetActorLocation({ MapHalfX + 200.0f, MapHalfY - 372.0f, 0.0f });
 
 	Background = GetWorld()->SpawnActor<ABackground>("Background", EUpdateOrder::Background);
 }

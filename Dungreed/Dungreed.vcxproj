@@ -172,6 +172,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Background.h" />
+    <ClInclude Include="DungeonEat.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EnvyrokBullet.h">
       <SubType>
       </SubType>
@@ -238,6 +242,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="DungeonEat.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="EnvyrokBullet.cpp">
       <SubType>
       </SubType>
