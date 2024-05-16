@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineCore/GameMode.h>
 #include "TitleImage.h"
+#include <EngineCore/Image.h>
 
 // Ό³Έν :
 class ATitleGameMode : public AGameMode
@@ -28,5 +29,7 @@ protected:
 private:
 	std::shared_ptr<ATitleImage> TitleImage = nullptr;
 	std::shared_ptr<UCamera> Camera = nullptr;
+	UImage* StartImage = nullptr;
+	UImage* ExitImage = nullptr;
 };
 

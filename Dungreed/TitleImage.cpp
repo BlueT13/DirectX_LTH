@@ -38,6 +38,9 @@ void ATitleImage::BeginPlay()
 void ATitleImage::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	UVTest.X += _DeltaTime * 0.1f;
+	BackgroundRenderer->SetVertexUVPlus(UVTest);
 }
 
 //void ATitleImage::RendererOn()

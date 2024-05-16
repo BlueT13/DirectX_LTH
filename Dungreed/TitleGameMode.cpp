@@ -19,11 +19,50 @@ void ATitleGameMode::BeginPlay()
 
 	Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
+
+	StartImage = CreateWidget<UImage>(GetWorld(), "StartImage");
+	StartImage->AddToViewPort(0);
+	StartImage->SetSprite("Start_Off.png");
+	StartImage->SetAutoSize(1.0f, true);
+	StartImage->SetPosition({ 0, -100, 0 });
+
+	ExitImage = CreateWidget<UImage>(GetWorld(), "ExitImage");
+	ExitImage->AddToViewPort(0);
+	ExitImage->SetSprite("Exit_Off.png");
+	ExitImage->SetAutoSize(1.0f, true);
+	ExitImage->SetPosition({ 0, -200, 0 });
 }
 
 void ATitleGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	StartImage->SetHover([=]()
+		{
+			StartImage->SetSprite("Start_On.png");
+		});
+	StartImage->SetUnHover([=]()
+		{
+			StartImage->SetSprite("Start_Off.png");
+		});
+	StartImage->SetDown([=]()
+		{
+			GEngine->ChangeLevel("PlayLevel");
+		});
+
+	ExitImage->SetHover([=]()
+		{
+			ExitImage->SetSprite("Exit_On.png");
+		});
+	ExitImage->SetUnHover([=]()
+		{
+			ExitImage->SetSprite("Exit_Off.png");
+		});
+	ExitImage->SetDown([=]()
+		{
+			GEngine->EngineWindow.Off();
+		});
+
 
 	if (true == UEngineInput::IsDown('P'))
 	{

@@ -31,5 +31,6 @@ private:
 	USpriteRenderer* BackgroundRenderer = nullptr;
 	USpriteRenderer* TitleImageRenderer = nullptr;
 
+	float4 UVTest = float4::Zero;
 };
 
