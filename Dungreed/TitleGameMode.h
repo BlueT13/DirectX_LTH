@@ -31,5 +31,7 @@ private:
 	std::shared_ptr<UCamera> Camera = nullptr;
 	UImage* StartImage = nullptr;
 	UImage* ExitImage = nullptr;
+	
+	UEngineSoundPlayer TitleSound;
 };
 

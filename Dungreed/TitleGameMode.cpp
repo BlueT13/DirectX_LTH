@@ -20,6 +20,7 @@ void ATitleGameMode::BeginPlay()
 	Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 
+	// UI
 	StartImage = CreateWidget<UImage>(GetWorld(), "StartImage");
 	StartImage->AddToViewPort(0);
 	StartImage->SetSprite("Start_Off.png");
@@ -31,6 +32,12 @@ void ATitleGameMode::BeginPlay()
 	ExitImage->SetSprite("Exit_Off.png");
 	ExitImage->SetAutoSize(1.0f, true);
 	ExitImage->SetPosition({ 0, -200, 0 });
+
+	// »ç¿îµå
+	TitleSound = UEngineSound::SoundPlay("title.wav");
+	TitleSound.SetVolume(1.0f);
+	TitleSound.Loop();
+	TitleSound.Off();
 }
 
 void ATitleGameMode::Tick(float _DeltaTime)
@@ -77,9 +84,13 @@ void ATitleGameMode::Tick(float _DeltaTime)
 void ATitleGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+
+	TitleSound.Off();
 }
 
 void ATitleGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
+	
+	TitleSound.On();
 }

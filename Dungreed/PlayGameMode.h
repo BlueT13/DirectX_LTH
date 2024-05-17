@@ -46,5 +46,7 @@ private:
 	float MapY = 0.0f;
 	float MapHalfX = 0.0f;
 	float MapHalfY = 0.0f;
+
+	UEngineSoundPlayer TownSound;
 };
 

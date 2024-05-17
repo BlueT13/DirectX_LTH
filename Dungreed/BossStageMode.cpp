@@ -53,6 +53,12 @@ void ABossStageMode::BeginPlay()
 	HpImage->SetSprite("PlayerHp.png");
 	HpImage->SetAutoSize(1.0f, true);
 	HpImage->SetPosition({ -460, 280 });
+
+	// »ç¿îµå
+	BossStageSound = UEngineSound::SoundPlay("4.lavaboss.wav");
+	BossStageSound.SetVolume(1.0f);
+	BossStageSound.Loop();
+	BossStageSound.Off();
 }
 
 void ABossStageMode::Tick(float _DeltaTime)
@@ -103,6 +109,8 @@ void ABossStageMode::LevelEnd(ULevel* _NextLevel)
 	Super::LevelEnd(_NextLevel);
 
 	GEngine->EngineWindow.CursorOn();
+
+	BossStageSound.Off();
 }
 
 void ABossStageMode::LevelStart(ULevel* _PrevLevel)
@@ -112,4 +120,6 @@ void ABossStageMode::LevelStart(ULevel* _PrevLevel)
 	GEngine->EngineWindow.CursorOff();
 
 	APlayer::MainPlayer = Player;
+
+	BossStageSound.On();
 }

@@ -43,23 +43,16 @@ void UDungreedCore::Initialize()
 		UEngineSprite::CreateCutting("DungeonEat_sheet.png", 28, 1);
 	}
 
-	//{
-	//	UEngineDirectory Dir;
-	//	Dir.MoveToSearchChild("Resources");
-	//	Dir.Move("Sound");
-	//	std::vector<UEngineFile> Files = Dir.GetAllFile({ ".wav" });
-	//	for (UEngineFile& File : Files)
-	//	{
-	//		//File.Open(EIOOpenMode::Read, EIODataType::Binary);
-
-	//		//char Arr[100];
-	//		//File.Read(Arr, 100);
-
-	//		UEngineSound::Load(File.GetFullPath());
-	//	}
-	//	
-	//	// UEngineSound::SoundPlay("~~~.wav");
-	//}
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("Resources");
+		Dir.Move("Sound");
+		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".wav" });
+		for (UEngineFile& File : Files)
+		{
+			UEngineSound::Load(File.GetFullPath());
+		}
+	}
 
 	UEngineEditorGUI::CreateEditorWindow<ContentsGUI>("Contents");
 	UEngineEditorGUI::CreateEditorWindow<MapEditorGUI>("MapEditor");

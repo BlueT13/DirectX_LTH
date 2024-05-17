@@ -58,6 +58,12 @@ void APlayGameMode::BeginPlay()
 	HpImage->SetSprite("PlayerHp.png");
 	HpImage->SetAutoSize(1.0f, true);
 	HpImage->SetPosition({ -460, 280 });
+
+	// »ç¿îµå
+	TownSound = UEngineSound::SoundPlay("0.Town.wav");
+	TownSound.SetVolume(1.0f);
+	TownSound.Loop();
+	TownSound.Off();
 }
 
 void APlayGameMode::Tick(float _DeltaTime)
@@ -109,6 +115,8 @@ void APlayGameMode::LevelEnd(ULevel* _NextLevel)
 	Super::LevelEnd(_NextLevel);
 
 	GEngine->EngineWindow.CursorOn();
+
+	TownSound.Off();
 }
 
 void APlayGameMode::LevelStart(ULevel* _PrevLevel)
@@ -118,4 +126,6 @@ void APlayGameMode::LevelStart(ULevel* _PrevLevel)
 	GEngine->EngineWindow.CursorOff();
 
 	APlayer::MainPlayer = Player;
+
+	TownSound.On();
 }
