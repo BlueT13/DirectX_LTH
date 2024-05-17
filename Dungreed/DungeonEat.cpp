@@ -48,9 +48,11 @@ void ADungeonEat::Tick(float _DeltaTime)
 
 	Collision->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
+			APlayer::MainPlayer->InputOff();
 			Renderer0->ChangeAnimation("EatStart");
 			DelayCallBack(3.0f, [=]() {
 				GEngine->ChangeLevel("BossStageLevel");
+				APlayer::MainPlayer->InputOn();
 				});
 		}
 	);
