@@ -152,14 +152,14 @@ void AEnvyrok::StateInit()
 			RightBlocks.push_back(GetWorld()->SpawnActor<AEnvyrokTrap>("EnvyrokTrap7"));
 
 			// 블록 생성 위치 설정
-			LeftBlocks[0]->SetActorLocation({ ColMapHalfX - 640 , ColMapHalfY - 32, 0.0f });
-			LeftBlocks[1]->SetActorLocation({ ColMapHalfX - 640 , ColMapHalfY + 100, 0.0f });
-			LeftBlocks[2]->SetActorLocation({ ColMapHalfX - 640 , ColMapHalfY + 232, 0.0f });
-			LeftBlocks[3]->SetActorLocation({ ColMapHalfX - 640 , ColMapHalfY + 364, 0.0f });
-			RightBlocks[0]->SetActorLocation({ ColMapHalfX + 640 , ColMapHalfY - 32, 0.0f });
-			RightBlocks[1]->SetActorLocation({ ColMapHalfX + 640 , ColMapHalfY + 100, 0.0f });
-			RightBlocks[2]->SetActorLocation({ ColMapHalfX + 640 , ColMapHalfY + 232, 0.0f });
-			RightBlocks[3]->SetActorLocation({ ColMapHalfX + 640 , ColMapHalfY + 364, 0.0f });
+			LeftBlocks[0]->SetActorLocation({ ColMapHalfX - 704 , ColMapHalfY - 32, 0.0f });
+			LeftBlocks[1]->SetActorLocation({ ColMapHalfX - 704 , ColMapHalfY + 100, 0.0f });
+			LeftBlocks[2]->SetActorLocation({ ColMapHalfX - 704 , ColMapHalfY + 232, 0.0f });
+			LeftBlocks[3]->SetActorLocation({ ColMapHalfX - 704 , ColMapHalfY + 364, 0.0f });
+			RightBlocks[0]->SetActorLocation({ ColMapHalfX + 704 , ColMapHalfY - 32, 0.0f });
+			RightBlocks[1]->SetActorLocation({ ColMapHalfX + 704 , ColMapHalfY + 100, 0.0f });
+			RightBlocks[2]->SetActorLocation({ ColMapHalfX + 704 , ColMapHalfY + 232, 0.0f });
+			RightBlocks[3]->SetActorLocation({ ColMapHalfX + 704 , ColMapHalfY + 364, 0.0f });
 
 			// 안전 블록 선택
 			for (size_t i = 0; i < LeftBlocks.size(); i++)
@@ -369,10 +369,12 @@ void AEnvyrok::SpawnTrap(float _DeltaTime)
 	{
 		for (size_t i = 0; i < LeftBlocks.size(); i++)
 		{
+			LeftBlocks[i]->Collision->SetActive(false);
 			LeftBlocks[i]->AddActorLocation(FVector::Left * 4000.0f * _DeltaTime);
 		}
 		for (size_t i = 0; i < RightBlocks.size(); i++)
 		{
+			RightBlocks[i]->Collision->SetActive(false);
 			RightBlocks[i]->AddActorLocation(FVector::Right * 4000.0f * _DeltaTime);
 		}
 
