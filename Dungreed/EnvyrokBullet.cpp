@@ -56,7 +56,7 @@ void AEnvyrokBullet::Tick(float _DeltaTime)
 			
 			Destroy();
 			APlayer* Player = dynamic_cast<APlayer*>(_Collision->GetActor());
-			Player->GetHit(1.0f);
+			Player->GetHit(5);
 		}
 	);
 

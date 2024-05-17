@@ -76,6 +76,11 @@ private:
 	float CurBlockTime = 0.0f;
 	float AwayTime = 3.0f;
 	float CurAwayTime = 0.0f;
+
+	float AttackTime = 1.0f;
+	float CurAttackTime = 0.0f;
+	int SafeBlockInt = 0;
+
 	std::vector<std::shared_ptr<AEnvyrokTrap>> LeftBlocks;
 	std::vector<std::shared_ptr<AEnvyrokTrap>> RightBlocks;
 };

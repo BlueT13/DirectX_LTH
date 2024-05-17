@@ -58,6 +58,7 @@ void AEnvyrok::BeginPlay()
 	ColMapHalfY = ColMapTex->GetScale().hY() * UDungreedConstValue::AutoSize;
 
 	StateInit();
+
 }
 
 void AEnvyrok::Tick(float _DeltaTime)
@@ -90,6 +91,7 @@ void AEnvyrok::StateInit()
 	State.SetUpdateFunction("EnvyrokIdle", std::bind(&AEnvyrok::Idle, this, std::placeholders::_1));
 	State.SetStartFunction("EnvyrokIdle", [this]()
 		{
+			CurAttackTime = AttackTime;
 			this->Renderer->ChangeAnimation("EnvyrokIdle");
 		});
 
@@ -135,6 +137,7 @@ void AEnvyrok::StateInit()
 	State.SetUpdateFunction("EnvyrokSpawnTrap", std::bind(&AEnvyrok::SpawnTrap, this, std::placeholders::_1));
 	State.SetStartFunction("EnvyrokSpawnTrap", [this]()
 		{
+			Renderer->SetPosition({ 0,-32,0 });
 			CurBlockTime = BlockTime;
 			CurAwayTime = AwayTime;
 
@@ -149,18 +152,34 @@ void AEnvyrok::StateInit()
 			RightBlocks.push_back(GetWorld()->SpawnActor<AEnvyrokTrap>("EnvyrokTrap7"));
 
 			// 블록 생성 위치 설정
-			LeftBlocks[0]->SetActorLocation({ ColMapHalfX - 640 , ColMapHalfY - 160, 0.0f });
-			LeftBlocks[1]->SetActorLocation({ ColMapHalfX - 640 , ColMapHalfY - 28, 0.0f });
-			LeftBlocks[2]->SetActorLocation({ ColMapHalfX - 640 , ColMapHalfY + 104, 0.0f });
-			LeftBlocks[3]->SetActorLocation({ ColMapHalfX - 640 , ColMapHalfY + 236, 0.0f });
-			RightBlocks[0]->SetActorLocation({ ColMapHalfX + 640 , ColMapHalfY - 160, 0.0f });
-			RightBlocks[1]->SetActorLocation({ ColMapHalfX + 640 , ColMapHalfY - 28, 0.0f });
-			RightBlocks[2]->SetActorLocation({ ColMapHalfX + 640 , ColMapHalfY + 104, 0.0f });
-			RightBlocks[3]->SetActorLocation({ ColMapHalfX + 640 , ColMapHalfY + 236, 0.0f });
+			LeftBlocks[0]->SetActorLocation({ ColMapHalfX - 640 , ColMapHalfY - 32, 0.0f });
+			LeftBlocks[1]->SetActorLocation({ ColMapHalfX - 640 , ColMapHalfY + 100, 0.0f });
+			LeftBlocks[2]->SetActorLocation({ ColMapHalfX - 640 , ColMapHalfY + 232, 0.0f });
+			LeftBlocks[3]->SetActorLocation({ ColMapHalfX - 640 , ColMapHalfY + 364, 0.0f });
+			RightBlocks[0]->SetActorLocation({ ColMapHalfX + 640 , ColMapHalfY - 32, 0.0f });
+			RightBlocks[1]->SetActorLocation({ ColMapHalfX + 640 , ColMapHalfY + 100, 0.0f });
+			RightBlocks[2]->SetActorLocation({ ColMapHalfX + 640 , ColMapHalfY + 232, 0.0f });
+			RightBlocks[3]->SetActorLocation({ ColMapHalfX + 640 , ColMapHalfY + 364, 0.0f });
 
 			// 안전 블록 선택
-			LeftBlocks[0]->SetIsSafe(true);
-			RightBlocks[0]->SetIsSafe(true);
+			for (size_t i = 0; i < LeftBlocks.size(); i++)
+			{
+				LeftBlocks[i]->SetIsSafe(false);
+				RightBlocks[i]->SetIsSafe(false);
+			}
+
+			if (SafeBlockInt < 4)
+			{
+				LeftBlocks[SafeBlockInt]->SetIsSafe(true);
+				RightBlocks[SafeBlockInt]->SetIsSafe(true);
+				SafeBlockInt++;
+			}
+			else
+			{
+				SafeBlockInt = 0;
+				LeftBlocks[SafeBlockInt]->SetIsSafe(true);
+				RightBlocks[SafeBlockInt]->SetIsSafe(true);
+			}
 
 			for (size_t i = 0; i < LeftBlocks.size(); i++)
 			{
@@ -185,27 +204,19 @@ void AEnvyrok::Idle(float _DeltaTime)
 {
 	EnvyrokDirCheck();
 
-	if (true == IsPress('J'))
-	{
-		AddActorLocation(FVector::Left * _DeltaTime * 500.0f);
-	}
-	if (true == IsPress('L'))
-	{
-		AddActorLocation(FVector::Right * _DeltaTime * 500.0f);
-	}
-	if (true == IsPress('1'))
-	{
-		State.ChangeState("EnvyrokAirSpike_Start");
-	}
-	if (true == IsPress('2'))
-	{
-		State.ChangeState("EnvyrokSpawnTrap");
-	}
-
 	if (Hp <= 0)
 	{
 		State.ChangeState("EnvyrokDie");
+		return;
 	}
+
+	CurAttackTime -= _DeltaTime;
+	if (CurAttackTime < 0)
+	{
+		State.ChangeState("EnvyrokAirSpike_Start");
+		return;
+	}
+
 }
 
 void AEnvyrok::Die(float _DeltaTime)
@@ -287,7 +298,8 @@ void AEnvyrok::AirSpike_End(float _DeltaTime)
 	if (Renderer->IsCurAnimationEnd())
 	{
 		Renderer->SetPosition(FVector::Zero);
-		State.ChangeState("EnvyrokIdle");
+		State.ChangeState("EnvyrokSpawnTrap");
+		return;
 	}
 }
 
@@ -376,6 +388,7 @@ void AEnvyrok::SpawnTrap(float _DeltaTime)
 			}
 			LeftBlocks.clear();
 			RightBlocks.clear();
+			Renderer->SetPosition(FVector::Zero);
 			State.ChangeState("EnvyrokIdle");
 			return;
 		}
