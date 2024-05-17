@@ -51,10 +51,15 @@ void APlayer::StateInit()
 			this->BodyRenderer->ChangeAnimation("PlayerJump");
 		});
 
-	State.SetUpdateFunction("PlayerDie", std::bind(&APlayer::Fall, this, std::placeholders::_1));
+	State.SetUpdateFunction("PlayerDie", std::bind(&APlayer::Die, this, std::placeholders::_1));
 	State.SetStartFunction("PlayerDie", [this]()
 		{
 			this->BodyRenderer->ChangeAnimation("PlayerDie");
+			PlayerCollision->SetActive(false);
+			if (PlayerHp < 0)
+			{
+				PlayerHp = 0;
+			}
 		});
 
 	State.ChangeState("PlayerIdle");
@@ -77,12 +82,6 @@ void APlayer::Idle(float _DeltaTime)
 			GravityVector = FVector::Zero;
 		}
 	);
-
-	// 발판 충돌체크
-	//if ()
-	//{
-	//	GravityVector = FVector::Zero;
-	//}
 
 	AddActorLocation(GravityVector * _DeltaTime);
 	GroundUp();
@@ -349,6 +348,22 @@ void APlayer::Fall(float _DeltaTime)
 
 void APlayer::Die(float _DeltaTime)
 {
+	// 중력
+	Gravity(_DeltaTime);
+	ColorColCheck();
+	if (BottomColor == Color8Bit::Black || BottomColor == Color8Bit::Magenta || BottomColor == Color8Bit::Red)
+	{
+		GravityVector = FVector::Zero;
+	}
+
+	PlayerCollision->CollisionStay(ECollisionOrder::EnvyrokTrap, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			GravityVector = FVector::Zero;
+		}
+	);
+
+	AddActorLocation(GravityVector * _DeltaTime);
+	GroundUp();
 }
 
 void APlayer::Attack(float _DeltaTime)
@@ -385,6 +400,12 @@ void APlayer::Attack(float _DeltaTime)
 void APlayer::GetHit(int _Damage)
 {
 	PlayerHp -= _Damage;
+
+	if (PlayerHp <= 0)
+	{
+		State.ChangeState("PlayerDie");
+		return;
+	}
 
 	BodyRenderer->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.5f });
 	PlayerCollision->SetActive(false);
