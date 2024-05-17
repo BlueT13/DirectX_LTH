@@ -31,9 +31,28 @@ void ABossStageMode::BeginPlay()
 	Envyrok = GetWorld()->SpawnActor<AEnvyrok>("Envyrok", EUpdateOrder::Monster);
 	Envyrok->SetActorLocation({ MapHalfX + 512.0f, MapHalfY - 96.0f, 0.0f });
 
-	//Envyrok = GetWorld()->SpawnActor<AEnvyrok>("Envyrok", 100);
-	//GEngine->SetOrderTimeScale(100, 0.2f);
-	//GEngine->SetGlobalTimeScale(0.1f);
+	// UI
+	PlayerFullHpUI = CreateWidget<UTextWidget>(GetWorld(), "PlayerHpUI");
+	PlayerFullHpUI->AddToViewPort(1);
+	PlayerFullHpUI->SetFont("¸¼Àº °íµñ");
+	PlayerFullHpUI->SetScale(32.0f);
+	PlayerFullHpUI->SetColor(Color8Bit::White);
+	PlayerFullHpUI->SetPosition({ -400, 280 });
+	PlayerHpString = std::to_string(Player->PlayerHp);
+	PlayerFullHpUI->SetText("/ " + PlayerHpString);
+
+	PlayerHpUI = CreateWidget<UTextWidget>(GetWorld(), "PlayerHpUI");
+	PlayerHpUI->AddToViewPort(1);
+	PlayerHpUI->SetFont("¸¼Àº °íµñ");
+	PlayerHpUI->SetScale(32.0f);
+	PlayerHpUI->SetColor(Color8Bit::White);
+	PlayerHpUI->SetPosition({ -460, 280 });
+
+	HpImage = CreateWidget<UImage>(GetWorld(), "StartImage");
+	HpImage->AddToViewPort(0);
+	HpImage->SetSprite("PlayerHp.png");
+	HpImage->SetAutoSize(1.0f, true);
+	HpImage->SetPosition({ -460, 280 });
 }
 
 void ABossStageMode::Tick(float _DeltaTime)
@@ -74,6 +93,9 @@ void ABossStageMode::Tick(float _DeltaTime)
 	{
 		GEngine->EngineWindow.Off();
 	}
+
+	PlayerHpString = std::to_string(Player->PlayerHp);
+	PlayerHpUI->SetText(PlayerHpString);
 }
 
 void ABossStageMode::LevelEnd(ULevel* _NextLevel)

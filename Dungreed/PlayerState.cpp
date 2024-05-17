@@ -382,14 +382,14 @@ void APlayer::Attack(float _DeltaTime)
 	PlayerAttackEffect->SetActorRotation({ 0.0f, 0.0f, AttackRot });
 }
 
-void APlayer::GetHit(float _Damage)
+void APlayer::GetHit(int _Damage)
 {
 	PlayerHp -= _Damage;
 
 	BodyRenderer->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.5f });
 	PlayerCollision->SetActive(false);
 
-	DelayCallBack(0.5f, [=]() {
+	DelayCallBack(1.0f, [=]() {
 		BodyRenderer->SetMulColor({ 1.0f, 1.0f, 1.0f, 1.0f });
 		PlayerCollision->SetActive(true);
 		});

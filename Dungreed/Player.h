@@ -21,6 +21,8 @@ class APlayer : public AActor
 	friend class AEnvyrok;
 	friend class AEnvyrokBullet;
 	friend class AEnvyrokTrap;
+	friend class ABossStageMode;
+	friend class APlayGameMode;
 public:
 	// constrcuter destructer
 	APlayer();
@@ -101,7 +103,7 @@ private:
 	void Die(float _DeltaTime);
 
 	void Attack(float _DeltaTime);
-	void GetHit(float _Damage);
+	void GetHit(int _Damage);
 
 	void PlayerDirCheck();
 	void Gravity(float _DeltaTime);
@@ -110,7 +112,7 @@ private:
 	float Rot = 0.0f;
 	float Speed = 360.0f;
 	bool WeaponUp = true;
-	float PlayerHp = 100.0f;
+	int PlayerHp = 60;
 	float InvincibleTime = 0.5f;
 	float AfterImageTime = 0.04f;
 	float CurAfterImageTime = 0.0f;

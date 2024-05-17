@@ -1,5 +1,7 @@
 #pragma once
 #include <EngineCore/GameMode.h>
+#include <EngineCore/TextWidget.h>
+#include <EngineCore/Image.h>
 #include "BossStageMap.h"
 #include "Player.h"
 #include "Envyrok.h"
@@ -31,6 +33,11 @@ private:
 	std::shared_ptr<ABossStageMap> BossStageMap = nullptr;
 	std::shared_ptr<APlayer> Player = nullptr;
 	std::shared_ptr<AEnvyrok> Envyrok = nullptr;
+	
+	UTextWidget* PlayerFullHpUI = nullptr;
+	UTextWidget* PlayerHpUI = nullptr;
+	std::string PlayerHpString = "";
+	UImage* HpImage = nullptr;
 
 	float MapX = 0.0f;
 	float MapY = 0.0f;

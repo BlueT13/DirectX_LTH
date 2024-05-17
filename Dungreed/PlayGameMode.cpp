@@ -32,6 +32,32 @@ void APlayGameMode::BeginPlay()
 	DungeonEat->SetActorLocation({ MapHalfX + 200.0f, MapHalfY - 372.0f, 0.0f });
 
 	Background = GetWorld()->SpawnActor<ABackground>("Background", EUpdateOrder::Background);
+
+	// UI
+	UEngineFont::Load("¸¼Àº °íµñ");
+
+	PlayerFullHpUI = CreateWidget<UTextWidget>(GetWorld(), "PlayerHpUI");
+	PlayerFullHpUI->AddToViewPort(1);
+	PlayerFullHpUI->SetFont("¸¼Àº °íµñ");
+	PlayerFullHpUI->SetScale(32.0f);
+	PlayerFullHpUI->SetColor(Color8Bit::White);
+	PlayerFullHpUI->SetPosition({ -400, 280 });
+	PlayerHpString = std::to_string(Player->PlayerHp);
+	PlayerFullHpUI->SetText("/ " + PlayerHpString);
+
+	PlayerHpUI = CreateWidget<UTextWidget>(GetWorld(), "PlayerHpUI");
+	PlayerHpUI->AddToViewPort(1);
+	PlayerHpUI->SetFont("¸¼Àº °íµñ");
+	PlayerHpUI->SetScale(32.0f);
+	PlayerHpUI->SetColor(Color8Bit::White);
+	PlayerHpUI->SetPosition({ -460, 280 });
+	PlayerHpUI->SetText(PlayerHpString);
+
+	HpImage = CreateWidget<UImage>(GetWorld(), "StartImage");
+	HpImage->AddToViewPort(0);
+	HpImage->SetSprite("PlayerHp.png");
+	HpImage->SetAutoSize(1.0f, true);
+	HpImage->SetPosition({ -460, 280 });
 }
 
 void APlayGameMode::Tick(float _DeltaTime)

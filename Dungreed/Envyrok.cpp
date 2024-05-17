@@ -23,12 +23,23 @@ AEnvyrok::~AEnvyrok()
 {
 }
 
+void AEnvyrok::GetHit(int _Damage)
+{
+	Renderer->SetPlusColor({ 10.0f,10.0f,10.0f,0.0f });
+
+	DelayCallBack(0.1f, [=]() {
+		Renderer->SetPlusColor(FVector::Zero);
+		});
+	Hp -= _Damage;
+}
+
 void AEnvyrok::BeginPlay()
 {
 	Super::BeginPlay();
 
 	Renderer->CreateAnimation("EnvyrokIdle", "EnvyrokIdle", 0.1f);
-	Renderer->CreateAnimation("EnvyrokDie", "EnvyrokDie", 0.1f);
+	Renderer->CreateAnimation("EnvyrokDieStart", "EnvyrokDie", 3.0f, false, 0, 0);
+	Renderer->CreateAnimation("EnvyrokDie", "EnvyrokDie", 0.2f, false);
 	Renderer->CreateAnimation("EnvyrokAirSpike_Start", "EnvyrokAirSpike_Start", 0.1f, false);
 	Renderer->CreateAnimation("EnvyrokAirSpike", "EnvyrokAirSpike", 0.1f, true);
 	Renderer->CreateAnimation("EnvyrokAirSpike_End", "EnvyrokAirSpike_End", 0.1f, false);
@@ -85,7 +96,9 @@ void AEnvyrok::StateInit()
 	State.SetUpdateFunction("EnvyrokDie", std::bind(&AEnvyrok::Die, this, std::placeholders::_1));
 	State.SetStartFunction("EnvyrokDie", [this]()
 		{
-			this->Renderer->ChangeAnimation("EnvyrokDie");
+			Collision->SetActive(false);
+			Renderer->SetPosition({ 0,-192,0 });
+			this->Renderer->ChangeAnimation("EnvyrokDieStart");
 		});
 
 	State.SetUpdateFunction("EnvyrokAirSpike_Start", std::bind(&AEnvyrok::AirSpike_Start, this, std::placeholders::_1));
@@ -146,8 +159,8 @@ void AEnvyrok::StateInit()
 			RightBlocks[3]->SetActorLocation({ ColMapHalfX + 640 , ColMapHalfY + 236, 0.0f });
 
 			// 안전 블록 선택
-			LeftBlocks[2]->SetIsSafe(true);
-			RightBlocks[2]->SetIsSafe(true);
+			LeftBlocks[0]->SetIsSafe(true);
+			RightBlocks[0]->SetIsSafe(true);
 
 			for (size_t i = 0; i < LeftBlocks.size(); i++)
 			{
@@ -189,10 +202,18 @@ void AEnvyrok::Idle(float _DeltaTime)
 		State.ChangeState("EnvyrokSpawnTrap");
 	}
 
+	if (Hp <= 0)
+	{
+		State.ChangeState("EnvyrokDie");
+	}
 }
 
 void AEnvyrok::Die(float _DeltaTime)
 {
+	if (Renderer->IsCurAnimationEnd())
+	{
+		Renderer->ChangeAnimation("EnvyrokDie");
+	}
 }
 
 void AEnvyrok::AirSpike_Start(float _DeltaTime)
@@ -327,7 +348,7 @@ void AEnvyrok::SpawnTrap(float _DeltaTime)
 	{
 		if (RightCheck.contains(Count))
 		{
-			APlayer::MainPlayer->GetHit(1);
+			APlayer::MainPlayer->GetHit(10);
 			break;
 		}
 	}
@@ -336,11 +357,11 @@ void AEnvyrok::SpawnTrap(float _DeltaTime)
 	{
 		for (size_t i = 0; i < LeftBlocks.size(); i++)
 		{
-				LeftBlocks[i]->AddActorLocation(FVector::Left * 4000.0f * _DeltaTime);
+			LeftBlocks[i]->AddActorLocation(FVector::Left * 4000.0f * _DeltaTime);
 		}
 		for (size_t i = 0; i < RightBlocks.size(); i++)
 		{
-				RightBlocks[i]->AddActorLocation(FVector::Right * 4000.0f * _DeltaTime);
+			RightBlocks[i]->AddActorLocation(FVector::Right * 4000.0f * _DeltaTime);
 		}
 
 		if (LeftBlocks[0]->GetActorLocation().X < 100)
@@ -356,84 +377,9 @@ void AEnvyrok::SpawnTrap(float _DeltaTime)
 			LeftBlocks.clear();
 			RightBlocks.clear();
 			State.ChangeState("EnvyrokIdle");
+			return;
 		}
 	}
-
-	//// 밀치기
-	//for (size_t i = 0; i < LeftBlocks.size(); i++)
-	//{
-	//	LeftBlocks[i]->Collision->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
-	//		{
-	//			FVector PlayerPos = _Collision->GetWorldPosition();
-	//			FVector ThisPos = LeftBlocks[i]->GetActorLocation();
-	//			FVector PlayerScale = _Collision->GetWorldScale();
-	//			FVector ThisScale = LeftBlocks[i]->Collision->GetWorldScale();
-
-	//			float CurInterY = abs(PlayerPos.Y - ThisPos.Y);
-	//			float InterY = abs(PlayerScale.Y * 0.5f) + abs(ThisScale.Y * 0.5f);
-	//			float4 UpVector = float4(0.0f, InterY - CurInterY, 0.0f);
-
-	//			float CurInterX = abs(PlayerPos.X - ThisPos.X);
-	//			float InterX = abs(PlayerScale.X * 0.5f) + abs(ThisScale.X * 0.5f);
-	//			float4 RightVector = float4(InterX - CurInterX, 0.0f, 0.0f);
-
-
-	//			if (CurInterY < InterY - 16.0f)
-	//			{
-	//				_Collision->GetActor()->AddActorLocation(RightVector);
-	//			}
-	//			else if (0 < PlayerPos.Y - ThisPos.Y)
-	//			{
-	//				APlayer::MainPlayer->GravityVector = FVector::Zero;
-	//				_Collision->GetActor()->AddActorLocation(UpVector);
-
-	//			}
-	//			else if (0 > PlayerPos.Y - ThisPos.Y)
-	//			{
-	//				APlayer::MainPlayer->JumpVector = FVector::Zero;
-	//				_Collision->GetActor()->AddActorLocation(-UpVector);
-	//			}
-	//		}
-	//	);
-	//}
-
-	//for (size_t i = 0; i < RightBlocks.size(); i++)
-	//{
-
-	//	RightBlocks[i]->Collision->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
-	//		{
-	//			FVector PlayerPos = _Collision->GetWorldPosition();
-	//			FVector ThisPos = RightBlocks[i]->GetActorLocation();
-	//			FVector PlayerScale = _Collision->GetWorldScale();
-	//			FVector ThisScale = RightBlocks[i]->Collision->GetWorldScale();
-
-	//			float CurInterY = abs(PlayerPos.Y - ThisPos.Y);
-	//			float InterY = abs(PlayerScale.Y * 0.5f) + abs(ThisScale.Y * 0.5f);
-	//			float4 UpVector = float4(0.0f, InterY - CurInterY, 0.0f);
-
-	//			float CurInterX = abs(PlayerPos.X - ThisPos.X);
-	//			float InterX = abs(PlayerScale.X * 0.5f) + abs(ThisScale.X * 0.5f);
-	//			float4 LeftVector = float4(CurInterX - InterX, 0.0f, 0.0f);
-
-	//			APlayer::MainPlayer->GravityVector = FVector::Zero;
-
-	//			if (CurInterY < InterY - 16.0f)
-	//			{
-	//				_Collision->GetActor()->AddActorLocation(LeftVector);
-	//			}
-	//			else if (0 < PlayerPos.Y - ThisPos.Y)
-	//			{
-	//				APlayer::MainPlayer->GravityVector = FVector::Zero;
-	//				_Collision->GetActor()->AddActorLocation(UpVector);
-	//			}
-	//			else if (0 > PlayerPos.Y - ThisPos.Y)
-	//			{
-	//				APlayer::MainPlayer->JumpVector = FVector::Zero;
-	//				_Collision->GetActor()->AddActorLocation(-UpVector);
-	//			}
-	//		}
-	//	);
-	//}
 }
 
 void AEnvyrok::EnvyrokDirCheck()

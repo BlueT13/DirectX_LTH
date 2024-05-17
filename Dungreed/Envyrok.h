@@ -23,6 +23,8 @@ public:
 	AEnvyrok& operator=(const AEnvyrok& _Other) = delete;
 	AEnvyrok& operator=(AEnvyrok&& _Other) noexcept = delete;
 
+	void GetHit(int _Damage);
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -64,6 +66,7 @@ private:
 	void EnvyrokDirCheck();
 	void Gravity(float _DeltaTime);
 
+	int Hp = 20;
 	float Speed = 850.0f;
 	float FireRate = 0.2f;
 	float CurFireTime = 0.0f;

@@ -1,6 +1,8 @@
 #pragma once
 #include <EngineCore/GameMode.h>
 #include <EngineCore/Camera.h>
+#include <EngineCore/TextWidget.h>
+#include <EngineCore/Image.h>
 #include "TownMap.h"
 #include "Background.h"
 #include "Player.h"
@@ -34,6 +36,11 @@ private:
 	std::shared_ptr<ATownMap> TownMap = nullptr;
 	std::shared_ptr<APlayer> Player = nullptr;
 	std::shared_ptr<ADungeonEat> DungeonEat = nullptr;
+
+	UTextWidget* PlayerFullHpUI = nullptr;
+	UTextWidget* PlayerHpUI = nullptr;
+	std::string PlayerHpString = "";
+	UImage* HpImage = nullptr;
 
 	float MapX = 0.0f;
 	float MapY = 0.0f;
