@@ -210,12 +210,21 @@ void AEnvyrok::Idle(float _DeltaTime)
 		return;
 	}
 
-	CurAttackTime -= _DeltaTime;
-	if (CurAttackTime < 0)
+	if (true == IsPress('1'))
 	{
 		State.ChangeState("EnvyrokAirSpike_Start");
-		return;
 	}
+	if (true == IsPress('2'))
+	{
+		State.ChangeState("EnvyrokSpawnTrap");
+	}
+
+	//CurAttackTime -= _DeltaTime;
+	//if (CurAttackTime < 0)
+	//{
+	//	State.ChangeState("EnvyrokAirSpike_Start");
+	//	return;
+	//}
 
 }
 
