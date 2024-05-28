@@ -1,6 +1,6 @@
 #include "PreCompile.h"
 #include "Envyrok.h"
-#include <memory>
+#include "FlameSnake.h"
 
 AEnvyrok::AEnvyrok()
 {
@@ -43,6 +43,7 @@ void AEnvyrok::BeginPlay()
 	Renderer->CreateAnimation("EnvyrokAirSpike_Start", "EnvyrokAirSpike_Start", 0.1f, false);
 	Renderer->CreateAnimation("EnvyrokAirSpike", "EnvyrokAirSpike", 0.1f, true);
 	Renderer->CreateAnimation("EnvyrokAirSpike_End", "EnvyrokAirSpike_End", 0.1f, false);
+	Renderer->CreateAnimation("EnvyrokSpawnFlameSnake", "EnvyrokSpawnFlameSnake", 0.1f, false);
 
 	Renderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
 	Renderer->SetOrder(ERenderOrder::Monster);
@@ -86,6 +87,7 @@ void AEnvyrok::StateInit()
 	State.CreateState("EnvyrokAirSpike");
 	State.CreateState("EnvyrokAirSpike_End");
 	State.CreateState("EnvyrokSpawnTrap");
+	State.CreateState("EnvyrokSpawnFlameSnake");
 
 	// 함수들 세팅
 	State.SetUpdateFunction("EnvyrokIdle", std::bind(&AEnvyrok::Idle, this, std::placeholders::_1));
@@ -137,7 +139,6 @@ void AEnvyrok::StateInit()
 	State.SetUpdateFunction("EnvyrokSpawnTrap", std::bind(&AEnvyrok::SpawnTrap, this, std::placeholders::_1));
 	State.SetStartFunction("EnvyrokSpawnTrap", [this]()
 		{
-			Renderer->SetPosition({ 0,-32,0 });
 			CurBlockTime = BlockTime;
 			CurAwayTime = AwayTime;
 
@@ -197,6 +198,12 @@ void AEnvyrok::StateInit()
 			}
 		});
 
+	State.SetUpdateFunction("EnvyrokSpawnFlameSnake", std::bind(&AEnvyrok::SpawnFlameSnake, this, std::placeholders::_1));
+	State.SetStartFunction("EnvyrokSpawnFlameSnake", [this]()
+		{
+			this->Renderer->ChangeAnimation("EnvyrokSpawnFlameSnake");
+		});
+
 	State.ChangeState("EnvyrokIdle");
 }
 
@@ -217,6 +224,10 @@ void AEnvyrok::Idle(float _DeltaTime)
 	if (true == IsPress('2'))
 	{
 		State.ChangeState("EnvyrokSpawnTrap");
+	}
+	if (true == IsPress('3'))
+	{
+		State.ChangeState("EnvyrokSpawnFlameSnake");
 	}
 
 	//CurAttackTime -= _DeltaTime;
@@ -307,7 +318,7 @@ void AEnvyrok::AirSpike_End(float _DeltaTime)
 	if (Renderer->IsCurAnimationEnd())
 	{
 		Renderer->SetPosition(FVector::Zero);
-		State.ChangeState("EnvyrokSpawnTrap");
+		State.ChangeState("EnvyrokIdle");
 		return;
 	}
 }
@@ -403,6 +414,16 @@ void AEnvyrok::SpawnTrap(float _DeltaTime)
 			State.ChangeState("EnvyrokIdle");
 			return;
 		}
+	}
+}
+
+void AEnvyrok::SpawnFlameSnake(float _DeltaTime)
+{
+	if (Renderer->IsCurAnimationEnd())
+	{
+		FlameSnakes.push_back(GetWorld()->SpawnActor<AFlameSnake>("FlameSnake"));
+		FlameSnakes[0]->SetActorLocation({ ColMapHalfX - 704 , ColMapHalfY - 32, 0.0f });
+		State.ChangeState("EnvyrokIdle");
 	}
 }
 

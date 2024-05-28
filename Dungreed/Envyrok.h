@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "EnvyrokBullet.h"
 #include "EnvyrokTrap.h"
+#include "FlameSnake.h"
 
 // Ό³Έν :
 class AEnvyrok : public AActor
@@ -61,6 +62,7 @@ private:
 	void AirSpike(float _DeltaTime);
 	void AirSpike_End(float _DeltaTime);
 	void SpawnTrap(float _DeltaTime);
+	void SpawnFlameSnake(float _DeltaTime);
 
 
 	void EnvyrokDirCheck();
@@ -83,5 +85,7 @@ private:
 
 	std::vector<std::shared_ptr<AEnvyrokTrap>> LeftBlocks;
 	std::vector<std::shared_ptr<AEnvyrokTrap>> RightBlocks;
+	
+	std::vector<std::shared_ptr<AFlameSnake>> FlameSnakes;
 };
 
