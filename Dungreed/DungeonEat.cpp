@@ -38,6 +38,7 @@ void ADungeonEat::BeginPlay()
 	Renderer1->SetOrder(ERenderOrder::DungeonEat);
 
 	Collision->SetScale(ColScale);
+	Collision->SetPosition({ 0,-100,0 });
 }
 
 void ADungeonEat::Tick(float _DeltaTime)
@@ -49,6 +50,7 @@ void ADungeonEat::Tick(float _DeltaTime)
 	Collision->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			APlayer::MainPlayer->InputOff();
+			APlayer::MainPlayer->State.ChangeState("PlayerIdle");
 			Renderer0->ChangeAnimation("EatStart");
 			DelayCallBack(3.0f, [=]() {
 				GEngine->ChangeLevel("BossStageLevel");

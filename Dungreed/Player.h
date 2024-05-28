@@ -23,6 +23,7 @@ class APlayer : public AActor
 	friend class AEnvyrokTrap;
 	friend class ABossStageMode;
 	friend class APlayGameMode;
+	friend class ADungeonEat;
 public:
 	// constrcuter destructer
 	APlayer();
