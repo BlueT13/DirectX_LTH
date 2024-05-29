@@ -4,33 +4,11 @@
 
 AEnvyrok::AEnvyrok()
 {
-	DefaultComponent = CreateDefaultSubObject<UDefaultSceneComponent>("DefaultComponent");
-	SetRoot(DefaultComponent);
-
-	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	Renderer->SetupAttachment(DefaultComponent);
-
-	Collision = CreateDefaultSubObject<UCollision>("Collision");
-	Collision->SetupAttachment(DefaultComponent);
-	// Collision은 반드시 SetCollisionGroup을 해야 한다.
-	Collision->SetCollisionGroup(ECollisionOrder::Monster);
-	Collision->SetCollisionType(ECollisionType::Rect);
-
 	InputOn();
 }
 
 AEnvyrok::~AEnvyrok()
 {
-}
-
-void AEnvyrok::GetHit(int _Damage)
-{
-	Renderer->SetPlusColor({ 10.0f,10.0f,10.0f,0.0f });
-
-	DelayCallBack(0.1f, [=]() {
-		Renderer->SetPlusColor(FVector::Zero);
-		});
-	Hp -= _Damage;
 }
 
 void AEnvyrok::BeginPlay()
@@ -52,6 +30,8 @@ void AEnvyrok::BeginPlay()
 	Collision->SetScale(EnvyrokColScale);
 	Collision->SetPosition({ 0,48,0 });
 
+	MonsterHp = 20;
+
 	ColMapTex = UDungreedConstValue::ColMap;
 	ColMapX = ColMapTex->GetScale().X * UDungreedConstValue::AutoSize;
 	ColMapY = ColMapTex->GetScale().Y * UDungreedConstValue::AutoSize;
@@ -59,7 +39,6 @@ void AEnvyrok::BeginPlay()
 	ColMapHalfY = ColMapTex->GetScale().hY() * UDungreedConstValue::AutoSize;
 
 	StateInit();
-
 }
 
 void AEnvyrok::Tick(float _DeltaTime)
@@ -100,9 +79,16 @@ void AEnvyrok::StateInit()
 	State.SetUpdateFunction("EnvyrokDie", std::bind(&AEnvyrok::Die, this, std::placeholders::_1));
 	State.SetStartFunction("EnvyrokDie", [this]()
 		{
+			for (size_t i = 0; i < FlameSnakes.size(); i++)
+			{
+				FlameSnakes[i]->Destroy();
+			}
+			FlameSnakes.clear();
+
 			Collision->SetActive(false);
 			Renderer->SetPosition({ 0,-192,0 });
 			this->Renderer->ChangeAnimation("EnvyrokDieStart");
+
 		});
 
 	State.SetUpdateFunction("EnvyrokAirSpike_Start", std::bind(&AEnvyrok::AirSpike_Start, this, std::placeholders::_1));
@@ -211,7 +197,7 @@ void AEnvyrok::Idle(float _DeltaTime)
 {
 	EnvyrokDirCheck();
 
-	if (Hp <= 0)
+	if (MonsterHp <= 0)
 	{
 		State.ChangeState("EnvyrokDie");
 		return;
@@ -220,14 +206,17 @@ void AEnvyrok::Idle(float _DeltaTime)
 	if (true == IsPress('1'))
 	{
 		State.ChangeState("EnvyrokAirSpike_Start");
+		return;
 	}
 	if (true == IsPress('2'))
 	{
 		State.ChangeState("EnvyrokSpawnTrap");
+		return;
 	}
 	if (true == IsPress('3'))
 	{
 		State.ChangeState("EnvyrokSpawnFlameSnake");
+		return;
 	}
 
 	//CurAttackTime -= _DeltaTime;
@@ -422,8 +411,26 @@ void AEnvyrok::SpawnFlameSnake(float _DeltaTime)
 	if (Renderer->IsCurAnimationEnd())
 	{
 		FlameSnakes.push_back(GetWorld()->SpawnActor<AFlameSnake>("FlameSnake"));
-		FlameSnakes[0]->SetActorLocation({ ColMapHalfX - 704 , ColMapHalfY - 32, 0.0f });
+
+		for (size_t i = 0; i < FlameSnakes.size(); i++)
+		{
+			if (FlameSnakes[i] == nullptr)
+			{
+				continue;
+			}
+
+			if (i % 2 == 0)
+			{
+				FlameSnakes[i]->SetActorLocation({ ColMapHalfX - 848.0f , ColMapHalfY - 320.0f, 0.0f });
+			}
+			else
+			{
+				FlameSnakes[i]->ChangeDir();
+				FlameSnakes[i]->SetActorLocation({ ColMapHalfX + 848.0f , ColMapHalfY - 320.0f, 0.0f });
+			}
+		}
 		State.ChangeState("EnvyrokIdle");
+		return;
 	}
 }
 

@@ -1,5 +1,5 @@
 #pragma once
-#include <EngineCore/Actor.h>
+#include "Monster.h"
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/StateManager.h>
 #include <EngineCore/DefaultSceneComponent.h>
@@ -9,9 +9,9 @@
 #include "FlameSnake.h"
 
 // Ό³Έν :
-class AEnvyrok : public AActor
+class AEnvyrok : public AMonster
 {
-	GENERATED_BODY(AActor)
+	GENERATED_BODY(AMonster)
 
 public:
 	// constrcuter destructer
@@ -24,18 +24,12 @@ public:
 	AEnvyrok& operator=(const AEnvyrok& _Other) = delete;
 	AEnvyrok& operator=(AEnvyrok&& _Other) noexcept = delete;
 
-	void GetHit(int _Damage);
-
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
 private:
 	UStateManager State;
-
-	UDefaultSceneComponent* DefaultComponent = nullptr;
-	USpriteRenderer* Renderer = nullptr;
-	UCollision* Collision = nullptr;
 
 	std::shared_ptr<UEngineTexture> ColMapTex = nullptr;
 	float ColMapX = 0.0f;
@@ -68,7 +62,6 @@ private:
 	void EnvyrokDirCheck();
 	void Gravity(float _DeltaTime);
 
-	int Hp = 20;
 	float Speed = 850.0f;
 	float FireRate = 0.2f;
 	float CurFireTime = 0.0f;

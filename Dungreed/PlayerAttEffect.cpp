@@ -52,9 +52,9 @@ void APlayerAttEffect::Tick(float _DeltaTime)
 		{
 			int a = 0;
 
-			AEnvyrok* Envyrok = dynamic_cast<AEnvyrok*>(_Collision->GetActor());
+			AMonster* Monster = dynamic_cast<AMonster*>(_Collision->GetActor());
 
-			Envyrok->GetHit(2);
+			Monster->GetHit(2);
 		}
 	);
 

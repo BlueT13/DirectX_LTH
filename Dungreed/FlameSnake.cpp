@@ -1,23 +1,20 @@
 #include "PreCompile.h"
 #include "FlameSnake.h"
+#include "EnvyrokBullet.h"
+#include "Player.h"
 
-AFlameSnake::AFlameSnake() 
+AFlameSnake::AFlameSnake()
 {
-	DefaultComponent = CreateDefaultSubObject<UDefaultSceneComponent>("DefaultComponent");
-	SetRoot(DefaultComponent);
-
-	Renderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	Renderer->SetupAttachment(DefaultComponent);
-
-	Collision = CreateDefaultSubObject<UCollision>("Collision");
-	Collision->SetupAttachment(DefaultComponent);
-	// Collision은 반드시 SetCollisionGroup을 해야 한다.
-	Collision->SetCollisionGroup(ECollisionOrder::Monster);
-	Collision->SetCollisionType(ECollisionType::Rect);
 }
 
-AFlameSnake::~AFlameSnake() 
+AFlameSnake::~AFlameSnake()
 {
+}
+
+void AFlameSnake::ChangeDir()
+{
+	DefaultComponent->SetScale({ -1.0f, 1.0f, 1.0f });
+	Renderer->SetPivot(EPivot::RIGHTBOTTOM);
 }
 
 void AFlameSnake::BeginPlay()
@@ -30,10 +27,12 @@ void AFlameSnake::BeginPlay()
 
 	Renderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
 	Renderer->SetOrder(ERenderOrder::Monster);
-	Renderer->SetPivot(EPivot::BOT);
+	Renderer->SetPivot(EPivot::LEFTBOTTOM);
 
 	Collision->SetScale(FlameSnakeColScale);
-	Collision->SetPosition({ 0,0,0 });
+	Collision->SetPosition({ 122,144,0 });
+
+	MonsterHp = 6;
 
 	ColMapTex = UDungreedConstValue::ColMap;
 	ColMapX = ColMapTex->GetScale().X * UDungreedConstValue::AutoSize;
@@ -47,6 +46,12 @@ void AFlameSnake::BeginPlay()
 void AFlameSnake::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	if (MonsterHp <= 0)
+	{
+		State.ChangeState("FlameSnakeDie");
+		return;
+	}
 
 	State.Update(_DeltaTime);
 }
@@ -69,6 +74,7 @@ void AFlameSnake::StateInit()
 	State.SetUpdateFunction("FlameSnakeIdle", std::bind(&AFlameSnake::Idle, this, std::placeholders::_1));
 	State.SetStartFunction("FlameSnakeIdle", [this]()
 		{
+			CurFireTime = FireRate;
 			this->Renderer->ChangeAnimation("FlameSnakeIdle");
 		});
 
@@ -88,12 +94,65 @@ void AFlameSnake::StateInit()
 
 void AFlameSnake::Generation(float _DeltaTime)
 {
+	if (Renderer->IsCurAnimationEnd())
+	{
+		State.ChangeState("FlameSnakeIdle");
+		return;
+	}
 }
 
 void AFlameSnake::Idle(float _DeltaTime)
 {
+	CurFireTime -= _DeltaTime;
+	if (CurFireTime < 0)
+	{
+		State.ChangeState("FlameSnakeAttack");
+		return;
+	}
 }
 
 void AFlameSnake::Attack(float _DeltaTime)
 {
+	if (Renderer->IsCurAnimationEnd())
+	{
+		std::shared_ptr<AEnvyrokBullet> EnvyrokBullet0 = GetWorld()->SpawnActor<AEnvyrokBullet>("EnvyrokBullet");
+		std::shared_ptr<AEnvyrokBullet> EnvyrokBullet1 = GetWorld()->SpawnActor<AEnvyrokBullet>("EnvyrokBullet");
+		std::shared_ptr<AEnvyrokBullet> EnvyrokBullet2 = GetWorld()->SpawnActor<AEnvyrokBullet>("EnvyrokBullet");
+
+		if (GetActorLocation().X < ColMapHalfX)
+		{
+			FVector Diff = { 244, 288, 0 };
+			FVector CreateBulletPos = GetActorLocation() + Diff;
+			EnvyrokBullet0->SetActorLocation(CreateBulletPos);
+			EnvyrokBullet1->SetActorLocation(CreateBulletPos);
+			EnvyrokBullet2->SetActorLocation(CreateBulletPos);
+
+			FVector PlayerPos = APlayer::MainPlayer->GetActorLocation();
+			FVector AttackDir = PlayerPos - CreateBulletPos;
+			float Rot = AttackDir.RightVectorToAngle2DDeg();
+
+			EnvyrokBullet0->SetActorRotation({ 0.0f, 0.0f, Rot });
+			EnvyrokBullet1->SetActorRotation({ 0.0f, 0.0f, Rot + 15.0f });
+			EnvyrokBullet2->SetActorRotation({ 0.0f, 0.0f, Rot - 15.0f });
+		}
+		else
+		{
+			FVector Diff = { -244, 288, 0 };
+			FVector CreateBulletPos = GetActorLocation() + Diff;
+			EnvyrokBullet0->SetActorLocation(CreateBulletPos);
+			EnvyrokBullet1->SetActorLocation(CreateBulletPos);
+			EnvyrokBullet2->SetActorLocation(CreateBulletPos);
+
+			FVector PlayerPos = APlayer::MainPlayer->GetActorLocation();
+			FVector AttackDir = PlayerPos - CreateBulletPos;
+			float Rot = AttackDir.RightVectorToAngle2DDeg();
+
+			EnvyrokBullet0->SetActorRotation({ 0.0f, 0.0f, Rot });
+			EnvyrokBullet1->SetActorRotation({ 0.0f, 0.0f, Rot + 15.0f });
+			EnvyrokBullet2->SetActorRotation({ 0.0f, 0.0f, Rot - 15.0f });
+		}
+
+		State.ChangeState("FlameSnakeIdle");
+		return;
+	}
 }
