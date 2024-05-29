@@ -43,7 +43,7 @@ private:
 	void Idle(float _DeltaTime);
 	void Attack(float _DeltaTime);
 
-	float FireRate = 1.0f;
+	float FireRate = 3.0f;
 	float CurFireTime = 0.0f;
 };
 

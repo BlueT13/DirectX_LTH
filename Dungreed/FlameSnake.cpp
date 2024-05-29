@@ -82,6 +82,47 @@ void AFlameSnake::StateInit()
 	State.SetStartFunction("FlameSnakeAttack", [this]()
 		{
 			this->Renderer->ChangeAnimation("FlameSnakeAttack");
+			
+			DelayCallBack(1.0f, [=]() {
+				std::shared_ptr<AEnvyrokBullet> EnvyrokBullet0 = GetWorld()->SpawnActor<AEnvyrokBullet>("EnvyrokBullet");
+				std::shared_ptr<AEnvyrokBullet> EnvyrokBullet1 = GetWorld()->SpawnActor<AEnvyrokBullet>("EnvyrokBullet");
+				std::shared_ptr<AEnvyrokBullet> EnvyrokBullet2 = GetWorld()->SpawnActor<AEnvyrokBullet>("EnvyrokBullet");
+
+				if (GetActorLocation().X < ColMapHalfX)
+				{
+					FVector Diff = { 180, 224, 0 };
+					FVector CreateBulletPos = GetActorLocation() + Diff;
+					EnvyrokBullet0->SetActorLocation(CreateBulletPos);
+					EnvyrokBullet1->SetActorLocation(CreateBulletPos);
+					EnvyrokBullet2->SetActorLocation(CreateBulletPos);
+
+					FVector PlayerPos = APlayer::MainPlayer->GetActorLocation();
+					FVector AttackDir = PlayerPos - CreateBulletPos;
+					float Rot = AttackDir.RightVectorToAngle2DDeg();
+					Rot -= 90.0f;
+
+					EnvyrokBullet0->SetActorRotation({ 0.0f, 0.0f, Rot });
+					EnvyrokBullet1->SetActorRotation({ 0.0f, 0.0f, Rot + 30.0f });
+					EnvyrokBullet2->SetActorRotation({ 0.0f, 0.0f, Rot - 30.0f });
+				}
+				else
+				{
+					FVector Diff = { -180, 224, 0 };
+					FVector CreateBulletPos = GetActorLocation() + Diff;
+					EnvyrokBullet0->SetActorLocation(CreateBulletPos);
+					EnvyrokBullet1->SetActorLocation(CreateBulletPos);
+					EnvyrokBullet2->SetActorLocation(CreateBulletPos);
+
+					FVector PlayerPos = APlayer::MainPlayer->GetActorLocation();
+					FVector AttackDir = PlayerPos - CreateBulletPos;
+					float Rot = AttackDir.RightVectorToAngle2DDeg();
+					Rot -= 90.0f;
+
+					EnvyrokBullet0->SetActorRotation({ 0.0f, 0.0f, Rot });
+					EnvyrokBullet1->SetActorRotation({ 0.0f, 0.0f, Rot + 30.0f });
+					EnvyrokBullet2->SetActorRotation({ 0.0f, 0.0f, Rot - 30.0f });
+				}
+				});
 		});
 
 	State.SetStartFunction("FlameSnakeDie", [this]()
@@ -115,43 +156,6 @@ void AFlameSnake::Attack(float _DeltaTime)
 {
 	if (Renderer->IsCurAnimationEnd())
 	{
-		std::shared_ptr<AEnvyrokBullet> EnvyrokBullet0 = GetWorld()->SpawnActor<AEnvyrokBullet>("EnvyrokBullet");
-		std::shared_ptr<AEnvyrokBullet> EnvyrokBullet1 = GetWorld()->SpawnActor<AEnvyrokBullet>("EnvyrokBullet");
-		std::shared_ptr<AEnvyrokBullet> EnvyrokBullet2 = GetWorld()->SpawnActor<AEnvyrokBullet>("EnvyrokBullet");
-
-		if (GetActorLocation().X < ColMapHalfX)
-		{
-			FVector Diff = { 244, 288, 0 };
-			FVector CreateBulletPos = GetActorLocation() + Diff;
-			EnvyrokBullet0->SetActorLocation(CreateBulletPos);
-			EnvyrokBullet1->SetActorLocation(CreateBulletPos);
-			EnvyrokBullet2->SetActorLocation(CreateBulletPos);
-
-			FVector PlayerPos = APlayer::MainPlayer->GetActorLocation();
-			FVector AttackDir = PlayerPos - CreateBulletPos;
-			float Rot = AttackDir.RightVectorToAngle2DDeg();
-
-			EnvyrokBullet0->SetActorRotation({ 0.0f, 0.0f, Rot });
-			EnvyrokBullet1->SetActorRotation({ 0.0f, 0.0f, Rot + 15.0f });
-			EnvyrokBullet2->SetActorRotation({ 0.0f, 0.0f, Rot - 15.0f });
-		}
-		else
-		{
-			FVector Diff = { -244, 288, 0 };
-			FVector CreateBulletPos = GetActorLocation() + Diff;
-			EnvyrokBullet0->SetActorLocation(CreateBulletPos);
-			EnvyrokBullet1->SetActorLocation(CreateBulletPos);
-			EnvyrokBullet2->SetActorLocation(CreateBulletPos);
-
-			FVector PlayerPos = APlayer::MainPlayer->GetActorLocation();
-			FVector AttackDir = PlayerPos - CreateBulletPos;
-			float Rot = AttackDir.RightVectorToAngle2DDeg();
-
-			EnvyrokBullet0->SetActorRotation({ 0.0f, 0.0f, Rot });
-			EnvyrokBullet1->SetActorRotation({ 0.0f, 0.0f, Rot + 15.0f });
-			EnvyrokBullet2->SetActorRotation({ 0.0f, 0.0f, Rot - 15.0f });
-		}
-
 		State.ChangeState("FlameSnakeIdle");
 		return;
 	}
