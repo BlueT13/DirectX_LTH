@@ -3,6 +3,7 @@
 #include <EngineCore/TextWidget.h>
 #include <EngineCore/Image.h>
 #include "BossStageMap.h"
+#include "BossStageTileMap.h"
 #include "Player.h"
 #include "Envyrok.h"
 
@@ -31,6 +32,7 @@ protected:
 private:
 	std::shared_ptr<UCamera> Camera = nullptr;
 	std::shared_ptr<ABossStageMap> BossStageMap = nullptr;
+	std::shared_ptr<ABossStageTileMap> BossStageTileMap = nullptr;
 	std::shared_ptr<APlayer> Player = nullptr;
 	std::shared_ptr<AEnvyrok> Envyrok = nullptr;
 	

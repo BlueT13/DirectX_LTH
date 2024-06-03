@@ -22,12 +22,17 @@ AMonster::~AMonster()
 
 void AMonster::GetHit(int _Damage)
 {
+	MonsterHp -= _Damage;
+	if (MonsterHp <= 0)
+	{
+		return;
+	}
+
 	Renderer->SetPlusColor({ 10.0f,10.0f,10.0f,0.0f });
 
 	DelayCallBack(0.1f, [=]() {
 		Renderer->SetPlusColor(FVector::Zero);
 		});
-	MonsterHp -= _Damage;
 }
 
 void AMonster::BeginPlay()

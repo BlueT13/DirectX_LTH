@@ -15,8 +15,7 @@ void AMyMap::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//Renderer->SetSprite("Town",0);
-	Renderer->SetSprite("1.png");
+	Renderer->SetSprite("BossRoom_Col.png");
 	Renderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
 }
 

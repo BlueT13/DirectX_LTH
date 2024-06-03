@@ -124,7 +124,7 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 		File.Load(Ser);
 
 		Ser >> TilesData;
-		TileRenderer->CreateTileMap("Tiles.png", { TileSize, TileSize }, TilesData.size(), TilesData[0].size(), 0);
+		TileRenderer->CreateTileMap("Tiles.png", { TileSize, TileSize }, TilesData[0].size(), TilesData.size(), 0);
 
 		for (size_t y = 0; y < TilesData.size(); y++)
 		{

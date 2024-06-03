@@ -14,7 +14,7 @@ void ACreateMapMode::BeginPlay()
 	Super::BeginPlay();
 
 	MyMap = GetWorld()->SpawnActor<AMyMap>("MyMap", EUpdateOrder::Map);
-	MyMap->SetActorLocation({ 640.0f, 640.0f, 100.0f });
+	MyMap->SetActorLocation({ MyMap->GetActorScale3D().hX(), MyMap->GetActorScale3D().hY(), 100.0f});
 }
 
 void ACreateMapMode::Tick(float _DeltaTime)

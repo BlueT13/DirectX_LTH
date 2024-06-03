@@ -2,7 +2,6 @@
 #include <EngineCore/Actor.h>
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineBase/EngineDirectory.h>
-#include <EngineCore/TileRenderer.h>
 #include <EngineCore/DefaultSceneComponent.h>
 
 // Ό³Έν :
@@ -30,7 +29,6 @@ private:
 	UDefaultSceneComponent* DefaultComponent = nullptr;
 	USpriteRenderer* Renderer = nullptr;
 	USpriteRenderer* ColMapRenderer = nullptr;
-	//UTileRenderer* TileRenderer = nullptr;
 
 	UEngineDirectory Dir;
 	std::vector<std::vector<int>> TilesData;

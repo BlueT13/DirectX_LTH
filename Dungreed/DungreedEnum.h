@@ -18,6 +18,7 @@ enum class ERenderOrder
 	Background_1,
 	Background_2,
 	Map,
+	TileMap,
 	DungeonEat,
 	EnvyrokTrap,
 	WeaponBack,
@@ -25,6 +26,7 @@ enum class ERenderOrder
 	Player,
 	WeaponFront,
 	Monster,
+	PlayerAttack,
 	Cursor,
 };
 

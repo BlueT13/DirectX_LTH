@@ -79,14 +79,14 @@ void AEnvyrok::StateInit()
 	State.SetUpdateFunction("EnvyrokDie", std::bind(&AEnvyrok::Die, this, std::placeholders::_1));
 	State.SetStartFunction("EnvyrokDie", [this]()
 		{
+			Renderer->SetPosition({ 0,-192,0 });
+			Collision->SetActive(false);
 			for (size_t i = 0; i < FlameSnakes.size(); i++)
 			{
 				FlameSnakes[i]->Destroy();
 			}
 			FlameSnakes.clear();
 
-			Collision->SetActive(false);
-			Renderer->SetPosition({ 0,-192,0 });
 			this->Renderer->ChangeAnimation("EnvyrokDieStart");
 
 		});

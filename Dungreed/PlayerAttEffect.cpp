@@ -25,9 +25,9 @@ void APlayerAttEffect::BeginPlay()
 {
 	Super::BeginPlay();
 
-	PlayerAttEffectRenderer->CreateAnimation("PlayerAttackEffect", "PlayerAttackEffect", 0.1f);
+	PlayerAttEffectRenderer->CreateAnimation("PlayerAttackEffect", "PlayerAttackEffect", 0.1f, false);
 	PlayerAttEffectRenderer->SetAutoSize(UDungreedConstValue::AutoSize, true);
-	PlayerAttEffectRenderer->SetOrder(ERenderOrder::Player);
+	PlayerAttEffectRenderer->SetOrder(ERenderOrder::PlayerAttack);
 	PlayerAttEffectRenderer->ChangeAnimation("PlayerAttackEffect");
 
 	PlayerAttEffectCollision->SetScale(PlayerAttColScale);

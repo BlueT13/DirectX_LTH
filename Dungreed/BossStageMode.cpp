@@ -24,6 +24,8 @@ void ABossStageMode::BeginPlay()
 	MapHalfX = UDungreedConstValue::ColMap->GetScale().hX();
 	MapHalfY = UDungreedConstValue::ColMap->GetScale().hY();
 	BossStageMap->SetActorLocation({ MapHalfX * UDungreedConstValue::AutoSize, MapHalfY * UDungreedConstValue::AutoSize, 0.0f });
+	
+	BossStageTileMap = GetWorld()->SpawnActor<ABossStageTileMap>("BossStageTileMap", EUpdateOrder::Map);
 
 	Player = GetWorld()->SpawnActor<APlayer>("Player", EUpdateOrder::Player);
 	Player->SetActorLocation({ MapHalfX - 480.0f, MapHalfY + 320.0f, 0.0f });
