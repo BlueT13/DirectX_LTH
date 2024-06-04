@@ -41,7 +41,7 @@ void APlayer::StateInit()
 			DashVector = PlayerDir * 1600.0f;
 			CurDashTime = DashTime;
 			this->BodyRenderer->ChangeAnimation("PlayerJump");
-			
+
 			// CurAfterImageTime = AfterImageTime;
 		});
 
@@ -76,7 +76,7 @@ void APlayer::Idle(float _DeltaTime)
 	{
 		GravityVector = FVector::Zero;
 	}
-	
+
 	PlayerCollision->CollisionStay(ECollisionOrder::EnvyrokTrap, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			GravityVector = FVector::Zero;
@@ -108,6 +108,13 @@ void APlayer::Idle(float _DeltaTime)
 	if (true == IsDown(VK_RBUTTON))
 	{
 		State.ChangeState("PlayerDash");
+		return;
+	}
+
+	if (true == IsDown('S') && BottomColor != Color8Bit::Black)
+	{
+		AddActorLocation(FVector::Down * 64);
+		State.ChangeState("PlayerFall");
 		return;
 	}
 }
@@ -183,6 +190,12 @@ void APlayer::Run(float _DeltaTime)
 		return;
 	}
 
+	if (true == IsDown('S') && BottomColor != Color8Bit::Black)
+	{
+		AddActorLocation(FVector::Down * 64);
+		State.ChangeState("PlayerFall");
+		return;
+	}
 }
 
 void APlayer::Jump(float _DeltaTime)
@@ -254,7 +267,7 @@ void APlayer::Dash(float _DeltaTime)
 	{
 		CurAfterImageTime = AfterImageTime;
 
-		std::shared_ptr<AAfterImage> AfterImage = GetWorld()->SpawnActor<AAfterImage>("AfterImage",EUpdateOrder::Player);
+		std::shared_ptr<AAfterImage> AfterImage = GetWorld()->SpawnActor<AAfterImage>("AfterImage", EUpdateOrder::Player);
 		FVector UpPos = { 0,64,0 };
 		FVector AfterImagePos = GetActorLocation() + UpPos;
 		AfterImage->SetActorLocation(AfterImagePos);

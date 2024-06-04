@@ -65,7 +65,7 @@ void APlayer::BeginPlay()
 	PlayerCollision->SetScale(PlayerColScale);
 	PlayerCollision->SetPosition({ 0,32,0 });
 
-	Cursor = GetWorld()->SpawnActor<ACursor>("Cursor",EUpdateOrder::Cursor);
+	Cursor = GetWorld()->SpawnActor<ACursor>("Cursor", EUpdateOrder::Cursor);
 	WindowScale = GEngine->EngineWindow.GetWindowScale();
 
 	ColMapTex = UDungreedConstValue::ColMap;
