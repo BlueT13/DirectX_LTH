@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "PlayerAttEffect.h"
 #include "Envyrok.h"
+#include "Player.h"
 
 APlayerAttEffect::APlayerAttEffect()
 {
@@ -54,7 +55,7 @@ void APlayerAttEffect::Tick(float _DeltaTime)
 
 			AMonster* Monster = dynamic_cast<AMonster*>(_Collision->GetActor());
 
-			Monster->GetHit(2);
+			Monster->GetHit(APlayer::MainPlayer->GetPlayerAttackDamage());
 		}
 	);
 

@@ -37,6 +37,11 @@ public:
 
 
 	static std::shared_ptr<APlayer> MainPlayer;
+	
+	inline int GetPlayerAttackDamage()
+	{
+		return PlayerAttackDamage;
+	}
 
 protected:
 	void BeginPlay() override;
@@ -114,6 +119,7 @@ private:
 	float Speed = 360.0f;
 	bool WeaponUp = true;
 	int PlayerHp = 60;
+	int PlayerAttackDamage = 0;
 	float InvincibleTime = 0.5f;
 	float AfterImageTime = 0.04f;
 	float CurAfterImageTime = 0.0f;

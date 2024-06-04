@@ -78,7 +78,8 @@ void APlayer::BeginPlay()
 	WeaponRenderer->SetPosition({ -4, 24, 0 });
 	WeaponRenderer->SetRotationDeg({ 0, 0, 15 });
 
-	//AttackEffectRenderer->SetPosition({ 20,0,0 });
+	// 플레이어 최초 공격력 설정
+	PlayerAttackDamage = 2;
 
 	FVector UpPos = { 0,40,0 };
 	PlayerCenterPos = GetActorLocation() + UpPos;
