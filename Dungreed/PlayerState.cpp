@@ -113,7 +113,7 @@ void APlayer::Idle(float _DeltaTime)
 
 	if (true == IsDown('S') && BottomColor != Color8Bit::Black)
 	{
-		AddActorLocation(FVector::Down * 64);
+		IsDownJump = true;
 		State.ChangeState("PlayerFall");
 		return;
 	}
@@ -192,7 +192,7 @@ void APlayer::Run(float _DeltaTime)
 
 	if (true == IsDown('S') && BottomColor != Color8Bit::Black)
 	{
-		AddActorLocation(FVector::Down * 64);
+		IsDownJump = true;
 		State.ChangeState("PlayerFall");
 		return;
 	}
@@ -351,7 +351,12 @@ void APlayer::Fall(float _DeltaTime)
 		return;
 	}
 
-	if (BottomColor == Color8Bit::Black || BottomColor == Color8Bit::Magenta || BottomColor == Color8Bit::Red)
+	if (TopColor == Color8Bit::Magenta || TopColor == Color8Bit::Red)
+	{
+		IsDownJump = false;
+	}
+
+	if ((BottomColor == Color8Bit::Black || BottomColor == Color8Bit::Magenta || BottomColor == Color8Bit::Red) && IsDownJump == false)
 	{
 		GravityVector = FVector::Zero;
 		State.ChangeState("PlayerIdle");
