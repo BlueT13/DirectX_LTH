@@ -353,7 +353,7 @@ void APlayer::Fall(float _DeltaTime)
 		return;
 	}
 
-	if (TopColor == Color8Bit::Magenta || TopColor == Color8Bit::Red)
+	if (TopColor == Color8Bit::Magenta || TopColor == Color8Bit::Red || BottomColor == Color8Bit::Black)
 	{
 		IsDownJump = false;
 	}
