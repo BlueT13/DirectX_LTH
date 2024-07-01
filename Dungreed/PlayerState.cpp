@@ -111,6 +111,7 @@ void APlayer::Idle(float _DeltaTime)
 		return;
 	}
 
+	// 하단 점프
 	if (true == IsDown('S') && BottomColor != Color8Bit::Black)
 	{
 		IsDownJump = true;
@@ -190,6 +191,7 @@ void APlayer::Run(float _DeltaTime)
 		return;
 	}
 
+	// 하단 점프
 	if (true == IsDown('S') && BottomColor != Color8Bit::Black)
 	{
 		IsDownJump = true;

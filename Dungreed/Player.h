@@ -123,7 +123,6 @@ private:
 	float InvincibleTime = 0.5f;
 	float AfterImageTime = 0.04f;
 	float CurAfterImageTime = 0.0f;
-
 	bool IsDownJump = false;
 };
 
